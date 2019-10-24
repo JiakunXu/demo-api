@@ -11,6 +11,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.math.BigInteger;
 
 /**
  * @author JiakunXu
@@ -29,7 +30,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
         // test
         token = "0";
         User u = new User();
-        u.setId(0L);
+        u.setId(BigInteger.ONE);
         u.setName("name");
         memcachedCacheService.set(token, u);
         // test
