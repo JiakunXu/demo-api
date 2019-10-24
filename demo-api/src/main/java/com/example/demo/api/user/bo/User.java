@@ -1,21 +1,23 @@
 package com.example.demo.api.user.bo;
 
-import java.io.Serializable;
+import com.example.demo.framework.bo.BaseBo;
+
+import java.math.BigInteger;
 
 /**
  * @author JiakunXu
  */
-public class User implements Serializable {
+public class User extends BaseBo {
 
-    private Long   id;
+    private BigInteger id;
 
-    private String name;
+    private String     name;
 
-    public Long getId() {
+    public BigInteger getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(BigInteger id) {
         this.id = id;
     }
 
