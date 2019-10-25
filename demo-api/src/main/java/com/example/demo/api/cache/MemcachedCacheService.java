@@ -18,7 +18,11 @@ public interface MemcachedCacheService extends CacheService<String, Object> {
     /**
      * default_exp_time.
      */
-    int DEFAULT_EXP = 24 * 60 * 60;
+    int    DEFAULT_EXP         = 24 * 60 * 60;
+
+    String CACHE_KEY_WX_TOKEN  = "key_wx_token_";
+
+    String CACHE_KEY_WX_TICKET = "key_wx_ticket_";
 
     /**
      * incr.

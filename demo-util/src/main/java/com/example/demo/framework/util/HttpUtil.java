@@ -1,0 +1,173 @@
+package com.example.demo.framework.util;
+
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.http.Consts;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.ResponseHandler;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
+
+/**
+ * @author JiakunXu
+ */
+public class HttpUtil {
+
+    /**
+     * 
+     * @param uri
+     * @return
+     * @throws Exception
+     */
+    public static String get(String uri) throws Exception {
+        CloseableHttpClient httpclient = HttpClients.createDefault();
+
+        try {
+            HttpGet httpget = new HttpGet(uri);
+
+            // Create a custom response handler
+            ResponseHandler<String> responseHandler = new ResponseHandler<String>() {
+
+                @Override
+                public String handleResponse(final HttpResponse response) throws ClientProtocolException,
+                                                                          IOException {
+                    int status = response.getStatusLine().getStatusCode();
+                    if (status >= 200 && status < 300) {
+                        HttpEntity entity = response.getEntity();
+                        return entity != null ? EntityUtils.toString(entity) : null;
+                    } else {
+                        throw new ClientProtocolException("Unexpected response status: " + status);
+                    }
+                }
+
+            };
+            return httpclient.execute(httpget, responseHandler);
+        } finally {
+            httpclient.close();
+        }
+    }
+
+    /**
+     *
+     * @param uri
+     * @param parameter
+     * @return
+     * @throws Exception
+     */
+    public static String post(String uri, Map<String, String> parameter) throws Exception {
+        return post(uri, parameter, Consts.UTF_8);
+    }
+
+    /**
+     * 
+     * @param uri
+     * @param parameter
+     * @param charset
+     * @return
+     * @throws Exception
+     */
+    public static String post(String uri, Map<String, String> parameter,
+                              Charset charset) throws Exception {
+        CloseableHttpClient httpclient = HttpClients.createDefault();
+
+        try {
+            List<NameValuePair> parameters = getParameters(parameter);
+            UrlEncodedFormEntity entity = new UrlEncodedFormEntity(parameters, charset);
+
+            HttpPost httppost = new HttpPost(uri);
+            httppost.setEntity(entity);
+
+            // Create a custom response handler
+            ResponseHandler<String> responseHandler = new ResponseHandler<String>() {
+
+                @Override
+                public String handleResponse(final HttpResponse response) throws ClientProtocolException,
+                                                                          IOException {
+                    int status = response.getStatusLine().getStatusCode();
+                    if (status >= 200 && status < 300) {
+                        HttpEntity entity = response.getEntity();
+                        return entity != null ? EntityUtils.toString(entity) : null;
+                    } else {
+                        throw new ClientProtocolException("Unexpected response status: " + status);
+                    }
+                }
+
+            };
+            return httpclient.execute(httppost, responseHandler);
+        } finally {
+            httpclient.close();
+        }
+    }
+
+    /**
+     * 
+     * @param uri
+     * @return
+     * @throws Exception
+     */
+    public static InputStream download(String uri) throws Exception {
+        CloseableHttpClient httpclient = HttpClients.createDefault();
+
+        try {
+            HttpGet httpget = new HttpGet(uri);
+
+            // Create a custom response handler
+            ResponseHandler<InputStream> responseHandler = new ResponseHandler<InputStream>() {
+
+                @Override
+                public InputStream handleResponse(final HttpResponse response) throws ClientProtocolException,
+                                                                               IOException {
+                    int status = response.getStatusLine().getStatusCode();
+                    if (status >= 200 && status < 300) {
+                        HttpEntity entity = response.getEntity();
+                        return entity != null
+                            ? new ByteArrayInputStream(EntityUtils.toByteArray(entity))
+                            : null;
+                    } else {
+                        throw new ClientProtocolException("Unexpected response status: " + status);
+                    }
+                }
+
+            };
+            return httpclient.execute(httpget, responseHandler);
+        } finally {
+            httpclient.close();
+        }
+    }
+
+    /**
+     * 将传入的键/值对参数转换为NameValuePair参数集.
+     *
+     * @param parameter
+     *            参数集, 键/值对
+     * @return NameValuePair参数集
+     */
+    private static List<NameValuePair> getParameters(Map<String, String> parameter) {
+        if (parameter == null || parameter.size() == 0) {
+            return null;
+        }
+
+        List<NameValuePair> parameters = new ArrayList<NameValuePair>();
+
+        for (Map.Entry<String, String> map : parameter.entrySet()) {
+            parameters.add(new BasicNameValuePair(map.getKey(), map.getValue()));
+        }
+
+        return parameters;
+    }
+
+}

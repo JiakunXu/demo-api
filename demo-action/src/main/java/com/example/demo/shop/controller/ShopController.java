@@ -24,7 +24,7 @@ public class ShopController extends BaseController {
     @Autowired
     private ShopService shopService;
 
-    @RequestMapping(value = "/list", method = RequestMethod.GET, produces = { "application/json;charset=UTF-8" })
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
     public ListResponse listShops(HttpServletRequest request, HttpServletResponse response) {
         int count = shopService.countShop();
 
@@ -35,7 +35,7 @@ public class ShopController extends BaseController {
         return new ListResponse<Shop>(count, shopService.listShops());
     }
 
-    @RequestMapping(value = "/detail", method = RequestMethod.GET, produces = { "application/json;charset=UTF-8" })
+    @RequestMapping(value = "/detail", method = RequestMethod.GET)
     public ObjectResponse getShop(HttpServletRequest request, HttpServletResponse response) {
         String name = this.getParameter(request,"name");
         User user = this.getParameter(request, User.class);
@@ -43,7 +43,7 @@ public class ShopController extends BaseController {
         return new ObjectResponse<Shop>(shopService.getShop());
     }
 
-    @RequestMapping(value = "/update", method = RequestMethod.POST, produces = { "application/json;charset=UTF-8" })
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
     public ObjectResponse updateShop(HttpServletRequest request, HttpServletResponse response) {
         String name = this.getParameter(request,"name");
         User user = this.getParameter(request, User.class);

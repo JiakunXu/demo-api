@@ -6,7 +6,11 @@ import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author JiakunXu
@@ -16,10 +20,14 @@ public class JsonConfigurer {
 
     @Bean
     public HttpMessageConverters httpMessageConverters() {
+        List<MediaType> supportedMediaTypes = new ArrayList<MediaType>();
+        supportedMediaTypes.add(MediaType.APPLICATION_JSON_UTF8);
+
         FastJsonConfig fastJsonConfig = new FastJsonConfig();
         fastJsonConfig.setSerializerFeatures(SerializerFeature.WriteDateUseDateFormat);
 
         FastJsonHttpMessageConverter fastJsonHttpMessageConverter = new FastJsonHttpMessageConverter();
+        fastJsonHttpMessageConverter.setSupportedMediaTypes(supportedMediaTypes);
         fastJsonHttpMessageConverter.setFastJsonConfig(fastJsonConfig);
 
         HttpMessageConverter<?> converter = fastJsonHttpMessageConverter;

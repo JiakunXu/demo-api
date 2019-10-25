@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 @RequestMapping(value = "/api/weixin")
 public class WeixinController extends BaseController {
 
-    @RequestMapping(value = "/ticket", method = RequestMethod.GET, produces = { "application/json;charset=UTF-8" })
+    @RequestMapping(value = "/ticket", method = RequestMethod.GET)
     public String ticket(HttpServletRequest request, HttpServletResponse response) {
         return "success";
     }
