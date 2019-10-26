@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.example.demo.api.user.bo.User;
 import com.example.demo.framework.util.ThreadLocalUtil;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RestController;
@@ -41,6 +42,12 @@ public class BaseController {
         }
 
         return JSON.parseObject(parameter, clazz);
+    }
+
+    public String getRemoteAddr(HttpServletRequest request) {
+        String ip = request.getHeader("X-Forwarded-For");
+
+        return StringUtils.isNotEmpty(ip) ? ip : request.getRemoteAddr();
     }
 
 }
