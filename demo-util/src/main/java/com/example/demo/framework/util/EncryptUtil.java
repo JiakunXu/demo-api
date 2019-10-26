@@ -11,6 +11,19 @@ import org.apache.http.Consts;
  */
 public class EncryptUtil {
 
+    public static String encryptMD5(String data) throws IOException {
+        byte[] bytes = null;
+
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            bytes = md.digest(data.getBytes(Consts.UTF_8));
+        } catch (GeneralSecurityException gse) {
+            throw new IOException(gse);
+        }
+
+        return byte2hex(bytes);
+    }
+
     public static String encryptSHA(String data) throws IOException {
         byte[] bytes = null;
 
