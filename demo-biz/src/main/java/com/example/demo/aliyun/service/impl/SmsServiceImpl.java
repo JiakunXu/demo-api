@@ -1,4 +1,4 @@
-package com.example.demo.sms.service.impl;
+package com.example.demo.aliyun.service.impl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,7 +13,7 @@ import com.aliyuncs.exceptions.ClientException;
 import com.aliyuncs.exceptions.ServerException;
 import com.aliyuncs.http.MethodType;
 import com.aliyuncs.profile.DefaultProfile;
-import com.example.demo.api.sms.SmsService;
+import com.example.demo.api.aliyun.SmsService;
 import com.example.demo.framework.exception.ServiceException;
 
 /**

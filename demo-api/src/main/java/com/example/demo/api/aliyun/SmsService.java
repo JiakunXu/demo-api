@@ -1,4 +1,4 @@
-package com.example.demo.api.sms;
+package com.example.demo.api.aliyun;
 
 /**
  * @author JiakunXu

@@ -1,4 +1,4 @@
-package com.example.demo.ons.service.impl;
+package com.example.demo.aliyun.service.impl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.aliyun.openservices.ons.api.*;
-import com.example.demo.api.ons.ProducerService;
+import com.example.demo.api.aliyun.ProducerService;
 
 /**
  * @author JiakunXu

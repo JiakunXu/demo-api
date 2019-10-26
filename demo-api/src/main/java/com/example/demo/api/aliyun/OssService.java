@@ -1,4 +1,4 @@
-package com.example.demo.api.oss;
+package com.example.demo.api.aliyun;
 
 import java.io.InputStream;
 

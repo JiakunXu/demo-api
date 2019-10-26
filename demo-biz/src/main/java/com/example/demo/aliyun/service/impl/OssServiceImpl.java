@@ -1,4 +1,4 @@
-package com.example.demo.oss.service.impl;
+package com.example.demo.aliyun.service.impl;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -14,7 +14,7 @@ import com.aliyun.oss.OSSClientBuilder;
 import com.aliyun.oss.OSSException;
 import com.aliyun.oss.model.ObjectMetadata;
 import com.aliyun.oss.model.PutObjectRequest;
-import com.example.demo.api.oss.OssService;
+import com.example.demo.api.aliyun.OssService;
 import com.example.demo.framework.exception.ServiceException;
 
 /**
