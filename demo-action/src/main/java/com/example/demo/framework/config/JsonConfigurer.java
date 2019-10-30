@@ -24,7 +24,8 @@ public class JsonConfigurer {
         supportedMediaTypes.add(MediaType.APPLICATION_JSON_UTF8);
 
         FastJsonConfig fastJsonConfig = new FastJsonConfig();
-        fastJsonConfig.setSerializerFeatures(SerializerFeature.WriteDateUseDateFormat);
+        fastJsonConfig.setSerializerFeatures(SerializerFeature.WriteNullListAsEmpty,
+            SerializerFeature.WriteDateUseDateFormat);
 
         FastJsonHttpMessageConverter fastJsonHttpMessageConverter = new FastJsonHttpMessageConverter();
         fastJsonHttpMessageConverter.setSupportedMediaTypes(supportedMediaTypes);
