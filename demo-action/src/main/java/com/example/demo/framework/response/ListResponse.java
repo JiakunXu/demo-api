@@ -9,21 +9,26 @@ import java.util.List;
  */
 public class ListResponse<T> extends AbstractResponse {
 
-    private int     total;
+    private Integer total;
 
     private List<T> list;
 
     public ListResponse(int total, List<T> list) {
-        this.setCode(Constants.SUCCESS_CODE);
+        this.setCode(Constants.SUCCESS);
         this.setTotal(total);
         this.setList(list);
     }
 
-    public int getTotal() {
+    public ListResponse(List<T> list) {
+        this.setCode(Constants.SUCCESS);
+        this.setList(list);
+    }
+
+    public Integer getTotal() {
         return total;
     }
 
-    public void setTotal(int total) {
+    public void setTotal(Integer total) {
         this.total = total;
     }
 
