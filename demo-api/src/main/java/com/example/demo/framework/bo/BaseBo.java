@@ -1,14 +1,16 @@
 package com.example.demo.framework.bo;
 
-import java.io.Serializable;
+import com.alibaba.fastjson.annotation.JSONField;
+
 import java.util.Date;
 
 /**
  * @author JiakunXu
  */
-public class BaseBo implements Serializable {
+public class BaseBo extends BaseParameter {
 
-    private Boolean deleted;
+    @JSONField(serialize = false)
+    private boolean deleted;
 
     private String  creator;
 
@@ -18,11 +20,11 @@ public class BaseBo implements Serializable {
 
     private Date    gmtModified;
 
-    public Boolean getDeleted() {
+    public boolean isDeleted() {
         return deleted;
     }
 
-    public void setDeleted(Boolean deleted) {
+    public void setDeleted(boolean deleted) {
         this.deleted = deleted;
     }
 
