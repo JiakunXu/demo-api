@@ -15,6 +15,8 @@ public class BaseParameter implements Serializable {
 
     private String            gmtEnd;
 
+    private String[]          codes;
+
     /**
      * 排序字段.
      */
@@ -51,6 +53,14 @@ public class BaseParameter implements Serializable {
 
     public void setGmtEnd(String gmtEnd) {
         this.gmtEnd = gmtEnd;
+    }
+
+    public String[] getCodes() {
+        return codes;
+    }
+
+    public void setCodes(String[] codes) {
+        this.codes = codes;
     }
 
     public String getSort() {
