@@ -16,7 +16,7 @@ public class DateUtil {
 
     /**
      * 获得"yyyy-MM-dd"格式的当前日期字符串.
-     * 
+     *
      * @return
      */
     public static String getNowDate() {
@@ -25,7 +25,7 @@ public class DateUtil {
 
     /**
      * 获得"yyyy-MM-dd HH:mm:ss"格式的当前日期时间字符串.
-     * 
+     *
      * @return
      */
     public static String getNowDateTime() {
@@ -34,7 +34,7 @@ public class DateUtil {
 
     /**
      * 获得当前日期时间字符串.
-     * 
+     *
      * @param pattern 日期格式
      * @return 日期时间字符串
      */
@@ -136,8 +136,17 @@ public class DateUtil {
      *
      * @return
      */
-    public static int getDay() {
+    public static int getDayOfMonth() {
         return DateTime.now().getDayOfMonth();
+    }
+
+    /**
+     * 获取当前日.
+     *
+     * @return
+     */
+    public static int getDayOfWeek() {
+        return DateTime.now().getDayOfWeek();
     }
 
     /**
