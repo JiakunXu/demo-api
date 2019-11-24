@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * @author JiakunXu
@@ -62,6 +63,22 @@ public class BaseController {
         }
 
         return JSON.parseObject(parameter, clazz);
+    }
+
+    public <T> List<T> getParameterList(HttpServletRequest request, Class<T> clazz) {
+        if (!"application/json".equals(request.getContentType())) {
+            return null;
+        }
+
+        String parameter = null;
+
+        try {
+            parameter = IOUtils.toString(request.getInputStream(), "UTF-8");
+        } catch (IOException e) {
+            logger.error("getParameter", e);
+        }
+
+        return JSON.parseArray(parameter, clazz);
     }
 
     public String getRemoteAddr(HttpServletRequest request) {
