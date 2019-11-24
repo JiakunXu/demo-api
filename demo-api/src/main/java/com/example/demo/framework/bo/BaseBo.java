@@ -9,22 +9,24 @@ import java.util.Date;
  */
 public class BaseBo extends BaseParameter {
 
+    private static final long serialVersionUID = 6425935261415820282L;
+
     @JSONField(serialize = false)
-    private boolean deleted;
+    private Boolean           deleted;
 
-    private String  creator;
+    private String            creator;
 
-    private String  modifier;
+    private String            modifier;
 
-    private Date    gmtCreate;
+    private Date              gmtCreate;
 
-    private Date    gmtModified;
+    private Date              gmtModified;
 
-    public boolean isDeleted() {
+    public Boolean getDeleted() {
         return deleted;
     }
 
-    public void setDeleted(boolean deleted) {
+    public void setDeleted(Boolean deleted) {
         this.deleted = deleted;
     }
 
