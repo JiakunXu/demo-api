@@ -28,6 +28,11 @@ public class Constants {
     public static final String INVALID_PARAMETER        = "40002";
 
     /**
+     * 业务处理失败.
+     */
+    public static final String BUSINESS_FAILED          = "40004";
+
+    /**
      * 权限不足.
      */
     public static final String INSUFFICIENT_PERMISSIONS = "40006";
