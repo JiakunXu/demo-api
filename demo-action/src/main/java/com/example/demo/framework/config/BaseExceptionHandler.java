@@ -1,5 +1,6 @@
 package com.example.demo.framework.config;
 
+import com.example.demo.framework.constant.Constants;
 import com.example.demo.framework.exception.ServiceException;
 import com.example.demo.framework.exception.SystemException;
 import com.example.demo.framework.response.ExceptionResponse;
@@ -28,8 +29,8 @@ public class BaseExceptionHandler {
 
     @ExceptionHandler(value = Exception.class)
     public ExceptionResponse exceptionHandler(Exception e) {
-        ExceptionResponse response = new ExceptionResponse("-1",
-            e == null ? "系统错误" : e.getMessage());
+        ExceptionResponse response = new ExceptionResponse(Constants.UNKNOW_ERROR,
+            e == null ? "系统错误" : e.toString());
 
         return response;
     }
