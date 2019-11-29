@@ -10,7 +10,7 @@ public class ObjectResponse<T> extends AbstractResponse {
     private T object;
 
     public ObjectResponse(T object) {
-        this.setCode(Constants.SUCCESS_CODE);
+        this.setCode(Constants.SUCCESS);
         this.setObject(object);
     }
 
