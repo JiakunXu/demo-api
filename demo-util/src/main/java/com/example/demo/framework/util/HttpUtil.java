@@ -17,6 +17,7 @@ import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
@@ -28,7 +29,6 @@ import org.apache.http.util.EntityUtils;
 public class HttpUtil {
 
     /**
-     * 
      * @param uri
      * @return
      * @throws Exception
@@ -62,7 +62,6 @@ public class HttpUtil {
     }
 
     /**
-     *
      * @param uri
      * @param parameter
      * @return
@@ -73,7 +72,6 @@ public class HttpUtil {
     }
 
     /**
-     * 
      * @param uri
      * @param parameter
      * @param charset
@@ -114,7 +112,43 @@ public class HttpUtil {
     }
 
     /**
-     * 
+     * @param uri
+     * @param parameter
+     * @return
+     * @throws Exception
+     */
+    public static String post(String uri, String parameter) throws Exception {
+        CloseableHttpClient httpclient = HttpClients.createDefault();
+
+        try {
+            StringEntity entity = new StringEntity(parameter, Consts.UTF_8);
+
+            HttpPost httppost = new HttpPost(uri);
+            httppost.setEntity(entity);
+
+            // Create a custom response handler
+            ResponseHandler<String> responseHandler = new ResponseHandler<String>() {
+
+                @Override
+                public String handleResponse(final HttpResponse response) throws ClientProtocolException,
+                                                                          IOException {
+                    int status = response.getStatusLine().getStatusCode();
+                    if (status >= 200 && status < 300) {
+                        HttpEntity entity = response.getEntity();
+                        return entity != null ? EntityUtils.toString(entity, Consts.UTF_8) : null;
+                    } else {
+                        throw new ClientProtocolException("Unexpected response status: " + status);
+                    }
+                }
+
+            };
+            return httpclient.execute(httppost, responseHandler);
+        } finally {
+            httpclient.close();
+        }
+    }
+
+    /**
      * @param uri
      * @return
      * @throws Exception
@@ -152,8 +186,7 @@ public class HttpUtil {
     /**
      * 将传入的键/值对参数转换为NameValuePair参数集.
      *
-     * @param parameter
-     *            参数集, 键/值对
+     * @param parameter 参数集, 键/值对
      * @return NameValuePair参数集
      */
     private static List<NameValuePair> getParameters(Map<String, String> parameter) {
@@ -161,7 +194,7 @@ public class HttpUtil {
             return null;
         }
 
-        List<NameValuePair> parameters = new ArrayList<NameValuePair>();
+        List<NameValuePair> parameters = new ArrayList<>();
 
         for (Map.Entry<String, String> map : parameter.entrySet()) {
             parameters.add(new BasicNameValuePair(map.getKey(), map.getValue()));
