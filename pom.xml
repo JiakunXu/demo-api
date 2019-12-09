@@ -31,8 +31,7 @@
         <joda-time.version>2.9.9</joda-time.version>
         <mybatis-spring-boot.version>2.1.1</mybatis-spring-boot.version>
         <mysql-connector.version>8.0.18</mysql-connector.version>
-        <slf4j-api.version>1.7.28</slf4j-api.version>
-        <spring-boot.version>2.1.9.RELEASE</spring-boot.version>
+        <spring-boot.version>2.1.11.RELEASE</spring-boot.version>
         <xmemcached.version>2.4.6</xmemcached.version>
     </properties>
 
@@ -110,12 +109,6 @@
                 <groupId>joda-time</groupId>
                 <artifactId>joda-time</artifactId>
                 <version>${joda-time.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-api</artifactId>
-                <version>${slf4j-api.version}</version>
             </dependency>
 
             <dependency>
