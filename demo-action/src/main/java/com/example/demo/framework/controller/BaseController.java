@@ -31,6 +31,7 @@ public class BaseController {
     }
 
     public <T extends BaseParameter> T getParameter(HttpServletRequest request, T parameter) {
+        parameter.setSearch(request.getParameter("search"));
         parameter.setGmtStart(request.getParameter("gmtStart"));
         parameter.setGmtEnd(request.getParameter("gmtEnd"));
         parameter.setSort(request.getParameter("sort"));
@@ -79,6 +80,16 @@ public class BaseController {
         }
 
         return JSON.parseArray(parameter, clazz);
+    }
+
+    public String getParameter(HttpServletRequest request) {
+        try {
+            return IOUtils.toString(request.getInputStream(), "UTF-8");
+        } catch (IOException e) {
+            logger.error("getParameter", e);
+        }
+
+        return null;
     }
 
     public String getRemoteAddr(HttpServletRequest request) {
