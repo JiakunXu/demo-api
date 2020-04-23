@@ -11,6 +11,8 @@ public class BaseParameter implements Serializable {
 
     private static final long serialVersionUID = -2053113219884447756L;
 
+    private String            search;
+
     private String            gmtStart;
 
     private String            gmtEnd;
@@ -38,6 +40,14 @@ public class BaseParameter implements Serializable {
 
     @JSONField(serialize = false)
     private int               offset;
+
+    public String getSearch() {
+        return search;
+    }
+
+    public void setSearch(String search) {
+        this.search = search;
+    }
 
     public String getGmtStart() {
         return gmtStart;
