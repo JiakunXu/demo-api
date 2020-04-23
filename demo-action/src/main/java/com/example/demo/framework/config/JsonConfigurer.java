@@ -20,8 +20,8 @@ public class JsonConfigurer {
 
     @Bean
     public HttpMessageConverters httpMessageConverters() {
-        List<MediaType> supportedMediaTypes = new ArrayList<MediaType>();
-        supportedMediaTypes.add(MediaType.APPLICATION_JSON_UTF8);
+        List<MediaType> supportedMediaTypes = new ArrayList<>();
+        supportedMediaTypes.add(MediaType.APPLICATION_JSON);
 
         FastJsonConfig fastJsonConfig = new FastJsonConfig();
         fastJsonConfig.setSerializerFeatures(SerializerFeature.WriteNullListAsEmpty,
