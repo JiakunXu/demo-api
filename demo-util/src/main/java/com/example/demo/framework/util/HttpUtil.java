@@ -8,10 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.http.Consts;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
+import org.apache.http.*;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -20,6 +17,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.apache.http.message.BasicHeader;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
@@ -118,6 +116,17 @@ public class HttpUtil {
      * @throws Exception
      */
     public static String post(String uri, String parameter) throws Exception {
+        return post(uri, parameter, null);
+    }
+
+    /**
+     * @param uri
+     * @param parameter
+     * @return
+     * @throws Exception
+     */
+    public static String post(String uri, String parameter,
+                              Map<String, String> header) throws Exception {
         CloseableHttpClient httpclient = HttpClients.createDefault();
 
         try {
@@ -125,6 +134,7 @@ public class HttpUtil {
 
             HttpPost httppost = new HttpPost(uri);
             httppost.setEntity(entity);
+            httppost.setHeaders(getHeaders(header));
 
             // Create a custom response handler
             ResponseHandler<String> responseHandler = new ResponseHandler<String>() {
@@ -201,6 +211,21 @@ public class HttpUtil {
         }
 
         return parameters;
+    }
+
+    private static Header[] getHeaders(Map<String, String> header) {
+        if (header == null || header.size() == 0) {
+            return null;
+        }
+
+        Header[] headers = new Header[header.size()];
+        int i = 0;
+
+        for (Map.Entry<String, String> map : header.entrySet()) {
+            headers[i++] = new BasicHeader(map.getKey(), map.getValue());
+        }
+
+        return headers;
     }
 
 }
