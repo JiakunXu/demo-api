@@ -51,8 +51,6 @@ public class Code2SessionServiceImpl implements Code2SessionService {
 
         String errCode = session.getErrCode();
         if (StringUtils.isNotBlank(errCode) && !"0".equals(errCode)) {
-            logger.error(JSON.toJSONString(session));
-
             throw new RuntimeException(session.getErrMsg());
         }
 
