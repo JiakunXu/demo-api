@@ -24,6 +24,8 @@ public interface MemcachedCacheService extends CacheService<String, Object> {
 
     String CACHE_KEY_WX_TICKET = "key_wx_ticket_";
 
+    String CACHE_KEY_TT_TOKEN  = "key_tt_token_";
+
     /**
      * incr.
      * 
