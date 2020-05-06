@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 /**
  * @author JiakunXu
  */
-@Service
+@Service("tokenService")
 public class TokenServiceImpl implements TokenService {
 
     private static final Logger   logger = LoggerFactory.getLogger(TokenServiceImpl.class);
