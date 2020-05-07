@@ -51,7 +51,7 @@ public class AccessTokenServiceImpl implements AccessTokenService {
         }
 
         String errCode = accessToken.getErrCode();
-        if (!"0".equals(errCode)) {
+        if (StringUtils.isNotBlank(errCode) && !"0".equals(errCode)) {
             throw new RuntimeException(accessToken.getErrMsg());
         }
 
