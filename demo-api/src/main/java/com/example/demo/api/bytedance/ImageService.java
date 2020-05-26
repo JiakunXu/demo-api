@@ -6,9 +6,9 @@ import com.example.demo.api.bytedance.ao.text.Log;
 /**
  * @author JiakunXu
  */
-public interface TextService {
+public interface ImageService {
 
-    String HTTPS_DETECT_URL = "https://developer.toutiao.com/api/v2/tags/text/antidirt";
+    String HTTPS_DETECT_URL = "https://developer.toutiao.com/api/v2/tags/image";
 
     /**
      *
