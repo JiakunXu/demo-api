@@ -55,14 +55,13 @@ public class FileServiceImpl implements FileService {
     @Value("${aliyun.oss.url}")
     private String              url;
 
-    private void validate(InputStream content) throws IOException {
+    private void validate(byte[] src) {
         List<String> targetList = new ArrayList<>();
         targetList.add("porn");
         targetList.add("politics");
         targetList.add("disgusting");
 
-        Task image = new Task(null,
-            Base64.getEncoder().encodeToString(IOUtils.toByteArray(content)));
+        Task image = new Task(null, Base64.getEncoder().encodeToString(src));
 
         List<Task> taskList = new ArrayList<>();
         taskList.add(image);
@@ -97,11 +96,12 @@ public class FileServiceImpl implements FileService {
 
     @Override
     @Transactional
-    public File insertFile(String name, InputStream content,
-                           String contentType) throws IOException {
-        if (StringUtils.isBlank(name) || content == null || StringUtils.isBlank(contentType)) {
+    public File insertFile(String name, InputStream input, String contentType) throws IOException {
+        if (StringUtils.isBlank(name) || input == null || StringUtils.isBlank(contentType)) {
             throw new ServiceException(Constants.MISSING_PARAMETER, "参数信息不能为空");
         }
+
+        byte[] content = IOUtils.toByteArray(input);
 
         validate(content);
 
