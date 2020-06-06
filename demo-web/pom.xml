@@ -45,6 +45,12 @@
             <artifactId>demo-action</artifactId>
             <version>${project.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.example</groupId>
+            <artifactId>demo-task</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 
 
