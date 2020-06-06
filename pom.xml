@@ -17,6 +17,7 @@
         <module>demo-action</module>
         <module>demo-api</module>
         <module>demo-biz</module>
+        <module>demo-task</module>
         <module>demo-util</module>
         <module>demo-web</module>
     </modules>
@@ -36,6 +37,7 @@
         <joda-time.version>2.10.6</joda-time.version>
         <mybatis-spring-boot.version>2.1.2</mybatis-spring-boot.version>
         <mysql-connector.version>8.0.20</mysql-connector.version>
+        <schedulerx2.version>1.1.4.RELEASE</schedulerx2.version>
         <xmemcached.version>2.4.6</xmemcached.version>
     </properties>
 
@@ -105,7 +107,7 @@
             <dependency>
                 <groupId>com.aliyun</groupId>
                 <artifactId>aliyun-java-sdk-core</artifactId>
-                <version>4.5.1</version>
+                <version>4.5.2</version>
             </dependency>
 
             <dependency>
@@ -117,7 +119,13 @@
             <dependency>
                 <groupId>com.aliyun.openservices</groupId>
                 <artifactId>ons-client</artifactId>
-                <version>1.8.5.Final</version>
+                <version>1.8.6.Final</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.aliyun.schedulerx</groupId>
+                <artifactId>schedulerx2-spring-boot-starter</artifactId>
+                <version>${schedulerx2.version}</version>
             </dependency>
 
             <dependency>
