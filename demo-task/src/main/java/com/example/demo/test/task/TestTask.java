@@ -12,9 +12,8 @@ import org.springframework.stereotype.Component;
 public class TestTask extends JavaProcessor {
 
     @Override
-    public ProcessResult process(JobContext context) throws Exception {
-        System.out.println("hello schedulerx2.0");
-        return new ProcessResult(true);
+    public ProcessResult process(JobContext context) {
+        return new ProcessResult(true, "success");
     }
 
 }
