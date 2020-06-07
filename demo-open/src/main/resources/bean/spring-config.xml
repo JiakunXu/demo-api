@@ -13,4 +13,7 @@
     <!-- 使用 Nacos 注册中心 -->
     <dubbo:registry address="${dubbo.registry.address}" />
 
+    <!-- 用dubbo协议在随机端口暴露服务 -->
+    <dubbo:protocol name="dubbo" port="-1"/>
+
 </beans>
