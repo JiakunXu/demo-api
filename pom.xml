@@ -130,6 +130,12 @@
             </dependency>
 
             <dependency>
+                <groupId>com.aliyun.openservices</groupId>
+                <artifactId>aliyun-log-logback-appender</artifactId>
+                <version>0.1.17</version>
+            </dependency>
+
+            <dependency>
                 <groupId>com.aliyun.schedulerx</groupId>
                 <artifactId>schedulerx2-spring-boot-starter</artifactId>
                 <version>${schedulerx2.version}</version>
