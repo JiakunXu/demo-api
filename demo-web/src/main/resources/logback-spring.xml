@@ -14,10 +14,6 @@
 
         <topic>demo</topic>
 
-        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-            <level>ERROR</level>
-        </filter>
-
         <mdcFields>THREAD_ID,MDC_KEY</mdcFields>
     </appender>
 
