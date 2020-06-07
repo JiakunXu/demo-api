@@ -1,0 +1,28 @@
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml" />
+    <include resource="org/springframework/boot/logging/logback/console-appender.xml" />
+
+    <shutdownHook class="ch.qos.logback.core.hook.DelayingShutdownHook"/>
+
+    <appender name="LOGHUB" class="com.aliyun.openservices.log.logback.LoghubAppender">
+        <endpoint></endpoint>
+        <accessKeyId></accessKeyId>
+        <accessKeySecret></accessKeySecret>
+
+        <project></project>
+        <logStore></logStore>
+
+        <topic>demo</topic>
+
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ERROR</level>
+        </filter>
+
+        <mdcFields>THREAD_ID,MDC_KEY</mdcFields>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="LOGHUB"/>
+    </root>
+</configuration>
