@@ -1,6 +1,7 @@
 package com.example.demo.shop.service.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.example.demo.api.shop.IShopService;
 import com.example.demo.framework.exception.ServiceException;
 import com.example.demo.shop.dao.ShopDao;
 import com.example.demo.api.shop.ShopService;
@@ -17,8 +18,8 @@ import java.util.List;
 /**
  * @author JiakunXu
  */
-@Service
-public class ShopServiceImpl implements ShopService {
+@Service("shopService")
+public class ShopServiceImpl implements ShopService, IShopService {
 
     private static final Logger logger = LoggerFactory.getLogger(ShopServiceImpl.class);
 
