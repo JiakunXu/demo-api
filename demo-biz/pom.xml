@@ -69,12 +69,6 @@
 
         <dependency>
             <groupId>com.example</groupId>
-            <artifactId>demo-api</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.example</groupId>
             <artifactId>demo-open</artifactId>
             <version>${project.version}</version>
         </dependency>
