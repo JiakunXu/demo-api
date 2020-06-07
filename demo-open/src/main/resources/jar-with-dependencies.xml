@@ -13,7 +13,9 @@
             <unpack>true</unpack>
             <unpackOptions>
                 <includes>
-                    <include>com/example/**</include>
+                    <include>com/example/demo/api/*/I*</include>
+                    <include>com/example/demo/api/*/bo/*</include>
+                    <include>com/example/demo/framework/**</include>
                     <include>license/*</include>
                     <include>META-INF/**</include>
                 </includes>
