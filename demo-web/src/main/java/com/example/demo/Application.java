@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ImportResource;
 
 @SpringBootApplication()
-@ImportResource(locations = { "classpath:bean/spring-*.xml" })
+@ImportResource(locations = { "classpath:bean/*-*.xml" })
 @MapperScan("com.example.demo.*.dao")
 public class Application {
 
