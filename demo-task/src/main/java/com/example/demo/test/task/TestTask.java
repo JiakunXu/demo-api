@@ -19,11 +19,11 @@ public class TestTask extends JavaProcessor {
     private static final Logger logger = LoggerFactory.getLogger(TestTask.class);
 
     @Autowired
-    private IShopService        openShopService;
+    private IShopService        shopService;
 
     @Override
     public ProcessResult process(JobContext context) {
-        return new ProcessResult(true, JSON.toJSONString(openShopService.countShop()));
+        return new ProcessResult(true, JSON.toJSONString(shopService.countShop()));
     }
 
 }
