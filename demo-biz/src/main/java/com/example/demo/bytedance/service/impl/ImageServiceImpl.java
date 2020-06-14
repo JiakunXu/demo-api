@@ -34,7 +34,7 @@ public class ImageServiceImpl implements ImageService {
         Log log = null;
 
         try {
-            Map<String, String> header = new HashMap<>();
+            Map<String, String> header = new HashMap<>(1);
             header.put("X-Token", accessToken);
 
             log = JSON.parseObject(
