@@ -3,7 +3,7 @@ package com.example.demo.api.weixin.ao;
 import java.io.Serializable;
 
 /**
- * 
+ * @author JiakunXu
  */
 public class UnifiedOrder implements Serializable {
 
