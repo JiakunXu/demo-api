@@ -8,6 +8,9 @@ import org.dom4j.Visitor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * @author JiakunXu
+ */
 public class XmlUtil {
 
     private static final Logger logger = LoggerFactory.getLogger(XmlUtil.class);

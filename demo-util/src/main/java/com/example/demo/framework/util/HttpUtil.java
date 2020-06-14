@@ -26,6 +26,10 @@ import org.apache.http.util.EntityUtils;
  */
 public class HttpUtil {
 
+    private static final int STATUS_CODE_200 = 200;
+
+    private static final int STATUS_CODE_300 = 300;
+
     /**
      * @param uri
      * @return
@@ -44,7 +48,7 @@ public class HttpUtil {
                 public String handleResponse(final HttpResponse response) throws ClientProtocolException,
                                                                           IOException {
                     int status = response.getStatusLine().getStatusCode();
-                    if (status >= 200 && status < 300) {
+                    if (status >= STATUS_CODE_200 && status < STATUS_CODE_300) {
                         HttpEntity entity = response.getEntity();
                         return entity != null ? EntityUtils.toString(entity) : null;
                     } else {
@@ -94,7 +98,7 @@ public class HttpUtil {
                 public String handleResponse(final HttpResponse response) throws ClientProtocolException,
                                                                           IOException {
                     int status = response.getStatusLine().getStatusCode();
-                    if (status >= 200 && status < 300) {
+                    if (status >= STATUS_CODE_200 && status < STATUS_CODE_300) {
                         HttpEntity entity = response.getEntity();
                         return entity != null ? EntityUtils.toString(entity) : null;
                     } else {
@@ -143,7 +147,7 @@ public class HttpUtil {
                 public String handleResponse(final HttpResponse response) throws ClientProtocolException,
                                                                           IOException {
                     int status = response.getStatusLine().getStatusCode();
-                    if (status >= 200 && status < 300) {
+                    if (status >= STATUS_CODE_200 && status < STATUS_CODE_300) {
                         HttpEntity entity = response.getEntity();
                         return entity != null ? EntityUtils.toString(entity, Consts.UTF_8) : null;
                     } else {
@@ -176,7 +180,7 @@ public class HttpUtil {
                 public InputStream handleResponse(final HttpResponse response) throws ClientProtocolException,
                                                                                IOException {
                     int status = response.getStatusLine().getStatusCode();
-                    if (status >= 200 && status < 300) {
+                    if (status >= STATUS_CODE_200 && status < STATUS_CODE_300) {
                         HttpEntity entity = response.getEntity();
                         return entity != null
                             ? new ByteArrayInputStream(EntityUtils.toByteArray(entity))
