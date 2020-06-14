@@ -11,6 +11,9 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 
+/**
+ * @author JiakunXu
+ */
 public class Decrypt {
 
     public static String decrypt(String encryptedData, String sessionKey,
