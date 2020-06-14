@@ -95,7 +95,7 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = RuntimeException.class)
     public File insertFile(String name, InputStream input, String contentType) throws IOException {
         if (StringUtils.isBlank(name) || input == null || StringUtils.isBlank(contentType)) {
             throw new ServiceException(Constants.MISSING_PARAMETER, "参数信息不能为空");

@@ -49,7 +49,7 @@ public class ShopServiceImpl implements ShopService, IShopService {
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = RuntimeException.class)
     public Shop updateShop() {
         Shop shop = new Shop();
         shop.setId(BigInteger.ONE);
