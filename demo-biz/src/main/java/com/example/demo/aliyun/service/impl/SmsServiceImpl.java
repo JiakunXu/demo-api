@@ -49,8 +49,6 @@ public class SmsServiceImpl implements SmsService {
         request.putQueryParameter("SignName", signName);
         request.putQueryParameter("TemplateCode", templateCode);
         request.putQueryParameter("TemplateParam", templateParam);
-        //        request.putQueryParameter("SmsUpExtendCode", "");
-        //        request.putQueryParameter("OutId", "");
         try {
             CommonResponse response = client.getCommonResponse(request);
             return response.getData();
