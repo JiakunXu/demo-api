@@ -8,6 +8,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -51,7 +52,7 @@ public class BaseController {
     }
 
     public <T> T getParameter(HttpServletRequest request, Class<T> clazz) {
-        if (!"application/json".equals(request.getContentType())) {
+        if (!MediaType.APPLICATION_JSON_VALUE.equals(request.getContentType())) {
             return null;
         }
 
@@ -67,7 +68,7 @@ public class BaseController {
     }
 
     public <T> List<T> getParameterList(HttpServletRequest request, Class<T> clazz) {
-        if (!"application/json".equals(request.getContentType())) {
+        if (!MediaType.APPLICATION_JSON_VALUE.equals(request.getContentType())) {
             return null;
         }
 
