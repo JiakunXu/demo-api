@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 /**
@@ -59,7 +60,7 @@ public class BaseController {
         String parameter = null;
 
         try {
-            parameter = IOUtils.toString(request.getInputStream(), "UTF-8");
+            parameter = IOUtils.toString(request.getInputStream(), StandardCharsets.UTF_8);
         } catch (IOException e) {
             logger.error("getParameter", e);
         }
@@ -75,7 +76,7 @@ public class BaseController {
         String parameter = null;
 
         try {
-            parameter = IOUtils.toString(request.getInputStream(), "UTF-8");
+            parameter = IOUtils.toString(request.getInputStream(), StandardCharsets.UTF_8);
         } catch (IOException e) {
             logger.error("getParameter", e);
         }
@@ -85,7 +86,7 @@ public class BaseController {
 
     public String getParameter(HttpServletRequest request) {
         try {
-            return IOUtils.toString(request.getInputStream(), "UTF-8");
+            return IOUtils.toString(request.getInputStream(), StandardCharsets.UTF_8);
         } catch (IOException e) {
             logger.error("getParameter", e);
         }
