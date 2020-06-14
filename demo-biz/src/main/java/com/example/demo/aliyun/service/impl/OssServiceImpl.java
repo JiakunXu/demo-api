@@ -51,9 +51,7 @@ public class OssServiceImpl implements OssService {
 
             // 如果需要上传时设置存储类型与访问权限，请参考以下示例代码。
             ObjectMetadata metadata = new ObjectMetadata();
-            // metadata.setHeader(OSSHeaders.OSS_STORAGE_CLASS, StorageClass.Standard.toString());
             metadata.setContentType(contentType);
-            // metadata.setObjectAcl(CannedAccessControlList.Private);
             putObjectRequest.setMetadata(metadata);
 
             // 上传文件。
