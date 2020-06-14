@@ -2,6 +2,9 @@ package com.example.demo.api.aliyun;
 
 import java.io.InputStream;
 
+/**
+ * @author JiakunXu
+ */
 public interface OssService {
 
     /**
