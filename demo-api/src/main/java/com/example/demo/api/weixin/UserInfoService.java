@@ -1,6 +1,7 @@
 package com.example.demo.api.weixin;
 
 import com.example.demo.api.weixin.ao.UserInfo;
+import com.example.demo.api.weixin.ao.sns.MiniUserInfo;
 
 /**
  * @author JiakunXu
@@ -19,5 +20,17 @@ public interface UserInfoService {
      * @throws RuntimeException
      */
     UserInfo getUserInfo(String accessToken, String openId, String lang) throws RuntimeException;
+
+    /**
+     *
+     * @param appId
+     * @param encryptedData 对称解密的目标密文.
+     * @param sessionKey 对称解密秘钥.
+     * @param iv 对称解密算法初始向量.
+     * @return
+     * @throws RuntimeException
+     */
+    MiniUserInfo getUserInfo(String appId, String encryptedData, String sessionKey,
+                             String iv) throws RuntimeException;
 
 }

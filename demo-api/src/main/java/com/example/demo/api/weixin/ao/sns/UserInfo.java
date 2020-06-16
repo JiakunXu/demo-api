@@ -4,6 +4,8 @@ import com.alibaba.fastjson.annotation.JSONField;
 import com.example.demo.api.weixin.ao.BaseResult;
 
 /**
+ * 如果用户在微信客户端中访问第三方网页，公众号可以通过微信网页授权机制，来获取用户基本信息，进而实现业务逻辑。
+ *
  * @author JiakunXu
  */
 public class UserInfo extends BaseResult {
