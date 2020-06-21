@@ -24,7 +24,7 @@ public class SmsServiceImpl implements SmsService {
 
     private static final Logger logger = LoggerFactory.getLogger(SmsServiceImpl.class);
 
-    @Value("${aliyun.region.id}")
+    @Value("${aliyun.sms.region.id}")
     private String              regionId;
 
     @Value("${aliyun.accessKey.id}")
