@@ -1,7 +1,5 @@
 package com.example.demo.weixin.service.impl;
 
-import java.io.InputStream;
-
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +15,7 @@ public class MediaServiceImpl implements MediaService {
     private static final Logger logger = LoggerFactory.getLogger(MediaServiceImpl.class);
 
     @Override
-    public InputStream getMedia(String accessToken, String mediaId) throws RuntimeException {
+    public byte[] getMedia(String accessToken, String mediaId) throws RuntimeException {
         if (StringUtils.isBlank(accessToken)) {
             throw new RuntimeException("access_token cannot be null.");
         }

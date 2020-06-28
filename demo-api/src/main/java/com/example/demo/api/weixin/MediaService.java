@@ -1,7 +1,5 @@
 package com.example.demo.api.weixin;
 
-import java.io.InputStream;
-
 /**
  * @author JiakunXu
  */
@@ -17,6 +15,6 @@ public interface MediaService {
      * @return
      * @throws RuntimeException
      */
-    InputStream getMedia(String accessToken, String mediaId) throws RuntimeException;
+    byte[] getMedia(String accessToken, String mediaId) throws RuntimeException;
 
 }
