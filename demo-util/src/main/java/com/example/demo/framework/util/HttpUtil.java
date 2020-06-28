@@ -167,24 +167,22 @@ public class HttpUtil {
      * @return
      * @throws Exception
      */
-    public static InputStream download(String uri) throws Exception {
+    public static byte[] download(String uri) throws Exception {
         CloseableHttpClient httpclient = HttpClients.createDefault();
 
         try {
             HttpGet httpget = new HttpGet(uri);
 
             // Create a custom response handler
-            ResponseHandler<InputStream> responseHandler = new ResponseHandler<InputStream>() {
+            ResponseHandler<byte[]> responseHandler = new ResponseHandler<byte[]>() {
 
                 @Override
-                public InputStream handleResponse(final HttpResponse response) throws ClientProtocolException,
-                                                                               IOException {
+                public byte[] handleResponse(final HttpResponse response) throws ClientProtocolException,
+                                                                          IOException {
                     int status = response.getStatusLine().getStatusCode();
                     if (status >= STATUS_CODE_200 && status < STATUS_CODE_300) {
                         HttpEntity entity = response.getEntity();
-                        return entity != null
-                            ? new ByteArrayInputStream(EntityUtils.toByteArray(entity))
-                            : null;
+                        return entity != null ? EntityUtils.toByteArray(entity) : null;
                     } else {
                         throw new ClientProtocolException("Unexpected response status: " + status);
                     }
@@ -192,6 +190,37 @@ public class HttpUtil {
 
             };
             return httpclient.execute(httpget, responseHandler);
+        } finally {
+            httpclient.close();
+        }
+    }
+
+    public static byte[] download(String uri, String parameter) throws Exception {
+        CloseableHttpClient httpclient = HttpClients.createDefault();
+
+        try {
+            StringEntity entity = new StringEntity(parameter, Consts.UTF_8);
+
+            HttpPost httppost = new HttpPost(uri);
+            httppost.setEntity(entity);
+
+            // Create a custom response handler
+            ResponseHandler<byte[]> responseHandler = new ResponseHandler<byte[]>() {
+
+                @Override
+                public byte[] handleResponse(final HttpResponse response) throws ClientProtocolException,
+                                                                          IOException {
+                    int status = response.getStatusLine().getStatusCode();
+                    if (status >= STATUS_CODE_200 && status < STATUS_CODE_300) {
+                        HttpEntity entity = response.getEntity();
+                        return entity != null ? EntityUtils.toByteArray(entity) : null;
+                    } else {
+                        throw new ClientProtocolException("Unexpected response status: " + status);
+                    }
+                }
+
+            };
+            return httpclient.execute(httppost, responseHandler);
         } finally {
             httpclient.close();
         }
