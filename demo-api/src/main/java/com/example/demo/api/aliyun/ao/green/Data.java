@@ -43,6 +43,11 @@ public class Data implements Serializable {
     private String            filteredContent;
 
     /**
+     * 对应请求中的URL。.
+     */
+    private String            url;
+
+    /**
      * 返回结果。调用成功时（code=200），返回结果中包含一个或多个元素。每个元素是个结构体，具体结构描述请参见result。.
      */
     @JSONField(name = "results")
@@ -94,6 +99,14 @@ public class Data implements Serializable {
 
     public void setFilteredContent(String filteredContent) {
         this.filteredContent = filteredContent;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public List<Result> getResultList() {
