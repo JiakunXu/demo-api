@@ -18,9 +18,9 @@ public class BaseBo extends BaseParameter {
 
     private String            modifier;
 
-    private Date              gmtCreate;
+    private Date              createTime;
 
-    private Date              gmtModified;
+    private Date              updateTime;
 
     public Boolean getDeleted() {
         return deleted;
@@ -46,19 +46,19 @@ public class BaseBo extends BaseParameter {
         this.modifier = modifier;
     }
 
-    public Date getGmtCreate() {
-        return gmtCreate;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setGmtCreate(Date gmtCreate) {
-        this.gmtCreate = gmtCreate;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
-    public Date getGmtModified() {
-        return gmtModified;
+    public Date getUpdateTime() {
+        return updateTime;
     }
 
-    public void setGmtModified(Date gmtModified) {
-        this.gmtModified = gmtModified;
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 }

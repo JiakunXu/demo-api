@@ -1,14 +1,14 @@
 package com.example.demo.api.bytedance.bo;
 
 import com.alibaba.fastjson.annotation.JSONField;
-import com.example.demo.framework.bo.BaseBo;
 
+import java.io.Serializable;
 import java.math.BigInteger;
 
 /**
  * @author JiakunXu
  */
-public class Message extends BaseBo {
+public class Message implements Serializable {
 
     private static final long serialVersionUID = -5501483433983115912L;
 
