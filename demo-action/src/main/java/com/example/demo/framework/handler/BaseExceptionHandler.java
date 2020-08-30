@@ -1,4 +1,4 @@
-package com.example.demo.framework.config;
+package com.example.demo.framework.handler;
 
 import com.example.demo.framework.constant.Constants;
 import com.example.demo.framework.exception.ServiceException;
