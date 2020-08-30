@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeoutException;
 
-import com.example.demo.api.cache.MemcachedCacheService;
+import com.example.demo.api.cache.MemcachedService;
 import com.example.demo.api.cache.bo.CacheStats;
 import com.example.demo.framework.exception.ServiceException;
 import com.example.demo.framework.exception.SystemException;
@@ -28,16 +28,16 @@ import net.rubyeye.xmemcached.exception.MemcachedException;
  * 
  */
 @Service
-public class MemcachedCacheServiceImpl implements MemcachedCacheService {
+public class MemcachedServiceImpl implements MemcachedService {
 
-    private Logger          logger = LoggerFactory.getLogger(MemcachedCacheServiceImpl.class);
+    private Logger          logger = LoggerFactory.getLogger(MemcachedServiceImpl.class);
 
     @Autowired
     private MemcachedClient memcachedClient;
 
     @Override
     public Object add(String key, Object value) {
-        return add(key, value, MemcachedCacheService.DEFAULT_EXP);
+        return add(key, value, MemcachedService.DEFAULT_EXP);
     }
 
     @Override
@@ -69,7 +69,7 @@ public class MemcachedCacheServiceImpl implements MemcachedCacheService {
 
     @Override
     public Object set(String key, Object value) {
-        return set(key, value, MemcachedCacheService.DEFAULT_EXP);
+        return set(key, value, MemcachedService.DEFAULT_EXP);
     }
 
     @Override
@@ -101,7 +101,7 @@ public class MemcachedCacheServiceImpl implements MemcachedCacheService {
 
     @Override
     public Object replace(String key, Object value) {
-        return replace(key, value, MemcachedCacheService.DEFAULT_EXP);
+        return replace(key, value, MemcachedService.DEFAULT_EXP);
     }
 
     @Override

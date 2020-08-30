@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.api.cache.MemcachedCacheService;
+import com.example.demo.api.cache.MemcachedService;
 import com.example.demo.api.weixin.JsapiTicketService;
 import com.example.demo.api.weixin.TicketService;
 import com.example.demo.api.weixin.TokenService;
@@ -22,7 +22,7 @@ public class TicketServiceImpl implements TicketService {
     private static final Logger   logger = LoggerFactory.getLogger(TicketServiceImpl.class);
 
     @Autowired
-    private MemcachedCacheService memcachedCacheService;
+    private MemcachedService memcachedService;
 
     @Autowired
     private TokenService          tokenService;
@@ -44,10 +44,10 @@ public class TicketServiceImpl implements TicketService {
         String key = appId.trim() + "&" + appSecret.trim();
 
         try {
-            ticket = (String) memcachedCacheService
-                .get(MemcachedCacheService.CACHE_KEY_WX_TICKET + key);
+            ticket = (String) memcachedService
+                .get(MemcachedService.CACHE_KEY_WX_TICKET + key);
         } catch (ServiceException e) {
-            logger.error(MemcachedCacheService.CACHE_KEY_WX_TICKET + key, e);
+            logger.error(MemcachedService.CACHE_KEY_WX_TICKET + key, e);
         }
 
         if (StringUtils.isNotBlank(ticket)) {
@@ -59,10 +59,10 @@ public class TicketServiceImpl implements TicketService {
         ticket = jsapiTicket.getTicket();
 
         try {
-            memcachedCacheService.set(MemcachedCacheService.CACHE_KEY_WX_TICKET + key, ticket,
+            memcachedService.set(MemcachedService.CACHE_KEY_WX_TICKET + key, ticket,
                 jsapiTicket.getExpiresIn());
         } catch (ServiceException e) {
-            logger.error(MemcachedCacheService.CACHE_KEY_WX_TICKET + key, e);
+            logger.error(MemcachedService.CACHE_KEY_WX_TICKET + key, e);
         }
 
         return ticket;

@@ -3,7 +3,7 @@ package com.example.demo.bytedance.service.impl;
 import com.example.demo.api.bytedance.AccessTokenService;
 import com.example.demo.api.bytedance.TokenService;
 import com.example.demo.api.bytedance.ao.AccessToken;
-import com.example.demo.api.cache.MemcachedCacheService;
+import com.example.demo.api.cache.MemcachedService;
 import com.example.demo.framework.exception.ServiceException;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -20,7 +20,7 @@ public class TokenServiceImpl implements TokenService {
     private static final Logger   logger = LoggerFactory.getLogger(TokenServiceImpl.class);
 
     @Autowired
-    private MemcachedCacheService memcachedCacheService;
+    private MemcachedService memcachedService;
 
     @Autowired
     private AccessTokenService    accessTokenService;
@@ -44,10 +44,10 @@ public class TokenServiceImpl implements TokenService {
         String key = appId.trim() + "&" + appSecret.trim() + "&" + grantType.trim();
 
         try {
-            token = (String) memcachedCacheService
-                .get(MemcachedCacheService.CACHE_KEY_TT_TOKEN + key);
+            token = (String) memcachedService
+                .get(MemcachedService.CACHE_KEY_TT_TOKEN + key);
         } catch (ServiceException e) {
-            logger.error(MemcachedCacheService.CACHE_KEY_TT_TOKEN + key, e);
+            logger.error(MemcachedService.CACHE_KEY_TT_TOKEN + key, e);
         }
 
         if (StringUtils.isNotBlank(token)) {
@@ -58,10 +58,10 @@ public class TokenServiceImpl implements TokenService {
         token = accessToken.getAccessToken();
 
         try {
-            memcachedCacheService.set(MemcachedCacheService.CACHE_KEY_TT_TOKEN + key, token,
+            memcachedService.set(MemcachedService.CACHE_KEY_TT_TOKEN + key, token,
                 accessToken.getExpiresIn());
         } catch (ServiceException e) {
-            logger.error(MemcachedCacheService.CACHE_KEY_TT_TOKEN + key, e);
+            logger.error(MemcachedService.CACHE_KEY_TT_TOKEN + key, e);
         }
 
         return token;

@@ -8,12 +8,12 @@ import java.net.InetSocketAddress;
 import java.util.List;
 
 /**
- * MemcachedCache.
+ * Memcached.
  * 
  * @author JiakunXu
  * 
  */
-public interface MemcachedCacheService extends CacheService<String, Object> {
+public interface MemcachedService extends CacheService<String, Object> {
 
     /**
      * default_exp_time.
