@@ -3,10 +3,10 @@ package com.example.demo.dingtalk.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.dingtalk.api.DefaultDingTalkClient;
 import com.dingtalk.api.DingTalkClient;
-import com.dingtalk.api.request.OapiUserGetuserinfoRequest;
-import com.dingtalk.api.response.OapiUserGetuserinfoResponse;
-import com.example.demo.api.dingtalk.UserInfoService;
-import com.example.demo.api.dingtalk.ao.UserInfo;
+import com.dingtalk.api.request.OapiUserGetRequest;
+import com.dingtalk.api.response.OapiUserGetResponse;
+import com.example.demo.api.dingtalk.UserService;
+import com.example.demo.api.dingtalk.ao.User;
 import com.taobao.api.ApiException;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -16,28 +16,28 @@ import org.springframework.stereotype.Service;
 /**
  * @author JiakunXu
  */
-@Service("userInfoService0")
-public class UserInfoServiceImpl implements UserInfoService {
+@Service("userService0")
+public class UserServiceImpl implements UserService {
 
-    private static final Logger logger = LoggerFactory.getLogger(UserInfoServiceImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
     @Override
-    public UserInfo getUserInfo(String accessToken, String code) throws RuntimeException {
+    public User getUser(String accessToken, String userId, String lang) throws RuntimeException {
         if (StringUtils.isBlank(accessToken)) {
             throw new RuntimeException("access_token cannot be null.");
         }
 
-        if (StringUtils.isBlank(code)) {
-            throw new RuntimeException("code cannot be null.");
+        if (StringUtils.isBlank(userId)) {
+            throw new RuntimeException("userid cannot be null.");
         }
 
-        DingTalkClient client = new DefaultDingTalkClient(UserInfoService.HTTPS_USER_INFO_URL);
+        DingTalkClient client = new DefaultDingTalkClient(UserService.HTTPS_USER_URL);
 
-        OapiUserGetuserinfoRequest request = new OapiUserGetuserinfoRequest();
-        request.setCode(code);
+        OapiUserGetRequest request = new OapiUserGetRequest();
+        request.setUserid(userId);
         request.setHttpMethod("GET");
 
-        OapiUserGetuserinfoResponse response = null;
+        OapiUserGetResponse response = null;
 
         try {
             response = client.execute(request, accessToken);
@@ -56,10 +56,10 @@ public class UserInfoServiceImpl implements UserInfoService {
             throw new RuntimeException(response.getErrmsg());
         }
 
-        UserInfo userInfo = new UserInfo();
-        userInfo.setUserId(response.getUserid());
+        User user = new User();
+        user.setUserId(response.getUserid());
+        // TODO
 
-        return userInfo;
+        return user;
     }
-
 }
