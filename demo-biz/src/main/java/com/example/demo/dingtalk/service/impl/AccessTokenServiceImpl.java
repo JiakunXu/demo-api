@@ -1,5 +1,6 @@
 package com.example.demo.dingtalk.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.dingtalk.api.DefaultDingTalkClient;
 import com.dingtalk.api.request.OapiGettokenRequest;
 import com.dingtalk.api.response.OapiGettokenResponse;
@@ -42,14 +43,17 @@ public class AccessTokenServiceImpl implements AccessTokenService {
         try {
             response = client.execute(request);
         } catch (ApiException e) {
-            logger.error("execute", e);
+            logger.error(JSON.toJSONString(request), e);
+
+            throw new RuntimeException("execute", e);
         }
 
         if (response == null) {
-            throw new RuntimeException("access_token is null.");
+            throw new RuntimeException("response is null.");
         }
 
         String errCode = response.getErrorCode();
+
         if (StringUtils.isNotBlank(errCode) && !"0".equals(errCode)) {
             throw new RuntimeException(response.getErrmsg());
         }
