@@ -3,6 +3,8 @@ package com.example.demo.api.dingtalk.ao.msg;
 import java.io.Serializable;
 
 /**
+ * 文本消息.
+ * 
  * @author JiakunXu
  */
 public class Text implements Serializable {

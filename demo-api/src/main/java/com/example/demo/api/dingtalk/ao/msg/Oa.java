@@ -5,6 +5,8 @@ import com.alibaba.fastjson.annotation.JSONField;
 import java.io.Serializable;
 
 /**
+ * OA消息.
+ *
  * @author JiakunXu
  */
 public class Oa implements Serializable {

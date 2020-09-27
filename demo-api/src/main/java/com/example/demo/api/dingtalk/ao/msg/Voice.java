@@ -5,6 +5,8 @@ import com.alibaba.fastjson.annotation.JSONField;
 import java.io.Serializable;
 
 /**
+ * 语音消息.
+ *
  * @author JiakunXu
  */
 public class Voice implements Serializable {
