@@ -1,12 +1,12 @@
 package com.example.demo.weixin.service.impl;
 
+import com.example.demo.api.cache.RedisService;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.api.cache.MemcachedService;
 import com.example.demo.api.weixin.AccessTokenService;
 import com.example.demo.api.weixin.TokenService;
 import com.example.demo.api.weixin.ao.AccessToken;
@@ -18,13 +18,13 @@ import com.example.demo.framework.exception.ServiceException;
 @Service
 public class TokenServiceImpl implements TokenService {
 
-    private static final Logger   logger = LoggerFactory.getLogger(TokenServiceImpl.class);
+    private static final Logger          logger = LoggerFactory.getLogger(TokenServiceImpl.class);
 
     @Autowired
-    private MemcachedService memcachedService;
+    private RedisService<String, String> redisService;
 
     @Autowired
-    private AccessTokenService    accessTokenService;
+    private AccessTokenService           accessTokenService;
 
     @Override
     public String getToken(String grantType, String appId,
@@ -45,10 +45,9 @@ public class TokenServiceImpl implements TokenService {
         String key = grantType.trim() + "&" + appId.trim() + "&" + appSecret.trim();
 
         try {
-            token = (String) memcachedService
-                .get(MemcachedService.CACHE_KEY_WX_TOKEN + key);
+            token = redisService.get(RedisService.CACHE_KEY_WX_TOKEN + key);
         } catch (ServiceException e) {
-            logger.error(MemcachedService.CACHE_KEY_WX_TOKEN + key, e);
+            logger.error(RedisService.CACHE_KEY_WX_TOKEN + key, e);
         }
 
         if (StringUtils.isNotBlank(token)) {
@@ -59,10 +58,10 @@ public class TokenServiceImpl implements TokenService {
         token = accessToken.getAccessToken();
 
         try {
-            memcachedService.set(MemcachedService.CACHE_KEY_WX_TOKEN + key, token,
+            redisService.set(RedisService.CACHE_KEY_WX_TOKEN + key, token,
                 accessToken.getExpiresIn());
         } catch (ServiceException e) {
-            logger.error(MemcachedService.CACHE_KEY_WX_TOKEN + key, e);
+            logger.error(RedisService.CACHE_KEY_WX_TOKEN + key, e);
         }
 
         return token;

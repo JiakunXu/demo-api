@@ -40,9 +40,9 @@ public class RedisServiceImpl<K, V> implements RedisService<K, V> {
     }
 
     @Override
-    public V add(K key, V value, int exp) throws ServiceException {
+    public V add(K key, V value, long timeout) throws ServiceException {
         try {
-            Boolean result = redisTemplate.opsForValue().setIfAbsent(key, value, exp,
+            Boolean result = redisTemplate.opsForValue().setIfAbsent(key, value, timeout,
                 TimeUnit.SECONDS);
             if (result != null && result) {
                 return value;
@@ -70,9 +70,9 @@ public class RedisServiceImpl<K, V> implements RedisService<K, V> {
     }
 
     @Override
-    public V set(K key, V value, int exp) throws ServiceException {
+    public V set(K key, V value, long timeout) throws ServiceException {
         try {
-            redisTemplate.opsForValue().set(key, value, exp, TimeUnit.SECONDS);
+            redisTemplate.opsForValue().set(key, value, timeout, TimeUnit.SECONDS);
             return value;
         } catch (Exception e) {
             logger.error("set", e);
@@ -92,7 +92,7 @@ public class RedisServiceImpl<K, V> implements RedisService<K, V> {
     }
 
     @Override
-    public V replace(K key, V value, int exp) throws ServiceException {
+    public V replace(K key, V value, long timeout) throws ServiceException {
         return null;
     }
 

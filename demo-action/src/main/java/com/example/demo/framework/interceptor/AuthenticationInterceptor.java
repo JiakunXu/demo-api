@@ -1,6 +1,6 @@
 package com.example.demo.framework.interceptor;
 
-import com.example.demo.api.cache.MemcachedService;
+import com.example.demo.api.cache.RedisService;
 import com.example.demo.framework.constant.Constants;
 import com.example.demo.framework.exception.ServiceException;
 import com.example.demo.framework.util.ThreadLocalUtil;
@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 public class AuthenticationInterceptor implements HandlerInterceptor {
 
     @Autowired
-    private MemcachedService memcachedService;
+    private RedisService<String, Object> redisService;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
@@ -33,7 +33,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
         Object user = null;
 
         try {
-            user = memcachedService.get(skey);
+            user = redisService.get(skey);
         } catch (ServiceException e) {
             throw new ServiceException(Constants.INVALID_AUTH_TOKEN, "访问令牌已过期");
         }

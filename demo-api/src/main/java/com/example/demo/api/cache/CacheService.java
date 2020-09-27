@@ -44,7 +44,7 @@ public interface CacheService<K, V> {
      * @return
      * @throws ServiceException
      */
-    V add(K key, V value, int exp) throws ServiceException;
+    V add(K key, V value, long timeout) throws ServiceException;
 
     /**
      * 保存数据.
@@ -76,7 +76,7 @@ public interface CacheService<K, V> {
      * @return
      * @throws ServiceException
      */
-    V set(K key, V value, int exp) throws ServiceException;
+    V set(K key, V value, long timeout) throws ServiceException;
 
     /**
      * 保存数据,前提是key必须存在于memcache中，否则保存不成功.
@@ -108,7 +108,7 @@ public interface CacheService<K, V> {
      * @return
      * @throws ServiceException
      */
-    V replace(K key, V value, int exp) throws ServiceException;
+    V replace(K key, V value, long timeout) throws ServiceException;
 
     /**
      * 获取缓存数据.

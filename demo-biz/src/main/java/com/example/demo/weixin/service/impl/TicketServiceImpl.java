@@ -1,12 +1,12 @@
 package com.example.demo.weixin.service.impl;
 
+import com.example.demo.api.cache.RedisService;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.api.cache.MemcachedService;
 import com.example.demo.api.weixin.JsapiTicketService;
 import com.example.demo.api.weixin.TicketService;
 import com.example.demo.api.weixin.TokenService;
@@ -19,16 +19,16 @@ import com.example.demo.framework.exception.ServiceException;
 @Service
 public class TicketServiceImpl implements TicketService {
 
-    private static final Logger   logger = LoggerFactory.getLogger(TicketServiceImpl.class);
+    private static final Logger          logger = LoggerFactory.getLogger(TicketServiceImpl.class);
 
     @Autowired
-    private MemcachedService memcachedService;
+    private RedisService<String, String> redisService;
 
     @Autowired
-    private TokenService          tokenService;
+    private TokenService                 tokenService;
 
     @Autowired
-    private JsapiTicketService    jsapiTicketService;
+    private JsapiTicketService           jsapiTicketService;
 
     @Override
     public String getTicket(String appId, String appSecret) throws RuntimeException {
@@ -44,10 +44,9 @@ public class TicketServiceImpl implements TicketService {
         String key = appId.trim() + "&" + appSecret.trim();
 
         try {
-            ticket = (String) memcachedService
-                .get(MemcachedService.CACHE_KEY_WX_TICKET + key);
+            ticket = redisService.get(RedisService.CACHE_KEY_WX_TICKET + key);
         } catch (ServiceException e) {
-            logger.error(MemcachedService.CACHE_KEY_WX_TICKET + key, e);
+            logger.error(RedisService.CACHE_KEY_WX_TICKET + key, e);
         }
 
         if (StringUtils.isNotBlank(ticket)) {
@@ -59,10 +58,10 @@ public class TicketServiceImpl implements TicketService {
         ticket = jsapiTicket.getTicket();
 
         try {
-            memcachedService.set(MemcachedService.CACHE_KEY_WX_TICKET + key, ticket,
+            redisService.set(RedisService.CACHE_KEY_WX_TICKET + key, ticket,
                 jsapiTicket.getExpiresIn());
         } catch (ServiceException e) {
-            logger.error(MemcachedService.CACHE_KEY_WX_TICKET + key, e);
+            logger.error(RedisService.CACHE_KEY_WX_TICKET + key, e);
         }
 
         return ticket;
