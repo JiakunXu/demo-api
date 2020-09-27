@@ -17,20 +17,20 @@ import java.util.concurrent.TimeUnit;
  * @author JiakunXu
  */
 @Service
-public class RedisServiceImpl implements RedisService {
+public class RedisServiceImpl<K, V> implements RedisService<K, V> {
 
-    private static final Logger           logger = LoggerFactory.getLogger(RedisServiceImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(RedisServiceImpl.class);
 
     @Resource
-    private RedisTemplate<String, Object> redisTemplate;
+    private RedisTemplate<K, V> redisTemplate;
 
     @Override
-    public Object add(String key, Object value) throws ServiceException {
+    public V add(K key, V value) throws ServiceException {
         return add(key, value, RedisService.DEFAULT_EXP);
     }
 
     @Override
-    public Object add(String key, Object value, Date expiry) throws ServiceException {
+    public V add(K key, V value, Date expiry) throws ServiceException {
         if (expiry == null) {
             return add(key, value);
         }
@@ -40,7 +40,7 @@ public class RedisServiceImpl implements RedisService {
     }
 
     @Override
-    public Object add(String key, Object value, int exp) throws ServiceException {
+    public V add(K key, V value, int exp) throws ServiceException {
         try {
             Boolean result = redisTemplate.opsForValue().setIfAbsent(key, value, exp,
                 TimeUnit.SECONDS);
@@ -55,12 +55,12 @@ public class RedisServiceImpl implements RedisService {
     }
 
     @Override
-    public Object set(String key, Object value) throws ServiceException {
+    public V set(K key, V value) throws ServiceException {
         return set(key, value, RedisService.DEFAULT_EXP);
     }
 
     @Override
-    public Object set(String key, Object value, Date expiry) throws ServiceException {
+    public V set(K key, V value, Date expiry) throws ServiceException {
         if (expiry == null) {
             return set(key, value);
         }
@@ -70,7 +70,7 @@ public class RedisServiceImpl implements RedisService {
     }
 
     @Override
-    public Object set(String key, Object value, int exp) throws ServiceException {
+    public V set(K key, V value, int exp) throws ServiceException {
         try {
             redisTemplate.opsForValue().set(key, value, exp, TimeUnit.SECONDS);
             return value;
@@ -82,22 +82,22 @@ public class RedisServiceImpl implements RedisService {
     }
 
     @Override
-    public Object replace(String key, Object value) throws ServiceException {
+    public V replace(K key, V value) throws ServiceException {
         return null;
     }
 
     @Override
-    public Object replace(String key, Object value, Date expiry) throws ServiceException {
+    public V replace(K key, V value, Date expiry) throws ServiceException {
         return null;
     }
 
     @Override
-    public Object replace(String key, Object value, int exp) throws ServiceException {
+    public V replace(K key, V value, int exp) throws ServiceException {
         return null;
     }
 
     @Override
-    public Object get(String key) throws ServiceException {
+    public V get(K key) throws ServiceException {
         try {
             return redisTemplate.opsForValue().get(key);
         } catch (Exception e) {
@@ -108,9 +108,10 @@ public class RedisServiceImpl implements RedisService {
     }
 
     @Override
-    public Object remove(String key) throws ServiceException {
+    public void remove(K key) throws ServiceException {
         try {
-            return redisTemplate.delete(key);
+            redisTemplate.delete(key);
+            return;
         } catch (Exception e) {
             logger.error("remove", e);
         }

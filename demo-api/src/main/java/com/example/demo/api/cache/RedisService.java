@@ -5,7 +5,7 @@ package com.example.demo.api.cache;
  *
  * @author JiakunXu
  */
-public interface RedisService extends CacheService<String, Object> {
+public interface RedisService<K, V> extends CacheService<K, V> {
 
     /**
      * default_exp_time.

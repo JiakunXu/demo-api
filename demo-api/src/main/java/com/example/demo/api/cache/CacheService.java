@@ -126,6 +126,6 @@ public interface CacheService<K, V> {
      * @return
      * @throws ServiceException
      */
-    V remove(K key) throws ServiceException;
+    void remove(K key) throws ServiceException;
 
 }

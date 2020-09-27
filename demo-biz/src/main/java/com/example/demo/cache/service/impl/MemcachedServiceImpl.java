@@ -150,9 +150,10 @@ public class MemcachedServiceImpl implements MemcachedService {
      * remove 可能存在false的正常情况.
      */
     @Override
-    public Object remove(String key) {
+    public void remove(String key) {
         try {
-            return memcachedClient.delete(key);
+            memcachedClient.delete(key);
+            return;
         } catch (TimeoutException e) {
             logger.error("remove", e);
         } catch (InterruptedException e) {
