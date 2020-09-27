@@ -1,5 +1,7 @@
 package com.example.demo.api.dingtalk.ao.msg;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 import java.io.Serializable;
 
 /**
@@ -21,6 +23,22 @@ public class ActionCard implements Serializable {
      */
     private String            markdown;
 
-    private String 
+    /**
+     * 使用整体跳转ActionCard样式时的标题，必须与single_url同时设置，最长20个字符.
+     */
+    @JSONField(name = "single_title")
+    private String            singleTitle;
+
+    /**
+     * 消息点击链接地址，当发送消息为小程序时支持小程序跳转链接，最长500个字符.
+     */
+    @JSONField(name = "single_url")
+    private String            singleUrl;
+
+    /**
+     * 使用独立跳转ActionCard样式时的按钮排列方式，竖直排列(0)，横向排列(1)；必须与btn_json_list同时设置.
+     */
+    @JSONField(name = "btn_orientation")
+    private String            btnOrientation;
 
 }
