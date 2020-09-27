@@ -4,6 +4,9 @@ import com.example.demo.api.cache.RedisService;
 import com.example.demo.api.dingtalk.JsapiTicketService;
 import com.example.demo.api.dingtalk.TicketService;
 import com.example.demo.api.dingtalk.TokenService;
+import com.example.demo.api.dingtalk.ao.JsapiTicket;
+import com.example.demo.framework.exception.ServiceException;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +31,40 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     public String getTicket(String appKey, String appSecret) throws RuntimeException {
-        return null;
+        if (StringUtils.isBlank(appKey)) {
+            throw new RuntimeException("appkey is null.");
+        }
+
+        if (StringUtils.isBlank(appSecret)) {
+            throw new RuntimeException("appsecret is null.");
+        }
+
+        String ticket = null;
+
+        String key = appKey.trim() + "&" + appSecret.trim();
+
+        try {
+            ticket = redisService.get(RedisService.CACHE_KEY_DD_TICKET + key);
+        } catch (ServiceException e) {
+            logger.error(RedisService.CACHE_KEY_DD_TICKET + key, e);
+        }
+
+        if (StringUtils.isNotBlank(ticket)) {
+            return ticket;
+        }
+
+        JsapiTicket jsapiTicket = jsapiTicketService
+            .getJsapiTicket(tokenService.getToken(appKey, appSecret));
+
+        ticket = jsapiTicket.getTicket();
+
+        try {
+            redisService.set(RedisService.CACHE_KEY_DD_TICKET + key, ticket,
+                jsapiTicket.getExpiresIn());
+        } catch (ServiceException e) {
+            logger.error(RedisService.CACHE_KEY_DD_TICKET + key, e);
+        }
+
+        return ticket;
     }
 }
