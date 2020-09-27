@@ -118,7 +118,6 @@ public class MessageServiceImpl implements MessageService {
         validate(signature, timestamp, nonce, data);
 
         Message message = JSON.parseObject(data, Message.class);
-        message.setCreator("sys");
 
         try {
             messageDao.insertMessage(message);
