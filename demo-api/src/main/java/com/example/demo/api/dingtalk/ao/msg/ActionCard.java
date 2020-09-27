@@ -3,6 +3,7 @@ package com.example.demo.api.dingtalk.ao.msg;
 import com.alibaba.fastjson.annotation.JSONField;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * 卡片消息.
@@ -41,4 +42,57 @@ public class ActionCard implements Serializable {
     @JSONField(name = "btn_orientation")
     private String            btnOrientation;
 
+    /**
+     * 使用独立跳转ActionCard样式时的按钮列表；必须与btn_orientation同时设置.
+     */
+    @JSONField(name = "btn_json_list")
+    private List<Btn>         btnList;
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getMarkdown() {
+        return markdown;
+    }
+
+    public void setMarkdown(String markdown) {
+        this.markdown = markdown;
+    }
+
+    public String getSingleTitle() {
+        return singleTitle;
+    }
+
+    public void setSingleTitle(String singleTitle) {
+        this.singleTitle = singleTitle;
+    }
+
+    public String getSingleUrl() {
+        return singleUrl;
+    }
+
+    public void setSingleUrl(String singleUrl) {
+        this.singleUrl = singleUrl;
+    }
+
+    public String getBtnOrientation() {
+        return btnOrientation;
+    }
+
+    public void setBtnOrientation(String btnOrientation) {
+        this.btnOrientation = btnOrientation;
+    }
+
+    public List<Btn> getBtnList() {
+        return btnList;
+    }
+
+    public void setBtnList(List<Btn> btnList) {
+        this.btnList = btnList;
+    }
 }
