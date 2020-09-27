@@ -10,7 +10,7 @@ public interface RedisService<K, V> extends CacheService<K, V> {
     /**
      * default_exp_time.
      */
-    int    DEFAULT_EXP         = 24 * 60 * 60;
+    long   DEFAULT_EXP         = 24 * 60 * 60;
 
     String CACHE_KEY_DD_TOKEN  = "key_dd_token_";
 
