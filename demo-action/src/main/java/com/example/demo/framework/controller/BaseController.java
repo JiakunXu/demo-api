@@ -45,7 +45,7 @@ public class BaseController {
         }
 
         String pageSize = request.getParameter("pageSize");
-        if (StringUtils.isNotBlank(pageNo)) {
+        if (StringUtils.isNotBlank(pageSize)) {
             parameter.setPageSize(Integer.parseInt(pageSize.trim()));
         }
 
