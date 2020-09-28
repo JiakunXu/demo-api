@@ -7,6 +7,8 @@ import com.example.demo.api.dingtalk.ao.msg.Msg;
  */
 public interface ChatService {
 
+    String HTTPS_CHAT_URL = "https://oapi.dingtalk.com/chat/send";
+
     void send(String accessToken, String chatId, Msg msg);
 
 }
