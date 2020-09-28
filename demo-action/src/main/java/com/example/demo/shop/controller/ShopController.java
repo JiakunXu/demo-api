@@ -25,30 +25,31 @@ public class ShopController extends BaseController {
     private ShopService shopService;
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public ListResponse listShops(HttpServletRequest request, HttpServletResponse response) {
+    public ListResponse<Shop> listShops(HttpServletRequest request, HttpServletResponse response) {
         int count = shopService.countShop();
 
         if (count == 0) {
-            return new ListResponse<Shop>(0, null);
+            return new ListResponse<>(0, null);
         }
 
-        return new ListResponse<Shop>(count, shopService.listShops());
+        return new ListResponse<>(count, shopService.listShops());
     }
 
     @RequestMapping(value = "/detail", method = RequestMethod.GET)
-    public ObjectResponse getShop(HttpServletRequest request, HttpServletResponse response) {
-        String name = this.getParameter(request,"name");
+    public ObjectResponse<Shop> getShop(HttpServletRequest request, HttpServletResponse response) {
+        String name = this.getParameter(request, "name");
         User user = this.getParameter(request, User.class);
 
-        return new ObjectResponse<Shop>(shopService.getShop());
+        return new ObjectResponse<>(shopService.getShop());
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public ObjectResponse updateShop(HttpServletRequest request, HttpServletResponse response) {
-        String name = this.getParameter(request,"name");
+    public ObjectResponse<Shop> updateShop(HttpServletRequest request,
+                                           HttpServletResponse response) {
+        String name = this.getParameter(request, "name");
         User user = this.getParameter(request, User.class);
 
-        return new ObjectResponse<Shop>(shopService.updateShop());
+        return new ObjectResponse<>(shopService.updateShop());
     }
 
 }
