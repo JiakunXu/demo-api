@@ -1,4 +1,4 @@
-package com.example.demo.api.app.bo;
+package com.example.demo.api.dingtalk.bo;
 
 import java.io.Serializable;
 import java.math.BigInteger;

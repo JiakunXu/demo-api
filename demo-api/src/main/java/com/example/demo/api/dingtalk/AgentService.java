@@ -1,6 +1,6 @@
-package com.example.demo.api.app;
+package com.example.demo.api.dingtalk;
 
-import com.example.demo.api.app.bo.Agent;
+import com.example.demo.api.dingtalk.bo.Agent;
 
 /**
  * @author JiakunXu
