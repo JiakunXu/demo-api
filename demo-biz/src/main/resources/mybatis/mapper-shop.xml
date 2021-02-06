@@ -25,7 +25,7 @@
 	<![CDATA[
 		SELECT t.`id`,
 			   t.`name`,
-			   t.`gmt_create` AS gmtCreate
+			   t.`create_time` AS createTime
 		  FROM `tb_shop` t
 		 WHERE t.`is_deleted`= 0
 		   AND t.`id` = #{id}
@@ -35,7 +35,7 @@
 	<update id="updateShop" parameterType="shop">
 	<![CDATA[
 		UPDATE `tb_shop` t
-		   SET t.`gmt_modified` = NOW()
+		   SET t.`update_time` = NOW()
 	]]>
 		<if test="name != null and name != ''">
 		<![CDATA[ , t.`name` = #{name} ]]>

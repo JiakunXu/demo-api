@@ -17,7 +17,7 @@
 			`pic_url`,
 			`is_deleted`,
 			`creator`,
-			`gmt_create`
+			`create_time`
 		  )
 		  VALUES
 		  (

@@ -1,0 +1,93 @@
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.subscribe.dao.SubscribeDao">
+
+	<select id="countSubscribe0" parameterType="subscribe" resultType="java.lang.Integer">
+	<![CDATA[
+		SELECT COUNT(*)
+		  FROM `tb_subscribe` t
+		 WHERE t.`is_deleted` = 0
+		   AND t.`user_id` = #{userId}
+		   AND t.`app_id` = #{appId}
+		   AND t.`scene` = #{scene}
+		   AND t.`scene_id` = #{sceneId}
+	]]>
+	</select>
+
+	<select id="countSubscribe1" parameterType="subscribe" resultType="java.lang.Integer">
+	<![CDATA[
+		SELECT COUNT(*)
+		  FROM `tb_subscribe` t,
+			   `tb_tunnel` p
+		 WHERE t.`user_id` = p.`user_id`
+		   AND t.`is_deleted` = 0
+		   AND p.`is_deleted` = 0
+		   AND t.`user_id` = #{userId}
+		   AND t.`scene` = #{scene}
+		   AND t.`scene_id` = #{sceneId}
+	]]>
+	</select>
+
+	<select id="listSubscribes" parameterType="subscribe" resultType="tunnel">
+	<![CDATA[
+		SELECT p.`id`,
+			   p.`tunnel_id` AS tunnelId,
+			   p.`host`
+		  FROM `tb_subscribe` t,
+			   `tb_tunnel` p
+		 WHERE t.`user_id` = p.`user_id`
+		   AND t.`is_deleted` = 0
+		   AND p.`is_deleted` = 0
+		   AND t.`scene` = #{scene}
+		   AND t.`scene_id` = #{sceneId}
+		 ORDER BY p.`id`
+		LIMIT #{offset}, #{pageSize}
+	]]>
+	</select>
+
+	<select id="getSubscribe" parameterType="subscribe" resultType="subscribe">
+	<![CDATA[
+		SELECT t.`id`,
+			   t.`user_id` AS userId,
+			   t.`app_id` AS appId,
+			   t.`scene` AS scene,
+			   t.`scene_id` AS sceneId
+		  FROM `tb_subscribe` t
+		 WHERE t.`is_deleted` = 0
+		   AND t.`user_id` = #{userId}
+		   AND t.`app_id` = #{appId}
+		   AND t.`scene` = #{scene}
+		   AND t.`scene_id` = #{sceneId}
+		LIMIT 1
+	]]>
+	</select>
+
+	<insert id="insertSubscribe" parameterType="subscribe" useGeneratedKeys="true" keyProperty="id">
+	<![CDATA[
+		INSERT
+		INTO `tb_subscribe`
+		  (
+			`user_id`,
+			`app_id`,
+			`scene`,
+			`scene_id`,
+			`is_deleted`,
+			`creator`,
+			`create_time`
+		  )
+		  VALUES
+		  (
+			#{userId},
+			#{appId},
+			#{scene},
+			#{sceneId},
+			0,
+			#{creator},
+			NOW()
+		  )
+	]]>
+    </insert>
+	
+</mapper>
