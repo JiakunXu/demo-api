@@ -1,8 +1,14 @@
 package com.example.demo.framework.handler;
 
+import com.example.demo.api.cache.RedisService;
+import com.example.demo.api.tunnel.TunnelService;
+import com.example.demo.api.tunnel.bo.Tunnel;
+import com.example.demo.api.user.bo.User;
 import com.example.demo.socket.service.impl.WebSocketManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
@@ -18,7 +24,16 @@ import java.util.UUID;
 @Component
 public class WebSocketHandler extends TextWebSocketHandler {
 
-    private static final Logger logger = LoggerFactory.getLogger(WebSocketHandler.class);
+    private static final Logger        logger = LoggerFactory.getLogger(WebSocketHandler.class);
+
+    @Autowired
+    private RedisService<String, User> redisService;
+
+    @Autowired
+    private TunnelService              tunnelService;
+
+    @Value("${server.address}")
+    private String                     address;
 
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
@@ -32,11 +47,18 @@ public class WebSocketHandler extends TextWebSocketHandler {
             return;
         }
 
-        String tunnelId = UUID.randomUUID().toString();
+        User user = getUser((String) token);
 
-        session.getAttributes().put("tunnelId", tunnelId);
+        if (user == null) {
+            session.close(CloseStatus.BAD_DATA);
+            return;
+        }
 
-        WebSocketManager.put(tunnelId, session);
+        Tunnel tunnel = tunnelService.insertTunnel(user.getId(), address);
+
+        session.getAttributes().put("tunnelId", tunnel.getTunnelId());
+
+        WebSocketManager.put(tunnel.getTunnelId(), session);
     }
 
     @Override
@@ -63,6 +85,21 @@ public class WebSocketHandler extends TextWebSocketHandler {
 
             WebSocketManager.remove(tunnelId);
         }
+    }
+
+    /**
+     * 
+     * @param skey
+     * @return
+     */
+    private User getUser(String skey) {
+        try {
+            return redisService.get(skey);
+        } catch (Exception e) {
+            logger.error("getUser", e);
+        }
+
+        return null;
     }
 
 }

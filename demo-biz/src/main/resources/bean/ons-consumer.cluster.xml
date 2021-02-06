@@ -20,7 +20,7 @@
 					<key>
 						<bean class="com.aliyun.openservices.ons.api.bean.Subscription">
 							<property name="topic" value="${aliyun.ons.topic}"/>
-							<property name="expression" value="tag"/>
+							<property name="expression" value="chat.message||chat.update"/>
 						</bean>
 					</key>
 				</entry>
