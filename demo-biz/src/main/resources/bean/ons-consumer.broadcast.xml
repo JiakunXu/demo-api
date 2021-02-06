@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-4.1.xsd">
+
+    <bean id="consumerBroadcast" class="com.aliyun.openservices.ons.api.bean.ConsumerBean" init-method="start" destroy-method="shutdown">
+        <property name="properties">
+            <map>
+                <entry key="GROUP_ID" value="${aliyun.ons.broadcast.groupId}"/>
+                <entry key="AccessKey" value="${aliyun.accessKey.id}"/>
+                <entry key="SecretKey" value="${aliyun.accessKey.secret}"/>
+                <entry key="NAMESRV_ADDR" value="${aliyun.ons.namesrvAddr}"/>
+                <entry key="MessageModel" value="BROADCASTING"/>
+            </map>
+        </property>
+        <property name="subscriptionTable">
+            <map>
+                <entry value-ref="consumerBroadcastListener">
+                    <key>
+                        <bean class="com.aliyun.openservices.ons.api.bean.Subscription">
+                            <property name="topic" value="${aliyun.ons.topic}"/>
+                            <property name="expression" value="web.socket"/>
+                        </bean>
+                    </key>
+                </entry>
+            </map>
+        </property>
+    </bean>
+
+</beans>

@@ -5,7 +5,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
            http://www.springframework.org/schema/beans/spring-beans-4.1.xsd">
 	
-	<bean id="consumer" class="com.aliyun.openservices.ons.api.bean.ConsumerBean" init-method="start" destroy-method="shutdown">
+	<bean id="consumerCluster" class="com.aliyun.openservices.ons.api.bean.ConsumerBean" init-method="start" destroy-method="shutdown">
 		<property name="properties">
 			<map>
 				<entry key="GROUP_ID" value="${aliyun.ons.groupId}"/>
@@ -16,7 +16,7 @@
 		</property>
 		<property name="subscriptionTable">
 			<map>
-				<entry value-ref="consumerListener">
+				<entry value-ref="consumerClusterListener">
 					<key>
 						<bean class="com.aliyun.openservices.ons.api.bean.Subscription">
 							<property name="topic" value="${aliyun.ons.topic}"/>

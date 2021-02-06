@@ -13,7 +13,7 @@ public interface ProducerService {
      * @param key
      * @return
      */
-    String sendAsync(String topic, String tags, byte[] body, String key);
+    String send(String topic, String tags, byte[] body, String key);
 
     /**
      *
@@ -29,6 +29,16 @@ public interface ProducerService {
      *            ).getTime();.
      * @return
      */
-    String sendAsync(String topic, String tags, byte[] body, String key, long timeStamp);
+    String send(String topic, String tags, byte[] body, String key, long timeStamp);
+
+    /**
+     *
+     * @param topic
+     * @param tags
+     * @param body
+     * @param key
+     * @return
+     */
+    String sendOneway(String topic, String tags, byte[] body, String key);
 
 }

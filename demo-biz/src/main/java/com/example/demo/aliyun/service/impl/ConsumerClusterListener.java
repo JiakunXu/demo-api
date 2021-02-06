@@ -13,7 +13,7 @@ import com.aliyun.openservices.ons.api.MessageListener;
  * 
  */
 @Service
-public class ConsumerListener implements MessageListener {
+public class ConsumerClusterListener implements MessageListener {
 
     @Override
     public Action consume(Message message, ConsumeContext context) {

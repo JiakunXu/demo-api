@@ -20,12 +20,12 @@ public class ProducerServiceImpl implements ProducerService {
     private Producer            producer;
 
     @Override
-    public String sendAsync(String topic, String tags, byte[] body, String key) {
-        return sendAsync(topic, tags, body, key, Long.parseLong("0"));
+    public String send(String topic, String tags, byte[] body, String key) {
+        return send(topic, tags, body, key, Long.parseLong("0"));
     }
 
     @Override
-    public String sendAsync(String topic, String tags, byte[] body, String key, long timeStamp) {
+    public String send(String topic, String tags, byte[] body, String key, long timeStamp) {
         Message message = new Message(topic, tags, body);
         message.setKey(key);
 
@@ -34,20 +34,23 @@ public class ProducerServiceImpl implements ProducerService {
         }
 
         try {
-            producer.sendAsync(message, new SendCallback() {
-                @Override
-                public void onSuccess(final SendResult sendResult) {
-                }
-
-                @Override
-                public void onException(OnExceptionContext context) {
-                    logger.error("sendAsync", context.getException());
-
-                    producer.sendOneway(message);
-                }
-            });
+            producer.send(message);
         } catch (Exception e) {
-            logger.error("sendAsync", e.getMessage());
+            throw new RuntimeException(e.getMessage());
+        }
+
+        return message.getMsgID();
+    }
+
+    @Override
+    public String sendOneway(String topic, String tags, byte[] body, String key) {
+        Message message = new Message(topic, tags, body);
+        message.setKey(key);
+
+        try {
+            producer.sendOneway(message);
+        } catch (Exception e) {
+            logger.error("sendOneway", e);
         }
 
         return message.getMsgID();
