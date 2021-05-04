@@ -1,6 +1,8 @@
 package com.example.demo.api.aliyun.ao.green;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.List;
@@ -8,6 +10,8 @@ import java.util.List;
 /**
  * @author JiakunXu
  */
+@Getter
+@Setter
 public class Detail implements Serializable {
 
     private static final long serialVersionUID = -4343071563206815959L;
@@ -29,27 +33,4 @@ public class Detail implements Serializable {
     @JSONField(name = "hintWords")
     private List<HintWord>    hintWordList;
 
-    public String getLabel() {
-        return label;
-    }
-
-    public void setLabel(String label) {
-        this.label = label;
-    }
-
-    public List<Context> getContextList() {
-        return contextList;
-    }
-
-    public void setContextList(List<Context> contextList) {
-        this.contextList = contextList;
-    }
-
-    public List<HintWord> getHintWordList() {
-        return hintWordList;
-    }
-
-    public void setHintWordList(List<HintWord> hintWordList) {
-        this.hintWordList = hintWordList;
-    }
 }

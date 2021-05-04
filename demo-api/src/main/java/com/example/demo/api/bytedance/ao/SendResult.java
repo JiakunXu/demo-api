@@ -1,12 +1,16 @@
 package com.example.demo.api.bytedance.ao;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serializable;
 
 /**
  * @author JiakunXu
  */
+@Getter
+@Setter
 public class SendResult implements Serializable {
 
     private static final long serialVersionUID = 9129556361978461259L;
@@ -22,19 +26,4 @@ public class SendResult implements Serializable {
      */
     private String            msg;
 
-    public String getErrNo() {
-        return errNo;
-    }
-
-    public void setErrNo(String errNo) {
-        this.errNo = errNo;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
 }

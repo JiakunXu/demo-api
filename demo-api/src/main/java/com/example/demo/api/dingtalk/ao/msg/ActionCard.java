@@ -1,6 +1,8 @@
 package com.example.demo.api.dingtalk.ao.msg;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.List;
@@ -10,6 +12,8 @@ import java.util.List;
  * 
  * @author JiakunXu
  */
+@Getter
+@Setter
 public class ActionCard implements Serializable {
 
     private static final long serialVersionUID = 4668443912139891110L;
@@ -48,51 +52,4 @@ public class ActionCard implements Serializable {
     @JSONField(name = "btn_json_list")
     private List<Btn>         btnList;
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getMarkdown() {
-        return markdown;
-    }
-
-    public void setMarkdown(String markdown) {
-        this.markdown = markdown;
-    }
-
-    public String getSingleTitle() {
-        return singleTitle;
-    }
-
-    public void setSingleTitle(String singleTitle) {
-        this.singleTitle = singleTitle;
-    }
-
-    public String getSingleUrl() {
-        return singleUrl;
-    }
-
-    public void setSingleUrl(String singleUrl) {
-        this.singleUrl = singleUrl;
-    }
-
-    public String getBtnOrientation() {
-        return btnOrientation;
-    }
-
-    public void setBtnOrientation(String btnOrientation) {
-        this.btnOrientation = btnOrientation;
-    }
-
-    public List<Btn> getBtnList() {
-        return btnList;
-    }
-
-    public void setBtnList(List<Btn> btnList) {
-        this.btnList = btnList;
-    }
 }

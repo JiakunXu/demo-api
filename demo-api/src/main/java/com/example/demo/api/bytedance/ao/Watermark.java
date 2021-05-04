@@ -1,12 +1,16 @@
 package com.example.demo.api.bytedance.ao;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serializable;
 
 /**
  * @author JiakunXu
  */
+@Getter
+@Setter
 public class Watermark implements Serializable {
 
     private static final long serialVersionUID = -4069122113583910820L;
@@ -22,21 +26,5 @@ public class Watermark implements Serializable {
      */
     @JSONField(name = "timestamp")
     private int               timestamp;
-
-    public String getAppId() {
-        return appId;
-    }
-
-    public void setAppId(String appId) {
-        this.appId = appId;
-    }
-
-    public int getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(int timestamp) {
-        this.timestamp = timestamp;
-    }
 
 }

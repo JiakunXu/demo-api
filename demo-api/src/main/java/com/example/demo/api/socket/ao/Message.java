@@ -1,5 +1,8 @@
 package com.example.demo.api.socket.ao;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.io.Serializable;
 
 /**
@@ -8,6 +11,8 @@ import java.io.Serializable;
  * @author JiakunXu
  *
  */
+@Getter
+@Setter
 public class Message implements Serializable {
 
     private static final long serialVersionUID = 7729049438247636909L;
@@ -24,22 +29,6 @@ public class Message implements Serializable {
 
     public Message(String type, String content) {
         this.type = type;
-        this.content = content;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
         this.content = content;
     }
 

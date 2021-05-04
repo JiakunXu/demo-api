@@ -1,12 +1,16 @@
 package com.example.demo.api.bytedance.ao.text;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serializable;
 
 /**
  * @author JiakunXu
  */
+@Getter
+@Setter
 public class Task implements Serializable {
 
     private static final long serialVersionUID = -6449251347845073879L;
@@ -36,27 +40,4 @@ public class Task implements Serializable {
         this.setImageData(imageData);
     }
 
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public String getImageData() {
-        return imageData;
-    }
-
-    public void setImageData(String imageData) {
-        this.imageData = imageData;
-    }
 }

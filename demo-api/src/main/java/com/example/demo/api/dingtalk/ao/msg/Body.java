@@ -1,6 +1,8 @@
 package com.example.demo.api.dingtalk.ao.msg;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serializable;
 
@@ -9,6 +11,8 @@ import java.io.Serializable;
  * 
  * @author JiakunXu
  */
+@Getter
+@Setter
 public class Body implements Serializable {
 
     private static final long serialVersionUID = -593192103771521711L;
@@ -49,59 +53,4 @@ public class Body implements Serializable {
      */
     private String            author;
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public Form getForm() {
-        return form;
-    }
-
-    public void setForm(Form form) {
-        this.form = form;
-    }
-
-    public Rich getRich() {
-        return rich;
-    }
-
-    public void setRich(Rich rich) {
-        this.rich = rich;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public String getFileCount() {
-        return fileCount;
-    }
-
-    public void setFileCount(String fileCount) {
-        this.fileCount = fileCount;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
 }

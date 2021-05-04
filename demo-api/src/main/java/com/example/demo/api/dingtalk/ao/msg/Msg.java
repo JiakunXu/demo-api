@@ -1,12 +1,16 @@
 package com.example.demo.api.dingtalk.ao.msg;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serializable;
 
 /**
  * @author JiakunXu
  */
+@Getter
+@Setter
 public class Msg implements Serializable {
 
     private static final long serialVersionUID = -8274817384455951791L;
@@ -58,75 +62,4 @@ public class Msg implements Serializable {
     @JSONField(name = "action_card")
     private ActionCard        actionCard;
 
-    public String getMsgType() {
-        return msgType;
-    }
-
-    public void setMsgType(String msgType) {
-        this.msgType = msgType;
-    }
-
-    public Text getText() {
-        return text;
-    }
-
-    public void setText(Text text) {
-        this.text = text;
-    }
-
-    public Image getImage() {
-        return image;
-    }
-
-    public void setImage(Image image) {
-        this.image = image;
-    }
-
-    public Voice getVoice() {
-        return voice;
-    }
-
-    public void setVoice(Voice voice) {
-        this.voice = voice;
-    }
-
-    public File getFile() {
-        return file;
-    }
-
-    public void setFile(File file) {
-        this.file = file;
-    }
-
-    public Link getLink() {
-        return link;
-    }
-
-    public void setLink(Link link) {
-        this.link = link;
-    }
-
-    public Oa getOa() {
-        return oa;
-    }
-
-    public void setOa(Oa oa) {
-        this.oa = oa;
-    }
-
-    public Markdown getMarkdown() {
-        return markdown;
-    }
-
-    public void setMarkdown(Markdown markdown) {
-        this.markdown = markdown;
-    }
-
-    public ActionCard getActionCard() {
-        return actionCard;
-    }
-
-    public void setActionCard(ActionCard actionCard) {
-        this.actionCard = actionCard;
-    }
 }

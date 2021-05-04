@@ -1,6 +1,8 @@
 package com.example.demo.api.aliyun.ao.green;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.List;
@@ -8,6 +10,8 @@ import java.util.List;
 /**
  * @author JiakunXu
  */
+@Getter
+@Setter
 public class Data implements Serializable {
 
     private static final long serialVersionUID = -9188611355572141525L;
@@ -53,67 +57,4 @@ public class Data implements Serializable {
     @JSONField(name = "results")
     private List<Result>      resultList;
 
-    public int getCode() {
-        return code;
-    }
-
-    public void setCode(int code) {
-        this.code = code;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
-
-    public String getDataId() {
-        return dataId;
-    }
-
-    public void setDataId(String dataId) {
-        this.dataId = dataId;
-    }
-
-    public String getTaskId() {
-        return taskId;
-    }
-
-    public void setTaskId(String taskId) {
-        this.taskId = taskId;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public String getFilteredContent() {
-        return filteredContent;
-    }
-
-    public void setFilteredContent(String filteredContent) {
-        this.filteredContent = filteredContent;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public List<Result> getResultList() {
-        return resultList;
-    }
-
-    public void setResultList(List<Result> resultList) {
-        this.resultList = resultList;
-    }
 }

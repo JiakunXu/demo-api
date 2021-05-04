@@ -1,17 +1,23 @@
 package com.example.demo.framework.response;
 
 import com.example.demo.framework.constant.Constants;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
 /**
  * @author JiakunXu
  */
+@Getter
+@Setter
 public class ListResponse<T> extends AbstractResponse {
 
-    private Integer total;
+    private static final long serialVersionUID = -5567902033588518919L;
 
-    private List<T> list;
+    private Integer           total;
+
+    private List<T>           list;
 
     public ListResponse(int total, List<T> list) {
         this.setCode(Constants.SUCCESS);
@@ -24,19 +30,4 @@ public class ListResponse<T> extends AbstractResponse {
         this.setList(list);
     }
 
-    public Integer getTotal() {
-        return total;
-    }
-
-    public void setTotal(Integer total) {
-        this.total = total;
-    }
-
-    public List<T> getList() {
-        return list;
-    }
-
-    public void setList(List<T> list) {
-        this.list = list;
-    }
 }

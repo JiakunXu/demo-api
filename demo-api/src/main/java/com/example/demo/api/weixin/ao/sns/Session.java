@@ -2,10 +2,14 @@ package com.example.demo.api.weixin.ao.sns;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.example.demo.api.weixin.ao.BaseResult;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * @author JiakunXu
  */
+@Getter
+@Setter
 public class Session extends BaseResult {
 
     private static final long serialVersionUID = 4107709675927719697L;
@@ -28,27 +32,4 @@ public class Session extends BaseResult {
     @JSONField(name = "unionid")
     private String            unionId;
 
-    public String getOpenId() {
-        return openId;
-    }
-
-    public void setOpenId(String openId) {
-        this.openId = openId;
-    }
-
-    public String getSessionKey() {
-        return sessionKey;
-    }
-
-    public void setSessionKey(String sessionKey) {
-        this.sessionKey = sessionKey;
-    }
-
-    public String getUnionId() {
-        return unionId;
-    }
-
-    public void setUnionId(String unionId) {
-        this.unionId = unionId;
-    }
 }

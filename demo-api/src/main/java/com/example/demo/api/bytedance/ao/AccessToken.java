@@ -1,10 +1,14 @@
 package com.example.demo.api.bytedance.ao;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * @author JiakunXu
  */
+@Getter
+@Setter
 public class AccessToken extends BaseResult {
 
     private static final long serialVersionUID = 7946434239031585635L;
@@ -20,21 +24,5 @@ public class AccessToken extends BaseResult {
      */
     @JSONField(name = "expires_in")
     private int               expiresIn;
-
-    public String getAccessToken() {
-        return accessToken;
-    }
-
-    public void setAccessToken(String accessToken) {
-        this.accessToken = accessToken;
-    }
-
-    public int getExpiresIn() {
-        return expiresIn;
-    }
-
-    public void setExpiresIn(int expiresIn) {
-        this.expiresIn = expiresIn;
-    }
 
 }

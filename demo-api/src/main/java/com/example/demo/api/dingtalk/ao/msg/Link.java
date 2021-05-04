@@ -1,5 +1,8 @@
 package com.example.demo.api.dingtalk.ao.msg;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.io.Serializable;
 
 /**
@@ -7,6 +10,8 @@ import java.io.Serializable;
  *
  * @author JiakunXu
  */
+@Getter
+@Setter
 public class Link implements Serializable {
 
     private static final long serialVersionUID = -7430554786771839102L;
@@ -31,35 +36,4 @@ public class Link implements Serializable {
      */
     private String            text;
 
-    public String getMessageUrl() {
-        return messageUrl;
-    }
-
-    public void setMessageUrl(String messageUrl) {
-        this.messageUrl = messageUrl;
-    }
-
-    public String getPicUrl() {
-        return picUrl;
-    }
-
-    public void setPicUrl(String picUrl) {
-        this.picUrl = picUrl;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
 }

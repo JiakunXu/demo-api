@@ -1,12 +1,16 @@
 package com.example.demo.api.weixin.ao;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * 获取用户基本信息(UnionID机制)
  *
  * @author JiakunXu
  */
+@Getter
+@Setter
 public class UserInfo extends BaseResult {
 
     private static final long serialVersionUID = 4291734362406176678L;

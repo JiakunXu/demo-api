@@ -1,6 +1,8 @@
 package com.example.demo.api.bytedance.bo;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serializable;
 import java.math.BigInteger;
@@ -8,6 +10,8 @@ import java.math.BigInteger;
 /**
  * @author JiakunXu
  */
+@Getter
+@Setter
 public class Message implements Serializable {
 
     private static final long serialVersionUID = -5501483433983115912L;
@@ -49,61 +53,5 @@ public class Message implements Serializable {
      */
     @JSONField(name = "PicUrl")
     private String            picUrl;
-
-    public BigInteger getId() {
-        return id;
-    }
-
-    public void setId(BigInteger id) {
-        this.id = id;
-    }
-
-    public String getToUserName() {
-        return toUserName;
-    }
-
-    public void setToUserName(String toUserName) {
-        this.toUserName = toUserName;
-    }
-
-    public String getFromUserName() {
-        return fromUserName;
-    }
-
-    public void setFromUserName(String fromUserName) {
-        this.fromUserName = fromUserName;
-    }
-
-    public BigInteger getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(BigInteger createTime) {
-        this.createTime = createTime;
-    }
-
-    public String getMsgType() {
-        return msgType;
-    }
-
-    public void setMsgType(String msgType) {
-        this.msgType = msgType;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public String getPicUrl() {
-        return picUrl;
-    }
-
-    public void setPicUrl(String picUrl) {
-        this.picUrl = picUrl;
-    }
 
 }

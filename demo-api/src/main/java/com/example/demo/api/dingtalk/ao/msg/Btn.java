@@ -1,12 +1,16 @@
 package com.example.demo.api.dingtalk.ao.msg;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serializable;
 
 /**
  * @author JiakunXu
  */
+@Getter
+@Setter
 public class Btn implements Serializable {
 
     private static final long serialVersionUID = -8236177777900407174L;
@@ -22,19 +26,4 @@ public class Btn implements Serializable {
     @JSONField(name = "action_url")
     private String            actionUrl;
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getActionUrl() {
-        return actionUrl;
-    }
-
-    public void setActionUrl(String actionUrl) {
-        this.actionUrl = actionUrl;
-    }
 }

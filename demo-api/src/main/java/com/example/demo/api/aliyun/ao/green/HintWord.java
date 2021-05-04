@@ -1,10 +1,15 @@
 package com.example.demo.api.aliyun.ao.green;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.io.Serializable;
 
 /**
  * @author JiakunXu
  */
+@Getter
+@Setter
 public class HintWord implements Serializable {
 
     private static final long serialVersionUID = 5057944306650178521L;
@@ -14,11 +19,4 @@ public class HintWord implements Serializable {
      */
     private String            context;
 
-    public String getContext() {
-        return context;
-    }
-
-    public void setContext(String context) {
-        this.context = context;
-    }
 }

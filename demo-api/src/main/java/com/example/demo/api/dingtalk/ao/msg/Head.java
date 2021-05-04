@@ -1,6 +1,8 @@
 package com.example.demo.api.dingtalk.ao.msg;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serializable;
 
@@ -9,6 +11,8 @@ import java.io.Serializable;
  * 
  * @author JiakunXu
  */
+@Getter
+@Setter
 public class Head implements Serializable {
 
     private static final long serialVersionUID = -2574581895307075078L;
@@ -24,19 +28,4 @@ public class Head implements Serializable {
      */
     private String            text;
 
-    public String getBgColor() {
-        return bgColor;
-    }
-
-    public void setBgColor(String bgColor) {
-        this.bgColor = bgColor;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
 }

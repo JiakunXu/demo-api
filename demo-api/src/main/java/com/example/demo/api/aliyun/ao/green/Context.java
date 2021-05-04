@@ -1,10 +1,15 @@
 package com.example.demo.api.aliyun.ao.green;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.io.Serializable;
 
 /**
  * @author JiakunXu
  */
+@Getter
+@Setter
 public class Context implements Serializable {
 
     private static final long serialVersionUID = -3082497641746240428L;
@@ -36,35 +41,4 @@ public class Context implements Serializable {
      */
     private String            ruleType;
 
-    public String getContext() {
-        return context;
-    }
-
-    public void setContext(String context) {
-        this.context = context;
-    }
-
-    public String getLibName() {
-        return libName;
-    }
-
-    public void setLibName(String libName) {
-        this.libName = libName;
-    }
-
-    public String getLibCode() {
-        return libCode;
-    }
-
-    public void setLibCode(String libCode) {
-        this.libCode = libCode;
-    }
-
-    public String getRuleType() {
-        return ruleType;
-    }
-
-    public void setRuleType(String ruleType) {
-        this.ruleType = ruleType;
-    }
 }

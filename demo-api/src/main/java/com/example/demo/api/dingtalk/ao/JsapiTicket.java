@@ -1,10 +1,14 @@
 package com.example.demo.api.dingtalk.ao;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * @author JiakunXu
  */
+@Getter
+@Setter
 public class JsapiTicket extends BaseResult {
 
     private static final long serialVersionUID = 833025693307240187L;
@@ -20,19 +24,4 @@ public class JsapiTicket extends BaseResult {
     @JSONField(name = "expires_in")
     private Long              expiresIn;
 
-    public String getTicket() {
-        return ticket;
-    }
-
-    public void setTicket(String ticket) {
-        this.ticket = ticket;
-    }
-
-    public Long getExpiresIn() {
-        return expiresIn;
-    }
-
-    public void setExpiresIn(Long expiresIn) {
-        this.expiresIn = expiresIn;
-    }
 }

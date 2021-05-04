@@ -1,10 +1,14 @@
 package com.example.demo.api.weixin.ao;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * @author JiakunXu
  */
+@Getter
+@Setter
 public class WxaCode extends BaseResult {
 
     private static final long serialVersionUID = 2805710848332841282L;
@@ -51,69 +55,5 @@ public class WxaCode extends BaseResult {
      * 数据 Buffer.
      */
     private byte[]            buffer;
-
-    public String getScene() {
-        return scene;
-    }
-
-    public void setScene(String scene) {
-        this.scene = scene;
-    }
-
-    public String getPage() {
-        return page;
-    }
-
-    public void setPage(String page) {
-        this.page = page;
-    }
-
-    public Integer getWidth() {
-        return width;
-    }
-
-    public void setWidth(Integer width) {
-        this.width = width;
-    }
-
-    public Boolean getAutoColor() {
-        return autoColor;
-    }
-
-    public void setAutoColor(Boolean autoColor) {
-        this.autoColor = autoColor;
-    }
-
-    public LineColor getLineColor() {
-        return lineColor;
-    }
-
-    public void setLineColor(LineColor lineColor) {
-        this.lineColor = lineColor;
-    }
-
-    public Boolean getHyaline() {
-        return hyaline;
-    }
-
-    public void setHyaline(Boolean hyaline) {
-        this.hyaline = hyaline;
-    }
-
-    public String getContentType() {
-        return contentType;
-    }
-
-    public void setContentType(String contentType) {
-        this.contentType = contentType;
-    }
-
-    public byte[] getBuffer() {
-        return buffer;
-    }
-
-    public void setBuffer(byte[] buffer) {
-        this.buffer = buffer;
-    }
 
 }

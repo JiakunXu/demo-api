@@ -1,6 +1,8 @@
 package com.example.demo.api.dingtalk.ao.msg;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serializable;
 
@@ -9,6 +11,8 @@ import java.io.Serializable;
  *
  * @author JiakunXu
  */
+@Getter
+@Setter
 public class Oa implements Serializable {
 
     private static final long serialVersionUID = -5096367706138112295L;
@@ -29,35 +33,4 @@ public class Oa implements Serializable {
      */
     private Body              body;
 
-    public String getMessageUrl() {
-        return messageUrl;
-    }
-
-    public void setMessageUrl(String messageUrl) {
-        this.messageUrl = messageUrl;
-    }
-
-    public String getPcMessageUrl() {
-        return pcMessageUrl;
-    }
-
-    public void setPcMessageUrl(String pcMessageUrl) {
-        this.pcMessageUrl = pcMessageUrl;
-    }
-
-    public Head getHead() {
-        return head;
-    }
-
-    public void setHead(Head head) {
-        this.head = head;
-    }
-
-    public Body getBody() {
-        return body;
-    }
-
-    public void setBody(Body body) {
-        this.body = body;
-    }
 }

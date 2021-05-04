@@ -1,12 +1,16 @@
 package com.example.demo.api.bytedance.ao;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serializable;
 
 /**
  * @author JiakunXu
  */
+@Getter
+@Setter
 public class Callback implements Serializable {
 
     private static final long serialVersionUID = 5112078717110427827L;
@@ -20,35 +24,4 @@ public class Callback implements Serializable {
 
     private String            timestamp;
 
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
-
-    public String getMsgSignature() {
-        return msgSignature;
-    }
-
-    public void setMsgSignature(String msgSignature) {
-        this.msgSignature = msgSignature;
-    }
-
-    public String getNonce() {
-        return nonce;
-    }
-
-    public void setNonce(String nonce) {
-        this.nonce = nonce;
-    }
-
-    public String getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(String timestamp) {
-        this.timestamp = timestamp;
-    }
 }

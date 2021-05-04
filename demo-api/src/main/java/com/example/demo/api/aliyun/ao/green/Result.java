@@ -1,10 +1,14 @@
 package com.example.demo.api.aliyun.ao.green;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.List;
 
+@Getter
+@Setter
 public class Result implements Serializable {
 
     private static final long serialVersionUID = 2367280980327731603L;
@@ -38,43 +42,4 @@ public class Result implements Serializable {
     @JSONField(name = "details")
     private List<Detail>      detailList;
 
-    public String getScene() {
-        return scene;
-    }
-
-    public void setScene(String scene) {
-        this.scene = scene;
-    }
-
-    public String getSuggestion() {
-        return suggestion;
-    }
-
-    public void setSuggestion(String suggestion) {
-        this.suggestion = suggestion;
-    }
-
-    public String getLabel() {
-        return label;
-    }
-
-    public void setLabel(String label) {
-        this.label = label;
-    }
-
-    public float getRate() {
-        return rate;
-    }
-
-    public void setRate(float rate) {
-        this.rate = rate;
-    }
-
-    public List<Detail> getDetailList() {
-        return detailList;
-    }
-
-    public void setDetailList(List<Detail> detailList) {
-        this.detailList = detailList;
-    }
 }

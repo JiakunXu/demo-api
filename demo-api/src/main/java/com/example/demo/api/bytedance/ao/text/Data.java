@@ -1,6 +1,8 @@
 package com.example.demo.api.bytedance.ao.text;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.List;
@@ -8,6 +10,8 @@ import java.util.List;
 /**
  * @author JiakunXu
  */
+@Getter
+@Setter
 public class Data implements Serializable {
 
     private static final long serialVersionUID = -6952598677610899377L;
@@ -39,45 +43,5 @@ public class Data implements Serializable {
      */
     @JSONField(name = "predicts")
     private List<Predict>     predictList;
-
-    public int getCode() {
-        return code;
-    }
-
-    public void setCode(int code) {
-        this.code = code;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
-
-    public String getDataId() {
-        return dataId;
-    }
-
-    public void setDataId(String dataId) {
-        this.dataId = dataId;
-    }
-
-    public String getTaskId() {
-        return taskId;
-    }
-
-    public void setTaskId(String taskId) {
-        this.taskId = taskId;
-    }
-
-    public List<Predict> getPredictList() {
-        return predictList;
-    }
-
-    public void setPredictList(List<Predict> predictList) {
-        this.predictList = predictList;
-    }
 
 }

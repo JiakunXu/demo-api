@@ -3,10 +3,14 @@ package com.example.demo.api.weixin.ao;
 import java.io.Serializable;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * @author JiakunXu
  */
+@Getter
+@Setter
 public class BaseResult implements Serializable {
 
     private static final long serialVersionUID = -5653302225467940287L;
@@ -16,21 +20,5 @@ public class BaseResult implements Serializable {
 
     @JSONField(name = "errmsg")
     private String            errMsg;
-
-    public String getErrCode() {
-        return errCode;
-    }
-
-    public void setErrCode(String errCode) {
-        this.errCode = errCode;
-    }
-
-    public String getErrMsg() {
-        return errMsg;
-    }
-
-    public void setErrMsg(String errMsg) {
-        this.errMsg = errMsg;
-    }
 
 }

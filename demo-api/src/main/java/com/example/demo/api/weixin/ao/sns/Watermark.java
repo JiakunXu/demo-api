@@ -3,10 +3,14 @@ package com.example.demo.api.weixin.ao.sns;
 import java.io.Serializable;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * @author JiakunXu
  */
+@Getter
+@Setter
 public class Watermark implements Serializable {
 
     private static final long serialVersionUID = -946609595011819810L;
@@ -23,19 +27,4 @@ public class Watermark implements Serializable {
     @JSONField(name = "timestamp")
     private int               timestamp;
 
-    public String getAppId() {
-        return appId;
-    }
-
-    public void setAppId(String appId) {
-        this.appId = appId;
-    }
-
-    public int getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(int timestamp) {
-        this.timestamp = timestamp;
-    }
 }

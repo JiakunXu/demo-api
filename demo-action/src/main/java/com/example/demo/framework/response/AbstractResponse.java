@@ -1,12 +1,19 @@
 package com.example.demo.framework.response;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.io.Serializable;
 import java.util.Map;
 
 /**
  * @author JiakunXu
  */
+@Getter
+@Setter
 public abstract class AbstractResponse implements Serializable {
+
+    private static final long   serialVersionUID = -2112675577113436644L;
 
     private String              code;
 

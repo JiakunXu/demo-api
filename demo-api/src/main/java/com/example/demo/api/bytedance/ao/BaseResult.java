@@ -1,12 +1,16 @@
 package com.example.demo.api.bytedance.ao;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serializable;
 
 /**
  * @author JiakunXu
  */
+@Getter
+@Setter
 public class BaseResult implements Serializable {
 
     private static final long serialVersionUID = -7764030576212518819L;
@@ -22,21 +26,5 @@ public class BaseResult implements Serializable {
      */
     @JSONField(name = "errmsg")
     private String            errMsg;
-
-    public String getErrCode() {
-        return errCode;
-    }
-
-    public void setErrCode(String errCode) {
-        this.errCode = errCode;
-    }
-
-    public String getErrMsg() {
-        return errMsg;
-    }
-
-    public void setErrMsg(String errMsg) {
-        this.errMsg = errMsg;
-    }
 
 }

@@ -1,6 +1,8 @@
 package com.example.demo.api.dingtalk.ao.msg;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serializable;
 
@@ -9,6 +11,8 @@ import java.io.Serializable;
  *
  * @author JiakunXu
  */
+@Getter
+@Setter
 public class Voice implements Serializable {
 
     private static final long serialVersionUID = 4294199519111389389L;
@@ -26,19 +30,4 @@ public class Voice implements Serializable {
     @JSONField(name = "duration")
     private String            duration;
 
-    public String getMediaId() {
-        return mediaId;
-    }
-
-    public void setMediaId(String mediaId) {
-        this.mediaId = mediaId;
-    }
-
-    public String getDuration() {
-        return duration;
-    }
-
-    public void setDuration(String duration) {
-        this.duration = duration;
-    }
 }

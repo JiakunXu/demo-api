@@ -2,12 +2,16 @@ package com.example.demo.api.weixin.ao.sns;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.example.demo.api.weixin.ao.BaseResult;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * 如果用户在微信客户端中访问第三方网页，公众号可以通过微信网页授权机制，来获取用户基本信息，进而实现业务逻辑。
  *
  * @author JiakunXu
  */
+@Getter
+@Setter
 public class UserInfo extends BaseResult {
 
     private static final long serialVersionUID = -1214732071184914158L;
@@ -61,75 +65,4 @@ public class UserInfo extends BaseResult {
     @JSONField(name = "unionid")
     private String            unionId;
 
-    public String getOpenId() {
-        return openId;
-    }
-
-    public void setOpenId(String openId) {
-        this.openId = openId;
-    }
-
-    public String getNickName() {
-        return nickName;
-    }
-
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
-    }
-
-    public String getSex() {
-        return sex;
-    }
-
-    public void setSex(String sex) {
-        this.sex = sex;
-    }
-
-    public String getProvince() {
-        return province;
-    }
-
-    public void setProvince(String province) {
-        this.province = province;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public String getHeadImgUrl() {
-        return headImgUrl;
-    }
-
-    public void setHeadImgUrl(String headImgUrl) {
-        this.headImgUrl = headImgUrl;
-    }
-
-    public String[] getPrivilege() {
-        return privilege;
-    }
-
-    public void setPrivilege(String[] privilege) {
-        this.privilege = privilege;
-    }
-
-    public String getUnionId() {
-        return unionId;
-    }
-
-    public void setUnionId(String unionId) {
-        this.unionId = unionId;
-    }
 }

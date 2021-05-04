@@ -1,11 +1,15 @@
 package com.example.demo.api.weixin.ao;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.dom4j.Element;
 import org.dom4j.VisitorSupport;
 
 /**
  * @author JiakunXu
  */
+@Getter
+@Setter
 public class BaseReturn extends VisitorSupport {
 
     /**
@@ -33,19 +37,4 @@ public class BaseReturn extends VisitorSupport {
         }
     }
 
-    public String getReturnCode() {
-        return returnCode;
-    }
-
-    public void setReturnCode(String returnCode) {
-        this.returnCode = returnCode;
-    }
-
-    public String getReturnMsg() {
-        return returnMsg;
-    }
-
-    public void setReturnMsg(String returnMsg) {
-        this.returnMsg = returnMsg;
-    }
 }

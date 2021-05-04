@@ -1,10 +1,14 @@
 package com.example.demo.api.bytedance.ao;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * @author JiakunXu
  */
+@Getter
+@Setter
 public class Session extends BaseResult {
 
     private static final long serialVersionUID = -4488739136579434757L;
@@ -26,29 +30,5 @@ public class Session extends BaseResult {
      */
     @JSONField(name = "anonymous_openid")
     private String            anonymousOpenId;
-
-    public String getSessionKey() {
-        return sessionKey;
-    }
-
-    public void setSessionKey(String sessionKey) {
-        this.sessionKey = sessionKey;
-    }
-
-    public String getOpenId() {
-        return openId;
-    }
-
-    public void setOpenId(String openId) {
-        this.openId = openId;
-    }
-
-    public String getAnonymousOpenId() {
-        return anonymousOpenId;
-    }
-
-    public void setAnonymousOpenId(String anonymousOpenId) {
-        this.anonymousOpenId = anonymousOpenId;
-    }
 
 }

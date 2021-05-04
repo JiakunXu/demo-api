@@ -1,5 +1,8 @@
 package com.example.demo.api.dingtalk.ao.msg;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.io.Serializable;
 
 /**
@@ -7,6 +10,8 @@ import java.io.Serializable;
  * 
  * @author JiakunXu
  */
+@Getter
+@Setter
 public class Form implements Serializable {
 
     private static final long serialVersionUID = -7216945136571863045L;
@@ -21,19 +26,4 @@ public class Form implements Serializable {
      */
     private String            value;
 
-    public String getKey() {
-        return key;
-    }
-
-    public void setKey(String key) {
-        this.key = key;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
 }

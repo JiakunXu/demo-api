@@ -1,12 +1,16 @@
 package com.example.demo.api.bytedance.ao.text;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serializable;
 
 /**
  * @author JiakunXu
  */
+@Getter
+@Setter
 public class Predict implements Serializable {
 
     private static final long serialVersionUID = -6768050574984180332L;
@@ -26,29 +30,5 @@ public class Predict implements Serializable {
      * 检测结果-置信度-概率，值为 0 或者 1，当值为 1 时表示检测的文本包含违法违规内容.
      */
     private int               prob;
-
-    public String getTarget() {
-        return target;
-    }
-
-    public void setTarget(String target) {
-        this.target = target;
-    }
-
-    public String getModelName() {
-        return modelName;
-    }
-
-    public void setModelName(String modelName) {
-        this.modelName = modelName;
-    }
-
-    public int getProb() {
-        return prob;
-    }
-
-    public void setProb(int prob) {
-        this.prob = prob;
-    }
 
 }
