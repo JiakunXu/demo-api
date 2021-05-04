@@ -53,7 +53,7 @@ public class BaseController {
     }
 
     public <T> T getParameter(HttpServletRequest request, Class<T> clazz) {
-        if (!MediaType.APPLICATION_JSON_VALUE.equals(request.getContentType())) {
+        if (!StringUtils.contains(request.getContentType(), MediaType.APPLICATION_JSON_VALUE)) {
             return null;
         }
 
@@ -69,7 +69,7 @@ public class BaseController {
     }
 
     public <T> List<T> getParameterList(HttpServletRequest request, Class<T> clazz) {
-        if (!MediaType.APPLICATION_JSON_VALUE.equals(request.getContentType())) {
+        if (!StringUtils.contains(request.getContentType(), MediaType.APPLICATION_JSON_VALUE)) {
             return null;
         }
 
