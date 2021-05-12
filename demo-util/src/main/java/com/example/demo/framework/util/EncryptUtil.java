@@ -28,7 +28,7 @@ public class EncryptUtil {
         byte[] bytes = null;
 
         try {
-            MessageDigest md = MessageDigest.getInstance("SHA-1");
+            MessageDigest md = MessageDigest.getInstance("SHA-512");
             bytes = md.digest(data.getBytes(Consts.UTF_8));
         } catch (GeneralSecurityException gse) {
             throw new IOException(gse);
