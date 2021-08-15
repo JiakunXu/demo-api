@@ -71,26 +71,27 @@ public class HttpUtil {
      * @throws Exception
      */
     public static String post(String uri, Map<String, String> parameter) throws Exception {
-        return post(uri, parameter, Consts.UTF_8);
+        return post(uri, parameter, null);
     }
 
     /**
      * @param uri
      * @param parameter
-     * @param charset
+     * @param header
      * @return
      * @throws Exception
      */
     public static String post(String uri, Map<String, String> parameter,
-                              Charset charset) throws Exception {
+                              Map<String, String> header) throws Exception {
         CloseableHttpClient httpclient = HttpClients.createDefault();
 
         try {
             List<NameValuePair> parameters = getParameters(parameter);
-            UrlEncodedFormEntity entity = new UrlEncodedFormEntity(parameters, charset);
+            UrlEncodedFormEntity entity = new UrlEncodedFormEntity(parameters, Consts.UTF_8);
 
             HttpPost httppost = new HttpPost(uri);
             httppost.setEntity(entity);
+            httppost.setHeaders(getHeaders(header));
 
             // Create a custom response handler
             ResponseHandler<String> responseHandler = new ResponseHandler<String>() {
@@ -171,7 +172,8 @@ public class HttpUtil {
      * @throws Exception
      */
     public static String post(String uri, Map<String, String> parameter0,
-                              Map<String, InputStream> parameter1) throws Exception {
+                              Map<String, InputStream> parameter1,
+                              Map<String, String> header) throws Exception {
         CloseableHttpClient httpclient = HttpClients.createDefault();
 
         try {
