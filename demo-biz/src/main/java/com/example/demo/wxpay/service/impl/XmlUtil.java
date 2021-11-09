@@ -1,4 +1,4 @@
-package com.example.demo.weixin.service.impl;
+package com.example.demo.wxpay.service.impl;
 
 import org.apache.commons.lang3.StringUtils;
 import org.dom4j.Document;

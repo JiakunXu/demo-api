@@ -1,6 +1,6 @@
-package com.example.demo.api.weixin;
+package com.example.demo.api.wxpay;
 
-import com.example.demo.api.weixin.ao.UnifiedOrder;
+import com.example.demo.api.wxpay.ao.UnifiedOrder;
 
 /**
  * @author JiakunXu

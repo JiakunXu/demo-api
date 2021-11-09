@@ -1,4 +1,4 @@
-package com.example.demo.weixin.service.impl;
+package com.example.demo.wxpay.service.impl;
 
 import java.io.IOException;
 
@@ -7,9 +7,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.api.weixin.UnifiedOrderService;
-import com.example.demo.api.weixin.ao.UnifiedOrder;
-import com.example.demo.api.weixin.ao.UnifiedOrderReturn;
+import com.example.demo.api.wxpay.UnifiedOrderService;
+import com.example.demo.api.wxpay.ao.UnifiedOrder;
+import com.example.demo.api.wxpay.ao.UnifiedOrderReturn;
 import com.example.demo.framework.util.EncryptUtil;
 import com.example.demo.framework.util.HttpUtil;
 
