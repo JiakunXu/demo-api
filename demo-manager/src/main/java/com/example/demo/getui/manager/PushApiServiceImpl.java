@@ -1,4 +1,4 @@
-package com.example.demo.getui.service;
+package com.example.demo.getui.manager;
 
 import com.alibaba.fastjson.JSONObject;
 import com.example.demo.getui.api.PushApiService;
