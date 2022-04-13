@@ -1,4 +1,4 @@
-package com.example.demo.dingtalk.service;
+package com.example.demo.dingtalk.manager;
 
 import com.alibaba.fastjson.JSON;
 import com.dingtalk.api.DefaultDingTalkClient;
