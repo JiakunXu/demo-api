@@ -8,5 +8,6 @@
            http://dubbo.apache.org/schema/dubbo/dubbo.xsd">
 
     <!-- 引用服务接口 -->
+    <!-- dubbo:reference id="" interface="com.example..api.." / -->
 
 </beans>
