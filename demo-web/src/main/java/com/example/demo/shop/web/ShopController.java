@@ -1,9 +1,9 @@
-package com.example.demo.shop.controller;
+package com.example.demo.shop.web;
 
 import com.example.demo.shop.api.ShopService;
 import com.example.demo.shop.api.bo.Shop;
 import com.example.demo.user.api.bo.User;
-import com.example.demo.framework.controller.BaseController;
+import com.example.demo.framework.web.BaseController;
 import com.example.demo.framework.response.ListResponse;
 import com.example.demo.framework.response.ObjectResponse;
 import org.springframework.beans.factory.annotation.Autowired;

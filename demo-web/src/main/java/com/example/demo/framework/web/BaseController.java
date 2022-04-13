@@ -1,4 +1,4 @@
-package com.example.demo.framework.controller;
+package com.example.demo.framework.web;
 
 import com.alibaba.fastjson.JSON;
 import com.example.demo.framework.bo.BaseBo;
