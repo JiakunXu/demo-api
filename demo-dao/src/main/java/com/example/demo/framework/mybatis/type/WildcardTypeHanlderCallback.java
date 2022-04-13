@@ -1,6 +1,5 @@
 package com.example.demo.framework.mybatis.type;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.TypeHandler;
 
@@ -17,7 +16,7 @@ public class WildcardTypeHanlderCallback implements TypeHandler<String> {
     @Override
     public void setParameter(PreparedStatement ps, int i, String parameter,
                              JdbcType jdbcType) throws SQLException {
-        if (StringUtils.isBlank(parameter)) {
+        if (parameter == null) {
             ps.setString(i, "%");
         } else {
             parameter = parameter.replace("%", "\\%");
