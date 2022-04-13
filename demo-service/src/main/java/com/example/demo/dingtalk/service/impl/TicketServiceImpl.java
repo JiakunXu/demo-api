@@ -1,10 +1,10 @@
 package com.example.demo.dingtalk.service.impl;
 
-import com.example.demo.api.cache.RedisService;
-import com.example.demo.api.dingtalk.JsapiTicketService;
-import com.example.demo.api.dingtalk.TicketService;
-import com.example.demo.api.dingtalk.TokenService;
-import com.example.demo.api.dingtalk.ao.JsapiTicket;
+import com.example.demo.cache.api.RedisService;
+import com.example.demo.dingtalk.api.JsapiTicketService;
+import com.example.demo.dingtalk.api.TicketService;
+import com.example.demo.dingtalk.api.TokenService;
+import com.example.demo.dingtalk.api.ao.JsapiTicket;
 import com.example.demo.framework.exception.ServiceException;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;

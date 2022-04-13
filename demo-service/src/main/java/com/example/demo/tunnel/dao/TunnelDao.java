@@ -1,6 +1,6 @@
 package com.example.demo.tunnel.dao;
 
-import com.example.demo.api.tunnel.bo.Tunnel;
+import com.example.demo.tunnel.api.bo.Tunnel;
 
 /**
  * @author JiakunXu

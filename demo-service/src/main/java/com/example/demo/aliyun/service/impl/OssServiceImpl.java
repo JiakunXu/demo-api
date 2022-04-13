@@ -14,7 +14,7 @@ import com.aliyun.oss.OSSClientBuilder;
 import com.aliyun.oss.OSSException;
 import com.aliyun.oss.model.ObjectMetadata;
 import com.aliyun.oss.model.PutObjectRequest;
-import com.example.demo.api.aliyun.OssService;
+import com.example.demo.aliyun.api.OssService;
 import com.example.demo.framework.exception.ServiceException;
 
 /**

@@ -1,7 +1,7 @@
 package com.example.demo.chat.service.impl;
 
-import com.example.demo.api.chat.ChatStatusService;
-import com.example.demo.api.subscribe.SubscribeService;
+import com.example.demo.chat.api.ChatStatusService;
+import com.example.demo.subscribe.api.SubscribeService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

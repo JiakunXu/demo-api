@@ -1,8 +1,8 @@
 package com.example.demo.weixin.service.impl;
 
 import com.alibaba.fastjson.JSON;
-import com.example.demo.api.weixin.WxaService;
-import com.example.demo.api.weixin.ao.WxaCode;
+import com.example.demo.weixin.api.WxaService;
+import com.example.demo.weixin.api.ao.WxaCode;
 import com.example.demo.framework.util.HttpUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;

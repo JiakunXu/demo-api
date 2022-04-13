@@ -1,6 +1,6 @@
 package com.example.demo.bytedance.dao;
 
-import com.example.demo.api.bytedance.bo.Message;
+import com.example.demo.bytedance.api.bo.Message;
 
 /**
  * @author JiakunXu

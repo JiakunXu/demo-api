@@ -1,10 +1,10 @@
 package com.example.demo.bytedance.service.impl;
 
 import com.alibaba.fastjson.JSON;
-import com.example.demo.api.bytedance.MessageService;
-import com.example.demo.api.bytedance.TokenService;
-import com.example.demo.api.bytedance.ao.SendResult;
-import com.example.demo.api.bytedance.bo.Message;
+import com.example.demo.bytedance.api.MessageService;
+import com.example.demo.bytedance.api.TokenService;
+import com.example.demo.bytedance.api.ao.SendResult;
+import com.example.demo.bytedance.api.bo.Message;
 import com.example.demo.bytedance.dao.MessageDao;
 import com.example.demo.framework.constant.Constants;
 import com.example.demo.framework.exception.ServiceException;

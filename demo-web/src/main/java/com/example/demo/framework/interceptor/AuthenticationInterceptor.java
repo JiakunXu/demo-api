@@ -1,6 +1,6 @@
 package com.example.demo.framework.interceptor;
 
-import com.example.demo.api.cache.RedisService;
+import com.example.demo.cache.api.RedisService;
 import com.example.demo.framework.constant.Constants;
 import com.example.demo.framework.exception.ServiceException;
 import com.example.demo.framework.util.ThreadLocalUtil;

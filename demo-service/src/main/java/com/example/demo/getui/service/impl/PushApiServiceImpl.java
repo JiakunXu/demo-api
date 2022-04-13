@@ -1,7 +1,7 @@
 package com.example.demo.getui.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
-import com.example.demo.api.getui.PushApiService;
+import com.example.demo.getui.api.PushApiService;
 import com.getui.push.v2.sdk.ApiHelper;
 import com.getui.push.v2.sdk.GtApiConfiguration;
 import com.getui.push.v2.sdk.api.PushApi;

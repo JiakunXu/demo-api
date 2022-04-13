@@ -4,6 +4,7 @@ import com.alibaba.fastjson.annotation.JSONField;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -11,19 +12,36 @@ import java.util.Date;
  */
 @Getter
 @Setter
-public class BaseBo extends BaseParameter {
+public class BaseBo implements Serializable {
 
     private static final long serialVersionUID = 6425935261415820282L;
 
-    @JSONField(serialize = false)
-    private Boolean           deleted;
+    private String            search;
 
-    private String            creator;
+    private String            startDate;
 
-    private String            modifier;
+    private String            endDate;
 
-    private Date              createTime;
+    /**
+     * @see com.example.demo.framework.config.JsonConfigurer
+     */
+    private String[]          codes;
 
-    private Date              updateTime;
+    /**
+     * 排序字段.
+     */
+    private String            sort;
+
+    /**
+     * 排序类型.
+     */
+    private String            dir;
+
+    /**
+     * 分页号，从1开始.
+     */
+    private Integer           pageNo;
+
+    private Integer           pageSize;
 
 }

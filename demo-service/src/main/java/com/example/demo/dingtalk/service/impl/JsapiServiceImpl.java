@@ -1,10 +1,10 @@
 package com.example.demo.dingtalk.service.impl;
 
-import com.example.demo.api.dingtalk.AgentService;
-import com.example.demo.api.dingtalk.JsapiService;
-import com.example.demo.api.dingtalk.TicketService;
-import com.example.demo.api.dingtalk.ao.Jsapi;
-import com.example.demo.api.dingtalk.bo.Agent;
+import com.example.demo.dingtalk.api.AgentService;
+import com.example.demo.dingtalk.api.JsapiService;
+import com.example.demo.dingtalk.api.TicketService;
+import com.example.demo.dingtalk.api.ao.Jsapi;
+import com.example.demo.dingtalk.api.bo.Agent;
 import com.example.demo.framework.util.EncryptUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;

@@ -1,8 +1,8 @@
 package com.example.demo.bytedance.service.impl;
 
 import com.alibaba.fastjson.JSON;
-import com.example.demo.api.bytedance.Code2SessionService;
-import com.example.demo.api.bytedance.ao.Session;
+import com.example.demo.bytedance.api.Code2SessionService;
+import com.example.demo.bytedance.api.ao.Session;
 import com.example.demo.framework.util.HttpUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;

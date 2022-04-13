@@ -1,8 +1,8 @@
 package com.example.demo.weixin.service.impl;
 
 import com.alibaba.fastjson.JSON;
-import com.example.demo.api.weixin.PhoneNumberService;
-import com.example.demo.api.weixin.ao.sns.PhoneNumber;
+import com.example.demo.weixin.api.PhoneNumberService;
+import com.example.demo.weixin.api.ao.sns.PhoneNumber;
 import org.apache.commons.lang3.StringUtils;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.util.encoders.Base64;

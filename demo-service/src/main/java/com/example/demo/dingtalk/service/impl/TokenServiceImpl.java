@@ -1,9 +1,9 @@
 package com.example.demo.dingtalk.service.impl;
 
-import com.example.demo.api.cache.RedisService;
-import com.example.demo.api.dingtalk.AccessTokenService;
-import com.example.demo.api.dingtalk.TokenService;
-import com.example.demo.api.dingtalk.ao.AccessToken;
+import com.example.demo.cache.api.RedisService;
+import com.example.demo.dingtalk.api.AccessTokenService;
+import com.example.demo.dingtalk.api.TokenService;
+import com.example.demo.dingtalk.api.ao.AccessToken;
 import com.example.demo.framework.exception.ServiceException;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;

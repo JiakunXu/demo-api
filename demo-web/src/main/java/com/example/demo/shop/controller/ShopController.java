@@ -1,8 +1,8 @@
 package com.example.demo.shop.controller;
 
-import com.example.demo.api.shop.ShopService;
-import com.example.demo.api.shop.bo.Shop;
-import com.example.demo.api.user.bo.User;
+import com.example.demo.shop.api.ShopService;
+import com.example.demo.shop.api.bo.Shop;
+import com.example.demo.user.api.bo.User;
 import com.example.demo.framework.controller.BaseController;
 import com.example.demo.framework.response.ListResponse;
 import com.example.demo.framework.response.ObjectResponse;

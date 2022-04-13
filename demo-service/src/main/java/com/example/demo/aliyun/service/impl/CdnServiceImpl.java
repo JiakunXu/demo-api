@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.api.aliyun.CdnService;
+import com.example.demo.aliyun.api.CdnService;
 import com.example.demo.framework.util.EncryptUtil;
 
 /**

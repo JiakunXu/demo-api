@@ -10,9 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.api.weixin.JsapiService;
-import com.example.demo.api.weixin.TicketService;
-import com.example.demo.api.weixin.ao.Jsapi;
+import com.example.demo.weixin.api.JsapiService;
+import com.example.demo.weixin.api.TicketService;
+import com.example.demo.weixin.api.ao.Jsapi;
 import com.example.demo.framework.util.EncryptUtil;
 
 /**

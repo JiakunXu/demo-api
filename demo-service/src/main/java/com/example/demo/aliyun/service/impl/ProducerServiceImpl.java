@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.aliyun.openservices.ons.api.*;
-import com.example.demo.api.aliyun.ProducerService;
+import com.example.demo.aliyun.api.ProducerService;
 
 /**
  * @author JiakunXu

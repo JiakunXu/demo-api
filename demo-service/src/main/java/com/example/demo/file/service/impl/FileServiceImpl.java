@@ -1,15 +1,18 @@
 package com.example.demo.file.service.impl;
 
 import com.alibaba.fastjson.JSON;
-import com.example.demo.api.aliyun.OssService;
-import com.example.demo.api.bytedance.ImageService;
-import com.example.demo.api.bytedance.TokenService;
-import com.example.demo.api.bytedance.ao.text.*;
-import com.example.demo.api.file.FileService;
-import com.example.demo.api.file.bo.File;
+import com.example.demo.aliyun.api.OssService;
+import com.example.demo.bytedance.api.ImageService;
+import com.example.demo.bytedance.api.TokenService;
+import com.example.demo.file.api.FileService;
+import com.example.demo.file.api.bo.File;
+import com.example.demo.bytedance.api.ao.text.Body;
+import com.example.demo.bytedance.api.ao.text.Data;
+import com.example.demo.bytedance.api.ao.text.Log;
+import com.example.demo.bytedance.api.ao.text.Predict;
+import com.example.demo.bytedance.api.ao.text.Task;
 import com.example.demo.framework.constant.Constants;
 import com.example.demo.framework.exception.ServiceException;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
@@ -20,7 +23,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;

@@ -1,11 +1,11 @@
 package com.example.demo.shop.service.impl;
 
 import com.alibaba.fastjson.JSON;
-import com.example.demo.api.shop.IShopService;
+import com.example.demo.shop.api.IShopService;
 import com.example.demo.framework.exception.ServiceException;
 import com.example.demo.shop.dao.ShopDao;
-import com.example.demo.api.shop.ShopService;
-import com.example.demo.api.shop.bo.Shop;
+import com.example.demo.shop.api.ShopService;
+import com.example.demo.shop.api.bo.Shop;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,7 +1,7 @@
 package com.example.demo.framework.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.example.demo.api.user.bo.User;
+import com.example.demo.user.api.bo.User;
 import com.example.demo.framework.bo.BaseParameter;
 import com.example.demo.framework.util.ThreadLocalUtil;
 import org.apache.commons.io.IOUtils;

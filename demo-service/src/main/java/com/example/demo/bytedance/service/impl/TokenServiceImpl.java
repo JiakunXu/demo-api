@@ -1,9 +1,9 @@
 package com.example.demo.bytedance.service.impl;
 
-import com.example.demo.api.bytedance.AccessTokenService;
-import com.example.demo.api.bytedance.TokenService;
-import com.example.demo.api.bytedance.ao.AccessToken;
-import com.example.demo.api.cache.RedisService;
+import com.example.demo.bytedance.api.AccessTokenService;
+import com.example.demo.bytedance.api.TokenService;
+import com.example.demo.bytedance.api.ao.AccessToken;
+import com.example.demo.cache.api.RedisService;
 import com.example.demo.framework.exception.ServiceException;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;

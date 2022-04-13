@@ -4,7 +4,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.example.demo.api.weixin.MediaService;
+import com.example.demo.weixin.api.MediaService;
 import com.example.demo.framework.util.HttpUtil;
 
 /**

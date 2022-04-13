@@ -1,9 +1,9 @@
 package com.example.demo.framework.handler;
 
-import com.example.demo.api.cache.RedisService;
-import com.example.demo.api.tunnel.TunnelService;
-import com.example.demo.api.tunnel.bo.Tunnel;
-import com.example.demo.api.user.bo.User;
+import com.example.demo.cache.api.RedisService;
+import com.example.demo.tunnel.api.TunnelService;
+import com.example.demo.tunnel.api.bo.Tunnel;
+import com.example.demo.user.api.bo.User;
 import com.example.demo.socket.manager.WebSocketManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

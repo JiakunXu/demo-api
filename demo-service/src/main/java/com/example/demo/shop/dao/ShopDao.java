@@ -1,6 +1,6 @@
 package com.example.demo.shop.dao;
 
-import com.example.demo.api.shop.bo.Shop;
+import com.example.demo.shop.api.bo.Shop;
 
 import java.util.List;
 

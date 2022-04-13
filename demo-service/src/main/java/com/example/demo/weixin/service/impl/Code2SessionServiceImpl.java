@@ -6,8 +6,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSON;
-import com.example.demo.api.weixin.Code2SessionService;
-import com.example.demo.api.weixin.ao.sns.Session;
+import com.example.demo.weixin.api.Code2SessionService;
+import com.example.demo.weixin.api.ao.sns.Session;
 import com.example.demo.framework.util.HttpUtil;
 
 /**

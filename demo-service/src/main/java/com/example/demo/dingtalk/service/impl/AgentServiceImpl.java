@@ -1,8 +1,8 @@
 package com.example.demo.dingtalk.service.impl;
 
 import com.alibaba.fastjson.JSON;
-import com.example.demo.api.dingtalk.AgentService;
-import com.example.demo.api.dingtalk.bo.Agent;
+import com.example.demo.dingtalk.api.AgentService;
+import com.example.demo.dingtalk.api.bo.Agent;
 import com.example.demo.dingtalk.dao.AgentDao;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;

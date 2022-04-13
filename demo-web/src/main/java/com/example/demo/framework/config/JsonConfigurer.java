@@ -1,6 +1,7 @@
 package com.example.demo.framework.config;
 
 import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.alibaba.fastjson.serializer.SimplePropertyPreFilter;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
@@ -26,6 +27,9 @@ public class JsonConfigurer {
         FastJsonConfig fastJsonConfig = new FastJsonConfig();
         fastJsonConfig.setSerializerFeatures(SerializerFeature.WriteNullListAsEmpty,
             SerializerFeature.WriteDateUseDateFormat);
+        SimplePropertyPreFilter serializeFilter = new SimplePropertyPreFilter();
+        serializeFilter.getExcludes().add("codes");
+        fastJsonConfig.setSerializeFilters(serializeFilter);
 
         FastJsonHttpMessageConverter fastJsonHttpMessageConverter = new FastJsonHttpMessageConverter();
         fastJsonHttpMessageConverter.setSupportedMediaTypes(supportedMediaTypes);

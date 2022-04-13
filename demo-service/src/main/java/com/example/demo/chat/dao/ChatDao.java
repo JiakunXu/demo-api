@@ -1,6 +1,6 @@
 package com.example.demo.chat.dao;
 
-import com.example.demo.api.chat.bo.Chat;
+import com.example.demo.chat.api.bo.Chat;
 
 import java.util.List;
 

@@ -6,8 +6,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSON;
-import com.example.demo.api.weixin.AccessTokenService;
-import com.example.demo.api.weixin.ao.AccessToken;
+import com.example.demo.weixin.api.AccessTokenService;
+import com.example.demo.weixin.api.ao.AccessToken;
 import com.example.demo.framework.util.HttpUtil;
 
 /**

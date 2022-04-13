@@ -13,7 +13,7 @@ import com.aliyuncs.exceptions.ClientException;
 import com.aliyuncs.exceptions.ServerException;
 import com.aliyuncs.http.MethodType;
 import com.aliyuncs.profile.DefaultProfile;
-import com.example.demo.api.aliyun.SmsService;
+import com.example.demo.aliyun.api.SmsService;
 import com.example.demo.framework.exception.ServiceException;
 
 /**

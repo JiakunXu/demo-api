@@ -1,11 +1,10 @@
 package com.example.demo.chat.service.impl;
 
 import com.alibaba.fastjson.JSON;
-import com.example.demo.api.aliyun.ProducerService;
-import com.example.demo.api.chat.ChatDetailService;
-import com.example.demo.api.chat.bo.Chat;
-import com.example.demo.api.chat.bo.ChatDetail;
-import com.example.demo.api.user.bo.User;
+import com.example.demo.aliyun.api.ProducerService;
+import com.example.demo.chat.api.ChatDetailService;
+import com.example.demo.chat.api.bo.Chat;
+import com.example.demo.chat.api.bo.ChatDetail;
 import com.example.demo.chat.dao.ChatDetailDao;
 import com.example.demo.framework.constant.Constants;
 import com.example.demo.framework.exception.ServiceException;

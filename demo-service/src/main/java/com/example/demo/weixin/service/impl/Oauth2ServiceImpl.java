@@ -6,9 +6,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSON;
-import com.example.demo.api.weixin.Oauth2Service;
-import com.example.demo.api.weixin.ao.sns.AccessToken;
-import com.example.demo.api.weixin.ao.sns.UserInfo;
+import com.example.demo.weixin.api.Oauth2Service;
+import com.example.demo.weixin.api.ao.sns.AccessToken;
+import com.example.demo.weixin.api.ao.sns.UserInfo;
 import com.example.demo.framework.util.HttpUtil;
 
 /**

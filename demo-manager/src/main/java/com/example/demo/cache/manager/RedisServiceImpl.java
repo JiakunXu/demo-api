@@ -1,6 +1,6 @@
 package com.example.demo.cache.manager;
 
-import com.example.demo.api.cache.RedisService;
+import com.example.demo.cache.api.RedisService;
 import com.example.demo.framework.exception.ServiceException;
 import org.joda.time.DateTime;
 import org.joda.time.Seconds;

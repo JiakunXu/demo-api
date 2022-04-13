@@ -1,6 +1,6 @@
 package com.example.demo.dingtalk.dao;
 
-import com.example.demo.api.dingtalk.bo.Agent;
+import com.example.demo.dingtalk.api.bo.Agent;
 
 /**
  * @author JiakunXu

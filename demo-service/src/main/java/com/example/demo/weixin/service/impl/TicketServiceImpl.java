@@ -1,16 +1,16 @@
 package com.example.demo.weixin.service.impl;
 
-import com.example.demo.api.cache.RedisService;
+import com.example.demo.cache.api.RedisService;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.api.weixin.JsapiTicketService;
-import com.example.demo.api.weixin.TicketService;
-import com.example.demo.api.weixin.TokenService;
-import com.example.demo.api.weixin.ao.JsapiTicket;
+import com.example.demo.weixin.api.JsapiTicketService;
+import com.example.demo.weixin.api.TicketService;
+import com.example.demo.weixin.api.TokenService;
+import com.example.demo.weixin.api.ao.JsapiTicket;
 import com.example.demo.framework.exception.ServiceException;
 
 /**

@@ -1,8 +1,8 @@
 package com.example.demo.tunnel.service.impl;
 
 import com.alibaba.fastjson.JSON;
-import com.example.demo.api.tunnel.TunnelService;
-import com.example.demo.api.tunnel.bo.Tunnel;
+import com.example.demo.tunnel.api.TunnelService;
+import com.example.demo.tunnel.api.bo.Tunnel;
 import com.example.demo.framework.constant.Constants;
 import com.example.demo.framework.exception.ServiceException;
 import com.example.demo.tunnel.dao.TunnelDao;

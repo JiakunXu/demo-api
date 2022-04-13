@@ -1,6 +1,6 @@
 package com.example.demo.socket.manager;
 
-import com.example.demo.api.socket.WebSocketService;
+import com.example.demo.socket.api.WebSocketService;
 import com.example.demo.framework.constant.Constants;
 import com.example.demo.framework.exception.ServiceException;
 import org.apache.commons.lang3.StringUtils;

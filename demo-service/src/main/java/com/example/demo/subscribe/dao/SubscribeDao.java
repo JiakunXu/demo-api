@@ -1,7 +1,7 @@
 package com.example.demo.subscribe.dao;
 
-import com.example.demo.api.subscribe.bo.Subscribe;
-import com.example.demo.api.tunnel.bo.Tunnel;
+import com.example.demo.subscribe.api.bo.Subscribe;
+import com.example.demo.tunnel.api.bo.Tunnel;
 
 import java.util.List;
 

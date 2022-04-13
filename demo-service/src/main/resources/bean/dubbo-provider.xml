@@ -8,6 +8,6 @@
            http://dubbo.apache.org/schema/dubbo/dubbo.xsd">
 
 	<!-- 声明需要暴露的服务接口 -->
-    <dubbo:service interface="com.example.demo.api.shop.IShopService" ref="shopService" />
+    <dubbo:service interface="com.example.demo.shop.api.IShopService" ref="shopService" />
 
 </beans>
