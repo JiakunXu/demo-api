@@ -1,4 +1,4 @@
-package com.example.demo.aliyun.api.ao.green;
+package com.example.demo.aliyun.api.bo.green;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -10,7 +10,7 @@ import com.aliyuncs.http.HttpResponse;
 import com.aliyuncs.profile.DefaultProfile;
 import com.aliyuncs.profile.IClientProfile;
 import com.example.demo.aliyun.api.GreenTextService;
-import com.example.demo.aliyun.api.ao.green.Return;
+import com.example.demo.aliyun.api.bo.green.Return;
 import com.example.demo.framework.exception.ServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

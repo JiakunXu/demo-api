@@ -1,4 +1,4 @@
-package com.example.demo.aliyun.api.ao.green;
+package com.example.demo.aliyun.api.bo.green;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import lombok.Getter;

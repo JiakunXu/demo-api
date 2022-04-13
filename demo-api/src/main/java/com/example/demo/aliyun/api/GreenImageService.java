@@ -1,6 +1,6 @@
 package com.example.demo.aliyun.api;
 
-import com.example.demo.aliyun.api.ao.green.Return;
+import com.example.demo.aliyun.api.bo.green.Return;
 
 /**
  * @author JiakunXu
