@@ -1,4 +1,4 @@
-package com.example.demo.bytedance.service;
+package com.example.demo.bytedance.manager;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;

@@ -1,7 +1,7 @@
-package com.example.demo.bytedance.service;
+package com.example.demo.bytedance.manager;
 
 import com.alibaba.fastjson.JSON;
-import com.example.demo.bytedance.api.TextService;
+import com.example.demo.bytedance.api.ImageService;
 import com.example.demo.bytedance.api.bo.text.Body;
 import com.example.demo.bytedance.api.bo.text.Log;
 import com.example.demo.framework.util.HttpUtil;
@@ -17,9 +17,9 @@ import java.util.Map;
  * @author JiakunXu
  */
 @Service
-public class TextServiceImpl implements TextService {
+public class ImageServiceImpl implements ImageService {
 
-    private static final Logger logger = LoggerFactory.getLogger(TextServiceImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(ImageServiceImpl.class);
 
     @Override
     public Log detect(String accessToken, Body body) throws RuntimeException {
@@ -38,7 +38,7 @@ public class TextServiceImpl implements TextService {
             header.put("X-Token", accessToken);
 
             log = JSON.parseObject(
-                HttpUtil.post(TextService.HTTPS_DETECT_URL, JSON.toJSONString(body), header),
+                HttpUtil.post(ImageService.HTTPS_DETECT_URL, JSON.toJSONString(body), header),
                 Log.class);
         } catch (Exception e) {
             logger.error(JSON.toJSONString(body), e);

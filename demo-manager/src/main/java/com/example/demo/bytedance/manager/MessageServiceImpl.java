@@ -1,4 +1,4 @@
-package com.example.demo.bytedance.service;
+package com.example.demo.bytedance.manager;
 
 import com.alibaba.fastjson.JSON;
 import com.example.demo.bytedance.api.MessageService;
