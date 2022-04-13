@@ -34,7 +34,7 @@ public class MessageDO extends BaseDO {
      * 消息创建时间.
      */
     @JSONField(name = "CreateTime")
-    private BigInteger        createTime;
+    private BigInteger        craeteTime;
 
     /**
      * 消息类型.
