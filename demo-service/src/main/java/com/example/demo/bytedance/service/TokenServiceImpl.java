@@ -2,7 +2,7 @@ package com.example.demo.bytedance.service;
 
 import com.example.demo.bytedance.api.AccessTokenService;
 import com.example.demo.bytedance.api.TokenService;
-import com.example.demo.bytedance.api.ao.AccessToken;
+import com.example.demo.bytedance.api.bo.AccessToken;
 import com.example.demo.cache.api.RedisService;
 import com.example.demo.framework.exception.ServiceException;
 import org.apache.commons.lang3.StringUtils;

@@ -1,6 +1,6 @@
 package com.example.demo.weixin.api;
 
-import com.example.demo.weixin.api.ao.sns.PhoneNumber;
+import com.example.demo.weixin.api.bo.sns.PhoneNumber;
 
 /**
  * @author JiakunXu

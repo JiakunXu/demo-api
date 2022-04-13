@@ -1,6 +1,6 @@
 package com.example.demo.weixin.api;
 
-import com.example.demo.weixin.api.ao.JsapiTicket;
+import com.example.demo.weixin.api.bo.JsapiTicket;
 
 /**
  * @author JiakunXu

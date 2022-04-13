@@ -1,6 +1,6 @@
 package com.example.demo.weixin.api;
 
-import com.example.demo.weixin.api.ao.BaseResult;
+import com.example.demo.weixin.api.bo.BaseResult;
 
 /**
  * @author JiakunXu

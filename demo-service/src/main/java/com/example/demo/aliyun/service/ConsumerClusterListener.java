@@ -41,7 +41,7 @@ public class ConsumerClusterListener implements MessageListener {
                 ChatDetail chatDetail = JSON.parseObject(message.getBody(), ChatDetail.class);
 
                 subscribeService.sendMessage("app", sceneId,
-                    new com.example.demo.socket.api.ao.Message(
+                    new com.example.demo.socket.api.bo.Message(
                         "chat." + chatDetail.getFriendId() + ".message",
                         new String(message.getBody())));
 

@@ -6,7 +6,7 @@ import com.dingtalk.api.DingTalkClient;
 import com.dingtalk.api.request.OapiChatSendRequest;
 import com.dingtalk.api.response.OapiChatSendResponse;
 import com.example.demo.dingtalk.api.ChatService;
-import com.example.demo.dingtalk.api.ao.msg.Msg;
+import com.example.demo.dingtalk.api.bo.msg.Msg;
 import com.taobao.api.ApiException;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;

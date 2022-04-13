@@ -13,8 +13,8 @@
             <unpack>true</unpack>
             <unpackOptions>
                 <includes>
-                    <include>com/example/demo/api/shop/I*</include>
-                    <include>com/example/demo/api/shop/bo/*</include>
+                    <include>com/example/demo/shop/api/I*</include>
+                    <include>com/example/demo/shop/api/bo/*</include>
                     <include>com/example/demo/framework/**</include>
                     <include>license/*</include>
                     <include>META-INF/**</include>

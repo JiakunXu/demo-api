@@ -1,6 +1,6 @@
 package com.example.demo.subscribe.api;
 
-import com.example.demo.socket.api.ao.Message;
+import com.example.demo.socket.api.bo.Message;
 import com.example.demo.subscribe.api.bo.Subscribe;
 import com.example.demo.tunnel.api.bo.Tunnel;
 

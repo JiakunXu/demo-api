@@ -1,6 +1,6 @@
 package com.example.demo.bytedance.api;
 
-import com.example.demo.bytedance.api.ao.AccessToken;
+import com.example.demo.bytedance.api.bo.AccessToken;
 
 /**
  * @author JiakunXu

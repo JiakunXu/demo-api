@@ -10,8 +10,8 @@ import java.security.KeyStore;
 import javax.net.ssl.SSLContext;
 
 import com.example.demo.wxpay.api.TransfersService;
-import com.example.demo.wxpay.api.ao.Transfers;
-import com.example.demo.wxpay.api.ao.TransfersReturn;
+import com.example.demo.wxpay.api.bo.Transfers;
+import com.example.demo.wxpay.api.bo.TransfersReturn;
 import com.example.demo.framework.util.EncryptUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpEntity;

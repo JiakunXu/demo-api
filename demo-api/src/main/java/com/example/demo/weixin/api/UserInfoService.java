@@ -1,7 +1,7 @@
 package com.example.demo.weixin.api;
 
-import com.example.demo.weixin.api.ao.UserInfo;
-import com.example.demo.weixin.api.ao.sns.MiniUserInfo;
+import com.example.demo.weixin.api.bo.UserInfo;
+import com.example.demo.weixin.api.bo.sns.MiniUserInfo;
 
 /**
  * @author JiakunXu

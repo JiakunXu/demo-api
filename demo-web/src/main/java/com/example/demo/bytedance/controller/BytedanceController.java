@@ -2,7 +2,7 @@ package com.example.demo.bytedance.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.example.demo.bytedance.api.MessageService;
-import com.example.demo.bytedance.api.ao.Callback;
+import com.example.demo.bytedance.api.bo.Callback;
 import com.example.demo.framework.controller.BaseController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

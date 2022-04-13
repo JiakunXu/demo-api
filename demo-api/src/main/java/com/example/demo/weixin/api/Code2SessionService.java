@@ -1,6 +1,6 @@
 package com.example.demo.weixin.api;
 
-import com.example.demo.weixin.api.ao.sns.Session;
+import com.example.demo.weixin.api.bo.sns.Session;
 
 /**
  * @author JiakunXu

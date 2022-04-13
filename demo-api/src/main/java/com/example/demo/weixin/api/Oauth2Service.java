@@ -1,7 +1,7 @@
 package com.example.demo.weixin.api;
 
-import com.example.demo.weixin.api.ao.sns.AccessToken;
-import com.example.demo.weixin.api.ao.sns.UserInfo;
+import com.example.demo.weixin.api.bo.sns.AccessToken;
+import com.example.demo.weixin.api.bo.sns.UserInfo;
 
 /**
  * @author JiakunXu

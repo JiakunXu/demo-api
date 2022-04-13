@@ -2,7 +2,7 @@ package com.example.demo.bytedance.service;
 
 import com.alibaba.fastjson.JSON;
 import com.example.demo.bytedance.api.UserInfoService;
-import com.example.demo.bytedance.api.ao.UserInfo;
+import com.example.demo.bytedance.api.bo.UserInfo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 

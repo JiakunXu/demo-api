@@ -1,6 +1,6 @@
 package com.example.demo.wxpay.api;
 
-import com.example.demo.wxpay.api.ao.UnifiedOrder;
+import com.example.demo.wxpay.api.bo.UnifiedOrder;
 
 /**
  * @author JiakunXu

@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.weixin.api.JsapiService;
 import com.example.demo.weixin.api.TicketService;
-import com.example.demo.weixin.api.ao.Jsapi;
+import com.example.demo.weixin.api.bo.Jsapi;
 import com.example.demo.framework.util.EncryptUtil;
 
 /**

@@ -5,7 +5,7 @@ import com.dingtalk.api.DefaultDingTalkClient;
 import com.dingtalk.api.request.OapiGettokenRequest;
 import com.dingtalk.api.response.OapiGettokenResponse;
 import com.example.demo.dingtalk.api.AccessTokenService;
-import com.example.demo.dingtalk.api.ao.AccessToken;
+import com.example.demo.dingtalk.api.bo.AccessToken;
 import com.taobao.api.ApiException;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;

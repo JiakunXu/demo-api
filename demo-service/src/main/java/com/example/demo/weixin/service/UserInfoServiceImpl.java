@@ -1,6 +1,6 @@
 package com.example.demo.weixin.service;
 
-import com.example.demo.weixin.api.ao.sns.MiniUserInfo;
+import com.example.demo.weixin.api.bo.sns.MiniUserInfo;
 import org.apache.commons.lang3.StringUtils;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.util.encoders.Base64;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSON;
 import com.example.demo.weixin.api.UserInfoService;
-import com.example.demo.weixin.api.ao.UserInfo;
+import com.example.demo.weixin.api.bo.UserInfo;
 import com.example.demo.framework.util.HttpUtil;
 
 import javax.crypto.Cipher;

@@ -6,7 +6,7 @@ import com.dingtalk.api.DingTalkClient;
 import com.dingtalk.api.request.OapiUserGetRequest;
 import com.dingtalk.api.response.OapiUserGetResponse;
 import com.example.demo.dingtalk.api.UserService;
-import com.example.demo.dingtalk.api.ao.User;
+import com.example.demo.dingtalk.api.bo.User;
 import com.taobao.api.ApiException;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;

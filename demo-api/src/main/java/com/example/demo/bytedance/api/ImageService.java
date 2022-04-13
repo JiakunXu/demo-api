@@ -1,7 +1,7 @@
 package com.example.demo.bytedance.api;
 
-import com.example.demo.bytedance.api.ao.text.Body;
-import com.example.demo.bytedance.api.ao.text.Log;
+import com.example.demo.bytedance.api.bo.text.Body;
+import com.example.demo.bytedance.api.bo.text.Log;
 
 /**
  * @author JiakunXu

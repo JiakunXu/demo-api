@@ -1,6 +1,6 @@
 package com.example.demo.wxpay.api;
 
-import com.example.demo.wxpay.api.ao.Transfers;
+import com.example.demo.wxpay.api.bo.Transfers;
 
 public interface TransfersService {
 

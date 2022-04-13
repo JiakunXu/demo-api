@@ -1,6 +1,6 @@
 package com.example.demo.dingtalk.api;
 
-import com.example.demo.dingtalk.api.ao.msg.Msg;
+import com.example.demo.dingtalk.api.bo.msg.Msg;
 
 /**
  * @author JiakunXu

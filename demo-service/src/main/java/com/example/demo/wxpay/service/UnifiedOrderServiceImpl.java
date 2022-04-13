@@ -8,8 +8,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.wxpay.api.UnifiedOrderService;
-import com.example.demo.wxpay.api.ao.UnifiedOrder;
-import com.example.demo.wxpay.api.ao.UnifiedOrderReturn;
+import com.example.demo.wxpay.api.bo.UnifiedOrder;
+import com.example.demo.wxpay.api.bo.UnifiedOrderReturn;
 import com.example.demo.framework.util.EncryptUtil;
 import com.example.demo.framework.util.HttpUtil;
 

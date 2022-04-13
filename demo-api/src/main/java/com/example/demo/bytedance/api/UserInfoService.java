@@ -1,6 +1,6 @@
 package com.example.demo.bytedance.api;
 
-import com.example.demo.bytedance.api.ao.UserInfo;
+import com.example.demo.bytedance.api.bo.UserInfo;
 
 /**
  * @author JiakunXu
