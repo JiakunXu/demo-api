@@ -1,4 +1,4 @@
-package com.example.demo.bytedance.manager;
+package com.example.demo.bytedance.service;
 
 import com.example.demo.bytedance.api.AccessTokenService;
 import com.example.demo.bytedance.api.TokenService;
