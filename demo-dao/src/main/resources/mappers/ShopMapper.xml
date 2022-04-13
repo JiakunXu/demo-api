@@ -4,7 +4,7 @@
 
 <mapper namespace="com.example.demo.shop.dao.mapper.ShopMapper">
 
-	<select id="countShop" parameterType="shop" resultType="java.lang.Integer">
+	<select id="count" parameterType="shopDO" resultType="java.lang.Integer">
 	<![CDATA[
 		SELECT COUNT(1)
 		  FROM `tb_shop` t
@@ -12,7 +12,7 @@
 	]]>
 	</select>
 
-	<select id="listShops" parameterType="shop" resultType="shop">
+	<select id="list" parameterType="shopDO" resultType="shopDO">
 	<![CDATA[
 		SELECT t.`id`,
 			   t.`name`
@@ -21,7 +21,7 @@
 	]]>
 	</select>
 	
-	<select id="getShop" parameterType="shop" resultType="shop">
+	<select id="get" parameterType="shopDO" resultType="shopDO">
 	<![CDATA[
 		SELECT t.`id`,
 			   t.`name`,
@@ -32,7 +32,7 @@
 	]]>
 	</select>
 
-	<update id="updateShop" parameterType="shop">
+	<update id="update" parameterType="shopDO">
 	<![CDATA[
 		UPDATE `tb_shop` t
 		   SET t.`update_time` = NOW()

@@ -4,7 +4,7 @@
 
 <mapper namespace="com.example.demo.chat.dao.mapper.ChatMapper">
 
-	<select id="countChat" parameterType="chat" resultType="java.lang.Integer">
+	<select id="count" parameterType="chatDO" resultType="java.lang.Integer">
 	<![CDATA[
 		SELECT COUNT(*)
 		  FROM `tb_chat` t
@@ -14,7 +14,7 @@
 	]]>
 	</select>
 
-	<select id="listChats" parameterType="chat" resultType="chat">
+	<select id="list" parameterType="chatDO" resultType="chatDO">
 	<![CDATA[
 		SELECT t.`id`,
 			   t.`user_id` AS userId,
@@ -30,7 +30,7 @@
 	]]>
 	</select>
 
-	<select id="getChat" parameterType="chat" resultType="chat">
+	<select id="get" parameterType="chatDO" resultType="chatDO">
 	<![CDATA[
 		SELECT t.`id`,
 			   t.`user_id` AS userId,
@@ -45,7 +45,7 @@
 	]]>
 	</select>
 
-	<insert id="insertChat" parameterType="chat" useGeneratedKeys="true" keyProperty="id">
+	<insert id="insert" parameterType="chatDO" useGeneratedKeys="true" keyProperty="id">
 	<![CDATA[
 		INSERT
 		INTO `tb_chat`
@@ -73,7 +73,7 @@
 	]]>
 	</insert>
 
-	<update id="updateChat" parameterType="chat">
+	<update id="updateChat" parameterType="chatDO">
 	<![CDATA[
 		UPDATE `tb_chat` t
 		   SET t.`update_time` = NOW(),
@@ -87,7 +87,7 @@
 	]]>
 	</update>
 
-	<update id="updateUnread" parameterType="chat">
+	<update id="updateUnread" parameterType="chatDO">
 	<![CDATA[
 		UPDATE `tb_chat` t
 		   SET t.`update_time` = NOW(),

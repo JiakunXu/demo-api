@@ -4,7 +4,7 @@
 
 <mapper namespace="com.example.demo.subscribe.dao.mapper.SubscribeMapper">
 
-	<select id="countSubscribe0" parameterType="subscribe" resultType="java.lang.Integer">
+	<select id="countSubscribe0" parameterType="subscribeDO" resultType="java.lang.Integer">
 	<![CDATA[
 		SELECT COUNT(*)
 		  FROM `tb_subscribe` t
@@ -16,7 +16,7 @@
 	]]>
 	</select>
 
-	<select id="countSubscribe1" parameterType="subscribe" resultType="java.lang.Integer">
+	<select id="countSubscribe1" parameterType="subscribeDO" resultType="java.lang.Integer">
 	<![CDATA[
 		SELECT COUNT(*)
 		  FROM `tb_subscribe` t,
@@ -30,7 +30,7 @@
 	]]>
 	</select>
 
-	<select id="listSubscribes" parameterType="subscribe" resultType="tunnel">
+	<select id="listSubscribes" parameterType="subscribeDO" resultType="tunnelDO">
 	<![CDATA[
 		SELECT p.`id`,
 			   p.`tunnel_id` AS tunnelId,
@@ -47,7 +47,7 @@
 	]]>
 	</select>
 
-	<select id="getSubscribe" parameterType="subscribe" resultType="subscribe">
+	<select id="get" parameterType="subscribeDO" resultType="subscribeDO">
 	<![CDATA[
 		SELECT t.`id`,
 			   t.`user_id` AS userId,
@@ -64,7 +64,7 @@
 	]]>
 	</select>
 
-	<insert id="insertSubscribe" parameterType="subscribe" useGeneratedKeys="true" keyProperty="id">
+	<insert id="insert" parameterType="subscribeDO" useGeneratedKeys="true" keyProperty="id">
 	<![CDATA[
 		INSERT
 		INTO `tb_subscribe`

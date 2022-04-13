@@ -4,7 +4,7 @@
 
 <mapper namespace="com.example.demo.bytedance.dao.mapper.MessageMapper">
 
-    <insert id="insertMessage" parameterType="message" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insert" parameterType="messageDO" useGeneratedKeys="true" keyProperty="id">
 	<![CDATA[
 		INSERT
 		INTO `tb_message`

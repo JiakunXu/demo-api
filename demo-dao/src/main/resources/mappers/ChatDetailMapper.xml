@@ -4,7 +4,7 @@
 
 <mapper namespace="com.example.demo.chat.dao.mapper.ChatDetailMapper">
 
-	<select id="listChatDetails" parameterType="chatDetail" resultType="chatDetail">
+	<select id="list" parameterType="chatDetailDO" resultType="chatDetailDO">
 	<![CDATA[
 		SELECT t.`id`,
 			   t.`chat_id` AS chatId,
@@ -28,7 +28,7 @@
 	]]>
 	</select>
 
-	<select id="getChatDetail" parameterType="chatDetail" resultType="chatDetail">
+	<select id="get" parameterType="chatDetailDO" resultType="chatDetailDO">
 	<![CDATA[
 		SELECT t.`id`,
 			   t.`chat_id` AS chatId,
@@ -45,7 +45,7 @@
 	]]>
 	</select>
 
-	<insert id="insertChatDetail" parameterType="chatDetail" useGeneratedKeys="true" keyProperty="id">
+	<insert id="insert" parameterType="chatDetailDO" useGeneratedKeys="true" keyProperty="id">
 	<![CDATA[
 		INSERT
 		INTO `tb_chat_detail`

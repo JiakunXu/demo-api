@@ -11,6 +11,7 @@ import com.example.demo.tunnel.api.bo.Tunnel;
 import com.example.demo.framework.constant.Constants;
 import com.example.demo.framework.exception.ServiceException;
 import com.example.demo.subscribe.dao.mapper.SubscribeMapper;
+import com.example.demo.tunnel.dao.dataobject.TunnelDO;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,7 +51,7 @@ public class SubscribeServiceImpl implements SubscribeService {
         subscribeDO.setScene(scene);
         subscribeDO.setSceneId(new BigInteger(sceneId));
 
-        return countSubscribe0(subscribeDO);
+        return count0(subscribeDO);
     }
 
     @Override
@@ -64,7 +65,7 @@ public class SubscribeServiceImpl implements SubscribeService {
         subscribeDO.setScene(scene);
         subscribeDO.setSceneId(new BigInteger(sceneId));
 
-        return countSubscribe1(subscribeDO);
+        return count1(subscribeDO);
     }
 
     @Override
@@ -76,7 +77,8 @@ public class SubscribeServiceImpl implements SubscribeService {
         subscribe.setScene(scene);
         subscribe.setSceneId(new BigInteger(sceneId));
 
-        return listSubscribes(BeanUtil.copy(subscribe, SubscribeDO.class));
+        return BeanUtil.copy(listSubscribes(BeanUtil.copy(subscribe, SubscribeDO.class)),
+            Tunnel.class);
     }
 
     @Override
@@ -162,9 +164,9 @@ public class SubscribeServiceImpl implements SubscribeService {
         }
     }
 
-    private int countSubscribe0(SubscribeDO subscribeDO) {
+    private int count0(SubscribeDO subscribeDO) {
         try {
-            return subscribeMapper.countSubscribe0(subscribeDO);
+            return subscribeMapper.count0(subscribeDO);
         } catch (Exception e) {
             logger.error(JSON.toJSONString(subscribeDO), e);
         }
@@ -172,9 +174,9 @@ public class SubscribeServiceImpl implements SubscribeService {
         return 0;
     }
 
-    private int countSubscribe1(SubscribeDO subscribeDO) {
+    private int count1(SubscribeDO subscribeDO) {
         try {
-            return subscribeMapper.countSubscribe1(subscribeDO);
+            return subscribeMapper.count1(subscribeDO);
         } catch (Exception e) {
             logger.error(JSON.toJSONString(subscribeDO), e);
         }
@@ -182,7 +184,7 @@ public class SubscribeServiceImpl implements SubscribeService {
         return 0;
     }
 
-    private List<Tunnel> listSubscribes(SubscribeDO subscribeDO) {
+    private List<TunnelDO> listSubscribes(SubscribeDO subscribeDO) {
         try {
             return subscribeMapper.listSubscribes(subscribeDO);
         } catch (Exception e) {
