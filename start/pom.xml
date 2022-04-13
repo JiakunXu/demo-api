@@ -41,7 +41,7 @@
 
         <dependency>
             <groupId>com.example</groupId>
-            <artifactId>demo-action</artifactId>
+            <artifactId>demo-web</artifactId>
             <version>${project.version}</version>
         </dependency>
 
