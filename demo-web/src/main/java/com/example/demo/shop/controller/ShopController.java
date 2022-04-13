@@ -25,7 +25,7 @@ public class ShopController extends BaseController {
     private ShopService shopService;
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public ListResponse<Shop> listShops(HttpServletRequest request, HttpServletResponse response) {
+    public ListResponse<Shop> list(HttpServletRequest request, HttpServletResponse response) {
         int count = shopService.countShop();
 
         if (count == 0) {
@@ -35,8 +35,8 @@ public class ShopController extends BaseController {
         return new ListResponse<>(count, shopService.listShops());
     }
 
-    @RequestMapping(value = "/detail", method = RequestMethod.GET)
-    public ObjectResponse<Shop> getShop(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping(value = "/get", method = RequestMethod.GET)
+    public ObjectResponse<Shop> get(HttpServletRequest request, HttpServletResponse response) {
         String name = this.getParameter(request, "name");
         User user = this.getParameter(request, User.class);
 
@@ -44,8 +44,7 @@ public class ShopController extends BaseController {
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public ObjectResponse<Shop> updateShop(HttpServletRequest request,
-                                           HttpServletResponse response) {
+    public ObjectResponse<Shop> update(HttpServletRequest request, HttpServletResponse response) {
         String name = this.getParameter(request, "name");
         User user = this.getParameter(request, User.class);
 
