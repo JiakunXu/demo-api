@@ -1,4 +1,4 @@
-package com.example.demo.socket.service.impl;
+package com.example.demo.socket.manager;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,10 +13,10 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class WebSocketManager {
 
-    private static final Logger                  logger  = LoggerFactory
+    private static final Logger                        logger  = LoggerFactory
         .getLogger(WebSocketManager.class);
 
-    private static Map<String, WebSocketSession> SESSION = new ConcurrentHashMap<>();
+    private static final Map<String, WebSocketSession> SESSION = new ConcurrentHashMap<>();
 
     /**
      *

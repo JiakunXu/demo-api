@@ -4,7 +4,7 @@ import com.example.demo.api.cache.RedisService;
 import com.example.demo.api.tunnel.TunnelService;
 import com.example.demo.api.tunnel.bo.Tunnel;
 import com.example.demo.api.user.bo.User;
-import com.example.demo.socket.service.impl.WebSocketManager;
+import com.example.demo.socket.manager.WebSocketManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,6 @@ import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import java.util.Map;
-import java.util.UUID;
 
 /**
  * @author JiakunXu

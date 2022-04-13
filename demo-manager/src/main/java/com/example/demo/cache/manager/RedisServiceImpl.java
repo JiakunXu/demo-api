@@ -1,4 +1,4 @@
-package com.example.demo.cache.service.impl;
+package com.example.demo.cache.manager;
 
 import com.example.demo.api.cache.RedisService;
 import com.example.demo.framework.exception.ServiceException;

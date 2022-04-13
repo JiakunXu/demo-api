@@ -1,4 +1,4 @@
-package com.example.demo.socket.service.impl;
+package com.example.demo.socket.manager;
 
 import com.example.demo.api.socket.WebSocketService;
 import com.example.demo.framework.constant.Constants;
