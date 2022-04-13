@@ -1,4 +1,4 @@
-package com.example.demo.wxpay.service;
+package com.example.demo.wxpay.manager;
 
 import org.apache.commons.lang3.StringUtils;
 import org.dom4j.Document;

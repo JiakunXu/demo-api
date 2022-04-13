@@ -1,4 +1,4 @@
-package com.example.demo.wxpay.service;
+package com.example.demo.wxpay.manager;
 
 import java.io.IOException;
 
