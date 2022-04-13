@@ -1,4 +1,4 @@
-package com.example.demo.weixin.service;
+package com.example.demo.weixin.manager;
 
 import com.example.demo.weixin.api.bo.sns.MiniUserInfo;
 import org.apache.commons.lang3.StringUtils;

@@ -33,6 +33,11 @@
         </dependency>
 
         <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcprov-jdk15on</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>com.getui.push</groupId>
             <artifactId>restful-sdk</artifactId>
         </dependency>

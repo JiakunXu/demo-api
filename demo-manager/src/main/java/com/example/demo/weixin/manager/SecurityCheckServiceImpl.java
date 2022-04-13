@@ -1,4 +1,4 @@
-package com.example.demo.weixin.service;
+package com.example.demo.weixin.manager;
 
 import com.alibaba.fastjson.JSON;
 import com.example.demo.weixin.api.SecurityCheckService;
