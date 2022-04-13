@@ -11,7 +11,7 @@
 		  (
 			`to_user_name`,
 			`from_user_name`,
-			`create_time`,
+			`craete_time`,
 			`msg_type`,
 			`content`,
 			`pic_url`,
@@ -23,7 +23,7 @@
 		  (
 			#{toUserName},
 			#{fromUserName},
-			#{createTime},
+			#{craeteTime},
 			#{msgType},
 			#{content},
 			#{picUrl},
