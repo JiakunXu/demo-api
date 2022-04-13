@@ -14,13 +14,13 @@
     <packaging>pom</packaging>
     <version>1.0</version>
     <modules>
-        <module>demo-action</module>
+        <module>demo-web</module>
         <module>demo-api</module>
         <module>demo-biz</module>
         <module>demo-open</module>
         <module>demo-task</module>
         <module>demo-util</module>
-        <module>demo-web</module>
+        <module>start</module>
     </modules>
 
     <repositories>
