@@ -2,9 +2,11 @@ package com.example.demo.subscribe.service;
 
 import com.alibaba.fastjson.JSON;
 import com.example.demo.aliyun.api.ProducerService;
+import com.example.demo.framework.util.BeanUtil;
 import com.example.demo.socket.api.ao.Message;
 import com.example.demo.subscribe.api.SubscribeService;
 import com.example.demo.subscribe.api.bo.Subscribe;
+import com.example.demo.subscribe.dao.dataobject.SubscribeDO;
 import com.example.demo.tunnel.api.bo.Tunnel;
 import com.example.demo.framework.constant.Constants;
 import com.example.demo.framework.exception.ServiceException;
@@ -31,7 +33,7 @@ public class SubscribeServiceImpl implements SubscribeService {
     private ProducerService     producerService;
 
     @Autowired
-    private SubscribeMapper subscribeMapper;
+    private SubscribeMapper     subscribeMapper;
 
     @Value("${aliyun.ons.topic}")
     private String              topic;
@@ -42,13 +44,13 @@ public class SubscribeServiceImpl implements SubscribeService {
             return 0;
         }
 
-        Subscribe subscribe = new Subscribe();
-        subscribe.setUserId(userId);
-        subscribe.setAppId(appId);
-        subscribe.setScene(scene);
-        subscribe.setSceneId(new BigInteger(sceneId));
+        SubscribeDO subscribeDO = new SubscribeDO();
+        subscribeDO.setUserId(userId);
+        subscribeDO.setAppId(appId);
+        subscribeDO.setScene(scene);
+        subscribeDO.setSceneId(new BigInteger(sceneId));
 
-        return countSubscribe0(subscribe);
+        return countSubscribe0(subscribeDO);
     }
 
     @Override
@@ -57,12 +59,12 @@ public class SubscribeServiceImpl implements SubscribeService {
             return 0;
         }
 
-        Subscribe subscribe = new Subscribe();
-        subscribe.setUserId(userId);
-        subscribe.setScene(scene);
-        subscribe.setSceneId(new BigInteger(sceneId));
+        SubscribeDO subscribeDO = new SubscribeDO();
+        subscribeDO.setUserId(userId);
+        subscribeDO.setScene(scene);
+        subscribeDO.setSceneId(new BigInteger(sceneId));
 
-        return countSubscribe1(subscribe);
+        return countSubscribe1(subscribeDO);
     }
 
     @Override
@@ -74,7 +76,7 @@ public class SubscribeServiceImpl implements SubscribeService {
         subscribe.setScene(scene);
         subscribe.setSceneId(new BigInteger(sceneId));
 
-        return listSubscribes(subscribe);
+        return listSubscribes(BeanUtil.copy(subscribe, SubscribeDO.class));
     }
 
     @Override
@@ -84,13 +86,13 @@ public class SubscribeServiceImpl implements SubscribeService {
             return null;
         }
 
-        Subscribe subscribe = new Subscribe();
-        subscribe.setUserId(userId);
-        subscribe.setAppId(appId);
-        subscribe.setScene(scene);
-        subscribe.setSceneId(new BigInteger(sceneId));
+        SubscribeDO subscribeDO = new SubscribeDO();
+        subscribeDO.setUserId(userId);
+        subscribeDO.setAppId(appId);
+        subscribeDO.setScene(scene);
+        subscribeDO.setSceneId(new BigInteger(sceneId));
 
-        return getSubscribe(subscribe);
+        return BeanUtil.copy(get(subscribeDO), Subscribe.class);
     }
 
     @Override
@@ -100,10 +102,10 @@ public class SubscribeServiceImpl implements SubscribeService {
             throw new ServiceException(Constants.MISSING_PARAMETER, "参数信息不能为空");
         }
 
-        Subscribe subscribe = new Subscribe();
-        subscribe.setUserId(userId);
-        subscribe.setAppId(appId);
-        subscribe.setScene(scene);
+        SubscribeDO subscribeDO = new SubscribeDO();
+        subscribeDO.setUserId(userId);
+        subscribeDO.setAppId(appId);
+        subscribeDO.setScene(scene);
 
         if ("app".equals(scene)) {
             sceneId = userId.toString();
@@ -113,8 +115,8 @@ public class SubscribeServiceImpl implements SubscribeService {
             sceneId = "0";
         }
 
-        subscribe.setSceneId(new BigInteger(sceneId));
-        subscribe.setCreator(userId.toString());
+        subscribeDO.setSceneId(new BigInteger(sceneId));
+        subscribeDO.setCreator(userId.toString());
 
         Subscribe s = getSubscribe(userId, appId, scene, sceneId);
 
@@ -123,13 +125,13 @@ public class SubscribeServiceImpl implements SubscribeService {
         }
 
         try {
-            subscribeMapper.insertSubscribe(subscribe);
+            subscribeMapper.insert(subscribeDO);
         } catch (Exception e) {
-            logger.error(JSON.toJSONString(subscribe), e);
+            logger.error(JSON.toJSONString(subscribeDO), e);
             throw new ServiceException(Constants.BUSINESS_FAILED, "信息创建失败，请稍后再试");
         }
 
-        return subscribe;
+        return BeanUtil.copy(subscribeDO, Subscribe.class);
     }
 
     @Override
@@ -160,41 +162,41 @@ public class SubscribeServiceImpl implements SubscribeService {
         }
     }
 
-    private int countSubscribe0(Subscribe subscribe) {
+    private int countSubscribe0(SubscribeDO subscribeDO) {
         try {
-            return subscribeMapper.countSubscribe0(subscribe);
+            return subscribeMapper.countSubscribe0(subscribeDO);
         } catch (Exception e) {
-            logger.error(JSON.toJSONString(subscribe), e);
+            logger.error(JSON.toJSONString(subscribeDO), e);
         }
 
         return 0;
     }
 
-    private int countSubscribe1(Subscribe subscribe) {
+    private int countSubscribe1(SubscribeDO subscribeDO) {
         try {
-            return subscribeMapper.countSubscribe1(subscribe);
+            return subscribeMapper.countSubscribe1(subscribeDO);
         } catch (Exception e) {
-            logger.error(JSON.toJSONString(subscribe), e);
+            logger.error(JSON.toJSONString(subscribeDO), e);
         }
 
         return 0;
     }
 
-    private List<Tunnel> listSubscribes(Subscribe subscribe) {
+    private List<Tunnel> listSubscribes(SubscribeDO subscribeDO) {
         try {
-            return subscribeMapper.listSubscribes(subscribe);
+            return subscribeMapper.listSubscribes(subscribeDO);
         } catch (Exception e) {
-            logger.error(JSON.toJSONString(subscribe), e);
+            logger.error(JSON.toJSONString(subscribeDO), e);
         }
 
         return null;
     }
 
-    private Subscribe getSubscribe(Subscribe subscribe) {
+    private SubscribeDO get(SubscribeDO subscribeDO) {
         try {
-            return subscribeMapper.getSubscribe(subscribe);
+            return subscribeMapper.get(subscribeDO);
         } catch (Exception e) {
-            logger.error(JSON.toJSONString(subscribe), e);
+            logger.error(JSON.toJSONString(subscribeDO), e);
         }
 
         return null;

@@ -3,7 +3,9 @@ package com.example.demo.dingtalk.service;
 import com.alibaba.fastjson.JSON;
 import com.example.demo.dingtalk.api.AgentService;
 import com.example.demo.dingtalk.api.bo.Agent;
+import com.example.demo.dingtalk.dao.dataobject.AgentDO;
 import com.example.demo.dingtalk.dao.mapper.AgentMapper;
+import com.example.demo.framework.util.BeanUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +21,7 @@ public class AgentServiceImpl implements AgentService {
     private static final Logger logger = LoggerFactory.getLogger(AgentServiceImpl.class);
 
     @Autowired
-    private AgentMapper agentMapper;
+    private AgentMapper         agentMapper;
 
     @Override
     public Agent getAgent(String agentId) {
@@ -27,17 +29,17 @@ public class AgentServiceImpl implements AgentService {
             return null;
         }
 
-        Agent agent = new Agent();
-        agent.setAgentId(agentId);
+        AgentDO agentDO = new AgentDO();
+        agentDO.setAgentId(agentId);
 
-        return getAgent(agent);
+        return BeanUtil.copy(get(agentDO), Agent.class);
     }
 
-    private Agent getAgent(Agent agent) {
+    private AgentDO get(AgentDO agentDO) {
         try {
-            return agentMapper.getAgent(agent);
+            return agentMapper.get(agentDO);
         } catch (Exception e) {
-            logger.error(JSON.toJSONString(agent), e);
+            logger.error(JSON.toJSONString(agentDO), e);
         }
 
         return null;

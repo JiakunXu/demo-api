@@ -1,8 +1,10 @@
 package com.example.demo.shop.service;
 
 import com.alibaba.fastjson.JSON;
+import com.example.demo.framework.util.BeanUtil;
 import com.example.demo.shop.api.IShopService;
 import com.example.demo.framework.exception.ServiceException;
+import com.example.demo.shop.dao.dataobject.ShopDO;
 import com.example.demo.shop.dao.mapper.ShopMapper;
 import com.example.demo.shop.api.ShopService;
 import com.example.demo.shop.api.bo.Shop;
@@ -24,72 +26,72 @@ public class ShopServiceImpl implements ShopService, IShopService {
     private static final Logger logger = LoggerFactory.getLogger(ShopServiceImpl.class);
 
     @Autowired
-    private ShopMapper shopMapper;
+    private ShopMapper          shopMapper;
 
     @Override
     public int countShop() {
-        Shop shop = new Shop();
+        ShopDO shopDO = new ShopDO();
 
-        return countShop(shop);
+        return count(shopDO);
     }
 
     @Override
     public List<Shop> listShops() {
-        Shop shop = new Shop();
+        ShopDO shopDO = new ShopDO();
 
-        return listShops(shop);
+        return BeanUtil.copy(list(shopDO), Shop.class);
     }
 
     @Override
     public Shop getShop() {
-        Shop shop = new Shop();
-        shop.setId(BigInteger.ONE);
+        ShopDO shopDO = new ShopDO();
+        shopDO.setId(BigInteger.ONE);
 
-        return getShop(shop);
+        return BeanUtil.copy(get(shopDO), Shop.class);
     }
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
     public Shop updateShop() {
-        Shop shop = new Shop();
-        shop.setId(BigInteger.ONE);
-        shop.setName("N");
+        ShopDO shopDO = new ShopDO();
+        shopDO.setId(BigInteger.ONE);
+        shopDO.setName("N");
 
         try {
-            shopMapper.updateShop(shop);
+            shopMapper.update(shopDO);
         } catch (Exception e) {
-            logger.error(JSON.toJSONString(shop), e);
+            logger.error(JSON.toJSONString(shopDO), e);
             throw new ServiceException("errorCode", "message");
         }
 
-        return shop;
+        return BeanUtil.copy(shopDO, Shop.class);
     }
 
-    private int countShop(Shop shop) {
+    private int count(ShopDO shopDO) {
         try {
-            return shopMapper.countShop(shop);
+            return shopMapper.count(shopDO);
         } catch (Exception e) {
-            logger.error(JSON.toJSONString(shop), e);
+            logger.error(JSON.toJSONString(shopDO), e);
         }
 
         return 0;
     }
 
-    private List<Shop> listShops(Shop shop) {
+    private List<ShopDO> list(ShopDO shopDO) {
         try {
-            return shopMapper.listShops(shop);
+            return shopMapper.list(shopDO);
         } catch (Exception e) {
-            logger.error(JSON.toJSONString(shop), e);
+            logger.error(JSON.toJSONString(shopDO), e);
         }
 
         return null;
     }
 
-    private Shop getShop(Shop shop) {
+    private ShopDO get(ShopDO shopDO) {
         try {
-            return shopMapper.getShop(shop);
+            return shopMapper.get(shopDO);
         } catch (Exception e) {
-            logger.error(JSON.toJSONString(shop), e);
+            logger.error(JSON.toJSONString(shopDO), e);
         }
 
         return null;

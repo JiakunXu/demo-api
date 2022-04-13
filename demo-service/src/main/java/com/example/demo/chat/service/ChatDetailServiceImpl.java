@@ -5,9 +5,11 @@ import com.example.demo.aliyun.api.ProducerService;
 import com.example.demo.chat.api.ChatDetailService;
 import com.example.demo.chat.api.bo.Chat;
 import com.example.demo.chat.api.bo.ChatDetail;
+import com.example.demo.chat.dao.dataobject.ChatDetailDO;
 import com.example.demo.chat.dao.mapper.ChatDetailMapper;
 import com.example.demo.framework.constant.Constants;
 import com.example.demo.framework.exception.ServiceException;
+import com.example.demo.framework.util.BeanUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,7 +35,7 @@ public class ChatDetailServiceImpl implements ChatDetailService {
     private ProducerService     producerService;
 
     @Autowired
-    private ChatDetailMapper chatDetailMapper;
+    private ChatDetailMapper    chatDetailMapper;
 
     @Value("${aliyun.ons.topic}")
     private String              topic;
@@ -46,18 +48,18 @@ public class ChatDetailServiceImpl implements ChatDetailService {
             return null;
         }
 
-        ChatDetail chatDetail = new ChatDetail();
+        ChatDetailDO chatDetailDO = new ChatDetailDO();
 
         if (StringUtils.isNotBlank(id)) {
-            chatDetail.setId(new BigInteger(id));
+            chatDetailDO.setId(new BigInteger(id));
         }
 
-        chatDetail.setUserId(userId);
-        chatDetail.setFriendId(new BigInteger(friendId));
-        chatDetail.setPageNo(Integer.parseInt(pageNo));
-        chatDetail.setPageSize(Integer.parseInt(pageSize));
+        chatDetailDO.setUserId(userId);
+        chatDetailDO.setFriendId(new BigInteger(friendId));
+        chatDetailDO.setPageNo(Integer.parseInt(pageNo));
+        chatDetailDO.setPageSize(Integer.parseInt(pageSize));
 
-        return listChatDetails(chatDetail);
+        return BeanUtil.copy(list(chatDetailDO), ChatDetail.class);
     }
 
     @Override
@@ -66,11 +68,11 @@ public class ChatDetailServiceImpl implements ChatDetailService {
             return null;
         }
 
-        ChatDetail chatDetail = new ChatDetail();
-        chatDetail.setId(id);
-        chatDetail.setUserId(userId);
+        ChatDetailDO chatDetailDO = new ChatDetailDO();
+        chatDetailDO.setId(id);
+        chatDetailDO.setUserId(userId);
 
-        return getChatDetail(chatDetail);
+        return BeanUtil.copy(get(chatDetailDO), ChatDetail.class);
     }
 
     @Override
@@ -83,77 +85,77 @@ public class ChatDetailServiceImpl implements ChatDetailService {
 
         String chatId = UUID.randomUUID().toString();
 
-        ChatDetail chatDetail0 = new ChatDetail();
-        chatDetail0.setChatId(chatId);
-        chatDetail0.setUserId(userId);
-        chatDetail0.setFriendId(friendId);
-        chatDetail0.setFrom("me");
-        chatDetail0.setType(StringUtils.isBlank(type) ? "text" : type);
-        chatDetail0.setContent(content);
-        chatDetail0.setCreator(userId.toString());
+        ChatDetailDO chatDetailDO0 = new ChatDetailDO();
+        chatDetailDO0.setChatId(chatId);
+        chatDetailDO0.setUserId(userId);
+        chatDetailDO0.setFriendId(friendId);
+        chatDetailDO0.setFrom("me");
+        chatDetailDO0.setType(StringUtils.isBlank(type) ? "text" : type);
+        chatDetailDO0.setContent(content);
+        chatDetailDO0.setCreator(userId.toString());
 
         try {
-            chatDetailMapper.insertChatDetail(chatDetail0);
+            chatDetailMapper.insert(chatDetailDO0);
         } catch (Exception e) {
-            logger.error(JSON.toJSONString(chatDetail0), e);
+            logger.error(JSON.toJSONString(chatDetailDO0), e);
             throw new ServiceException(Constants.BUSINESS_FAILED, "信息创建失败，请稍后再试");
         }
 
-        ChatDetail chatDetail1 = new ChatDetail();
-        chatDetail1.setChatId(chatId);
-        chatDetail1.setUserId(friendId);
-        chatDetail1.setFriendId(userId);
-        chatDetail1.setFrom("you");
-        chatDetail1.setType(StringUtils.isBlank(type) ? "text" : type);
-        chatDetail1.setContent(content);
-        chatDetail1.setCreator(userId.toString());
+        ChatDetailDO chatDetailDO1 = new ChatDetailDO();
+        chatDetailDO1.setChatId(chatId);
+        chatDetailDO1.setUserId(friendId);
+        chatDetailDO1.setFriendId(userId);
+        chatDetailDO1.setFrom("you");
+        chatDetailDO1.setType(StringUtils.isBlank(type) ? "text" : type);
+        chatDetailDO1.setContent(content);
+        chatDetailDO1.setCreator(userId.toString());
 
         try {
-            chatDetailMapper.insertChatDetail(chatDetail1);
+            chatDetailMapper.insert(chatDetailDO1);
         } catch (Exception e) {
-            logger.error(JSON.toJSONString(chatDetail1), e);
+            logger.error(JSON.toJSONString(chatDetailDO1), e);
             throw new ServiceException(Constants.BUSINESS_FAILED, "信息创建失败，请稍后再试");
         }
 
-        producerService.sendOneway(topic, "chat.message", JSON.toJSONBytes(chatDetail1),
-            chatDetail1.getUserId().toString());
+        producerService.sendOneway(topic, "chat.message", JSON.toJSONBytes(chatDetailDO1),
+            chatDetailDO1.getUserId().toString());
 
         Date chatTime = new Date();
 
         Chat chat0 = new Chat();
-        chat0.setUserId(chatDetail0.getUserId());
-        chat0.setFriendId(chatDetail0.getFriendId());
+        chat0.setUserId(chatDetailDO0.getUserId());
+        chat0.setFriendId(chatDetailDO0.getFriendId());
         chat0.setChatTime(chatTime);
-        chat0.setChatDetailId(chatDetail0.getId());
+        chat0.setChatDetailId(chatDetailDO0.getId());
         chat0.setUnread(0);
         producerService.sendOneway(topic, "chat.update", JSON.toJSONBytes(chat0), chatId);
 
         Chat chat1 = new Chat();
-        chat1.setUserId(chatDetail1.getUserId());
-        chat1.setFriendId(chatDetail1.getFriendId());
+        chat1.setUserId(chatDetailDO1.getUserId());
+        chat1.setFriendId(chatDetailDO1.getFriendId());
         chat1.setChatTime(chatTime);
-        chat1.setChatDetailId(chatDetail1.getId());
+        chat1.setChatDetailId(chatDetailDO1.getId());
         chat1.setUnread(1);
         producerService.sendOneway(topic, "chat.update", JSON.toJSONBytes(chat1), chatId);
 
-        return chatDetail0;
+        return BeanUtil.copy(chatDetailDO0, ChatDetail.class);
     }
 
-    private List<ChatDetail> listChatDetails(ChatDetail chatDetail) {
+    private List<ChatDetailDO> list(ChatDetailDO chatDetailDO) {
         try {
-            return chatDetailMapper.listChatDetails(chatDetail);
+            return chatDetailMapper.list(chatDetailDO);
         } catch (Exception e) {
-            logger.error(JSON.toJSONString(chatDetail), e);
+            logger.error(JSON.toJSONString(chatDetailDO), e);
         }
 
         return null;
     }
 
-    private ChatDetail getChatDetail(ChatDetail chatDetail) {
+    private ChatDetailDO get(ChatDetailDO chatDetailDO) {
         try {
-            return chatDetailMapper.getChatDetail(chatDetail);
+            return chatDetailMapper.get(chatDetailDO);
         } catch (Exception e) {
-            logger.error(JSON.toJSONString(chatDetail), e);
+            logger.error(JSON.toJSONString(chatDetailDO), e);
         }
 
         return null;

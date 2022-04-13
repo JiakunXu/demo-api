@@ -5,9 +5,11 @@ import com.example.demo.bytedance.api.MessageService;
 import com.example.demo.bytedance.api.TokenService;
 import com.example.demo.bytedance.api.ao.SendResult;
 import com.example.demo.bytedance.api.bo.Message;
+import com.example.demo.bytedance.dao.dataobject.MessageDO;
 import com.example.demo.bytedance.dao.mapper.MessageMapper;
 import com.example.demo.framework.constant.Constants;
 import com.example.demo.framework.exception.ServiceException;
+import com.example.demo.framework.util.BeanUtil;
 import com.example.demo.framework.util.EncryptUtil;
 import com.example.demo.framework.util.HttpUtil;
 import org.apache.commons.lang3.StringUtils;
@@ -35,7 +37,7 @@ public class MessageServiceImpl implements MessageService {
     private TokenService        tokenService;
 
     @Autowired
-    private MessageMapper messageMapper;
+    private MessageMapper       messageMapper;
 
     @Value("${bytedance.token}")
     private String              token;
@@ -119,12 +121,17 @@ public class MessageServiceImpl implements MessageService {
 
         Message message = JSON.parseObject(data, Message.class);
 
+        MessageDO messageDO = BeanUtil.copy(message, MessageDO.class);
+        messageDO.setCreator("sys");
+
         try {
-            messageMapper.insertMessage(message);
+            messageMapper.insert(messageDO);
         } catch (Exception e) {
             logger.error(JSON.toJSONString(message), e);
             throw new ServiceException(Constants.BUSINESS_FAILED, "信息创建失败，请稍后再试");
         }
+
+        message.setId(messageDO.getId());
 
         try {
             send(tokenService.getToken(appId, appSecret, "client_credential"),
@@ -178,4 +185,5 @@ public class MessageServiceImpl implements MessageService {
 
         return result;
     }
+
 }
