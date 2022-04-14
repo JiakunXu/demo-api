@@ -36,7 +36,8 @@ public class PushApiServiceImpl implements PushApiService {
         apiConfiguration.setAppKey("");
         apiConfiguration.setMasterSecret("");
 
-        pushApi = ApiHelper.build(apiConfiguration).creatApi(PushApi.class);
+        // TODO pushApi = ApiHelper.build(apiConfiguration).creatApi(PushApi.class);
+        pushApi = null;
     }
 
     @Override
