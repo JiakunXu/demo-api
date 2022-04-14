@@ -1,4 +1,4 @@
-package com.example.demo.aliyun.service;
+package com.example.demo.aliyun.manager;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
