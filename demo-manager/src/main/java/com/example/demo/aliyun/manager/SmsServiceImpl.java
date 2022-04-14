@@ -1,4 +1,4 @@
-package com.example.demo.aliyun.service;
+package com.example.demo.aliyun.manager;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
