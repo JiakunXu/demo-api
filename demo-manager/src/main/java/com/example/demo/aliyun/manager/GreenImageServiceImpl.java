@@ -1,4 +1,4 @@
-package com.example.demo.aliyun.service;
+package com.example.demo.aliyun.manager;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;

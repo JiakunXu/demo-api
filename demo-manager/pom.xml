@@ -34,6 +34,11 @@
 
         <dependency>
             <groupId>com.aliyun</groupId>
+            <artifactId>aliyun-java-sdk-green</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.aliyun</groupId>
             <artifactId>alibaba-dingtalk-service-sdk</artifactId>
         </dependency>
 
