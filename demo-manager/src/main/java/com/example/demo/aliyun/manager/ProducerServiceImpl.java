@@ -1,11 +1,12 @@
 package com.example.demo.aliyun.manager;
 
+import com.aliyun.openservices.ons.api.Message;
+import com.aliyun.openservices.ons.api.Producer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.aliyun.openservices.ons.api.*;
 import com.example.demo.aliyun.api.ProducerService;
 
 /**
