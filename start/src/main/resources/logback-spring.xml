@@ -5,11 +5,11 @@
     <shutdownHook class="ch.qos.logback.core.hook.DelayingShutdownHook"/>
 
     <appender name="LOGHUB" class="com.aliyun.openservices.log.logback.LoghubAppender">
-        <endpoint></endpoint>
-        <accessKeyId></accessKeyId>
-        <accessKeySecret></accessKeySecret>
+        <endpoint>.log.aliyuncs.com</endpoint>
+        <accessKeyId>id</accessKeyId>
+        <accessKeySecret>secret</accessKeySecret>
 
-        <project></project>
+        <project>project</project>
         <logStore></logStore>
 
         <topic>demo</topic>
