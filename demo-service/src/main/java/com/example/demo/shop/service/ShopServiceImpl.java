@@ -1,6 +1,5 @@
 package com.example.demo.shop.service;
 
-import com.alibaba.fastjson.JSON;
 import com.example.demo.framework.util.BeanUtil;
 import com.example.demo.shop.api.IShopService;
 import com.example.demo.framework.exception.ServiceException;
@@ -60,7 +59,7 @@ public class ShopServiceImpl implements ShopService, IShopService {
         try {
             shopMapper.update(shopDO);
         } catch (Exception e) {
-            logger.error(JSON.toJSONString(shopDO), e);
+            logger.error(shopDO.toString(), e);
             throw new ServiceException("errorCode", "message");
         }
 
@@ -71,7 +70,7 @@ public class ShopServiceImpl implements ShopService, IShopService {
         try {
             return shopMapper.count(shopDO);
         } catch (Exception e) {
-            logger.error(JSON.toJSONString(shopDO), e);
+            logger.error(shopDO.toString(), e);
         }
 
         return 0;
@@ -81,7 +80,7 @@ public class ShopServiceImpl implements ShopService, IShopService {
         try {
             return shopMapper.list(shopDO);
         } catch (Exception e) {
-            logger.error(JSON.toJSONString(shopDO), e);
+            logger.error(shopDO.toString(), e);
         }
 
         return null;
@@ -91,7 +90,7 @@ public class ShopServiceImpl implements ShopService, IShopService {
         try {
             return shopMapper.get(shopDO);
         } catch (Exception e) {
-            logger.error(JSON.toJSONString(shopDO), e);
+            logger.error(shopDO.toString(), e);
         }
 
         return null;

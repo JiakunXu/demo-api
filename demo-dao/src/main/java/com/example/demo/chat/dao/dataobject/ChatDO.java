@@ -3,6 +3,7 @@ package com.example.demo.chat.dao.dataobject;
 import com.example.demo.framework.dataobject.BaseDO;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.math.BigInteger;
 import java.util.Date;
@@ -12,6 +13,7 @@ import java.util.Date;
  */
 @Getter
 @Setter
+@ToString
 public class ChatDO extends BaseDO {
 
     private static final long serialVersionUID = 8356420243427841172L;

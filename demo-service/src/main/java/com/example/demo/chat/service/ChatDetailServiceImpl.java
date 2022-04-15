@@ -97,7 +97,7 @@ public class ChatDetailServiceImpl implements ChatDetailService {
         try {
             chatDetailMapper.insert(chatDetailDO0);
         } catch (Exception e) {
-            logger.error(JSON.toJSONString(chatDetailDO0), e);
+            logger.error(chatDetailDO0.toString(), e);
             throw new ServiceException(Constants.BUSINESS_FAILED, "信息创建失败，请稍后再试");
         }
 
@@ -113,7 +113,7 @@ public class ChatDetailServiceImpl implements ChatDetailService {
         try {
             chatDetailMapper.insert(chatDetailDO1);
         } catch (Exception e) {
-            logger.error(JSON.toJSONString(chatDetailDO1), e);
+            logger.error(chatDetailDO1.toString(), e);
             throw new ServiceException(Constants.BUSINESS_FAILED, "信息创建失败，请稍后再试");
         }
 
@@ -145,7 +145,7 @@ public class ChatDetailServiceImpl implements ChatDetailService {
         try {
             return chatDetailMapper.list(chatDetailDO);
         } catch (Exception e) {
-            logger.error(JSON.toJSONString(chatDetailDO), e);
+            logger.error(chatDetailDO.toString(), e);
         }
 
         return null;
@@ -155,7 +155,7 @@ public class ChatDetailServiceImpl implements ChatDetailService {
         try {
             return chatDetailMapper.get(chatDetailDO);
         } catch (Exception e) {
-            logger.error(JSON.toJSONString(chatDetailDO), e);
+            logger.error(chatDetailDO.toString(), e);
         }
 
         return null;

@@ -127,7 +127,7 @@ public class MessageServiceImpl implements MessageService {
         try {
             messageMapper.insert(messageDO);
         } catch (Exception e) {
-            logger.error(JSON.toJSONString(message), e);
+            logger.error(messageDO.toString(), e);
             throw new ServiceException(Constants.BUSINESS_FAILED, "信息创建失败，请稍后再试");
         }
 

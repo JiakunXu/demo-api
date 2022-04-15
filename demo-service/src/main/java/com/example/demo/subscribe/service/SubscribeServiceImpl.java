@@ -129,7 +129,7 @@ public class SubscribeServiceImpl implements SubscribeService {
         try {
             subscribeMapper.insert(subscribeDO);
         } catch (Exception e) {
-            logger.error(JSON.toJSONString(subscribeDO), e);
+            logger.error(subscribeDO.toString(), e);
             throw new ServiceException(Constants.BUSINESS_FAILED, "信息创建失败，请稍后再试");
         }
 
@@ -168,7 +168,7 @@ public class SubscribeServiceImpl implements SubscribeService {
         try {
             return subscribeMapper.count0(subscribeDO);
         } catch (Exception e) {
-            logger.error(JSON.toJSONString(subscribeDO), e);
+            logger.error(subscribeDO.toString(), e);
         }
 
         return 0;
@@ -178,7 +178,7 @@ public class SubscribeServiceImpl implements SubscribeService {
         try {
             return subscribeMapper.count1(subscribeDO);
         } catch (Exception e) {
-            logger.error(JSON.toJSONString(subscribeDO), e);
+            logger.error(subscribeDO.toString(), e);
         }
 
         return 0;
@@ -188,7 +188,7 @@ public class SubscribeServiceImpl implements SubscribeService {
         try {
             return subscribeMapper.listSubscribes(subscribeDO);
         } catch (Exception e) {
-            logger.error(JSON.toJSONString(subscribeDO), e);
+            logger.error(subscribeDO.toString(), e);
         }
 
         return null;
@@ -198,7 +198,7 @@ public class SubscribeServiceImpl implements SubscribeService {
         try {
             return subscribeMapper.get(subscribeDO);
         } catch (Exception e) {
-            logger.error(JSON.toJSONString(subscribeDO), e);
+            logger.error(subscribeDO.toString(), e);
         }
 
         return null;

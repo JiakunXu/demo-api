@@ -4,6 +4,7 @@ import com.alibaba.fastjson.annotation.JSONField;
 import com.example.demo.framework.dataobject.BaseDO;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.math.BigInteger;
 
@@ -12,6 +13,7 @@ import java.math.BigInteger;
  */
 @Getter
 @Setter
+@ToString
 public class MessageDO extends BaseDO {
 
     private static final long serialVersionUID = 7889307835833273313L;

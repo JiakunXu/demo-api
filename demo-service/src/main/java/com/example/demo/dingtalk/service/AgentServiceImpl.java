@@ -1,6 +1,5 @@
 package com.example.demo.dingtalk.service;
 
-import com.alibaba.fastjson.JSON;
 import com.example.demo.dingtalk.api.AgentService;
 import com.example.demo.dingtalk.api.bo.Agent;
 import com.example.demo.dingtalk.dao.dataobject.AgentDO;
@@ -39,7 +38,7 @@ public class AgentServiceImpl implements AgentService {
         try {
             return agentMapper.get(agentDO);
         } catch (Exception e) {
-            logger.error(JSON.toJSONString(agentDO), e);
+            logger.error(agentDO.toString(), e);
         }
 
         return null;

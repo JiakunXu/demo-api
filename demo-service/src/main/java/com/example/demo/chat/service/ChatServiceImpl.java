@@ -1,6 +1,5 @@
 package com.example.demo.chat.service;
 
-import com.alibaba.fastjson.JSON;
 import com.example.demo.chat.api.ChatDetailService;
 import com.example.demo.chat.api.ChatService;
 import com.example.demo.chat.api.ChatStatusService;
@@ -122,7 +121,7 @@ public class ChatServiceImpl implements ChatService {
                 chatMapper.insert(chatDO);
             }
         } catch (Exception e) {
-            logger.error(JSON.toJSONString(chat), e);
+            logger.error(chatDO.toString(), e);
             throw new ServiceException(Constants.BUSINESS_FAILED, "信息更新失败，请稍后再试");
         }
 
@@ -150,7 +149,7 @@ public class ChatServiceImpl implements ChatService {
         } catch (ServiceException e) {
             throw new ServiceException(Constants.BUSINESS_FAILED, "信息不存在");
         } catch (Exception e) {
-            logger.error(JSON.toJSONString(chat), e);
+            logger.error(chatDO.toString(), e);
             throw new ServiceException(Constants.BUSINESS_FAILED, "信息更新失败，请稍后再试");
         }
 
@@ -161,7 +160,7 @@ public class ChatServiceImpl implements ChatService {
         try {
             return chatMapper.count(chatDO);
         } catch (Exception e) {
-            logger.error(JSON.toJSONString(chatDO), e);
+            logger.error(chatDO.toString(), e);
         }
 
         return 0;
@@ -171,7 +170,7 @@ public class ChatServiceImpl implements ChatService {
         try {
             return chatMapper.list(chatDO);
         } catch (Exception e) {
-            logger.error(JSON.toJSONString(chatDO), e);
+            logger.error(chatDO.toString(), e);
         }
 
         return null;
@@ -181,7 +180,7 @@ public class ChatServiceImpl implements ChatService {
         try {
             return chatMapper.get(chatDO);
         } catch (Exception e) {
-            logger.error(JSON.toJSONString(chatDO), e);
+            logger.error(chatDO.toString(), e);
         }
 
         return null;

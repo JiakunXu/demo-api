@@ -52,7 +52,7 @@ public class Code2SessionServiceImpl implements Code2SessionService {
 
         String errCode = session.getErrCode();
         if (StringUtils.isNotBlank(errCode)) {
-            logger.error(JSON.toJSONString(session));
+            logger.error(session.toString());
 
             throw new RuntimeException(session.getErrMsg());
         }

@@ -1,6 +1,5 @@
 package com.example.demo.tunnel.service;
 
-import com.alibaba.fastjson.JSON;
 import com.example.demo.framework.util.BeanUtil;
 import com.example.demo.tunnel.api.TunnelService;
 import com.example.demo.tunnel.api.bo.Tunnel;
@@ -43,7 +42,7 @@ public class TunnelServiceImpl implements TunnelService {
         try {
             tunnelMapper.insert(tunnelDO);
         } catch (Exception e) {
-            logger.error(JSON.toJSONString(tunnelDO), e);
+            logger.error(tunnelDO.toString(), e);
             throw new ServiceException(Constants.BUSINESS_FAILED, "信息创建失败，请稍后再试");
         }
 
@@ -67,7 +66,7 @@ public class TunnelServiceImpl implements TunnelService {
         } catch (ServiceException e) {
             throw new ServiceException(Constants.BUSINESS_FAILED, "信息不存在");
         } catch (Exception e) {
-            logger.error(JSON.toJSONString(tunnelDO), e);
+            logger.error(tunnelDO.toString(), e);
             throw new ServiceException(Constants.BUSINESS_FAILED, "信息更新失败，请稍后再试");
         }
 

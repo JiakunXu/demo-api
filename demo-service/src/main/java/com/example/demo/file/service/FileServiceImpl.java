@@ -1,6 +1,5 @@
 package com.example.demo.file.service;
 
-import com.alibaba.fastjson.JSON;
 import com.example.demo.aliyun.api.OssService;
 import com.example.demo.bytedance.api.ImageService;
 import com.example.demo.bytedance.api.TokenService;
@@ -78,7 +77,7 @@ public class FileServiceImpl implements FileService {
             log = imageService.detect(tokenService.getToken(appId, appSecret, "client_credential"),
                 body);
         } catch (Exception e) {
-            logger.error(JSON.toJSONString(body), e);
+            logger.error(body.toString(), e);
         }
 
         if (log != null) {

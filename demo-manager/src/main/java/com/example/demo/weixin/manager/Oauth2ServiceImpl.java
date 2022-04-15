@@ -76,7 +76,7 @@ public class Oauth2ServiceImpl implements Oauth2Service {
 
         String errCode = accessToken.getErrCode();
         if (StringUtils.isNotBlank(errCode)) {
-            logger.error(JSON.toJSONString(accessToken));
+            logger.error(accessToken.toString());
 
             throw new RuntimeException(accessToken.getErrMsg());
         }

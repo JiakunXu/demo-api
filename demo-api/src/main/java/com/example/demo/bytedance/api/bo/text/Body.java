@@ -3,6 +3,7 @@ package com.example.demo.bytedance.api.bo.text;
 import com.alibaba.fastjson.annotation.JSONField;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.io.Serializable;
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.List;
  */
 @Getter
 @Setter
+@ToString
 public class Body implements Serializable {
 
     private static final long serialVersionUID = -4773047490509322993L;

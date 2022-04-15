@@ -41,7 +41,7 @@ public class TextServiceImpl implements TextService {
                 HttpUtil.post(TextService.HTTPS_DETECT_URL, JSON.toJSONString(body), header),
                 Log.class);
         } catch (Exception e) {
-            logger.error(JSON.toJSONString(body), e);
+            logger.error(body.toString(), e);
 
             throw new RuntimeException("HttpUtil error.", e);
         }

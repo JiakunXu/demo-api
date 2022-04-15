@@ -4,12 +4,14 @@ import com.alibaba.fastjson.annotation.JSONField;
 import com.example.demo.weixin.api.bo.BaseResult;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 /**
  * @author JiakunXu
  */
 @Getter
 @Setter
+@ToString
 public class Session extends BaseResult {
 
     private static final long serialVersionUID = 4107709675927719697L;
