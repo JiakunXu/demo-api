@@ -18,8 +18,7 @@ public class Watermark implements Serializable {
     /**
      * 数据源小程序 id.
      */
-    @JSONField(name = "appid")
-    private String            appId;
+    private String            appid;
 
     /**
      * 时间戳，可以用于检查数据的时效性.

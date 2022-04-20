@@ -48,7 +48,7 @@ public class UserInfo implements Serializable {
     /**
      * 用户 openId.
      */
-    private String            openid;
+    private String            openId;
 
     /**
      * 敏感数据水印.

@@ -13,9 +13,9 @@ import org.springframework.stereotype.Service;
 public class UserInfoServiceImpl implements UserInfoService {
 
     @Override
-    public UserInfo getUserInfo(String appId, String encryptedData, String sessionKey,
+    public UserInfo getUserInfo(String appid, String encryptedData, String sessionKey,
                                 String iv) throws RuntimeException {
-        if (StringUtils.isBlank(appId)) {
+        if (StringUtils.isBlank(appid)) {
             throw new RuntimeException("appid is null.");
         }
 
@@ -45,7 +45,7 @@ public class UserInfoServiceImpl implements UserInfoService {
         }
 
         // appId 不匹配
-        if (!appId.equals(userInfo.getWatermark().getAppId())) {
+        if (!appid.equals(userInfo.getWatermark().getAppid())) {
             throw new RuntimeException("appId not equals.");
         }
 
