@@ -1,8 +1,8 @@
 package com.example.demo.weixin.manager;
 
 import com.alibaba.fastjson.JSON;
-import com.example.demo.weixin.api.WxaService;
-import com.example.demo.weixin.api.bo.WxaCode;
+import com.example.demo.weixin.api.WxaCodeService;
+import com.example.demo.weixin.api.bo.wxa.WxaCode;
 import com.example.demo.framework.util.HttpUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
  * @author JiakunXu
  */
 @Service
-public class WxaServiceImpl implements WxaService {
+public class WxaCodeServiceImpl implements WxaCodeService {
 
     @Override
     public WxaCode getWxaCodeUnlimit(String accessToken, WxaCode wxaCode) throws RuntimeException {
@@ -27,7 +27,7 @@ public class WxaServiceImpl implements WxaService {
 
         try {
             buffer = HttpUtil.download(
-                WxaService.HTTPS_CODE_URL.replace("$ACCESS_TOKEN$", accessToken.trim()),
+                WxaCodeService.HTTPS_CODE_URL.replace("$ACCESS_TOKEN$", accessToken.trim()),
                 JSON.toJSONString(wxaCode));
         } catch (Exception e) {
             throw new RuntimeException("HttpUtil error.", e);

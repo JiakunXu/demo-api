@@ -1,5 +1,6 @@
-package com.example.demo.weixin.api.bo.sns;
+package com.example.demo.weixin.api.bo.wxa;
 
+import com.example.demo.weixin.api.bo.sns.Watermark;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,6 +21,6 @@ public class PhoneNumber implements Serializable {
 
     private String            countryCode;
 
-    private Watermark         watermark;
+    private Watermark watermark;
 
 }

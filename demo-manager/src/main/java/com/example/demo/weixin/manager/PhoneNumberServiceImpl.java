@@ -1,8 +1,10 @@
 package com.example.demo.weixin.manager;
 
 import com.alibaba.fastjson.JSON;
+import com.example.demo.framework.util.HttpUtil;
 import com.example.demo.weixin.api.PhoneNumberService;
-import com.example.demo.weixin.api.bo.sns.PhoneNumber;
+import com.example.demo.weixin.api.bo.wxa.PhoneNumber;
+import com.example.demo.weixin.api.bo.wxa.Result;
 import org.apache.commons.lang3.StringUtils;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.util.encoders.Base64;
@@ -40,7 +42,39 @@ public class PhoneNumberServiceImpl implements PhoneNumberService {
             throw new RuntimeException("code cannot be null.");
         }
 
-        return null;
+        Result result = null;
+
+        try {
+            result = JSON.parseObject(HttpUtil.post(
+                PhoneNumberService.HTTPS_GET_URL.replace("$ACCESS_TOKEN$", accessToken.trim()),
+                code), Result.class);
+        } catch (Exception e) {
+            logger.error(accessToken, e);
+
+            throw new RuntimeException("HttpUtil error.", e);
+        }
+
+        if (result == null) {
+            throw new RuntimeException("result is null.");
+        }
+
+        Integer errCode = result.getErrCode();
+        if (errCode != null && errCode != 0) {
+            throw new RuntimeException(result.getErrMsg());
+        }
+
+        PhoneNumber phoneNumber = result.getPhoneNumber();
+
+        if (phoneNumber == null) {
+            throw new RuntimeException("phoneNumber is null.");
+        }
+
+        // appid 不匹配
+        if (!appid.equals(phoneNumber.getWatermark().getAppid())) {
+            throw new RuntimeException("appid not equals.");
+        }
+
+        return phoneNumber;
     }
 
     @Override
@@ -103,7 +137,7 @@ public class PhoneNumberServiceImpl implements PhoneNumberService {
             throw new RuntimeException("phoneNumber is null.");
         }
 
-        // appId 不匹配
+        // appid 不匹配
         if (!appid.equals(phoneNumber.getWatermark().getAppid())) {
             throw new RuntimeException("appid not equals.");
         }

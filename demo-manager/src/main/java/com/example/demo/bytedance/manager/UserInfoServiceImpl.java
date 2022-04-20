@@ -44,7 +44,7 @@ public class UserInfoServiceImpl implements UserInfoService {
             throw new RuntimeException("userInfo is null.");
         }
 
-        // appId 不匹配
+        // appid 不匹配
         if (!appid.equals(userInfo.getWatermark().getAppid())) {
             throw new RuntimeException("appId not equals.");
         }
