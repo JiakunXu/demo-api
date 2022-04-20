@@ -15,6 +15,6 @@ public interface QrCodeService {
      * @param body
      * @throws RuntimeException
      */
-    void create(String accessToken, Body body) throws RuntimeException;
+    byte[] create(String accessToken, Body body) throws RuntimeException;
 
 }
