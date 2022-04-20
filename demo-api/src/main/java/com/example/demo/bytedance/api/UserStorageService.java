@@ -1,7 +1,7 @@
 package com.example.demo.bytedance.api;
 
 import com.example.demo.bytedance.api.bo.user.KvItem;
-import com.example.demo.bytedance.api.bo.user.UserStorage;
+import com.example.demo.bytedance.api.bo.user.Result;
 
 import java.util.List;
 
@@ -10,14 +10,9 @@ import java.util.List;
  */
 public interface UserStorageService {
 
-    /**
-     * 
-     * @param accessToken 服务端 API 调用标识
-     * @param openid 登录用户唯一标识
-     * @param kvItemList
-     * @throws RuntimeException
-     */
-    void set(String accessToken, String openid, List<KvItem> kvItemList) throws RuntimeException;
+    String HTTPS_SET_URL    = "https://developer.toutiao.com/api/apps/set_user_storage";
+
+    String HTTPS_REMOVE_URL = "https://developer.toutiao.com/api/apps/remove_user_storage";
 
     /**
      * 
@@ -26,6 +21,16 @@ public interface UserStorageService {
      * @param kvItemList
      * @throws RuntimeException
      */
-    void remove(String accessToken, String openid, List<KvItem> kvItemList) throws RuntimeException;
+    Result set(String accessToken, String openid, List<KvItem> kvItemList) throws RuntimeException;
+
+    /**
+     * 
+     * @param accessToken 服务端 API 调用标识
+     * @param openid 登录用户唯一标识
+     * @param kvItemList
+     * @throws RuntimeException
+     */
+    Result remove(String accessToken, String openid,
+                  List<KvItem> kvItemList) throws RuntimeException;
 
 }
