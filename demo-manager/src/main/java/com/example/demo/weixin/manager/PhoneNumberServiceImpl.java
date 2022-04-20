@@ -6,6 +6,8 @@ import com.example.demo.weixin.api.bo.sns.PhoneNumber;
 import org.apache.commons.lang3.StringUtils;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.util.encoders.Base64;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.Cipher;
@@ -20,6 +22,26 @@ import java.util.Arrays;
  */
 @Service
 public class PhoneNumberServiceImpl implements PhoneNumberService {
+
+    private static final Logger logger = LoggerFactory.getLogger(PhoneNumberServiceImpl.class);
+
+    @Override
+    public PhoneNumber getPhoneNumber(String appid, String accessToken,
+                                      String code) throws RuntimeException {
+        if (StringUtils.isBlank(appid)) {
+            throw new RuntimeException("appid cannot be null.");
+        }
+
+        if (StringUtils.isBlank(accessToken)) {
+            throw new RuntimeException("access_token cannot be null.");
+        }
+
+        if (StringUtils.isBlank(code)) {
+            throw new RuntimeException("code cannot be null.");
+        }
+
+        return null;
+    }
 
     @Override
     public PhoneNumber getPhoneNumber(String appid, String encryptedData, String sessionKey,
@@ -78,12 +100,12 @@ public class PhoneNumberServiceImpl implements PhoneNumberService {
         }
 
         if (phoneNumber == null) {
-            throw new RuntimeException("userInfo is null.");
+            throw new RuntimeException("phoneNumber is null.");
         }
 
         // appId 不匹配
         if (!appid.equals(phoneNumber.getWatermark().getAppid())) {
-            throw new RuntimeException("appId not equals.");
+            throw new RuntimeException("appid not equals.");
         }
 
         return phoneNumber;
