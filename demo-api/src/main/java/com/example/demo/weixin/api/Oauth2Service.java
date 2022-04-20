@@ -25,6 +25,7 @@ public interface Oauth2Service {
      * @param state 重定向后会带上state参数，开发者可以填写a-zA-Z0-9的参数值，最多128字节.
      * @return
      * @throws RuntimeException
+     * @see <a href="https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_webpage_authorization.html#0">微信官方文档</a>
      */
     String authorize(String appid, String redirectUrl, String scope,
                      String state) throws RuntimeException;
@@ -37,6 +38,7 @@ public interface Oauth2Service {
      * @param code 填写第一步获取的code参数.
      * @return
      * @throws RuntimeException
+     * @see <a href="https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_webpage_authorization.html#1">微信官方文档</a>
      */
     AccessToken getAccessToken(String appid, String secret, String code) throws RuntimeException;
 
@@ -48,6 +50,7 @@ public interface Oauth2Service {
      * @param lang 返回国家地区语言版本，zh_CN 简体，zh_TW 繁体，en 英语.
      * @return
      * @throws RuntimeException
+     * @see <a href="https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_webpage_authorization.html#3">微信官方文档</a>
      */
     UserInfo getUserInfo(String accessToken, String openid, String lang) throws RuntimeException;
 
