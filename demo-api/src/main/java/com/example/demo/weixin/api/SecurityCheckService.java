@@ -15,6 +15,7 @@ public interface SecurityCheckService {
      * @param content
      * @return
      * @throws RuntimeException
+     * @see <a href="https://developers.weixin.qq.com/miniprogram/dev/api-backend/open-api/sec-check/security.msgSecCheck.html">微信官方文档</a>
      */
     BaseResult msgSecCheck(String accessToken, String content) throws RuntimeException;
 

@@ -14,6 +14,7 @@ public interface MediaService {
      * @param mediaId 媒体文件ID.
      * @return
      * @throws RuntimeException
+     * @see <a href="https://developers.weixin.qq.com/doc/offiaccount/Asset_Management/Get_temporary_materials.html">微信官方文档</a>
      */
     byte[] getMedia(String accessToken, String mediaId) throws RuntimeException;
 
