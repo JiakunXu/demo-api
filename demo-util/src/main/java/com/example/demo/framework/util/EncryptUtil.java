@@ -14,7 +14,7 @@ import javax.crypto.spec.SecretKeySpec;
  */
 public class EncryptUtil {
 
-    public static String encryptMD5(String data) throws IOException {
+    public static String encryptMd5(String data) throws IOException {
         byte[] bytes = null;
 
         try {
@@ -27,7 +27,7 @@ public class EncryptUtil {
         return byte2hex(bytes);
     }
 
-    public static String encryptSHA(String data) throws IOException {
+    public static String encryptSha(String data) throws IOException {
         byte[] bytes = null;
 
         try {
@@ -40,7 +40,7 @@ public class EncryptUtil {
         return byte2hex(bytes);
     }
 
-    public static String encryptHMAC(String secret, String data) throws IOException {
+    public static String encryptHmac(String data, String secret) throws IOException {
         byte[] bytes = null;
 
         try {

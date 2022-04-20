@@ -66,7 +66,7 @@ public class MessageServiceImpl implements MessageService {
         Arrays.sort(array);
 
         try {
-            if (!signature.equals(EncryptUtil.encryptSHA(array[0] + array[1] + array[2]))) {
+            if (!signature.equals(EncryptUtil.encryptSha(array[0] + array[1] + array[2]))) {
                 throw new RuntimeException("签名验证错误");
             }
         } catch (IOException e) {
@@ -97,7 +97,7 @@ public class MessageServiceImpl implements MessageService {
 
         try {
             if (!signature
-                .equals(EncryptUtil.encryptSHA(array[0] + array[1] + array[2] + array[3]))) {
+                .equals(EncryptUtil.encryptSha(array[0] + array[1] + array[2] + array[3]))) {
                 throw new RuntimeException("签名验证错误");
             }
         } catch (IOException e) {

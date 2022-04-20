@@ -46,7 +46,7 @@ public class CdnServiceImpl implements CdnService {
 
             try {
                 md5hash = EncryptUtil
-                    .encryptMD5(requestURI + "-" + authKey.toString() + "-" + privateKey);
+                    .encryptMd5(requestURI + "-" + authKey.toString() + "-" + privateKey);
             } catch (IOException e) {
                 logger.error("encryptMD5", e);
             }

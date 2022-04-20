@@ -75,7 +75,7 @@ public class UnifiedOrderServiceImpl implements UnifiedOrderService {
         sign.append("&key=").append(key);
 
         try {
-            unifiedOrder.setSign(EncryptUtil.encryptMD5(sign.toString()).toUpperCase());
+            unifiedOrder.setSign(EncryptUtil.encryptMd5(sign.toString()).toUpperCase());
         } catch (IOException e) {
             throw new RuntimeException(e.getMessage());
         }
@@ -212,7 +212,7 @@ public class UnifiedOrderServiceImpl implements UnifiedOrderService {
         sign.append("&key=").append(key);
 
         try {
-            if (ret.getSign().equals(EncryptUtil.encryptMD5(sign.substring(1)).toUpperCase())) {
+            if (ret.getSign().equals(EncryptUtil.encryptMd5(sign.substring(1)).toUpperCase())) {
                 return true;
             }
         } catch (IOException e) {

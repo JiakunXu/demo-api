@@ -48,7 +48,7 @@ public class JsapiServiceImpl implements JsapiService {
             .append("&timestamp=").append(timestamp).append("&url=").append(url.trim());
 
         try {
-            signature = EncryptUtil.encryptSHA(sb.toString());
+            signature = EncryptUtil.encryptSha(sb.toString());
         } catch (IOException e) {
             logger.error("encryptSHA", e);
 

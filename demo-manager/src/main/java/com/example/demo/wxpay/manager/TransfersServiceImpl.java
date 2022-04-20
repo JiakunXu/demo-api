@@ -60,7 +60,7 @@ public class TransfersServiceImpl implements TransfersService {
         sign.append("&key=").append(key);
 
         try {
-            transfers.setSign(EncryptUtil.encryptMD5(sign.toString()).toUpperCase());
+            transfers.setSign(EncryptUtil.encryptMd5(sign.toString()).toUpperCase());
         } catch (IOException e) {
             throw new RuntimeException(e.getMessage());
         }
