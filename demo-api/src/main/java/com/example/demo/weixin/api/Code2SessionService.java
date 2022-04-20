@@ -11,12 +11,13 @@ public interface Code2SessionService {
 
     /**
      *
-     * @param appId
-     * @param appSecret
-     * @param code
+     * @param appid 小程序 appId
+     * @param secret 小程序 appSecret
+     * @param jsCode 登录时获取的 code
      * @return
      * @throws RuntimeException
+     * @see <a href="https://developers.weixin.qq.com/miniprogram/dev/api-backend/open-api/login/auth.code2Session.html">微信官方文档</a>
      */
-    Session getSession(String appId, String appSecret, String code) throws RuntimeException;
+    Session getSession(String appid, String secret, String jsCode) throws RuntimeException;
 
 }

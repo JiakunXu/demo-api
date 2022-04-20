@@ -19,8 +19,7 @@ public class Session extends BaseResult {
     /**
      * 用户唯一标识.
      */
-    @JSONField(name = "openid")
-    private String            openId;
+    private String            openid;
 
     /**
      * 会话密钥.
@@ -31,7 +30,6 @@ public class Session extends BaseResult {
     /**
      * 用户在开放平台的唯一标识符.
      */
-    @JSONField(name = "unionid")
-    private String            unionId;
+    private String            unionid;
 
 }

@@ -19,22 +19,22 @@ public class Code2SessionServiceImpl implements Code2SessionService {
     private static final Logger logger = LoggerFactory.getLogger(Code2SessionServiceImpl.class);
 
     @Override
-    public Session getSession(String appId, String appSecret, String code) throws RuntimeException {
-        if (StringUtils.isBlank(appId)) {
-            throw new RuntimeException("appid 公众号的唯一标识 不能为空.");
+    public Session getSession(String appid, String secret, String jsCode) throws RuntimeException {
+        if (StringUtils.isBlank(appid)) {
+            throw new RuntimeException("appid 不能为空.");
         }
 
-        if (StringUtils.isBlank(appSecret)) {
-            throw new RuntimeException("secret 公众号的appsecret 不能为空.");
+        if (StringUtils.isBlank(secret)) {
+            throw new RuntimeException("secret 不能为空.");
         }
 
-        if (StringUtils.isBlank(code)) {
-            throw new RuntimeException("code code参数 不能为空.");
+        if (StringUtils.isBlank(jsCode)) {
+            throw new RuntimeException("js_code 不能为空.");
         }
 
         StringBuilder sb = new StringBuilder(Code2SessionService.HTTPS_CODE_2_SESSION_URL);
-        sb.append("&appid=").append(appId).append("&secret=").append(appSecret).append("&js_code=")
-            .append(code);
+        sb.append("&appid=").append(appid).append("&secret=").append(secret).append("&js_code=")
+            .append(jsCode);
 
         Session session = null;
 

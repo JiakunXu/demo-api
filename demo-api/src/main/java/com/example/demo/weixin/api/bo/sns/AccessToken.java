@@ -35,8 +35,7 @@ public class AccessToken extends BaseResult {
     /**
      * 用户唯一标识，请注意，在未关注公众号时，用户访问公众号的网页，也会产生一个用户和公众号唯一的OpenID.
      */
-    @JSONField(name = "openid")
-    private String            openId;
+    private String            openid;
 
     /**
      * 用户授权的作用域，使用逗号（,）分隔.

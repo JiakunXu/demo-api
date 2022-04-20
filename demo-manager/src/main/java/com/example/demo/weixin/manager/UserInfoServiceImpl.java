@@ -29,13 +29,13 @@ public class UserInfoServiceImpl implements UserInfoService {
     private static final Logger logger = LoggerFactory.getLogger(UserInfoServiceImpl.class);
 
     @Override
-    public UserInfo getUserInfo(String accessToken, String openId,
+    public UserInfo getUserInfo(String accessToken, String openid,
                                 String lang) throws RuntimeException {
         if (StringUtils.isBlank(accessToken)) {
             throw new RuntimeException("access_token cannot be null.");
         }
 
-        if (StringUtils.isBlank(openId)) {
+        if (StringUtils.isBlank(openid)) {
             throw new RuntimeException("openid cannot be null.");
         }
 
@@ -47,10 +47,10 @@ public class UserInfoServiceImpl implements UserInfoService {
             userInfo = JSON.parseObject(
                 HttpUtil.get(UserInfoService.HTTPS_USER_INFO_URL
                     .replace("$ACCESS_TOKEN$", accessToken.trim())
-                    .replace("$OPENID$", openId.trim()).replace("$LANG$", lang.trim())),
+                    .replace("$OPENID$", openid.trim()).replace("$LANG$", lang.trim())),
                 UserInfo.class);
         } catch (Exception e) {
-            logger.error(accessToken + "&" + openId, e);
+            logger.error(accessToken + "&" + openid, e);
 
             throw new RuntimeException("HttpUtil error.", e);
         }
@@ -68,9 +68,9 @@ public class UserInfoServiceImpl implements UserInfoService {
     }
 
     @Override
-    public MiniUserInfo getUserInfo(String appId, String encryptedData, String sessionKey,
+    public MiniUserInfo getUserInfo(String appid, String encryptedData, String sessionKey,
                                     String iv) {
-        if (StringUtils.isBlank(appId)) {
+        if (StringUtils.isBlank(appid)) {
             throw new RuntimeException("appid 公众号的唯一标识 不能为空.");
         }
 
@@ -127,9 +127,9 @@ public class UserInfoServiceImpl implements UserInfoService {
             throw new RuntimeException("userInfo is null.");
         }
 
-        // appId 不匹配
-        if (!appId.equals(userInfo.getWatermark().getAppId())) {
-            throw new RuntimeException("appId not equals.");
+        // appid 不匹配
+        if (!appid.equals(userInfo.getWatermark().getAppid())) {
+            throw new RuntimeException("appid not equals.");
         }
 
         return userInfo;

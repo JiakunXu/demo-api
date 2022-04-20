@@ -20,9 +20,9 @@ public class Oauth2ServiceImpl implements Oauth2Service {
     private static final Logger logger = LoggerFactory.getLogger(Oauth2ServiceImpl.class);
 
     @Override
-    public String authorize(String appId, String redirectUrl, String scope,
+    public String authorize(String appid, String redirectUrl, String scope,
                             String state) throws RuntimeException {
-        if (StringUtils.isBlank(appId)) {
+        if (StringUtils.isBlank(appid)) {
             throw new RuntimeException("appid 公众号的唯一标识 不能为空.");
         }
 
@@ -34,7 +34,7 @@ public class Oauth2ServiceImpl implements Oauth2Service {
             "snsapi_login".equals(scope) ? Oauth2Service.HTTPS_QRCONNECT_URL
                 : Oauth2Service.HTTPS_AUTHORIZE_URL);
 
-        sb.append("?appid=").append(appId).append("&redirect_uri=").append(redirectUrl)
+        sb.append("?appid=").append(appid).append("&redirect_uri=").append(redirectUrl)
             .append("&response_type=code&scope=").append(scope).append("&state=").append(state)
             .append("#wechat_redirect");
 
@@ -42,13 +42,13 @@ public class Oauth2ServiceImpl implements Oauth2Service {
     }
 
     @Override
-    public AccessToken getAccessToken(String appId, String appSecret,
+    public AccessToken getAccessToken(String appid, String secret,
                                       String code) throws RuntimeException {
-        if (StringUtils.isBlank(appId)) {
+        if (StringUtils.isBlank(appid)) {
             throw new RuntimeException("appid 公众号的唯一标识 不能为空.");
         }
 
-        if (StringUtils.isBlank(appSecret)) {
+        if (StringUtils.isBlank(secret)) {
             throw new RuntimeException("secret 公众号的appsecret 不能为空.");
         }
 
@@ -57,7 +57,7 @@ public class Oauth2ServiceImpl implements Oauth2Service {
         }
 
         StringBuilder sb = new StringBuilder(Oauth2Service.HTTPS_ACCESS_TOKEN_URL);
-        sb.append("&appid=").append(appId).append("&secret=").append(appSecret).append("&code=")
+        sb.append("&appid=").append(appid).append("&secret=").append(secret).append("&code=")
             .append(code);
 
         AccessToken accessToken = null;
@@ -85,13 +85,13 @@ public class Oauth2ServiceImpl implements Oauth2Service {
     }
 
     @Override
-    public UserInfo getUserInfo(String accessToken, String openId,
+    public UserInfo getUserInfo(String accessToken, String openid,
                                 String lang) throws RuntimeException {
         if (StringUtils.isBlank(accessToken)) {
             throw new RuntimeException("access_token cannot be null.");
         }
 
-        if (StringUtils.isBlank(openId)) {
+        if (StringUtils.isBlank(openid)) {
             throw new RuntimeException("openid cannot be null.");
         }
 
@@ -103,10 +103,10 @@ public class Oauth2ServiceImpl implements Oauth2Service {
             userInfo = JSON.parseObject(
                 HttpUtil.get(
                     Oauth2Service.HTTPS_USER_INFO_URL.replace("$ACCESS_TOKEN$", accessToken.trim())
-                        .replace("$OPENID$", openId.trim()).replace("$LANG$", lang.trim())),
+                        .replace("$OPENID$", openid.trim()).replace("$LANG$", lang.trim())),
                 UserInfo.class);
         } catch (Exception e) {
-            logger.error(accessToken + "&" + openId, e);
+            logger.error(accessToken + "&" + openid, e);
 
             throw new RuntimeException("HttpUtil error.", e);
         }
@@ -122,4 +122,5 @@ public class Oauth2ServiceImpl implements Oauth2Service {
 
         return userInfo;
     }
+
 }
