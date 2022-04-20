@@ -43,8 +43,8 @@ public class SecurityCheckServiceImpl implements SecurityCheckService {
             throw new RuntimeException("result is null.");
         }
 
-        String errCode = result.getErrCode();
-        if (StringUtils.isNotBlank(errCode) && !"0".equals(errCode)) {
+        Integer errCode = result.getErrCode();
+        if (errCode != null && errCode != 0) {
             throw new RuntimeException(result.getErrMsg());
         }
 

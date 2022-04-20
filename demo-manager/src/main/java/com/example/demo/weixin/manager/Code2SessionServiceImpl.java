@@ -50,8 +50,8 @@ public class Code2SessionServiceImpl implements Code2SessionService {
             throw new RuntimeException("session is null.");
         }
 
-        String errCode = session.getErrCode();
-        if (StringUtils.isNotBlank(errCode)) {
+        Integer errCode = session.getErrCode();
+        if (errCode != null) {
             logger.error(session.toString());
 
             throw new RuntimeException(session.getErrMsg());

@@ -22,9 +22,9 @@ import java.util.Arrays;
 public class PhoneNumberServiceImpl implements PhoneNumberService {
 
     @Override
-    public PhoneNumber getPhoneNumber(String appId, String encryptedData, String sessionKey,
+    public PhoneNumber getPhoneNumber(String appid, String encryptedData, String sessionKey,
                                       String iv) throws RuntimeException {
-        if (StringUtils.isBlank(appId)) {
+        if (StringUtils.isBlank(appid)) {
             throw new RuntimeException("appid cannot be null.");
         }
 
@@ -82,7 +82,7 @@ public class PhoneNumberServiceImpl implements PhoneNumberService {
         }
 
         // appId 不匹配
-        if (!appId.equals(phoneNumber.getWatermark().getAppId())) {
+        if (!appid.equals(phoneNumber.getWatermark().getAppid())) {
             throw new RuntimeException("appId not equals.");
         }
 

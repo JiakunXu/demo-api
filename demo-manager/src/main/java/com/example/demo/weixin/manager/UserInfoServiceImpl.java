@@ -59,8 +59,8 @@ public class UserInfoServiceImpl implements UserInfoService {
             throw new RuntimeException("userinfo is null.");
         }
 
-        String errCode = userInfo.getErrCode();
-        if (StringUtils.isNotBlank(errCode) && !"0".equals(errCode)) {
+        Integer errCode = userInfo.getErrCode();
+        if (errCode != null && errCode != 0) {
             throw new RuntimeException(userInfo.getErrMsg());
         }
 
