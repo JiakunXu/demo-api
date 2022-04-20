@@ -1,5 +1,6 @@
-package com.example.demo.bytedance.api.bo;
+package com.example.demo.bytedance.api.bo.user;
 
+import com.example.demo.bytedance.api.bo.Watermark;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -47,7 +48,7 @@ public class UserInfo implements Serializable {
     /**
      * 用户 openId.
      */
-    private String            openId;
+    private String            openid;
 
     /**
      * 敏感数据水印.

@@ -1,10 +1,13 @@
 package com.example.demo.framework.util;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.security.GeneralSecurityException;
 import java.security.MessageDigest;
 
-import org.apache.http.Consts;
+import javax.crypto.Mac;
+import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
 
 /**
  * @author JiakunXu
@@ -16,7 +19,7 @@ public class EncryptUtil {
 
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");
-            bytes = md.digest(data.getBytes(Consts.UTF_8));
+            bytes = md.digest(data.getBytes(StandardCharsets.UTF_8));
         } catch (GeneralSecurityException gse) {
             throw new IOException(gse);
         }
@@ -29,7 +32,23 @@ public class EncryptUtil {
 
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-512");
-            bytes = md.digest(data.getBytes(Consts.UTF_8));
+            bytes = md.digest(data.getBytes(StandardCharsets.UTF_8));
+        } catch (GeneralSecurityException gse) {
+            throw new IOException(gse);
+        }
+
+        return byte2hex(bytes);
+    }
+
+    public static String encryptHMAC(String secret, String data) throws IOException {
+        byte[] bytes = null;
+
+        try {
+            SecretKey secretKey = new SecretKeySpec(secret.getBytes(StandardCharsets.UTF_8),
+                "HmacSHA256");
+            Mac mac = Mac.getInstance(secretKey.getAlgorithm());
+            mac.init(secretKey);
+            bytes = mac.doFinal(data.getBytes(StandardCharsets.UTF_8));
         } catch (GeneralSecurityException gse) {
             throw new IOException(gse);
         }
