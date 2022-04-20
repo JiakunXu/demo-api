@@ -45,13 +45,12 @@ public class Code2SessionServiceImpl implements Code2SessionService {
             throw new RuntimeException("HttpUtil error.");
         }
 
-        if (session == null) {
+        if (session == null || session.getErrNo() == null) {
             throw new RuntimeException("session is null.");
         }
 
-        String errCode = session.getErrCode();
-        if (StringUtils.isNotBlank(errCode) && !"0".equals(errCode)) {
-            throw new RuntimeException(session.getErrMsg());
+        if (session.getErrNo() != 0) {
+            throw new RuntimeException(session.getErrTips());
         }
 
         return session;
