@@ -1,8 +1,10 @@
 package com.example.demo.bytedance.manager;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.example.demo.bytedance.api.AccessTokenService;
-import com.example.demo.bytedance.api.bo.AccessToken;
+import com.example.demo.bytedance.api.bo.token.AccessToken;
+import com.example.demo.bytedance.api.bo.token.Result;
 import com.example.demo.framework.util.HttpUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -32,32 +34,34 @@ public class AccessTokenServiceImpl implements AccessTokenService {
             throw new RuntimeException("grant_type is null.");
         }
 
-        StringBuilder sb = new StringBuilder(AccessTokenService.HTTPS_TOKEN_URL);
-        sb.append("?appid=").append(appId).append("&secret=").append(appSecret)
-            .append("&grant_type=").append(grantType);
+        JSONObject object = new JSONObject();
+        object.put("appid", appId);
+        object.put("secret", appSecret);
+        object.put("grant_type", grantType);
 
-        AccessToken accessToken = null;
+        Result result = null;
 
         try {
-            accessToken = JSON.parseObject(HttpUtil.get(sb.toString()), AccessToken.class);
+            result = JSON.parseObject(
+                HttpUtil.post(AccessTokenService.HTTPS_TOKEN_URL, JSON.toJSONString(object)),
+                Result.class);
         } catch (Exception e) {
             logger.error(appId + "&" + appSecret + "&" + grantType, e);
 
             throw new RuntimeException("HttpUtil error.", e);
         }
 
-        if (accessToken == null) {
+        if (result == null || result.getErrNo() == null) {
             throw new RuntimeException("access_token is null.");
         }
 
-        String errCode = accessToken.getErrCode();
-        if (StringUtils.isNotBlank(errCode) && !"0".equals(errCode)) {
-            throw new RuntimeException(accessToken.getErrMsg());
+        if (result.getErrNo() != 0) {
+            throw new RuntimeException(result.getErrTips());
         }
 
-        String token = accessToken.getAccessToken();
+        AccessToken accessToken = result.getAccessToken();
 
-        if (StringUtils.isBlank(token)) {
+        if (accessToken == null || StringUtils.isBlank(accessToken.getAccessToken())) {
             throw new RuntimeException("access_token is blank.");
         }
 

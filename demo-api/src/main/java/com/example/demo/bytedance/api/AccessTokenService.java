@@ -1,13 +1,13 @@
 package com.example.demo.bytedance.api;
 
-import com.example.demo.bytedance.api.bo.AccessToken;
+import com.example.demo.bytedance.api.bo.token.AccessToken;
 
 /**
  * @author JiakunXu
  */
 public interface AccessTokenService {
 
-    String HTTPS_TOKEN_URL = "https://developer.toutiao.com/api/apps/token";
+    String HTTPS_TOKEN_URL = "https://developer.toutiao.com/api/apps/v2/token";
 
     /**
      *

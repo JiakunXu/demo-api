@@ -136,7 +136,7 @@ public class HttpUtil {
         CloseableHttpClient httpclient = HttpClients.createDefault();
 
         try {
-            StringEntity entity = new StringEntity(parameter, Consts.UTF_8);
+            StringEntity entity = new StringEntity(parameter, ContentType.APPLICATION_JSON);
 
             HttpPost httppost = new HttpPost(uri);
             httppost.setEntity(entity);

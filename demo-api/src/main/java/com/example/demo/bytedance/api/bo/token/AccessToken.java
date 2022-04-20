@@ -1,15 +1,17 @@
-package com.example.demo.bytedance.api.bo;
+package com.example.demo.bytedance.api.bo.token;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.io.Serializable;
 
 /**
  * @author JiakunXu
  */
 @Getter
 @Setter
-public class AccessToken extends BaseResult {
+public class AccessToken implements Serializable {
 
     private static final long serialVersionUID = 7946434239031585635L;
 

@@ -21,6 +21,9 @@ public class Body implements Serializable {
     @JSONField(name = "targets")
     private List<String>      targetList;
 
+    /**
+     * 检测任务列表.
+     */
     @JSONField(name = "tasks")
     private List<Task>        taskList;
 
