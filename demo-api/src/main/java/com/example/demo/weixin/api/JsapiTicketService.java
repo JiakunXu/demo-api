@@ -14,6 +14,7 @@ public interface JsapiTicketService {
      * @param accessToken
      * @return
      * @throws RuntimeException
+     * @see <a href="https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/JS-SDK.html">微信官方文档</a>
      */
     JsapiTicket getJsapiTicket(String accessToken) throws RuntimeException;
 

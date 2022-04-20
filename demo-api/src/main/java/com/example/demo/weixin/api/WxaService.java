@@ -15,6 +15,7 @@ public interface WxaService {
      * @param wxaCode
      * @return
      * @throws RuntimeException
+     * @see <a href="https://developers.weixin.qq.com/miniprogram/dev/api-backend/open-api/qr-code/wxacode.getUnlimited.html">微信官方文档</a>
      */
     WxaCode getWxaCodeUnlimit(String accessToken, WxaCode wxaCode) throws RuntimeException;
 

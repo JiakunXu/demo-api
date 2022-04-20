@@ -24,7 +24,7 @@ public class AccessToken extends BaseResult {
      * access_token接口调用凭证超时时间，单位（秒）.
      */
     @JSONField(name = "expires_in")
-    private int               expiresIn;
+    private Integer           expiresIn;
 
     /**
      * 用户刷新access_token.

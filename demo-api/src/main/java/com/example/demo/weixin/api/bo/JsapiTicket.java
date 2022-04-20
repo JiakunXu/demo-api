@@ -22,6 +22,6 @@ public class JsapiTicket extends BaseResult {
      * 凭证的有效时间（秒）.
      */
     @JSONField(name = "expires_in")
-    private int               expiresIn;
+    private Integer           expiresIn;
 
 }
