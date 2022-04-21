@@ -51,8 +51,7 @@ public class AccessTokenServiceImpl implements AccessTokenService {
             throw new RuntimeException("access_token is null.");
         }
 
-        Integer errCode = accessToken.getErrCode();
-        if (errCode != null && errCode != 0) {
+        if (accessToken.getErrCode() != 0) {
             throw new RuntimeException(accessToken.getErrMsg());
         }
 

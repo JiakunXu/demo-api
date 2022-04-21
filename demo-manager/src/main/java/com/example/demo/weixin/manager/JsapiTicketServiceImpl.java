@@ -40,8 +40,7 @@ public class JsapiTicketServiceImpl implements JsapiTicketService {
             throw new RuntimeException("jsapi_ticket is null.");
         }
 
-        Integer errCode = jsapiTicket.getErrCode();
-        if (errCode != null && errCode != 0) {
+        if (jsapiTicket.getErrCode() != 0) {
             throw new RuntimeException(jsapiTicket.getErrMsg());
         }
 

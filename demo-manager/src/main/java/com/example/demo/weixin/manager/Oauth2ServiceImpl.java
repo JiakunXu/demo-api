@@ -74,8 +74,7 @@ public class Oauth2ServiceImpl implements Oauth2Service {
             throw new RuntimeException("access_token is null.");
         }
 
-        Integer errCode = accessToken.getErrCode();
-        if (errCode != null) {
+        if (accessToken.getErrCode() != 0) {
             logger.error(accessToken.toString());
 
             throw new RuntimeException(accessToken.getErrMsg());
@@ -115,8 +114,7 @@ public class Oauth2ServiceImpl implements Oauth2Service {
             throw new RuntimeException("userinfo is null.");
         }
 
-        Integer errCode = userInfo.getErrCode();
-        if (errCode != null && errCode != 0) {
+        if (userInfo.getErrCode() != 0) {
             throw new RuntimeException(userInfo.getErrMsg());
         }
 

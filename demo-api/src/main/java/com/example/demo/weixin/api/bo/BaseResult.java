@@ -16,7 +16,7 @@ public class BaseResult implements Serializable {
     private static final long serialVersionUID = -5653302225467940287L;
 
     @JSONField(name = "errcode")
-    private Integer           errCode;
+    private int               errCode;
 
     @JSONField(name = "errmsg")
     private String            errMsg;

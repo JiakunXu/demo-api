@@ -44,8 +44,7 @@ public class QrCodeServiceImpl implements QrCodeService {
             throw new RuntimeException("result is null.");
         }
 
-        Integer errCode = result.getErrCode();
-        if (errCode != null && errCode != 0) {
+        if (result.getErrCode() != 0) {
             throw new RuntimeException(result.getErrMsg());
         }
 
