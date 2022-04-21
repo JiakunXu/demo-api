@@ -179,7 +179,7 @@ public class MessageServiceImpl implements MessageService {
             throw new RuntimeException("send_result is null.");
         }
 
-        if (!"0".equals(result.getErrNo())) {
+        if (result.getErrNo() != 0) {
             throw new RuntimeException(result.getMsg());
         }
 

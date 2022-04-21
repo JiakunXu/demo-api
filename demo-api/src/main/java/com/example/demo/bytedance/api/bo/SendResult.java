@@ -19,7 +19,7 @@ public class SendResult implements Serializable {
      * 错误码.
      */
     @JSONField(name = "errno")
-    private String            errNo;
+    private int               errNo;
 
     /**
      * 描述信息.
