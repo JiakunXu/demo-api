@@ -1,7 +1,10 @@
 package com.example.demo.weixin.api;
 
 import com.example.demo.weixin.api.bo.message.Image;
+import com.example.demo.weixin.api.bo.message.Link;
+import com.example.demo.weixin.api.bo.message.MiniProgramPage;
 import com.example.demo.weixin.api.bo.message.MpNews;
+import com.example.demo.weixin.api.bo.message.MpNewsArticle;
 import com.example.demo.weixin.api.bo.message.Music;
 import com.example.demo.weixin.api.bo.message.News;
 import com.example.demo.weixin.api.bo.message.Result;
@@ -9,6 +12,7 @@ import com.example.demo.weixin.api.bo.message.Template;
 import com.example.demo.weixin.api.bo.message.Text;
 import com.example.demo.weixin.api.bo.message.Video;
 import com.example.demo.weixin.api.bo.message.Voice;
+import com.example.demo.weixin.api.bo.message.WxCard;
 
 /**
  * @author JiakunXu
@@ -104,6 +108,57 @@ public interface MessageService {
      * @see <a href="https://developers.weixin.qq.com/doc/offiaccount/Message_Management/Service_Center_messages.html#7">微信官方文档</a>
      */
     Result send(String accessToken, String toUser, MpNews mpNews) throws RuntimeException;
+
+    /**
+     * 发送图文消息（点击跳转到图文消息页面）使用通过 “发布” 系列接口得到的 article_id.
+     *
+     * @param accessToken
+     * @param toUser
+     * @param mpNewsArticle
+     * @return
+     * @throws RuntimeException
+     * @see <a href="https://developers.weixin.qq.com/doc/offiaccount/Message_Management/Service_Center_messages.html#7">微信官方文档</a>
+     */
+    Result send(String accessToken, String toUser,
+                MpNewsArticle mpNewsArticle) throws RuntimeException;
+
+    /**
+     * 发送卡券.
+     *
+     * @param accessToken
+     * @param toUser
+     * @param wxCard
+     * @return
+     * @throws RuntimeException
+     * @see <a href="https://developers.weixin.qq.com/doc/offiaccount/Message_Management/Service_Center_messages.html#7">微信官方文档</a>
+     */
+    Result send(String accessToken, String toUser, WxCard wxCard) throws RuntimeException;
+
+    /**
+     * 发送小程序卡片（要求小程序与公众号已关联）.
+     *
+     * @param accessToken
+     * @param toUser
+     * @param miniProgramPage
+     * @return
+     * @throws RuntimeException
+     * @see <a href="https://developers.weixin.qq.com/doc/offiaccount/Message_Management/Service_Center_messages.html#7">微信官方文档</a>
+     * @see <a href="https://developers.weixin.qq.com/miniprogram/dev/api-backend/open-api/customer-message/customerServiceMessage.send.html">微信官方文档</a>
+     */
+    Result send(String accessToken, String toUser,
+                MiniProgramPage miniProgramPage) throws RuntimeException;
+
+    /**
+     * 发送图文链接.
+     *
+     * @param accessToken
+     * @param toUser
+     * @param link
+     * @return
+     * @throws RuntimeException
+     * @see <a href="https://developers.weixin.qq.com/miniprogram/dev/api-backend/open-api/customer-message/customerServiceMessage.send.html">微信官方文档</a>
+     */
+    Result send(String accessToken, String toUser, Link link) throws RuntimeException;
 
     /**
      * 模板消息.

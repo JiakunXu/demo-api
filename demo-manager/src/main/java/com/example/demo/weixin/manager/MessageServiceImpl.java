@@ -4,8 +4,11 @@ import com.alibaba.fastjson.JSON;
 import com.example.demo.framework.util.HttpUtil;
 import com.example.demo.weixin.api.MessageService;
 import com.example.demo.weixin.api.bo.message.Image;
+import com.example.demo.weixin.api.bo.message.Link;
 import com.example.demo.weixin.api.bo.message.Message;
+import com.example.demo.weixin.api.bo.message.MiniProgramPage;
 import com.example.demo.weixin.api.bo.message.MpNews;
+import com.example.demo.weixin.api.bo.message.MpNewsArticle;
 import com.example.demo.weixin.api.bo.message.Music;
 import com.example.demo.weixin.api.bo.message.News;
 import com.example.demo.weixin.api.bo.message.Result;
@@ -13,6 +16,7 @@ import com.example.demo.weixin.api.bo.message.Template;
 import com.example.demo.weixin.api.bo.message.Text;
 import com.example.demo.weixin.api.bo.message.Video;
 import com.example.demo.weixin.api.bo.message.Voice;
+import com.example.demo.weixin.api.bo.message.WxCard;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -208,6 +212,96 @@ public class MessageServiceImpl implements MessageService {
         message.setToUser(toUser);
         message.setMsgType("mpnews");
         message.setMpNews(mpNews);
+
+        return send(accessToken, message);
+    }
+
+    @Override
+    public Result send(String accessToken, String toUser,
+                       MpNewsArticle mpNewsArticle) throws RuntimeException {
+        if (StringUtils.isBlank(accessToken)) {
+            throw new RuntimeException("access_token cannot be null.");
+        }
+
+        if (StringUtils.isBlank(toUser)) {
+            throw new RuntimeException("touser cannot be null.");
+        }
+
+        if (mpNewsArticle == null || StringUtils.isBlank(mpNewsArticle.getArticleId())) {
+            throw new RuntimeException("article_id cannot be null.");
+        }
+
+        Message message = new Message();
+        message.setToUser(toUser);
+        message.setMsgType("mpnewsarticle");
+        message.setMpNewsArticle(mpNewsArticle);
+
+        return send(accessToken, message);
+    }
+
+    @Override
+    public Result send(String accessToken, String toUser, WxCard wxCard) throws RuntimeException {
+        if (StringUtils.isBlank(accessToken)) {
+            throw new RuntimeException("access_token cannot be null.");
+        }
+
+        if (StringUtils.isBlank(toUser)) {
+            throw new RuntimeException("touser cannot be null.");
+        }
+
+        if (wxCard == null || StringUtils.isBlank(wxCard.getCardId())) {
+            throw new RuntimeException("card_id cannot be null.");
+        }
+
+        Message message = new Message();
+        message.setToUser(toUser);
+        message.setMsgType("wxcard");
+        message.setWxCard(wxCard);
+
+        return send(accessToken, message);
+    }
+
+    @Override
+    public Result send(String accessToken, String toUser,
+                       MiniProgramPage miniProgramPage) throws RuntimeException {
+        if (StringUtils.isBlank(accessToken)) {
+            throw new RuntimeException("access_token cannot be null.");
+        }
+
+        if (StringUtils.isBlank(toUser)) {
+            throw new RuntimeException("touser cannot be null.");
+        }
+
+        if (miniProgramPage == null || StringUtils.isBlank(miniProgramPage.getTitle())) {
+            throw new RuntimeException("title cannot be null.");
+        }
+
+        Message message = new Message();
+        message.setToUser(toUser);
+        message.setMsgType("miniprogrampage");
+        message.setMiniProgramPage(miniProgramPage);
+
+        return send(accessToken, message);
+    }
+
+    @Override
+    public Result send(String accessToken, String toUser, Link link) throws RuntimeException {
+        if (StringUtils.isBlank(accessToken)) {
+            throw new RuntimeException("access_token cannot be null.");
+        }
+
+        if (StringUtils.isBlank(toUser)) {
+            throw new RuntimeException("touser cannot be null.");
+        }
+
+        if (link == null || StringUtils.isBlank(link.getTitle())) {
+            throw new RuntimeException("title cannot be null.");
+        }
+
+        Message message = new Message();
+        message.setToUser(toUser);
+        message.setMsgType("link");
+        message.setLink(link);
 
         return send(accessToken, message);
     }
