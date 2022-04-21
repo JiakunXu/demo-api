@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 /**
  * @author JiakunXu
  */
-@Service
+@Service("qrCodeService")
 public class QrCodeServiceImpl implements QrCodeService {
 
     private static final Logger logger = LoggerFactory.getLogger(QrCodeServiceImpl.class);
