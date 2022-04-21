@@ -18,4 +18,8 @@ public class Data implements Serializable {
 
     private Keyword1          keyword1;
 
+    private Keyword2          keyword2;
+
+    private Keyword3          keyword3;
+
 }
