@@ -28,7 +28,7 @@ import java.util.Map;
 /**
  * @author JiakunXu
  */
-@Service
+@Service("messageService")
 public class MessageServiceImpl implements MessageService {
 
     private static final Logger logger = LoggerFactory.getLogger(MessageServiceImpl.class);
