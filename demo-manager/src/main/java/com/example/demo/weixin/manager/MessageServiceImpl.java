@@ -3,10 +3,12 @@ package com.example.demo.weixin.manager;
 import com.alibaba.fastjson.JSON;
 import com.example.demo.framework.util.HttpUtil;
 import com.example.demo.weixin.api.MessageService;
+import com.example.demo.weixin.api.bo.message.Image;
 import com.example.demo.weixin.api.bo.message.Message;
 import com.example.demo.weixin.api.bo.message.Result;
 import com.example.demo.weixin.api.bo.message.Template;
 import com.example.demo.weixin.api.bo.message.Text;
+import com.example.demo.weixin.api.bo.message.Voice;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -70,6 +72,50 @@ public class MessageServiceImpl implements MessageService {
         message.setToUser(toUser);
         message.setMsgType("text");
         message.setText(text);
+
+        return send(accessToken, message);
+    }
+
+    @Override
+    public Result send(String accessToken, String toUser, Image image) throws RuntimeException {
+        if (StringUtils.isBlank(accessToken)) {
+            throw new RuntimeException("access_token cannot be null.");
+        }
+
+        if (StringUtils.isBlank(toUser)) {
+            throw new RuntimeException("touser cannot be null.");
+        }
+
+        if (image == null || StringUtils.isBlank(image.getMediaId())) {
+            throw new RuntimeException("media_id cannot be null.");
+        }
+
+        Message message = new Message();
+        message.setToUser(toUser);
+        message.setMsgType("image");
+        message.setImage(image);
+
+        return send(accessToken, message);
+    }
+
+    @Override
+    public Result send(String accessToken, String toUser, Voice voice) throws RuntimeException {
+        if (StringUtils.isBlank(accessToken)) {
+            throw new RuntimeException("access_token cannot be null.");
+        }
+
+        if (StringUtils.isBlank(toUser)) {
+            throw new RuntimeException("touser cannot be null.");
+        }
+
+        if (voice == null || StringUtils.isBlank(voice.getMediaId())) {
+            throw new RuntimeException("media_id cannot be null.");
+        }
+
+        Message message = new Message();
+        message.setToUser(toUser);
+        message.setMsgType("voice");
+        message.setVoice(voice);
 
         return send(accessToken, message);
     }
