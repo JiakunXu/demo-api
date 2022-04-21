@@ -19,7 +19,7 @@ public class BaseResult implements Serializable {
      * 错误码.
      */
     @JSONField(name = "err_no")
-    private Integer           errNo;
+    private int               errNo;
 
     /**
      * 错误信息.

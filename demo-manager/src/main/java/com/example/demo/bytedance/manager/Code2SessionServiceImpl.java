@@ -45,7 +45,7 @@ public class Code2SessionServiceImpl implements Code2SessionService {
             throw new RuntimeException("HttpUtil error.");
         }
 
-        if (session == null || session.getErrNo() == null) {
+        if (session == null) {
             throw new RuntimeException("session is null.");
         }
 

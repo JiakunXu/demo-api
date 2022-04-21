@@ -51,7 +51,7 @@ public class AccessTokenServiceImpl implements AccessTokenService {
             throw new RuntimeException("HttpUtil error.", e);
         }
 
-        if (result == null || result.getErrNo() == null) {
+        if (result == null) {
             throw new RuntimeException("access_token is null.");
         }
 
