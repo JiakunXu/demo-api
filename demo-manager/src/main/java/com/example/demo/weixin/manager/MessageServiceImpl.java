@@ -5,9 +5,13 @@ import com.example.demo.framework.util.HttpUtil;
 import com.example.demo.weixin.api.MessageService;
 import com.example.demo.weixin.api.bo.message.Image;
 import com.example.demo.weixin.api.bo.message.Message;
+import com.example.demo.weixin.api.bo.message.MpNews;
+import com.example.demo.weixin.api.bo.message.Music;
+import com.example.demo.weixin.api.bo.message.News;
 import com.example.demo.weixin.api.bo.message.Result;
 import com.example.demo.weixin.api.bo.message.Template;
 import com.example.demo.weixin.api.bo.message.Text;
+import com.example.demo.weixin.api.bo.message.Video;
 import com.example.demo.weixin.api.bo.message.Voice;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -116,6 +120,94 @@ public class MessageServiceImpl implements MessageService {
         message.setToUser(toUser);
         message.setMsgType("voice");
         message.setVoice(voice);
+
+        return send(accessToken, message);
+    }
+
+    @Override
+    public Result send(String accessToken, String toUser, Video video) throws RuntimeException {
+        if (StringUtils.isBlank(accessToken)) {
+            throw new RuntimeException("access_token cannot be null.");
+        }
+
+        if (StringUtils.isBlank(toUser)) {
+            throw new RuntimeException("touser cannot be null.");
+        }
+
+        if (video == null || StringUtils.isBlank(video.getMediaId())) {
+            throw new RuntimeException("media_id cannot be null.");
+        }
+
+        Message message = new Message();
+        message.setToUser(toUser);
+        message.setMsgType("video");
+        message.setVideo(video);
+
+        return send(accessToken, message);
+    }
+
+    @Override
+    public Result send(String accessToken, String toUser, Music music) throws RuntimeException {
+        if (StringUtils.isBlank(accessToken)) {
+            throw new RuntimeException("access_token cannot be null.");
+        }
+
+        if (StringUtils.isBlank(toUser)) {
+            throw new RuntimeException("touser cannot be null.");
+        }
+
+        if (music == null || StringUtils.isBlank(music.getTitle())) {
+            throw new RuntimeException("title cannot be null.");
+        }
+
+        Message message = new Message();
+        message.setToUser(toUser);
+        message.setMsgType("music");
+        message.setMusic(music);
+
+        return send(accessToken, message);
+    }
+
+    @Override
+    public Result send(String accessToken, String toUser, News news) throws RuntimeException {
+        if (StringUtils.isBlank(accessToken)) {
+            throw new RuntimeException("access_token cannot be null.");
+        }
+
+        if (StringUtils.isBlank(toUser)) {
+            throw new RuntimeException("touser cannot be null.");
+        }
+
+        if (news == null || news.getArticleList() == null) {
+            throw new RuntimeException("articles cannot be null.");
+        }
+
+        Message message = new Message();
+        message.setToUser(toUser);
+        message.setMsgType("news");
+        message.setNews(news);
+
+        return send(accessToken, message);
+    }
+
+    @Override
+    public Result send(String accessToken, String toUser, MpNews mpNews) throws RuntimeException {
+        if (StringUtils.isBlank(accessToken)) {
+            throw new RuntimeException("access_token cannot be null.");
+        }
+
+        if (StringUtils.isBlank(toUser)) {
+            throw new RuntimeException("touser cannot be null.");
+        }
+
+        if (mpNews == null || StringUtils.isBlank(mpNews.getMediaId())) {
+            throw new RuntimeException("media_id cannot be null.");
+        }
+
+        Message message = new Message();
+        message.setToUser(toUser);
+        message.setMsgType("mpnews");
+        message.setMpNews(mpNews);
 
         return send(accessToken, message);
     }
