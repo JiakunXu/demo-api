@@ -39,7 +39,7 @@ public class MessageServiceImpl implements MessageService {
 
         try {
             result = JSON
-                .parseObject(HttpUtil.post(MessageService.HTTPS_SEND_URL + accessToken.trim(),
+                .parseObject(HttpUtil.post(MessageService.HTTPS_TEMPLATE_URL + accessToken.trim(),
                     JSON.toJSONString(template)), Result.class);
         } catch (Exception e) {
             logger.error(template.toString(), e);

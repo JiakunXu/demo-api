@@ -8,9 +8,12 @@ import com.example.demo.weixin.api.bo.message.Template;
  */
 public interface MessageService {
 
-    String HTTPS_SEND_URL = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=";
+    String HTTPS_CUSTOM_URL   = "https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=";
+
+    String HTTPS_TEMPLATE_URL = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=";
 
     /**
+     * 模板消息.
      * 
      * @param accessToken
      * @param toUser
