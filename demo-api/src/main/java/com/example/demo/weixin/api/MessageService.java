@@ -2,6 +2,7 @@ package com.example.demo.weixin.api;
 
 import com.example.demo.weixin.api.bo.message.Result;
 import com.example.demo.weixin.api.bo.message.Template;
+import com.example.demo.weixin.api.bo.message.Text;
 
 /**
  * @author JiakunXu
@@ -11,6 +12,19 @@ public interface MessageService {
     String HTTPS_CUSTOM_URL   = "https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=";
 
     String HTTPS_TEMPLATE_URL = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=";
+
+    /**
+     * 发送文本消息.
+     *
+     * @param accessToken
+     * @param toUser
+     * @param text
+     * @return
+     * @throws RuntimeException
+     * @see <a href="https://developers.weixin.qq.com/doc/offiaccount/Message_Management/Service_Center_messages.html#7">微信官方文档</a>
+     * @see <a href="https://developers.weixin.qq.com/miniprogram/dev/api-backend/open-api/customer-message/customerServiceMessage.send.html">微信官方文档</a>
+     */
+    Result send(String accessToken, String toUser, Text text) throws RuntimeException;
 
     /**
      * 模板消息.
