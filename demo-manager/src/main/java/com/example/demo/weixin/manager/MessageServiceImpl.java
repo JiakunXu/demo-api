@@ -3,6 +3,7 @@ package com.example.demo.weixin.manager;
 import com.alibaba.fastjson.JSON;
 import com.example.demo.framework.util.HttpUtil;
 import com.example.demo.weixin.api.MessageService;
+import com.example.demo.weixin.api.bo.BaseResult;
 import com.example.demo.weixin.api.bo.message.Custom;
 import com.example.demo.weixin.api.bo.message.Image;
 import com.example.demo.weixin.api.bo.message.Link;
@@ -12,6 +13,7 @@ import com.example.demo.weixin.api.bo.message.MpNewsArticle;
 import com.example.demo.weixin.api.bo.message.Music;
 import com.example.demo.weixin.api.bo.message.News;
 import com.example.demo.weixin.api.bo.message.Result;
+import com.example.demo.weixin.api.bo.message.Subscribe;
 import com.example.demo.weixin.api.bo.message.Template;
 import com.example.demo.weixin.api.bo.message.Text;
 import com.example.demo.weixin.api.bo.message.Video;
@@ -330,6 +332,46 @@ public class MessageServiceImpl implements MessageService {
                     JSON.toJSONString(template)), Result.class);
         } catch (Exception e) {
             logger.error(template.toString(), e);
+
+            throw new RuntimeException("HttpUtil error.", e);
+        }
+
+        if (result == null) {
+            throw new RuntimeException("result is null.");
+        }
+
+        if (result.getErrCode() != 0) {
+            throw new RuntimeException(result.getErrMsg());
+        }
+
+        return result;
+    }
+
+    @Override
+    public BaseResult send(String accessToken, String toUser,
+                           Subscribe subscribe) throws RuntimeException {
+        if (StringUtils.isBlank(accessToken)) {
+            throw new RuntimeException("access_token cannot be null.");
+        }
+
+        if (StringUtils.isBlank(toUser)) {
+            throw new RuntimeException("touser cannot be null.");
+        }
+
+        if (subscribe == null || subscribe.getData() == null) {
+            throw new RuntimeException("subscribe cannot be null.");
+        }
+
+        subscribe.setToUser(toUser);
+
+        BaseResult result = null;
+
+        try {
+            result = JSON
+                .parseObject(HttpUtil.post(MessageService.HTTPS_SUBSCRIBE_URL + accessToken.trim(),
+                    JSON.toJSONString(subscribe)), BaseResult.class);
+        } catch (Exception e) {
+            logger.error(subscribe.toString(), e);
 
             throw new RuntimeException("HttpUtil error.", e);
         }

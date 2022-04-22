@@ -1,5 +1,6 @@
 package com.example.demo.weixin.api;
 
+import com.example.demo.weixin.api.bo.BaseResult;
 import com.example.demo.weixin.api.bo.message.Image;
 import com.example.demo.weixin.api.bo.message.Link;
 import com.example.demo.weixin.api.bo.message.MiniProgramPage;
@@ -8,6 +9,7 @@ import com.example.demo.weixin.api.bo.message.MpNewsArticle;
 import com.example.demo.weixin.api.bo.message.Music;
 import com.example.demo.weixin.api.bo.message.News;
 import com.example.demo.weixin.api.bo.message.Result;
+import com.example.demo.weixin.api.bo.message.Subscribe;
 import com.example.demo.weixin.api.bo.message.Template;
 import com.example.demo.weixin.api.bo.message.Text;
 import com.example.demo.weixin.api.bo.message.Video;
@@ -19,9 +21,11 @@ import com.example.demo.weixin.api.bo.message.WxCard;
  */
 public interface MessageService {
 
-    String HTTPS_CUSTOM_URL   = "https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=";
+    String HTTPS_CUSTOM_URL    = "https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=";
 
-    String HTTPS_TEMPLATE_URL = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=";
+    String HTTPS_TEMPLATE_URL  = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=";
+
+    String HTTPS_SUBSCRIBE_URL = "https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=";
 
     /**
      * 发送文本消息.
@@ -171,5 +175,17 @@ public interface MessageService {
      * @see <a href="https://developers.weixin.qq.com/doc/offiaccount/Message_Management/Template_Message_Interface.html#5">微信官方文档</a>
      */
     Result send(String accessToken, String toUser, Template template) throws RuntimeException;
+
+    /**
+     * 订阅消息.
+     * 
+     * @param accessToken
+     * @param toUser
+     * @param subscribe
+     * @return
+     * @throws RuntimeException
+     * @see <a href="https://developers.weixin.qq.com/miniprogram/dev/api-backend/open-api/subscribe-message/subscribeMessage.send.html">微信官方文档</a>
+     */
+    BaseResult send(String accessToken, String toUser, Subscribe subscribe) throws RuntimeException;
 
 }
