@@ -44,10 +44,9 @@ public class UserInfoServiceImpl implements UserInfoService {
         UserInfo userInfo = null;
 
         try {
-            userInfo = JSON.parseObject(
-                HttpUtil.get(UserInfoService.HTTPS_USER_INFO_URL
-                    .replace("$ACCESS_TOKEN$", accessToken.trim())
-                    .replace("$OPENID$", openid.trim()).replace("$LANG$", lang.trim())),
+            userInfo = JSON.parseObject(HttpUtil
+                .get(UserInfoService.HTTPS_USER_INFO_URL.replace("$ACCESS_TOKEN$", accessToken)
+                    .replace("$OPENID$", openid).replace("$LANG$", lang)),
                 UserInfo.class);
         } catch (Exception e) {
             logger.error(accessToken + "&" + openid, e);

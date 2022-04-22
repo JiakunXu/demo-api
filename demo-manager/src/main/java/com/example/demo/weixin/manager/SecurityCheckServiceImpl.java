@@ -30,9 +30,9 @@ public class SecurityCheckServiceImpl implements SecurityCheckService {
         BaseResult result = null;
 
         try {
-            result = JSON.parseObject(HttpUtil.post(
-                SecurityCheckService.HTTPS_MSG_URL.replace("$ACCESS_TOKEN$", accessToken.trim()),
-                content), BaseResult.class);
+            result = JSON.parseObject(
+                HttpUtil.post(SecurityCheckService.HTTPS_MSG_URL + accessToken, content),
+                BaseResult.class);
         } catch (Exception e) {
             logger.error(accessToken, e);
 

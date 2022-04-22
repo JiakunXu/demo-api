@@ -43,9 +43,8 @@ public class MessageServiceImpl implements MessageService {
         Result result = null;
 
         try {
-            result = JSON
-                .parseObject(HttpUtil.post(MessageService.HTTPS_CUSTOM_URL + accessToken.trim(),
-                    JSON.toJSONString(custom)), Result.class);
+            result = JSON.parseObject(HttpUtil.post(MessageService.HTTPS_CUSTOM_URL + accessToken,
+                JSON.toJSONString(custom)), Result.class);
         } catch (Exception e) {
             logger.error(custom.toString(), e);
 
@@ -327,9 +326,8 @@ public class MessageServiceImpl implements MessageService {
         Result result = null;
 
         try {
-            result = JSON
-                .parseObject(HttpUtil.post(MessageService.HTTPS_TEMPLATE_URL + accessToken.trim(),
-                    JSON.toJSONString(template)), Result.class);
+            result = JSON.parseObject(HttpUtil.post(MessageService.HTTPS_TEMPLATE_URL + accessToken,
+                JSON.toJSONString(template)), Result.class);
         } catch (Exception e) {
             logger.error(template.toString(), e);
 
@@ -368,7 +366,7 @@ public class MessageServiceImpl implements MessageService {
 
         try {
             result = JSON
-                .parseObject(HttpUtil.post(MessageService.HTTPS_SUBSCRIBE_URL + accessToken.trim(),
+                .parseObject(HttpUtil.post(MessageService.HTTPS_SUBSCRIBE_URL + accessToken,
                     JSON.toJSONString(subscribe)), BaseResult.class);
         } catch (Exception e) {
             logger.error(subscribe.toString(), e);

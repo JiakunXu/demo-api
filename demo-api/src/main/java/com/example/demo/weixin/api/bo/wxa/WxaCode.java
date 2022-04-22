@@ -5,12 +5,14 @@ import com.example.demo.weixin.api.bo.BaseResult;
 import com.example.demo.weixin.api.bo.LineColor;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 /**
  * @author JiakunXu
  */
 @Getter
 @Setter
+@ToString
 public class WxaCode extends BaseResult {
 
     private static final long serialVersionUID = 2805710848332841282L;
@@ -40,7 +42,7 @@ public class WxaCode extends BaseResult {
      * auto_color 为 false 时生效，使用 rgb 设置颜色 例如 {"r":"xxx","g":"xxx","b":"xxx"} 十进制表示.
      */
     @JSONField(name = "line_color")
-    private LineColor lineColor;
+    private LineColor         lineColor;
 
     /**
      * 是否需要透明底色，为 true 时，生成透明底色的小程序.

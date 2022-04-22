@@ -167,7 +167,7 @@ public class MessageServiceImpl implements MessageService {
 
         try {
             result = JSON
-                .parseObject(HttpUtil.post(MessageService.HTTPS_MESSAGE_URL + accessToken.trim(),
+                .parseObject(HttpUtil.post(MessageService.HTTPS_MESSAGE_URL + accessToken,
                     JSON.toJSONString(map)), SendResult.class);
         } catch (Exception e) {
             logger.error(JSON.toJSONString(map), e);

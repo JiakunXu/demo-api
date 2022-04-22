@@ -25,9 +25,8 @@ public class MediaServiceImpl implements MediaService {
         }
 
         try {
-            return HttpUtil
-                .download(MediaService.HTTPS_GET_URL.replace("$ACCESS_TOKEN$", accessToken.trim())
-                    .replace("$MEDIA_ID$", mediaId.trim()));
+            return HttpUtil.download(MediaService.HTTPS_GET_URL
+                .replace("$ACCESS_TOKEN$", accessToken).replace("$MEDIA_ID$", mediaId));
         } catch (Exception e) {
             logger.error(accessToken + "&" + mediaId, e);
 

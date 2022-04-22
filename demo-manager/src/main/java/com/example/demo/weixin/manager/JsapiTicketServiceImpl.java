@@ -27,8 +27,9 @@ public class JsapiTicketServiceImpl implements JsapiTicketService {
         JsapiTicket jsapiTicket = null;
 
         try {
-            jsapiTicket = JSON.parseObject(HttpUtil.get(
-                JsapiTicketService.HTTPS_TICKET_URL.replace("$ACCESS_TOKEN$", accessToken.trim())),
+            jsapiTicket = JSON.parseObject(
+                HttpUtil.get(
+                    JsapiTicketService.HTTPS_TICKET_URL.replace("$ACCESS_TOKEN$", accessToken)),
                 JsapiTicket.class);
         } catch (Exception e) {
             logger.error(accessToken, e);

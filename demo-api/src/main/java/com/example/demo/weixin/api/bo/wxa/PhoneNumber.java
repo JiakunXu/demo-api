@@ -21,6 +21,6 @@ public class PhoneNumber implements Serializable {
 
     private String            countryCode;
 
-    private Watermark watermark;
+    private Watermark         watermark;
 
 }

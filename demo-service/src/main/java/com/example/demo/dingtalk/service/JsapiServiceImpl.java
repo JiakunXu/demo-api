@@ -52,7 +52,7 @@ public class JsapiServiceImpl implements JsapiService {
 
         StringBuilder sb = new StringBuilder();
         sb.append("jsapi_ticket=").append(ticket).append("&noncestr=").append(nonceStr)
-            .append("&timestamp=").append(timestamp).append("&url=").append(url.trim());
+            .append("&timestamp=").append(timestamp).append("&url=").append(url);
 
         try {
             signature = EncryptUtil.encryptSha(sb.toString());
