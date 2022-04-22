@@ -7,7 +7,7 @@ import com.example.demo.weixin.api.bo.wxa.PhoneNumber;
  */
 public interface PhoneNumberService {
 
-    String HTTPS_GET_URL = "https://api.weixin.qq.com/wxa/business/getuserphonenumber?access_token=$ACCESS_TOKEN$";
+    String HTTPS_GET_URL = "https://api.weixin.qq.com/wxa/business/getuserphonenumber?access_token=";
 
     /**
      * 

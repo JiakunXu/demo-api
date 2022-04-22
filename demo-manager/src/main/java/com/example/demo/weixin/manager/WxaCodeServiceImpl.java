@@ -26,8 +26,7 @@ public class WxaCodeServiceImpl implements WxaCodeService {
         byte[] buffer = null;
 
         try {
-            buffer = HttpUtil.download(
-                WxaCodeService.HTTPS_CODE_URL.replace("$ACCESS_TOKEN$", accessToken.trim()),
+            buffer = HttpUtil.download(WxaCodeService.HTTPS_CODE_URL + accessToken,
                 JSON.toJSONString(wxaCode));
         } catch (Exception e) {
             throw new RuntimeException("HttpUtil error.", e);

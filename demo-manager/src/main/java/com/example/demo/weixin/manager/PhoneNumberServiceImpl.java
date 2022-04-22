@@ -45,9 +45,8 @@ public class PhoneNumberServiceImpl implements PhoneNumberService {
         Result result = null;
 
         try {
-            result = JSON.parseObject(HttpUtil.post(
-                PhoneNumberService.HTTPS_GET_URL.replace("$ACCESS_TOKEN$", accessToken.trim()),
-                code), Result.class);
+            result = JSON.parseObject(
+                HttpUtil.post(PhoneNumberService.HTTPS_GET_URL + accessToken, code), Result.class);
         } catch (Exception e) {
             logger.error(accessToken, e);
 
