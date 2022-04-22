@@ -3,9 +3,9 @@ package com.example.demo.weixin.manager;
 import com.alibaba.fastjson.JSON;
 import com.example.demo.framework.util.HttpUtil;
 import com.example.demo.weixin.api.MessageService;
+import com.example.demo.weixin.api.bo.message.Custom;
 import com.example.demo.weixin.api.bo.message.Image;
 import com.example.demo.weixin.api.bo.message.Link;
-import com.example.demo.weixin.api.bo.message.Message;
 import com.example.demo.weixin.api.bo.message.MiniProgramPage;
 import com.example.demo.weixin.api.bo.message.MpNews;
 import com.example.demo.weixin.api.bo.message.MpNewsArticle;
@@ -33,19 +33,19 @@ public class MessageServiceImpl implements MessageService {
     /**
      * 
      * @param accessToken
-     * @param message
+     * @param custom
      * @return
      * @throws RuntimeException
      */
-    private Result send(String accessToken, Message message) throws RuntimeException {
+    private Result send(String accessToken, Custom custom) throws RuntimeException {
         Result result = null;
 
         try {
             result = JSON
                 .parseObject(HttpUtil.post(MessageService.HTTPS_CUSTOM_URL + accessToken.trim(),
-                    JSON.toJSONString(message)), Result.class);
+                    JSON.toJSONString(custom)), Result.class);
         } catch (Exception e) {
-            logger.error(message.toString(), e);
+            logger.error(custom.toString(), e);
 
             throw new RuntimeException("HttpUtil error.", e);
         }
@@ -75,12 +75,12 @@ public class MessageServiceImpl implements MessageService {
             throw new RuntimeException("content cannot be null.");
         }
 
-        Message message = new Message();
-        message.setToUser(toUser);
-        message.setMsgType("text");
-        message.setText(text);
+        Custom custom = new Custom();
+        custom.setToUser(toUser);
+        custom.setMsgType("text");
+        custom.setText(text);
 
-        return send(accessToken, message);
+        return send(accessToken, custom);
     }
 
     @Override
@@ -97,12 +97,12 @@ public class MessageServiceImpl implements MessageService {
             throw new RuntimeException("media_id cannot be null.");
         }
 
-        Message message = new Message();
-        message.setToUser(toUser);
-        message.setMsgType("image");
-        message.setImage(image);
+        Custom custom = new Custom();
+        custom.setToUser(toUser);
+        custom.setMsgType("image");
+        custom.setImage(image);
 
-        return send(accessToken, message);
+        return send(accessToken, custom);
     }
 
     @Override
@@ -119,12 +119,12 @@ public class MessageServiceImpl implements MessageService {
             throw new RuntimeException("media_id cannot be null.");
         }
 
-        Message message = new Message();
-        message.setToUser(toUser);
-        message.setMsgType("voice");
-        message.setVoice(voice);
+        Custom custom = new Custom();
+        custom.setToUser(toUser);
+        custom.setMsgType("voice");
+        custom.setVoice(voice);
 
-        return send(accessToken, message);
+        return send(accessToken, custom);
     }
 
     @Override
@@ -141,12 +141,12 @@ public class MessageServiceImpl implements MessageService {
             throw new RuntimeException("media_id cannot be null.");
         }
 
-        Message message = new Message();
-        message.setToUser(toUser);
-        message.setMsgType("video");
-        message.setVideo(video);
+        Custom custom = new Custom();
+        custom.setToUser(toUser);
+        custom.setMsgType("video");
+        custom.setVideo(video);
 
-        return send(accessToken, message);
+        return send(accessToken, custom);
     }
 
     @Override
@@ -163,12 +163,12 @@ public class MessageServiceImpl implements MessageService {
             throw new RuntimeException("title cannot be null.");
         }
 
-        Message message = new Message();
-        message.setToUser(toUser);
-        message.setMsgType("music");
-        message.setMusic(music);
+        Custom custom = new Custom();
+        custom.setToUser(toUser);
+        custom.setMsgType("music");
+        custom.setMusic(music);
 
-        return send(accessToken, message);
+        return send(accessToken, custom);
     }
 
     @Override
@@ -185,12 +185,12 @@ public class MessageServiceImpl implements MessageService {
             throw new RuntimeException("articles cannot be null.");
         }
 
-        Message message = new Message();
-        message.setToUser(toUser);
-        message.setMsgType("news");
-        message.setNews(news);
+        Custom custom = new Custom();
+        custom.setToUser(toUser);
+        custom.setMsgType("news");
+        custom.setNews(news);
 
-        return send(accessToken, message);
+        return send(accessToken, custom);
     }
 
     @Override
@@ -207,12 +207,12 @@ public class MessageServiceImpl implements MessageService {
             throw new RuntimeException("media_id cannot be null.");
         }
 
-        Message message = new Message();
-        message.setToUser(toUser);
-        message.setMsgType("mpnews");
-        message.setMpNews(mpNews);
+        Custom custom = new Custom();
+        custom.setToUser(toUser);
+        custom.setMsgType("mpnews");
+        custom.setMpNews(mpNews);
 
-        return send(accessToken, message);
+        return send(accessToken, custom);
     }
 
     @Override
@@ -230,12 +230,12 @@ public class MessageServiceImpl implements MessageService {
             throw new RuntimeException("article_id cannot be null.");
         }
 
-        Message message = new Message();
-        message.setToUser(toUser);
-        message.setMsgType("mpnewsarticle");
-        message.setMpNewsArticle(mpNewsArticle);
+        Custom custom = new Custom();
+        custom.setToUser(toUser);
+        custom.setMsgType("mpnewsarticle");
+        custom.setMpNewsArticle(mpNewsArticle);
 
-        return send(accessToken, message);
+        return send(accessToken, custom);
     }
 
     @Override
@@ -252,12 +252,12 @@ public class MessageServiceImpl implements MessageService {
             throw new RuntimeException("card_id cannot be null.");
         }
 
-        Message message = new Message();
-        message.setToUser(toUser);
-        message.setMsgType("wxcard");
-        message.setWxCard(wxCard);
+        Custom custom = new Custom();
+        custom.setToUser(toUser);
+        custom.setMsgType("wxcard");
+        custom.setWxCard(wxCard);
 
-        return send(accessToken, message);
+        return send(accessToken, custom);
     }
 
     @Override
@@ -275,12 +275,12 @@ public class MessageServiceImpl implements MessageService {
             throw new RuntimeException("title cannot be null.");
         }
 
-        Message message = new Message();
-        message.setToUser(toUser);
-        message.setMsgType("miniprogrampage");
-        message.setMiniProgramPage(miniProgramPage);
+        Custom custom = new Custom();
+        custom.setToUser(toUser);
+        custom.setMsgType("miniprogrampage");
+        custom.setMiniProgramPage(miniProgramPage);
 
-        return send(accessToken, message);
+        return send(accessToken, custom);
     }
 
     @Override
@@ -297,12 +297,12 @@ public class MessageServiceImpl implements MessageService {
             throw new RuntimeException("title cannot be null.");
         }
 
-        Message message = new Message();
-        message.setToUser(toUser);
-        message.setMsgType("link");
-        message.setLink(link);
+        Custom custom = new Custom();
+        custom.setToUser(toUser);
+        custom.setMsgType("link");
+        custom.setLink(link);
 
-        return send(accessToken, message);
+        return send(accessToken, custom);
     }
 
     @Override

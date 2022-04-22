@@ -15,7 +15,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class Message implements Serializable {
+public class Custom implements Serializable {
 
     private static final long serialVersionUID = 733672350056046345L;
 
