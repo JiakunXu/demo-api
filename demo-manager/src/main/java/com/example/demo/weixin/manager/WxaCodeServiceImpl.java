@@ -30,7 +30,7 @@ public class WxaCodeServiceImpl implements WxaCodeService {
         byte[] buffer = null;
 
         try {
-            buffer = HttpUtil.download(WxaCodeService.HTTPS_CODE_URL + accessToken,
+            buffer = HttpUtil.download(WxaCodeService.HTTPS_GET_URL + accessToken,
                 JSON.toJSONString(wxaCode));
         } catch (Exception e) {
             logger.error(wxaCode.toString(), e);
