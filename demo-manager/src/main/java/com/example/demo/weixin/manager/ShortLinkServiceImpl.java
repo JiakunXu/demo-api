@@ -19,7 +19,7 @@ public class ShortLinkServiceImpl implements ShortLinkService {
     private static final Logger logger = LoggerFactory.getLogger(ShortLinkServiceImpl.class);
 
     @Override
-    public Link getShortLink(String accessToken, Page page) throws RuntimeException {
+    public Link generateShortLink(String accessToken, Page page) throws RuntimeException {
         if (StringUtils.isBlank(accessToken)) {
             throw new RuntimeException("access_token cannot be null.");
         }

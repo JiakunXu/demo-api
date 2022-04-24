@@ -19,6 +19,6 @@ public interface ShortLinkService {
      * @throws RuntimeException
      * @see <a href="https://developers.weixin.qq.com/miniprogram/dev/api-backend/open-api/short-link/shortlink.generate.html">微信官方文档</a>
      */
-    Link getShortLink(String accessToken, Page page) throws RuntimeException;
+    Link generateShortLink(String accessToken, Page page) throws RuntimeException;
 
 }
