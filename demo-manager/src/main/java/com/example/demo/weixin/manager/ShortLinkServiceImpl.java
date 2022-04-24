@@ -31,7 +31,7 @@ public class ShortLinkServiceImpl implements ShortLinkService {
         Link link = null;
 
         try {
-            link = JSON.parseObject(HttpUtil.post(ShortLinkService.HTTPS_GET_URL + accessToken,
+            link = JSON.parseObject(HttpUtil.post(ShortLinkService.HTTPS_GENERATE_URL + accessToken,
                 JSON.toJSONString(page)), Link.class);
         } catch (Exception e) {
             logger.error(page.toString(), e);
