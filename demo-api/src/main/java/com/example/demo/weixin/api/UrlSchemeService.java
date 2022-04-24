@@ -11,7 +11,8 @@ public interface UrlSchemeService {
     String HTTPS_GENERATE_URL = "https://api.weixin.qq.com/wxa/generatescheme?access_token=";
 
     /**
-     * 
+     * URL Scheme.
+     *
      * @param accessToken
      * @param urlScheme
      * @return
