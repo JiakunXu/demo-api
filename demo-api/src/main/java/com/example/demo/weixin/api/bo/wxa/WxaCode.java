@@ -2,7 +2,6 @@ package com.example.demo.weixin.api.bo.wxa;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.example.demo.weixin.api.bo.BaseResult;
-import com.example.demo.weixin.api.bo.LineColor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

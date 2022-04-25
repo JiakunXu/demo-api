@@ -1,4 +1,4 @@
-package com.example.demo.weixin.api.bo;
+package com.example.demo.weixin.api.bo.wxa;
 
 import lombok.Getter;
 import lombok.Setter;
