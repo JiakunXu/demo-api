@@ -1,6 +1,6 @@
 package com.example.demo.getui.manager;
 
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSONObject;
 import com.example.demo.getui.api.PushApiService;
 import com.getui.push.v2.sdk.ApiHelper;
 import com.getui.push.v2.sdk.GtApiConfiguration;
