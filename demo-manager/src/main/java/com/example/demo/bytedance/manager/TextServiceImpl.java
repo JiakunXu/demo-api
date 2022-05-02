@@ -1,6 +1,6 @@
 package com.example.demo.bytedance.manager;
 
-import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson2.JSON;
 import com.example.demo.bytedance.api.TextService;
 import com.example.demo.bytedance.api.bo.text.Body;
 import com.example.demo.bytedance.api.bo.text.Log;

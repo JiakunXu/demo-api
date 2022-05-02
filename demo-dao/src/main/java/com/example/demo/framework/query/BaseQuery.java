@@ -2,7 +2,7 @@ package com.example.demo.framework.query;
 
 import java.io.Serializable;
 
-import com.alibaba.fastjson.annotation.JSONField;
+import com.alibaba.fastjson2.annotation.JSONField;
 
 import lombok.Getter;
 import lombok.Setter;

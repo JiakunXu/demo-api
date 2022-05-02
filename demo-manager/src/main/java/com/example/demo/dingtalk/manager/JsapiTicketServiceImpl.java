@@ -1,6 +1,6 @@
 package com.example.demo.dingtalk.manager;
 
-import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson2.JSON;
 import com.dingtalk.api.DefaultDingTalkClient;
 import com.dingtalk.api.request.OapiGetJsapiTicketRequest;
 import com.dingtalk.api.response.OapiGetJsapiTicketResponse;

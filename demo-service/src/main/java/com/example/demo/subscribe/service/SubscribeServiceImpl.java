@@ -1,6 +1,6 @@
 package com.example.demo.subscribe.service;
 
-import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson2.JSON;
 import com.example.demo.aliyun.api.ProducerService;
 import com.example.demo.framework.util.BeanUtil;
 import com.example.demo.socket.api.bo.Message;

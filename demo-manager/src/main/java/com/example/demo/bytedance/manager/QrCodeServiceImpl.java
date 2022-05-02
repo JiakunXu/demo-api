@@ -1,7 +1,6 @@
 package com.example.demo.bytedance.manager;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONValidator;
+import com.alibaba.fastjson2.JSON;
 import com.example.demo.bytedance.api.QrCodeService;
 import com.example.demo.bytedance.api.bo.BaseResult;
 import com.example.demo.bytedance.api.bo.qrcode.Body;
@@ -45,7 +44,7 @@ public class QrCodeServiceImpl implements QrCodeService {
             throw new RuntimeException("qr_code is null.");
         }
 
-        if (JSONValidator.fromUtf8(qrCode).validate()) {
+        if (JSON.isValid(qrCode)) {
             BaseResult result = JSON.parseObject(qrCode, BaseResult.class);
 
             throw new RuntimeException(result.getErrMsg());

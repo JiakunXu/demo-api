@@ -1,6 +1,6 @@
 package com.example.demo.aliyun.service;
 
-import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson2.JSON;
 import com.example.demo.chat.api.ChatService;
 import com.example.demo.chat.api.bo.Chat;
 import com.example.demo.chat.api.bo.ChatDetail;

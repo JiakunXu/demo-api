@@ -1,6 +1,6 @@
 package com.example.demo.bytedance.dao.dataobject;
 
-import com.alibaba.fastjson.annotation.JSONField;
+import com.alibaba.fastjson2.annotation.JSONField;
 import com.example.demo.framework.dataobject.BaseDO;
 import lombok.Getter;
 import lombok.Setter;

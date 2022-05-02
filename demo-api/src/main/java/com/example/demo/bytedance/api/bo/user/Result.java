@@ -1,10 +1,6 @@
 package com.example.demo.bytedance.api.bo.user;
 
-import java.io.Serializable;
-
-import com.alibaba.fastjson.annotation.JSONField;
 import com.example.demo.bytedance.api.bo.BaseResult;
-import com.example.demo.bytedance.api.bo.token.AccessToken;
 
 import lombok.Getter;
 import lombok.Setter;
