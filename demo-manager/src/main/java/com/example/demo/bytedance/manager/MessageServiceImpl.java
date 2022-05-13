@@ -3,7 +3,7 @@ package com.example.demo.bytedance.manager;
 import com.alibaba.fastjson2.JSON;
 import com.example.demo.bytedance.api.MessageService;
 import com.example.demo.bytedance.api.TokenService;
-import com.example.demo.bytedance.api.bo.SendResult;
+import com.example.demo.bytedance.api.bo.message.SendResult;
 import com.example.demo.bytedance.api.bo.message.Message;
 import com.example.demo.bytedance.dao.dataobject.MessageDO;
 import com.example.demo.bytedance.dao.mapper.MessageMapper;
