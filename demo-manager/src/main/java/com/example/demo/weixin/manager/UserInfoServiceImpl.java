@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson2.JSON;
 import com.example.demo.weixin.api.UserInfoService;
-import com.example.demo.weixin.api.bo.UserInfo;
+import com.example.demo.weixin.api.bo.user.UserInfo;
 import com.example.demo.framework.util.HttpUtil;
 
 import javax.crypto.Cipher;

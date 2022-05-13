@@ -1,6 +1,7 @@
-package com.example.demo.weixin.api.bo;
+package com.example.demo.weixin.api.bo.user;
 
 import com.alibaba.fastjson2.annotation.JSONField;
+import com.example.demo.weixin.api.bo.BaseResult;
 import lombok.Getter;
 import lombok.Setter;
 

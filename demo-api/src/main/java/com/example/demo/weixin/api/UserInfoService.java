@@ -1,6 +1,6 @@
 package com.example.demo.weixin.api;
 
-import com.example.demo.weixin.api.bo.UserInfo;
+import com.example.demo.weixin.api.bo.user.UserInfo;
 import com.example.demo.weixin.api.bo.user.MiniUserInfo;
 
 /**
