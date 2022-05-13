@@ -25,4 +25,8 @@ public class Agent implements Serializable {
 
     private String            appSecret;
 
+    private String            aesKey;
+
+    private String            token;
+
 }
