@@ -1,6 +1,6 @@
 package com.example.demo.weixin.api;
 
-import com.example.demo.weixin.api.bo.AccessToken;
+import com.example.demo.weixin.api.bo.token.AccessToken;
 
 /**
  * @author JiakunXu

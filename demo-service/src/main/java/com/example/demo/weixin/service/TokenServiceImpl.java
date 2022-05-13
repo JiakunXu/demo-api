@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.weixin.api.AccessTokenService;
 import com.example.demo.weixin.api.TokenService;
-import com.example.demo.weixin.api.bo.AccessToken;
+import com.example.demo.weixin.api.bo.token.AccessToken;
 import com.example.demo.framework.exception.ServiceException;
 
 /**

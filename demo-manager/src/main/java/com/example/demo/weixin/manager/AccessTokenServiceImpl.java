@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson2.JSON;
 import com.example.demo.weixin.api.AccessTokenService;
-import com.example.demo.weixin.api.bo.AccessToken;
+import com.example.demo.weixin.api.bo.token.AccessToken;
 import com.example.demo.framework.util.HttpUtil;
 
 /**
