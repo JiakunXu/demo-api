@@ -1,6 +1,6 @@
 package com.example.demo.bytedance.api;
 
-import com.example.demo.bytedance.api.bo.Session;
+import com.example.demo.bytedance.api.bo.session.Session;
 
 /**
  * @author JiakunXu

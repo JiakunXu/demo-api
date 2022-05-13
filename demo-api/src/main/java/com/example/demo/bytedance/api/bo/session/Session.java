@@ -1,6 +1,7 @@
-package com.example.demo.bytedance.api.bo;
+package com.example.demo.bytedance.api.bo.session;
 
 import com.alibaba.fastjson2.annotation.JSONField;
+import com.example.demo.bytedance.api.bo.BaseResult;
 import lombok.Getter;
 import lombok.Setter;
 
