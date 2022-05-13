@@ -5,7 +5,7 @@ import com.dingtalk.api.DefaultDingTalkClient;
 import com.dingtalk.api.request.OapiGetJsapiTicketRequest;
 import com.dingtalk.api.response.OapiGetJsapiTicketResponse;
 import com.example.demo.dingtalk.api.JsapiTicketService;
-import com.example.demo.dingtalk.api.bo.JsapiTicket;
+import com.example.demo.dingtalk.api.bo.js.JsapiTicket;
 import com.taobao.api.ApiException;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;

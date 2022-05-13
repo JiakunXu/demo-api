@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import com.example.demo.weixin.api.JsapiTicketService;
 import com.example.demo.weixin.api.TicketService;
 import com.example.demo.weixin.api.TokenService;
-import com.example.demo.weixin.api.bo.JsapiTicket;
+import com.example.demo.weixin.api.bo.js.JsapiTicket;
 import com.example.demo.framework.exception.ServiceException;
 
 /**

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson2.JSON;
 import com.example.demo.weixin.api.JsapiTicketService;
-import com.example.demo.weixin.api.bo.JsapiTicket;
+import com.example.demo.weixin.api.bo.js.JsapiTicket;
 import com.example.demo.framework.util.HttpUtil;
 
 /**

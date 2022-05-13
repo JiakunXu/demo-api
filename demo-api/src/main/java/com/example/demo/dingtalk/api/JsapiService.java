@@ -1,6 +1,6 @@
 package com.example.demo.dingtalk.api;
 
-import com.example.demo.dingtalk.api.bo.Jsapi;
+import com.example.demo.dingtalk.api.bo.js.Jsapi;
 
 /**
  * @author JiakunXu

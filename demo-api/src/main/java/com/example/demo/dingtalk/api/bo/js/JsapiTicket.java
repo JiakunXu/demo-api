@@ -1,6 +1,7 @@
-package com.example.demo.dingtalk.api.bo;
+package com.example.demo.dingtalk.api.bo.js;
 
 import com.alibaba.fastjson2.annotation.JSONField;
+import com.example.demo.dingtalk.api.bo.BaseResult;
 import lombok.Getter;
 import lombok.Setter;
 

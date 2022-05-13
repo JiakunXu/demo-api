@@ -1,4 +1,4 @@
-package com.example.demo.weixin.api.bo;
+package com.example.demo.weixin.api.bo.js;
 
 import lombok.Getter;
 import lombok.Setter;
