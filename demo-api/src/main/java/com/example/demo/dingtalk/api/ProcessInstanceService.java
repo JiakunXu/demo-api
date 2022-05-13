@@ -1,6 +1,6 @@
 package com.example.demo.dingtalk.api;
 
-import com.example.demo.dingtalk.api.bo.process.FormValue;
+import com.example.demo.dingtalk.api.bo.proc.FormValue;
 
 import java.util.List;
 

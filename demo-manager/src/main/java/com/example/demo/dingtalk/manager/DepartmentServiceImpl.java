@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.example.demo.dingtalk.api.DepartmentService;
-import com.example.demo.dingtalk.api.bo.Department;
+import com.example.demo.dingtalk.api.bo.dept.Department;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

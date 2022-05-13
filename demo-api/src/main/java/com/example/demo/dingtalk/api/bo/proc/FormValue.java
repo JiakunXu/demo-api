@@ -1,4 +1,4 @@
-package com.example.demo.dingtalk.api.bo.process;
+package com.example.demo.dingtalk.api.bo.proc;
 
 import java.io.Serializable;
 

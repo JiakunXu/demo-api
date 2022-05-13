@@ -2,7 +2,7 @@ package com.example.demo.dingtalk.api;
 
 import java.util.List;
 
-import com.example.demo.dingtalk.api.bo.Staff;
+import com.example.demo.dingtalk.api.bo.user.Staff;
 
 /**
  * @author JiakunXu

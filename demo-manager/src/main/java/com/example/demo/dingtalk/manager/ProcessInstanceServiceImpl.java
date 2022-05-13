@@ -6,7 +6,7 @@ import com.dingtalk.api.DingTalkClient;
 import com.dingtalk.api.request.OapiProcessinstanceCreateRequest;
 import com.dingtalk.api.response.OapiProcessinstanceCreateResponse;
 import com.example.demo.dingtalk.api.ProcessInstanceService;
-import com.example.demo.dingtalk.api.bo.process.FormValue;
+import com.example.demo.dingtalk.api.bo.proc.FormValue;
 import com.taobao.api.ApiException;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;

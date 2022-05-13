@@ -1,5 +1,6 @@
-package com.example.demo.dingtalk.api.bo;
+package com.example.demo.dingtalk.api.bo.user;
 
+import com.example.demo.dingtalk.api.bo.BaseResult;
 import lombok.Getter;
 import lombok.Setter;
 
