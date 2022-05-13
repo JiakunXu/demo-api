@@ -3,7 +3,7 @@ package com.example.demo.dingtalk.service;
 import com.example.demo.cache.api.RedisService;
 import com.example.demo.dingtalk.api.AccessTokenService;
 import com.example.demo.dingtalk.api.TokenService;
-import com.example.demo.dingtalk.api.bo.AccessToken;
+import com.example.demo.dingtalk.api.bo.token.AccessToken;
 import com.example.demo.framework.exception.ServiceException;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;

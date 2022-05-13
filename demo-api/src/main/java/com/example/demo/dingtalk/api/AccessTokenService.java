@@ -1,6 +1,6 @@
 package com.example.demo.dingtalk.api;
 
-import com.example.demo.dingtalk.api.bo.AccessToken;
+import com.example.demo.dingtalk.api.bo.token.AccessToken;
 
 /**
  * @author JiakunXu
