@@ -1,8 +1,8 @@
 package com.example.demo.bytedance.web;
 
 import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONObject;
 import com.example.demo.bytedance.api.MessageService;
-import com.example.demo.bytedance.api.bo.Callback;
 import com.example.demo.framework.web.BaseController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,11 +42,11 @@ public class BytedanceController extends BaseController {
 
     @RequestMapping(value = "/callback", method = RequestMethod.POST)
     public void callback(HttpServletRequest request, HttpServletResponse response) {
-        Callback callback = JSON.parseObject(this.getParameter(request), Callback.class);
+        JSONObject json = JSON.parseObject(this.getParameter(request));
 
         try {
-            messageService.callback(callback.getMsgSignature(), callback.getTimestamp(),
-                callback.getNonce(), callback.getMsg());
+            messageService.callback(json.getString("msg_signature"), json.getString("timestamp"),
+                json.getString("nonce"), json.getString("msg"));
             response.getWriter().write("success");
         } catch (Exception e) {
             logger.error("callback", e);
