@@ -1,7 +1,7 @@
 package com.example.demo.dingtalk.service;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
+import com.example.demo.aliyun.api.ProducerService;
 import com.example.demo.dingtalk.api.AgentService;
 import com.example.demo.dingtalk.api.EventService;
 import com.example.demo.dingtalk.api.bo.Agent;
@@ -11,6 +11,7 @@ import com.example.demo.framework.exception.ServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
@@ -22,6 +23,12 @@ public class EventServiceImpl implements EventService {
 
     @Autowired
     private AgentService        agentService;
+
+    @Autowired
+    private ProducerService     producerService;
+
+    @Value("${aliyun.ons.topic}")
+    private String              topic;
 
     @Override
     public Map<String, String> callback(String agentId, String signature, String timeStamp,
@@ -36,10 +43,14 @@ public class EventServiceImpl implements EventService {
             DingCallbackCrypto callbackCrypto = new DingCallbackCrypto(agent.getToken(),
                 agent.getAesKey(), agent.getAppKey());
 
-            JSONObject json = JSON
-                .parseObject(callbackCrypto.getDecryptMsg(signature, timeStamp, nonce, encrypt));
+            String decryptMsg = callbackCrypto.getDecryptMsg(signature, timeStamp, nonce, encrypt);
 
-            String eventType = json.getString("EventType");
+            String eventType = JSON.parseObject(decryptMsg).getString("EventType");
+
+            // TODO
+            if ("".equals(eventType)) {
+                producerService.send(topic, eventType, JSON.toJSONBytes(decryptMsg), nonce);
+            }
 
             return callbackCrypto.getEncryptedMap("success");
         } catch (DingCallbackCrypto.DingTalkEncryptException e) {

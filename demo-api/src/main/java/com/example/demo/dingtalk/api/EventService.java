@@ -2,6 +2,9 @@ package com.example.demo.dingtalk.api;
 
 import java.util.Map;
 
+/**
+ * @author JiakunXu
+ */
 public interface EventService {
 
     /**
