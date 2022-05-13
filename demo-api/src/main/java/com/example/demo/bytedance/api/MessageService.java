@@ -1,7 +1,7 @@
 package com.example.demo.bytedance.api;
 
 import com.example.demo.bytedance.api.bo.SendResult;
-import com.example.demo.bytedance.api.bo.Message;
+import com.example.demo.bytedance.api.bo.message.Message;
 
 /**
  * @author JiakunXu
