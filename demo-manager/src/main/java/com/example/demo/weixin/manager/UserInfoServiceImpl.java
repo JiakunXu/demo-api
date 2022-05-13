@@ -1,6 +1,6 @@
 package com.example.demo.weixin.manager;
 
-import com.example.demo.weixin.api.bo.sns.MiniUserInfo;
+import com.example.demo.weixin.api.bo.user.MiniUserInfo;
 import org.apache.commons.lang3.StringUtils;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.util.encoders.Base64;

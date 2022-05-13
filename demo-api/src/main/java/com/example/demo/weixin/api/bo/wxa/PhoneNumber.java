@@ -1,6 +1,6 @@
 package com.example.demo.weixin.api.bo.wxa;
 
-import com.example.demo.weixin.api.bo.sns.Watermark;
+import com.example.demo.weixin.api.bo.user.Watermark;
 import lombok.Getter;
 import lombok.Setter;
 

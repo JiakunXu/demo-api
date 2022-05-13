@@ -1,4 +1,4 @@
-package com.example.demo.weixin.api.bo.sns;
+package com.example.demo.weixin.api.bo.user;
 
 import java.io.Serializable;
 
