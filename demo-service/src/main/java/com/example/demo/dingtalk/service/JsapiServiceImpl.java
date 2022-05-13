@@ -4,7 +4,7 @@ import com.example.demo.dingtalk.api.AgentService;
 import com.example.demo.dingtalk.api.JsapiService;
 import com.example.demo.dingtalk.api.TicketService;
 import com.example.demo.dingtalk.api.bo.js.Jsapi;
-import com.example.demo.dingtalk.api.bo.Agent;
+import com.example.demo.dingtalk.api.bo.agent.Agent;
 import com.example.demo.framework.util.EncryptUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;

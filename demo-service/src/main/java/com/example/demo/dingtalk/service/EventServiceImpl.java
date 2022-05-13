@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.example.demo.aliyun.api.ProducerService;
 import com.example.demo.dingtalk.api.AgentService;
 import com.example.demo.dingtalk.api.EventService;
-import com.example.demo.dingtalk.api.bo.Agent;
+import com.example.demo.dingtalk.api.bo.agent.Agent;
 import com.example.demo.dingtalk.manager.DingCallbackCrypto;
 import com.example.demo.framework.constant.Constants;
 import com.example.demo.framework.exception.ServiceException;

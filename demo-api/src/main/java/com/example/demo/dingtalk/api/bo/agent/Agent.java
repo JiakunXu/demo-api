@@ -1,4 +1,4 @@
-package com.example.demo.dingtalk.api.bo;
+package com.example.demo.dingtalk.api.bo.agent;
 
 import lombok.Getter;
 import lombok.Setter;

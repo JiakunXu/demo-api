@@ -1,7 +1,7 @@
 package com.example.demo.dingtalk.service;
 
 import com.example.demo.dingtalk.api.AgentService;
-import com.example.demo.dingtalk.api.bo.Agent;
+import com.example.demo.dingtalk.api.bo.agent.Agent;
 import com.example.demo.dingtalk.dao.dataobject.AgentDO;
 import com.example.demo.dingtalk.dao.mapper.AgentMapper;
 import com.example.demo.framework.util.BeanUtil;
