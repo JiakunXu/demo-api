@@ -1,6 +1,5 @@
 package com.example.demo.bytedance.api.bo.user;
 
-import com.example.demo.bytedance.api.bo.Watermark;
 import lombok.Getter;
 import lombok.Setter;
 
