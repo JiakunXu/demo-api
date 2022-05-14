@@ -389,6 +389,20 @@ public class MessageServiceImpl implements MessageService {
     @Override
     public BaseResult send(String accessToken, String toUser,
                            Uniform uniform) throws RuntimeException {
+        if (StringUtils.isBlank(accessToken)) {
+            throw new RuntimeException("access_token cannot be null.");
+        }
+
+        if (StringUtils.isBlank(toUser)) {
+            throw new RuntimeException("touser cannot be null.");
+        }
+
+        if (uniform == null) {
+            throw new RuntimeException("uniform cannot be null.");
+        }
+
+        uniform.setToUser(toUser);
+
         BaseResult result = null;
 
         try {
