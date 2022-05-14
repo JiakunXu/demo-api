@@ -24,7 +24,7 @@ public class JsonConfigurer {
         supportedMediaTypes.add(MediaType.APPLICATION_JSON);
 
         FastJsonConfig fastJsonConfig = new FastJsonConfig();
-        // fastJsonConfig.setDateFormat("yyyy-MM-dd HH:mm:ss");
+        fastJsonConfig.setDateFormat("yyyy-MM-dd HH:mm:ss");
         // fastJsonConfig.setWriterFeatures(JSONWriter.Feature.);
         SimplePropertyPreFilter writerFilter = new SimplePropertyPreFilter();
         writerFilter.getExcludes().add("codes");
