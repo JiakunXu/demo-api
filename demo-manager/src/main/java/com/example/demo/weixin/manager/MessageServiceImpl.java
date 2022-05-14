@@ -16,6 +16,7 @@ import com.example.demo.weixin.api.bo.message.Result;
 import com.example.demo.weixin.api.bo.message.Subscribe;
 import com.example.demo.weixin.api.bo.message.Template;
 import com.example.demo.weixin.api.bo.message.Text;
+import com.example.demo.weixin.api.bo.message.Uniform;
 import com.example.demo.weixin.api.bo.message.Video;
 import com.example.demo.weixin.api.bo.message.Voice;
 import com.example.demo.weixin.api.bo.message.WxCard;
@@ -370,6 +371,31 @@ public class MessageServiceImpl implements MessageService {
                     JSON.toJSONString(subscribe)), BaseResult.class);
         } catch (Exception e) {
             logger.error(subscribe.toString(), e);
+
+            throw new RuntimeException("HttpUtil error.", e);
+        }
+
+        if (result == null) {
+            throw new RuntimeException("result is null.");
+        }
+
+        if (result.getErrCode() != 0) {
+            throw new RuntimeException(result.getErrMsg());
+        }
+
+        return result;
+    }
+
+    @Override
+    public BaseResult send(String accessToken, String toUser,
+                           Uniform uniform) throws RuntimeException {
+        BaseResult result = null;
+
+        try {
+            result = JSON.parseObject(HttpUtil.post(MessageService.HTTPS_UNIFORM_URL + accessToken,
+                JSON.toJSONString(uniform)), BaseResult.class);
+        } catch (Exception e) {
+            logger.error(uniform.toString(), e);
 
             throw new RuntimeException("HttpUtil error.", e);
         }
