@@ -1,7 +1,5 @@
 package com.example.demo.weixin.web;
 
-import com.alibaba.fastjson2.JSON;
-import com.alibaba.fastjson2.JSONObject;
 import com.example.demo.framework.web.BaseController;
 import com.example.demo.weixin.api.ReceivingService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,9 +32,12 @@ public class WeixinController extends BaseController {
 
     @RequestMapping(value = "/callback", method = RequestMethod.POST)
     public String callback(HttpServletRequest request, HttpServletResponse response) {
-        JSONObject json = JSON.parseObject(this.getParameter(request));
+        String signature = this.getParameter(request, "signature");
+        String timestamp = this.getParameter(request, "timestamp");
+        String nonce = this.getParameter(request, "nonce");
+        String data = this.getParameter(request);
 
-        return "success";
+        return receivingService.callback(signature, timestamp, nonce, data);
     }
 
     @RequestMapping(value = "/ticket", method = RequestMethod.GET)

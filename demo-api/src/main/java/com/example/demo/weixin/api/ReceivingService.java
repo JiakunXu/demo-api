@@ -17,4 +17,16 @@ public interface ReceivingService {
     String verify(String signature, String timestamp, String nonce,
                   String echoStr) throws RuntimeException;
 
+    /**
+     * 
+     * @param signature
+     * @param timestamp
+     * @param nonce
+     * @param data
+     * @return
+     * @throws RuntimeException
+     */
+    String callback(String signature, String timestamp, String nonce,
+                    String data) throws RuntimeException;
+
 }

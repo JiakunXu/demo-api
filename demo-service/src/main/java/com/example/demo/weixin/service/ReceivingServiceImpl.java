@@ -39,4 +39,18 @@ public class ReceivingServiceImpl implements ReceivingService {
             echoStr);
     }
 
+    @Override
+    public String callback(String signature, String timestamp, String nonce,
+                           String data) throws RuntimeException {
+        if (StringUtils.isBlank(signature) || StringUtils.isBlank(timestamp)
+            || StringUtils.isBlank(nonce)) {
+            throw new ServiceException(Constants.MISSING_PARAMETER, "参数信息不能为空");
+        }
+
+        String message = messageCryptService.decrypt(token, encodingAesKey, appId, signature,
+            timestamp, nonce, data);
+
+        return null;
+    }
+
 }
