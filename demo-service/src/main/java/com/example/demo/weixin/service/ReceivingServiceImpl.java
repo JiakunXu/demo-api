@@ -29,14 +29,14 @@ public class ReceivingServiceImpl implements ReceivingService {
 
     @Override
     public String verify(String signature, String timestamp, String nonce,
-                         String echostr) throws RuntimeException {
+                         String echoStr) throws RuntimeException {
         if (StringUtils.isBlank(signature) || StringUtils.isBlank(timestamp)
             || StringUtils.isBlank(nonce)) {
             throw new ServiceException(Constants.MISSING_PARAMETER, "参数信息不能为空");
         }
 
         return messageCryptService.verify(token, encodingAesKey, appId, signature, timestamp, nonce,
-            echostr);
+            echoStr);
     }
 
 }
