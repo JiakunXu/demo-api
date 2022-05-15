@@ -4,7 +4,7 @@ import com.alibaba.fastjson2.JSON;
 import com.example.demo.framework.util.HttpUtil;
 import com.example.demo.weixin.api.HardwareDeviceService;
 import com.example.demo.weixin.api.bo.BaseResult;
-import com.example.demo.weixin.api.bo.device.Hardware;
+import com.example.demo.weixin.api.bo.device.Device;
 import com.example.demo.weixin.api.bo.device.SnTicket;
 import com.example.demo.weixin.api.bo.message.DeviceMsg;
 import org.apache.commons.lang3.StringUtils;
@@ -21,23 +21,23 @@ public class HardwareDeviceServiceImpl implements HardwareDeviceService {
     private static final Logger logger = LoggerFactory.getLogger(HardwareDeviceServiceImpl.class);
 
     @Override
-    public SnTicket getSnTicket(String accessToken, Hardware hardware) throws RuntimeException {
+    public SnTicket getSnTicket(String accessToken, Device device) throws RuntimeException {
         if (StringUtils.isBlank(accessToken)) {
             throw new RuntimeException("access_token cannot be null.");
         }
 
-        if (hardware == null) {
-            throw new RuntimeException("hardware cannot be null.");
+        if (device == null) {
+            throw new RuntimeException("device cannot be null.");
         }
 
         SnTicket snTicket = null;
 
         try {
-            snTicket = JSON
-                .parseObject(HttpUtil.post(HardwareDeviceService.HTTPS_GET_URL + accessToken,
-                    JSON.toJSONString(hardware)), SnTicket.class);
+            snTicket = JSON.parseObject(HttpUtil
+                .post(HardwareDeviceService.HTTPS_GET_URL + accessToken, JSON.toJSONString(device)),
+                SnTicket.class);
         } catch (Exception e) {
-            logger.error(hardware.toString(), e);
+            logger.error(device.toString(), e);
 
             throw new RuntimeException("HttpUtil error.", e);
         }

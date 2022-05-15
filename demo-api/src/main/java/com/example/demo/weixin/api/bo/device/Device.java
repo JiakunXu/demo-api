@@ -13,7 +13,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 @ToString
-public class Hardware implements Serializable {
+public class Device implements Serializable {
 
     private static final long serialVersionUID = 5003308650986306234L;
 
