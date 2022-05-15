@@ -6,7 +6,7 @@ import com.example.demo.weixin.api.HardwareDeviceService;
 import com.example.demo.weixin.api.bo.BaseResult;
 import com.example.demo.weixin.api.bo.device.Device;
 import com.example.demo.weixin.api.bo.device.SnTicket;
-import com.example.demo.weixin.api.bo.message.DeviceMsg;
+import com.example.demo.weixin.api.bo.device.DeviceMsg;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

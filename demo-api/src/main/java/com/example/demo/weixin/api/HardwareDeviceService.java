@@ -3,7 +3,7 @@ package com.example.demo.weixin.api;
 import com.example.demo.weixin.api.bo.BaseResult;
 import com.example.demo.weixin.api.bo.device.Device;
 import com.example.demo.weixin.api.bo.device.SnTicket;
-import com.example.demo.weixin.api.bo.message.DeviceMsg;
+import com.example.demo.weixin.api.bo.device.DeviceMsg;
 
 /**
  * @author JiakunXu

@@ -1,6 +1,7 @@
-package com.example.demo.weixin.api.bo.message;
+package com.example.demo.weixin.api.bo.device;
 
 import com.alibaba.fastjson2.annotation.JSONField;
+import com.example.demo.weixin.api.bo.message.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -48,7 +49,7 @@ public class DeviceMsg implements Serializable {
     /**
      * 模板内容，格式形如 { "key1": { "value": "xxx" }, "key2": { "value": "xxx" } } ，value 为枚举值.
      */
-    private Data              data;
+    private Data data;
 
     /**
      * 跳转小程序类型：developer为开发版；trial为体验版；formal为正式版；默认为正式版.
