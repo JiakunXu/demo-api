@@ -29,9 +29,7 @@ public class WeixinController extends BaseController {
         String nonce = this.getParameter(request, "nonce");
         String echostr = this.getParameter(request, "echostr");
 
-        receivingService.verify(signature, timestamp, nonce, echostr);
-
-        return "success";
+        return receivingService.verify(signature, timestamp, nonce, echostr);
     }
 
     @RequestMapping(value = "/callback", method = RequestMethod.POST)
