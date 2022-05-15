@@ -42,4 +42,5 @@ public interface MessageService {
      * @throws RuntimeException
      */
     SendResult send(String accessToken, String openId, String content) throws RuntimeException;
+
 }
