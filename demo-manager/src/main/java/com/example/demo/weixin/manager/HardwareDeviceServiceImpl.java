@@ -6,7 +6,7 @@ import com.example.demo.weixin.api.HardwareDeviceService;
 import com.example.demo.weixin.api.bo.BaseResult;
 import com.example.demo.weixin.api.bo.device.Device;
 import com.example.demo.weixin.api.bo.device.SnTicket;
-import com.example.demo.weixin.api.bo.device.DeviceMsg;
+import com.example.demo.weixin.api.bo.device.Message;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,13 +54,13 @@ public class HardwareDeviceServiceImpl implements HardwareDeviceService {
     }
 
     @Override
-    public BaseResult send(String accessToken, DeviceMsg deviceMsg) throws RuntimeException {
+    public BaseResult send(String accessToken, Message message) throws RuntimeException {
         if (StringUtils.isBlank(accessToken)) {
             throw new RuntimeException("access_token cannot be null.");
         }
 
-        if (deviceMsg == null) {
-            throw new RuntimeException("device_msg cannot be null.");
+        if (message == null) {
+            throw new RuntimeException("message cannot be null.");
         }
 
         BaseResult result;
@@ -68,9 +68,9 @@ public class HardwareDeviceServiceImpl implements HardwareDeviceService {
         try {
             result = JSON
                 .parseObject(HttpUtil.post(HardwareDeviceService.HTTPS_SEND_URL + accessToken,
-                    JSON.toJSONString(deviceMsg)), SnTicket.class);
+                    JSON.toJSONString(message)), SnTicket.class);
         } catch (Exception e) {
-            logger.error(deviceMsg.toString(), e);
+            logger.error(message.toString(), e);
 
             throw new RuntimeException("HttpUtil error.", e);
         }

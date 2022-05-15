@@ -3,7 +3,7 @@ package com.example.demo.weixin.api;
 import com.example.demo.weixin.api.bo.BaseResult;
 import com.example.demo.weixin.api.bo.device.Device;
 import com.example.demo.weixin.api.bo.device.SnTicket;
-import com.example.demo.weixin.api.bo.device.DeviceMsg;
+import com.example.demo.weixin.api.bo.device.Message;
 
 /**
  * @author JiakunXu
@@ -29,11 +29,11 @@ public interface HardwareDeviceService {
      * 开发者可以通过该接口向用户发送设备消息.
      * 
      * @param accessToken
-     * @param deviceMsg
+     * @param message
      * @return
      * @throws RuntimeException
      * @see <a href="https://developers.weixin.qq.com/miniprogram/dev/api-backend/open-api/hardware-device/hardwareDevice.send.html">微信官方文档</a>
      */
-    BaseResult send(String accessToken, DeviceMsg deviceMsg) throws RuntimeException;
+    BaseResult send(String accessToken, Message message) throws RuntimeException;
 
 }

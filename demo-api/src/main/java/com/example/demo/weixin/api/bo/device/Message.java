@@ -14,7 +14,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 @ToString
-public class DeviceMsg implements Serializable {
+public class Message implements Serializable {
 
     private static final long serialVersionUID = -7995161136457173223L;
 
@@ -49,7 +49,7 @@ public class DeviceMsg implements Serializable {
     /**
      * 模板内容，格式形如 { "key1": { "value": "xxx" }, "key2": { "value": "xxx" } } ，value 为枚举值.
      */
-    private Data data;
+    private Data              data;
 
     /**
      * 跳转小程序类型：developer为开发版；trial为体验版；formal为正式版；默认为正式版.
