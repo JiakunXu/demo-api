@@ -68,7 +68,7 @@ public class HardwareDeviceServiceImpl implements HardwareDeviceService {
         try {
             result = JSON
                 .parseObject(HttpUtil.post(HardwareDeviceService.HTTPS_SEND_URL + accessToken,
-                    JSON.toJSONString(message)), SnTicket.class);
+                    JSON.toJSONString(message)), BaseResult.class);
         } catch (Exception e) {
             logger.error(message.toString(), e);
 

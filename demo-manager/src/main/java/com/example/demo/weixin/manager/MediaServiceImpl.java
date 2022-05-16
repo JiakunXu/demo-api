@@ -6,10 +6,12 @@ import org.slf4j.LoggerFactory;
 
 import com.example.demo.weixin.api.MediaService;
 import com.example.demo.framework.util.HttpUtil;
+import org.springframework.stereotype.Service;
 
 /**
  * @author JiakunXu
  */
+@Service
 public class MediaServiceImpl implements MediaService {
 
     private static final Logger logger = LoggerFactory.getLogger(MediaServiceImpl.class);
