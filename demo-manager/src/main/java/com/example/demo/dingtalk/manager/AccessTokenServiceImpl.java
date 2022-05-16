@@ -38,7 +38,7 @@ public class AccessTokenServiceImpl implements AccessTokenService {
         request.setAppsecret(appSecret);
         request.setHttpMethod("GET");
 
-        OapiGettokenResponse response = null;
+        OapiGettokenResponse response;
 
         try {
             response = client.execute(request);

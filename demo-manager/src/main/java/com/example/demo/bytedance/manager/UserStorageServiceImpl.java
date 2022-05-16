@@ -90,7 +90,7 @@ public class UserStorageServiceImpl implements UserStorageService {
             throw new RuntimeException(e);
         }
 
-        Result result = null;
+        Result result;
 
         try {
             result = JSON.parseObject(HttpUtil.download(UserStorageService.HTTPS_REMOVE_URL,

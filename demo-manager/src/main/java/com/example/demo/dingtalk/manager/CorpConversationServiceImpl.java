@@ -49,7 +49,7 @@ public class CorpConversationServiceImpl implements CorpConversationService {
         mgs.getMarkdown().setTitle(title);
         request.setMsg(mgs);
 
-        OapiMessageCorpconversationAsyncsendV2Response response = null;
+        OapiMessageCorpconversationAsyncsendV2Response response;
 
         try {
             response = client.execute(request, accessToken);

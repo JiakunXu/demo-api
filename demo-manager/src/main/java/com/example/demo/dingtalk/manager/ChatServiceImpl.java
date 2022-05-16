@@ -41,7 +41,7 @@ public class ChatServiceImpl implements ChatService {
         request.setChatid(chatId);
         request.setMsg(JSON.toJSONString(msg));
 
-        OapiChatSendResponse response = null;
+        OapiChatSendResponse response;
 
         try {
             response = client.execute(request, accessToken);

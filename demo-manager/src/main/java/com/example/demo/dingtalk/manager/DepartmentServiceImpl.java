@@ -42,7 +42,7 @@ public class DepartmentServiceImpl implements DepartmentService {
         request.setId(id);
         request.setHttpMethod("GET");
 
-        OapiDepartmentListResponse response = null;
+        OapiDepartmentListResponse response;
 
         try {
             response = client.execute(request, accessToken);
@@ -93,7 +93,7 @@ public class DepartmentServiceImpl implements DepartmentService {
         request.setDeptId(deptId);
         request.setLanguage(language);
 
-        OapiV2DepartmentGetResponse response = null;
+        OapiV2DepartmentGetResponse response;
 
         try {
             response = client.execute(request, accessToken);
