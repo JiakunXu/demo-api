@@ -3,6 +3,7 @@ package com.example.demo.weixin.web;
 import com.example.demo.framework.web.BaseController;
 import com.example.demo.weixin.api.ReceivingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,14 +21,14 @@ public class WeixinController extends BaseController {
     @Autowired
     private ReceivingService receivingService;
 
-    @RequestMapping(value = "/callback", method = RequestMethod.GET)
-    public Long verify(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping(value = "/callback", method = RequestMethod.GET, produces = MediaType.TEXT_PLAIN_VALUE)
+    public String verify(HttpServletRequest request, HttpServletResponse response) {
         String signature = this.getParameter(request, "signature");
         String timestamp = this.getParameter(request, "timestamp");
         String nonce = this.getParameter(request, "nonce");
         String echoStr = this.getParameter(request, "echostr");
 
-        return Long.valueOf(receivingService.verify(signature, timestamp, nonce, echoStr));
+        return receivingService.verify(signature, timestamp, nonce, echoStr);
     }
 
     @RequestMapping(value = "/callback", method = RequestMethod.POST)

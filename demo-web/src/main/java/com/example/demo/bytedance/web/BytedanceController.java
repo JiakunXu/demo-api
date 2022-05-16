@@ -4,9 +4,8 @@ import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
 import com.example.demo.bytedance.api.MessageService;
 import com.example.demo.framework.web.BaseController;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,36 +20,27 @@ import javax.servlet.http.HttpServletResponse;
 @RequestMapping(value = "/api/bytedance")
 public class BytedanceController extends BaseController {
 
-    private static final Logger logger = LoggerFactory.getLogger(BytedanceController.class);
-
     @Autowired
-    private MessageService      messageService;
+    private MessageService messageService;
 
-    @RequestMapping(value = "/callback", method = RequestMethod.GET)
-    public void verify(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping(value = "/callback", method = RequestMethod.GET, produces = MediaType.TEXT_PLAIN_VALUE)
+    public String verify(HttpServletRequest request, HttpServletResponse response) {
         String signature = this.getParameter(request, "signature");
         String timestamp = this.getParameter(request, "timestamp");
         String nonce = this.getParameter(request, "nonce");
         String echostr = this.getParameter(request, "echostr");
 
-        try {
-            response.getWriter().write(messageService.verify(signature, timestamp, nonce, echostr));
-        } catch (Exception e) {
-            logger.error("verify", e);
-        }
+        return messageService.verify(signature, timestamp, nonce, echostr);
     }
 
-    @RequestMapping(value = "/callback", method = RequestMethod.POST)
-    public void callback(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping(value = "/callback", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
+    public String callback(HttpServletRequest request, HttpServletResponse response) {
         JSONObject json = JSON.parseObject(this.getParameter(request));
 
-        try {
-            messageService.callback(json.getString("msg_signature"), json.getString("timestamp"),
-                json.getString("nonce"), json.getString("msg"));
-            response.getWriter().write("success");
-        } catch (Exception e) {
-            logger.error("callback", e);
-        }
+        messageService.callback(json.getString("msg_signature"), json.getString("timestamp"),
+            json.getString("nonce"), json.getString("msg"));
+
+        return "success";
     }
 
 }
