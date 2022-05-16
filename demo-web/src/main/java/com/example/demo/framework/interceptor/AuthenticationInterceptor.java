@@ -30,7 +30,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
             throw new ServiceException(Constants.INVALID_AUTH_TOKEN, "无效的访问令牌");
         }
 
-        Object user = null;
+        Object user;
 
         try {
             user = redisService.get(skey);

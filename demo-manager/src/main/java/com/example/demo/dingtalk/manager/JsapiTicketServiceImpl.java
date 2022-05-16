@@ -32,7 +32,7 @@ public class JsapiTicketServiceImpl implements JsapiTicketService {
         OapiGetJsapiTicketRequest req = new OapiGetJsapiTicketRequest();
         req.setTopHttpMethod("GET");
 
-        OapiGetJsapiTicketResponse execute = null;
+        OapiGetJsapiTicketResponse execute;
 
         try {
             execute = client.execute(req, accessToken);

@@ -30,7 +30,7 @@ public class QrCodeServiceImpl implements QrCodeService {
 
         body.setAccessToken(accessToken);
 
-        byte[] qrCode = null;
+        byte[] qrCode;
 
         try {
             qrCode = HttpUtil.download(QrCodeService.HTTPS_CREATE_URL, JSON.toJSONString(body));

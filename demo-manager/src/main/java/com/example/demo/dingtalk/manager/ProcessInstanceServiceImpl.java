@@ -97,7 +97,7 @@ public class ProcessInstanceServiceImpl implements ProcessInstanceService {
 
         request.setFormComponentValues(formComponentValueVoList);
 
-        OapiProcessinstanceCreateResponse response = null;
+        OapiProcessinstanceCreateResponse response;
 
         try {
             response = client.execute(request, accessToken);

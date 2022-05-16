@@ -163,7 +163,7 @@ public class MessageServiceImpl implements MessageService {
         map.put("msg_type", "text");
         map.put("content", content);
 
-        SendResult result = null;
+        SendResult result;
 
         try {
             result = JSON

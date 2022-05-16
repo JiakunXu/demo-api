@@ -39,7 +39,7 @@ public class AccessTokenServiceImpl implements AccessTokenService {
         object.put("secret", appSecret);
         object.put("grant_type", grantType);
 
-        Result result = null;
+        Result result;
 
         try {
             result = JSON.parseObject(

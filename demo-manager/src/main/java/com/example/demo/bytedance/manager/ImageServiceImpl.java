@@ -31,7 +31,7 @@ public class ImageServiceImpl implements ImageService {
             throw new RuntimeException("body is null.");
         }
 
-        Log log = null;
+        Log log;
 
         try {
             Map<String, String> header = new HashMap<>(1);

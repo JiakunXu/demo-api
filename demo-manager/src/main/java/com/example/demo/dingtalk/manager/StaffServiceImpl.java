@@ -47,7 +47,7 @@ public class StaffServiceImpl implements StaffService {
         request.setContainAccessLimit(false);
         request.setLanguage("zh_CN");
 
-        OapiV2UserListResponse response = null;
+        OapiV2UserListResponse response;
 
         try {
             response = client.execute(request, accessToken);

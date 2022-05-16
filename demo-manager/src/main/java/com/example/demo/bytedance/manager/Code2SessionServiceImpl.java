@@ -35,7 +35,7 @@ public class Code2SessionServiceImpl implements Code2SessionService {
         sb.append("?appid=").append(appId).append("&secret=").append(appSecret).append("&code=")
             .append(code);
 
-        Session session = null;
+        Session session;
 
         try {
             session = JSON.parseObject(HttpUtil.get(sb.toString()), Session.class);

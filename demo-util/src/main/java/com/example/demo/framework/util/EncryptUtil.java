@@ -15,7 +15,7 @@ import javax.crypto.spec.SecretKeySpec;
 public class EncryptUtil {
 
     public static String encryptMd5(String data) throws IOException {
-        byte[] bytes = null;
+        byte[] bytes;
 
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");
@@ -28,7 +28,7 @@ public class EncryptUtil {
     }
 
     public static String encryptSha(String data) throws IOException {
-        byte[] bytes = null;
+        byte[] bytes;
 
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-512");
@@ -41,7 +41,7 @@ public class EncryptUtil {
     }
 
     public static String encryptHmac(String data, String secret) throws IOException {
-        byte[] bytes = null;
+        byte[] bytes;
 
         try {
             SecretKey secretKey = new SecretKeySpec(secret.getBytes(StandardCharsets.UTF_8),

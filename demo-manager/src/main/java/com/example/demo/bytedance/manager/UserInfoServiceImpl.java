@@ -31,7 +31,7 @@ public class UserInfoServiceImpl implements UserInfoService {
             throw new RuntimeException("iv is null.");
         }
 
-        UserInfo userInfo = null;
+        UserInfo userInfo;
 
         try {
             userInfo = JSON.parseObject(Decrypt.decrypt(encryptedData, sessionKey, iv),
