@@ -23,7 +23,6 @@ public class DingtalkController {
     private EventService eventService;
 
     @RequestMapping(value = "/callback", method = RequestMethod.POST)
-    @ResponseBody
     public Map<String, String> callback(@RequestParam(value = "signature", required = false) String signature,
                                         @RequestParam(value = "timestamp", required = false) String timeStamp,
                                         @RequestParam(value = "nonce", required = false) String nonce,

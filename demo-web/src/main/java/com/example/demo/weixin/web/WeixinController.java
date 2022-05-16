@@ -21,13 +21,13 @@ public class WeixinController extends BaseController {
     private ReceivingService receivingService;
 
     @RequestMapping(value = "/callback", method = RequestMethod.GET)
-    public String verify(HttpServletRequest request, HttpServletResponse response) {
+    public Long verify(HttpServletRequest request, HttpServletResponse response) {
         String signature = this.getParameter(request, "signature");
         String timestamp = this.getParameter(request, "timestamp");
         String nonce = this.getParameter(request, "nonce");
         String echoStr = this.getParameter(request, "echostr");
 
-        return receivingService.verify(signature, timestamp, nonce, echoStr);
+        return Long.valueOf(receivingService.verify(signature, timestamp, nonce, echoStr));
     }
 
     @RequestMapping(value = "/callback", method = RequestMethod.POST)
