@@ -28,11 +28,11 @@ public class MessageCryptServiceImpl implements MessageCryptService {
             throw new RuntimeException("token cannot be null.");
         }
 
-        if (StringUtils.isNotBlank(encodingAesKey)) {
+        if (StringUtils.isBlank(encodingAesKey)) {
             throw new RuntimeException("encoding_aes_key cannot be null.");
         }
 
-        if (StringUtils.isNotBlank(appid)) {
+        if (StringUtils.isBlank(appid)) {
             throw new RuntimeException("appid cannot be null.");
         }
 
