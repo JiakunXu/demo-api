@@ -38,7 +38,7 @@ public class MessageServiceImpl implements MessageService {
 
         template.setToUser(toUser);
 
-        Result result = null;
+        Result result;
 
         try {
             result = JSON.parseObject(HttpUtil.post(MessageService.HTTPS_TEMPLATE_URL + accessToken,
@@ -77,7 +77,7 @@ public class MessageServiceImpl implements MessageService {
 
         subscribe.setToUser(toUser);
 
-        BaseResult result = null;
+        BaseResult result;
 
         try {
             result = JSON
@@ -117,7 +117,7 @@ public class MessageServiceImpl implements MessageService {
 
         uniform.setToUser(toUser);
 
-        BaseResult result = null;
+        BaseResult result;
 
         try {
             result = JSON.parseObject(HttpUtil.post(MessageService.HTTPS_UNIFORM_URL + accessToken,

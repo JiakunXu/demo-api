@@ -30,7 +30,7 @@ public class HardwareDeviceServiceImpl implements HardwareDeviceService {
             throw new RuntimeException("device cannot be null.");
         }
 
-        SnTicket snTicket = null;
+        SnTicket snTicket;
 
         try {
             snTicket = JSON.parseObject(HttpUtil

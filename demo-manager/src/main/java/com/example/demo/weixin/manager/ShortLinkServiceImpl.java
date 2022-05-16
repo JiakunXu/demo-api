@@ -28,7 +28,7 @@ public class ShortLinkServiceImpl implements ShortLinkService {
             throw new RuntimeException("page cannot be null.");
         }
 
-        Link link = null;
+        Link link;
 
         try {
             link = JSON.parseObject(HttpUtil.post(ShortLinkService.HTTPS_GENERATE_URL + accessToken,

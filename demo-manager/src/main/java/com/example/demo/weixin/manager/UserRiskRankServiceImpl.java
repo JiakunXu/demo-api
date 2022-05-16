@@ -35,7 +35,7 @@ public class UserRiskRankServiceImpl implements UserRiskRankService {
 
         userInfo.setAppid(appid);
 
-        UserRisk userRisk = null;
+        UserRisk userRisk;
 
         try {
             userRisk = JSON.parseObject(HttpUtil

@@ -40,7 +40,7 @@ public class CustomerServiceMessageServiceImpl implements CustomerServiceMessage
      * @throws RuntimeException
      */
     private Result send(String accessToken, Custom custom) throws RuntimeException {
-        Result result = null;
+        Result result;
 
         try {
             result = JSON.parseObject(
@@ -325,7 +325,7 @@ public class CustomerServiceMessageServiceImpl implements CustomerServiceMessage
 
         typing.setToUser(toUser);
 
-        BaseResult result = null;
+        BaseResult result;
 
         try {
             result = JSON.parseObject(

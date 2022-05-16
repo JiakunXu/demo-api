@@ -33,7 +33,7 @@ public class AccessTokenServiceImpl implements AccessTokenService {
             throw new RuntimeException("secret cannot be null.");
         }
 
-        AccessToken accessToken = null;
+        AccessToken accessToken;
 
         try {
             accessToken = JSON.parseObject(

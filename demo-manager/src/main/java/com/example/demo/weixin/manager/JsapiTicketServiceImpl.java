@@ -24,7 +24,7 @@ public class JsapiTicketServiceImpl implements JsapiTicketService {
             throw new RuntimeException("access_token cannot be null.");
         }
 
-        JsapiTicket jsapiTicket = null;
+        JsapiTicket jsapiTicket;
 
         try {
             jsapiTicket = JSON.parseObject(

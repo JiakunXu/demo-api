@@ -60,7 +60,7 @@ public class Oauth2ServiceImpl implements Oauth2Service {
         sb.append("&appid=").append(appid).append("&secret=").append(secret).append("&code=")
             .append(code);
 
-        AccessToken accessToken = null;
+        AccessToken accessToken;
 
         try {
             accessToken = JSON.parseObject(HttpUtil.get(sb.toString()), AccessToken.class);
@@ -96,7 +96,7 @@ public class Oauth2ServiceImpl implements Oauth2Service {
 
         lang = StringUtils.isBlank(lang) ? "zh_CN" : lang;
 
-        UserInfo userInfo = null;
+        UserInfo userInfo;
 
         try {
             userInfo = JSON.parseObject(HttpUtil

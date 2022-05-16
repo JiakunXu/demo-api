@@ -27,7 +27,7 @@ public class SecurityCheckServiceImpl implements SecurityCheckService {
             throw new RuntimeException("content cannot be null.");
         }
 
-        BaseResult result = null;
+        BaseResult result;
 
         try {
             result = JSON.parseObject(

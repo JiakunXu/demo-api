@@ -41,7 +41,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 
         lang = StringUtils.isBlank(lang) ? "zh_CN" : lang;
 
-        UserInfo userInfo = null;
+        UserInfo userInfo;
 
         try {
             userInfo = JSON.parseObject(HttpUtil

@@ -29,7 +29,7 @@ public class UpdatableMessageServiceImpl implements UpdatableMessageService {
             throw new RuntimeException("unionid && openid cannot be null.");
         }
 
-        Activity activity = null;
+        Activity activity;
 
         try {
             activity = JSON.parseObject(
@@ -70,7 +70,7 @@ public class UpdatableMessageServiceImpl implements UpdatableMessageService {
 
         activity.setActivityId(activityId);
 
-        BaseResult result = null;
+        BaseResult result;
 
         try {
             result = JSON

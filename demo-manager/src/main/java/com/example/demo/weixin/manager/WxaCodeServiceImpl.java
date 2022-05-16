@@ -27,7 +27,7 @@ public class WxaCodeServiceImpl implements WxaCodeService {
             throw new RuntimeException("media_id cannot be null.");
         }
 
-        byte[] buffer = null;
+        byte[] buffer;
 
         try {
             buffer = HttpUtil.download(WxaCodeService.HTTPS_GET_URL + accessToken,

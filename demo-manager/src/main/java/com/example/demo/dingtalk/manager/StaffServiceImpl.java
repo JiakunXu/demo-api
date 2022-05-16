@@ -112,7 +112,7 @@ public class StaffServiceImpl implements StaffService {
         request.setUserid(staffId);
         request.setHttpMethod("GET");
 
-        OapiUserGetResponse response = null;
+        OapiUserGetResponse response;
 
         try {
             response = client.execute(request, accessToken);

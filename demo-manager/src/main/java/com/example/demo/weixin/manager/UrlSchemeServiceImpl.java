@@ -29,7 +29,7 @@ public class UrlSchemeServiceImpl implements UrlSchemeService {
             throw new RuntimeException("url_scheme cannot be null.");
         }
 
-        OpenLink openLink = null;
+        OpenLink openLink;
 
         try {
             openLink = JSON.parseObject(HttpUtil.post(UrlSchemeService.HTTPS_GENERATE_URL + accessToken,

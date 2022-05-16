@@ -28,7 +28,7 @@ public class WxaQrCodeServiceImpl implements WxaQrCodeService {
             throw new RuntimeException("wxa_qr_code cannot be null.");
         }
 
-        byte[] buffer = null;
+        byte[] buffer;
 
         try {
             buffer = HttpUtil.download(WxaQrCodeService.HTTPS_GET_URL + accessToken,

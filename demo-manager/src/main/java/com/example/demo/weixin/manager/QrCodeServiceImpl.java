@@ -28,7 +28,7 @@ public class QrCodeServiceImpl implements QrCodeService {
             throw new RuntimeException("qrcode cannot be null.");
         }
 
-        Result result = null;
+        Result result;
 
         try {
             result = JSON.parseObject(HttpUtil.post(QrCodeService.HTTPS_CREATE_URL + accessToken,

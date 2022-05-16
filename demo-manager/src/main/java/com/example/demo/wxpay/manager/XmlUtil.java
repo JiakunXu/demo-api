@@ -20,7 +20,7 @@ public class XmlUtil {
             return null;
         }
 
-        Document document = null;
+        Document document;
 
         try {
             document = DocumentHelper.parseText(str.trim());

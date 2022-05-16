@@ -42,7 +42,7 @@ public class PhoneNumberServiceImpl implements PhoneNumberService {
             throw new RuntimeException("code cannot be null.");
         }
 
-        Result result = null;
+        Result result;
 
         try {
             result = JSON.parseObject(

@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService {
         request.setUserid(userId);
         request.setHttpMethod("GET");
 
-        OapiUserGetResponse response = null;
+        OapiUserGetResponse response;
 
         try {
             response = client.execute(request, accessToken);

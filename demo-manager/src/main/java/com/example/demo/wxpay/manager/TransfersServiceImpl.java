@@ -147,7 +147,7 @@ public class TransfersServiceImpl implements TransfersService {
             SSLConnectionSocketFactory.BROWSER_COMPATIBLE_HOSTNAME_VERIFIER);
         CloseableHttpClient httpclient = HttpClients.custom().setSSLSocketFactory(sslsf).build();
         try {
-            HttpEntity httpEntity = null;
+            HttpEntity httpEntity;
             httpEntity = new StringEntity(str, "UTF-8");
 
             HttpPost httpPost = new HttpPost(url);
