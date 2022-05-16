@@ -31,7 +31,7 @@ public class WeixinController extends BaseController {
         return receivingService.verify(signature, timestamp, nonce, echoStr);
     }
 
-    @RequestMapping(value = "/callback", method = RequestMethod.POST)
+    @RequestMapping(value = "/callback", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
     public String callback(HttpServletRequest request, HttpServletResponse response) {
         String signature = this.getParameter(request, "signature");
         String timestamp = this.getParameter(request, "timestamp");
