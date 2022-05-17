@@ -1,6 +1,6 @@
 package com.example.demo.subscribe.api.bo;
 
-import com.example.demo.framework.bo.BaseBo;
+import com.example.demo.framework.bo.BaseBO;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,7 +11,7 @@ import java.math.BigInteger;
  */
 @Getter
 @Setter
-public class Subscribe extends BaseBo {
+public class Subscribe extends BaseBO {
 
     private static final long serialVersionUID = 4067360092344161155L;
 

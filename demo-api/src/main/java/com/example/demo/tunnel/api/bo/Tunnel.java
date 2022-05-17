@@ -1,6 +1,6 @@
 package com.example.demo.tunnel.api.bo;
 
-import com.example.demo.framework.bo.BaseBo;
+import com.example.demo.framework.bo.BaseBO;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,7 +11,7 @@ import java.math.BigInteger;
  */
 @Getter
 @Setter
-public class Tunnel extends BaseBo {
+public class Tunnel extends BaseBO {
 
     private static final long serialVersionUID = -2952991612958654453L;
 

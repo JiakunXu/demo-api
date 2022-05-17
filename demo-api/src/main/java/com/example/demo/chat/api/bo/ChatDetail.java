@@ -1,6 +1,6 @@
 package com.example.demo.chat.api.bo;
 
-import com.example.demo.framework.bo.BaseBo;
+import com.example.demo.framework.bo.BaseBO;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,7 +11,7 @@ import java.math.BigInteger;
  */
 @Getter
 @Setter
-public class ChatDetail extends BaseBo {
+public class ChatDetail extends BaseBO {
 
     private static final long serialVersionUID = 1355490942757094850L;
 

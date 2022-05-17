@@ -1,7 +1,7 @@
 package com.example.demo.framework.web;
 
 import com.alibaba.fastjson2.JSON;
-import com.example.demo.framework.bo.BaseBo;
+import com.example.demo.framework.bo.BaseBO;
 import com.example.demo.user.api.bo.User;
 import com.example.demo.framework.util.ThreadLocalUtil;
 import org.apache.commons.io.IOUtils;
@@ -32,7 +32,7 @@ public class BaseController {
         return request.getParameter(name);
     }
 
-    public <T extends BaseBo> T getParameter(HttpServletRequest request, T parameter) {
+    public <T extends BaseBO> T getParameter(HttpServletRequest request, T parameter) {
         parameter.setSearch(request.getParameter("search"));
         parameter.setStartDate(request.getParameter("startDate"));
         parameter.setEndDate(request.getParameter("endDate"));

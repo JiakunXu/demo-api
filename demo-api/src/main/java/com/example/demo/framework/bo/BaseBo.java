@@ -1,18 +1,16 @@
 package com.example.demo.framework.bo;
 
-import com.alibaba.fastjson2.annotation.JSONField;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * @author JiakunXu
  */
 @Getter
 @Setter
-public class BaseBo implements Serializable {
+public class BaseBO implements Serializable {
 
     private static final long serialVersionUID = 6425935261415820282L;
 

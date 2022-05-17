@@ -1,7 +1,7 @@
 package com.example.demo.chat.api.bo;
 
 import com.example.demo.user.api.bo.User;
-import com.example.demo.framework.bo.BaseBo;
+import com.example.demo.framework.bo.BaseBO;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,7 +13,7 @@ import java.util.Date;
  */
 @Getter
 @Setter
-public class Chat extends BaseBo {
+public class Chat extends BaseBO {
 
     private static final long serialVersionUID = 1355490942757094850L;
 
