@@ -1,4 +1,4 @@
-package com.example.demo.framework.aspect;
+package com.example.demo.framework.aspectj;
 
 import com.example.demo.framework.annotation.Log;
 import org.aspectj.lang.JoinPoint;
