@@ -16,7 +16,7 @@ public class BeanUtil {
      * @return
      */
     public static <T> T copy(Object source, Class<T> target) {
-        return JSON.parseObject(JSON.toJSONString(source), target);
+        return source == null ? null : JSON.parseObject(JSON.toJSONString(source), target);
     }
 
     /**
@@ -25,7 +25,7 @@ public class BeanUtil {
      * @param target
      */
     public static <T> List<T> copy(List<?> source, Class<T> target) {
-        return JSON.parseArray(JSON.toJSONString(source), target);
+        return source == null ? null : JSON.parseArray(JSON.toJSONString(source), target);
     }
 
 }
