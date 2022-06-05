@@ -1,5 +1,7 @@
 package com.example.demo.aliyun.manager;
 
+import com.alibaba.fastjson2.JSON;
+import com.example.demo.aliyun.api.bo.sms.Data;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,7 +16,6 @@ import com.aliyuncs.exceptions.ServerException;
 import com.aliyuncs.http.MethodType;
 import com.aliyuncs.profile.DefaultProfile;
 import com.example.demo.aliyun.api.SmsService;
-import com.example.demo.framework.exception.ServiceException;
 
 /**
  * @author JiakunXu
@@ -34,8 +35,8 @@ public class SmsServiceImpl implements SmsService {
     private String              secret;
 
     @Override
-    public String send(String signName, String templateCode, String templateParam,
-                       String phoneNumbers) {
+    public Data send(String signName, String templateCode, String templateParam,
+                     String phoneNumbers) {
         DefaultProfile profile = DefaultProfile.getProfile(regionId, accessKeyId, secret);
         IAcsClient client = new DefaultAcsClient(profile);
 
@@ -49,16 +50,29 @@ public class SmsServiceImpl implements SmsService {
         request.putQueryParameter("SignName", signName);
         request.putQueryParameter("TemplateCode", templateCode);
         request.putQueryParameter("TemplateParam", templateParam);
+
+        Data data = null;
+
         try {
             CommonResponse response = client.getCommonResponse(request);
-            return response.getData();
+            data = JSON.parseObject(response.getData(), Data.class);
         } catch (ServerException e) {
-            logger.error("send", e);
-            throw new ServiceException(e.getMessage());
+            logger.error("ServerException", e);
+            throw new RuntimeException(e.getMessage());
         } catch (ClientException e) {
-            logger.error("send", e);
-            throw new ServiceException(e.getMessage());
+            logger.error("ClientException", e);
+            throw new RuntimeException(e.getMessage());
         }
+
+        if (data == null) {
+            throw new RuntimeException("data is null.");
+        }
+
+        if (!"OK".equals(data.getCode())) {
+            throw new RuntimeException(data.getMessage());
+        }
+
+        return data;
     }
 
 }
