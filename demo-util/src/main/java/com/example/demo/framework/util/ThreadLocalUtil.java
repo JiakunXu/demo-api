@@ -5,7 +5,7 @@ package com.example.demo.framework.util;
  */
 public class ThreadLocalUtil {
 
-    private static final ThreadLocal<Object> THREAD_LOCAL = new ThreadLocal<Object>();
+    private static final ThreadLocal<Object> THREAD_LOCAL = new ThreadLocal<>();
 
     public static void setValue(Object value) {
         THREAD_LOCAL.set(value);
