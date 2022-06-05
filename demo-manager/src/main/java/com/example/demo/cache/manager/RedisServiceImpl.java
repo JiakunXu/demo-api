@@ -1,6 +1,7 @@
 package com.example.demo.cache.manager;
 
 import com.example.demo.cache.api.RedisService;
+import com.example.demo.framework.constant.Constants;
 import com.example.demo.framework.exception.ServiceException;
 import org.joda.time.DateTime;
 import org.joda.time.Seconds;
@@ -51,7 +52,7 @@ public class RedisServiceImpl<K, V> implements RedisService<K, V> {
             logger.error("add", e);
         }
 
-        throw new ServiceException("redis add.");
+        throw new ServiceException(Constants.UNKNOW_ERROR, "redis add.");
     }
 
     @Override
@@ -78,7 +79,7 @@ public class RedisServiceImpl<K, V> implements RedisService<K, V> {
             logger.error("set", e);
         }
 
-        throw new ServiceException("redis set.");
+        throw new ServiceException(Constants.UNKNOW_ERROR, "redis set.");
     }
 
     @Override
@@ -104,7 +105,7 @@ public class RedisServiceImpl<K, V> implements RedisService<K, V> {
             logger.error("get", e);
         }
 
-        throw new ServiceException("redis get.");
+        throw new ServiceException(Constants.UNKNOW_ERROR, "redis get.");
     }
 
     @Override
@@ -116,7 +117,7 @@ public class RedisServiceImpl<K, V> implements RedisService<K, V> {
             logger.error("remove", e);
         }
 
-        throw new ServiceException("redis remove.");
+        throw new ServiceException(Constants.UNKNOW_ERROR, "redis remove.");
     }
 
 }
