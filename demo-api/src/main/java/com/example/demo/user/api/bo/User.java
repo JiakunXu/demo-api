@@ -1,5 +1,6 @@
 package com.example.demo.user.api.bo;
 
+import com.alibaba.fastjson2.annotation.JSONField;
 import com.example.demo.framework.bo.BaseBO;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,8 +14,15 @@ import java.math.BigInteger;
 @Setter
 public class User extends BaseBO {
 
-    private BigInteger id;
+    private static final long serialVersionUID = 4850882151993837337L;
 
-    private String     name;
+    private BigInteger        id;
+
+    private String            name;
+
+    private String            username;
+
+    @JSONField(serialize = false)
+    private String            password;
 
 }
