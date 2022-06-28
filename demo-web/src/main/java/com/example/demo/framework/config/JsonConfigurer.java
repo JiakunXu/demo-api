@@ -1,5 +1,6 @@
 package com.example.demo.framework.config;
 
+import com.alibaba.fastjson2.JSONWriter;
 import com.alibaba.fastjson2.filter.SimplePropertyPreFilter;
 import com.alibaba.fastjson2.support.config.FastJsonConfig;
 import com.alibaba.fastjson2.support.spring.http.converter.FastJsonHttpMessageConverter;
@@ -25,7 +26,7 @@ public class JsonConfigurer {
 
         FastJsonConfig fastJsonConfig = new FastJsonConfig();
         fastJsonConfig.setDateFormat("yyyy-MM-dd HH:mm:ss");
-        // fastJsonConfig.setWriterFeatures(JSONWriter.Feature.);
+        fastJsonConfig.setWriterFeatures(JSONWriter.Feature.WriteNullListAsEmpty);
         SimplePropertyPreFilter writerFilter = new SimplePropertyPreFilter();
         writerFilter.getExcludes().add("codes");
         fastJsonConfig.setWriterFilters(writerFilter);
