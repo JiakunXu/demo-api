@@ -25,4 +25,10 @@ public class User extends BaseBO {
     @JSONField(serialize = false)
     private String            password;
 
+    private Boolean           expired;
+
+    private Boolean           locked;
+
+    private Boolean           enabled;
+
 }

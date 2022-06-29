@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @author JiakunXu
@@ -41,5 +42,9 @@ public class BaseBO implements Serializable {
     private Integer           pageNo;
 
     private Integer           pageSize;
+
+    private Date              createTime;
+
+    private Date              updateTime;
 
 }

@@ -120,4 +120,32 @@ public class RedisServiceImpl<K, V> implements RedisService<K, V> {
         throw new ServiceException(Constants.UNKNOW_ERROR, "redis remove.");
     }
 
+    @Override
+    public boolean hasKey(K key) {
+        try {
+            Boolean result = redisTemplate.hasKey(key);
+            if (result != null && result) {
+                return true;
+            }
+        } catch (Exception e) {
+            logger.error("hasKey", e);
+        }
+
+        return false;
+    }
+
+    @Override
+    public void expire(K key) throws ServiceException {
+        try {
+            Boolean result = redisTemplate.expire(key, RedisService.DEFAULT_EXP, TimeUnit.SECONDS);
+            if (result != null && result) {
+                return;
+            }
+        } catch (Exception e) {
+            logger.error("expire", e);
+        }
+
+        throw new ServiceException(Constants.UNKNOW_ERROR, "redis expire.");
+    }
+
 }
