@@ -38,7 +38,8 @@ public class JsapiTicketServiceImpl implements JsapiTicketService {
             execute = client.execute(req, accessToken);
         } catch (ApiException e) {
             logger.error(JSON.toJSONString(req), e);
-            throw new RuntimeException("execute", e);
+
+            throw new RuntimeException(e);
         }
 
         if (execute == null) {

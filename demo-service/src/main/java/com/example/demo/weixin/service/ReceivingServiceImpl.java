@@ -32,7 +32,7 @@ public class ReceivingServiceImpl implements ReceivingService {
                          String echoStr) throws RuntimeException {
         if (StringUtils.isBlank(signature) || StringUtils.isBlank(timestamp)
             || StringUtils.isBlank(nonce)) {
-            throw new ServiceException(Constants.MISSING_PARAMETER, "参数信息不能为空");
+            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "参数信息不能为空");
         }
 
         return messageCryptService.verify(token, encodingAesKey, appId, signature, timestamp, nonce,
@@ -44,13 +44,21 @@ public class ReceivingServiceImpl implements ReceivingService {
                            String data) throws RuntimeException {
         if (StringUtils.isBlank(signature) || StringUtils.isBlank(timestamp)
             || StringUtils.isBlank(nonce)) {
-            throw new ServiceException(Constants.MISSING_PARAMETER, "参数信息不能为空");
+            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "参数信息不能为空");
         }
 
         String message = messageCryptService.decrypt(token, encodingAesKey, appId, signature,
             timestamp, nonce, data);
 
-        return null;
+        System.out.println(message);
+
+        message = StringUtils.replace(message, "ToUserName", "_ToUserName");
+        message = StringUtils.replace(message, "FromUserName", "ToUserName");
+        message = StringUtils.replace(message, "_ToUserName", "FromUserName");
+
+        System.out.println(message);
+
+        return messageCryptService.encrypt(token, encodingAesKey, appId, message, timestamp, nonce);
     }
 
 }
