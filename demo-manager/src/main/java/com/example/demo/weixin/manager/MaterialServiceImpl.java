@@ -32,7 +32,7 @@ public class MaterialServiceImpl implements MaterialService {
         } catch (Exception e) {
             logger.error(accessToken, e);
 
-            throw new RuntimeException("HttpUtil error.", e);
+            throw new RuntimeException(e);
         }
 
         if (count == null) {
@@ -65,7 +65,7 @@ public class MaterialServiceImpl implements MaterialService {
         } catch (Exception e) {
             logger.error(accessToken, e);
 
-            throw new RuntimeException("HttpUtil error.", e);
+            throw new RuntimeException(e);
         }
 
         if (material == null) {

@@ -11,7 +11,6 @@ import com.aliyuncs.profile.DefaultProfile;
 import com.aliyuncs.profile.IClientProfile;
 import com.example.demo.aliyun.api.GreenImageService;
 import com.example.demo.aliyun.api.bo.green.Return;
-import com.example.demo.framework.exception.ServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -86,12 +85,12 @@ public class GreenImageServiceImpl implements GreenImageService {
             if (httpResponse.isSuccess()) {
                 return JSON.parseObject(httpResponse.getHttpContent(), Return.class);
             } else {
-                throw new ServiceException(
+                throw new RuntimeException(
                     "response not success. status:" + httpResponse.getStatus());
             }
         } catch (Exception e) {
             logger.error("scan", e);
-            throw new ServiceException(e.getMessage());
+            throw new RuntimeException(e);
         }
     }
 

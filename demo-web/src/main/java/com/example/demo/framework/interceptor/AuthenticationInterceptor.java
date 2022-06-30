@@ -27,7 +27,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
         String skey = request.getHeader("X-WX-Skey");
 
         if (StringUtils.isBlank(skey)) {
-            throw new ServiceException(Constants.INVALID_AUTH_TOKEN, "无效的访问令牌");
+            throw new ServiceException(Constants.UNAUTHORIZED, "无效的访问令牌");
         }
 
         Object user;
@@ -35,11 +35,11 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
         try {
             user = redisService.get(skey);
         } catch (ServiceException e) {
-            throw new ServiceException(Constants.INVALID_AUTH_TOKEN, "访问令牌已过期");
+            throw new ServiceException(Constants.UNAUTHORIZED, "访问令牌已过期");
         }
 
         if (user == null) {
-            throw new ServiceException(Constants.INVALID_AUTH_TOKEN, "访问令牌已过期");
+            throw new ServiceException(Constants.UNAUTHORIZED, "访问令牌已过期");
         }
 
         ThreadLocalUtil.setValue(user);

@@ -101,7 +101,7 @@ public class SubscribeServiceImpl implements SubscribeService {
     public Subscribe insertSubscribe(BigInteger userId, String appId, String scene,
                                      String sceneId) {
         if (userId == null || StringUtils.isBlank(appId) || StringUtils.isBlank(scene)) {
-            throw new ServiceException(Constants.MISSING_PARAMETER, "参数信息不能为空");
+            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "参数信息不能为空");
         }
 
         SubscribeDO subscribeDO = new SubscribeDO();
@@ -130,7 +130,7 @@ public class SubscribeServiceImpl implements SubscribeService {
             subscribeMapper.insert(subscribeDO);
         } catch (Exception e) {
             logger.error(subscribeDO.toString(), e);
-            throw new ServiceException(Constants.BUSINESS_FAILED, "信息创建失败，请稍后再试");
+            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息创建失败，请稍后再试");
         }
 
         return BeanUtil.copy(subscribeDO, Subscribe.class);

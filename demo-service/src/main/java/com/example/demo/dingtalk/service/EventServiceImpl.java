@@ -36,7 +36,7 @@ public class EventServiceImpl implements EventService {
         Agent agent = agentService.getAgent(agentId);
 
         if (agent == null) {
-            throw new ServiceException(Constants.BUSINESS_FAILED, "信息不存在");
+            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息不存在");
         }
 
         try {

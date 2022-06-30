@@ -43,7 +43,7 @@ public class Code2SessionServiceImpl implements Code2SessionService {
         } catch (Exception e) {
             logger.error(sb.toString(), e);
 
-            throw new RuntimeException("HttpUtil error.");
+            throw new RuntimeException(e);
         }
 
         if (session == null) {

@@ -50,7 +50,7 @@ public class CustomerServiceMessageServiceImpl implements CustomerServiceMessage
         } catch (Exception e) {
             logger.error(custom.toString(), e);
 
-            throw new RuntimeException("HttpUtil error.", e);
+            throw new RuntimeException(e);
         }
 
         if (result == null) {
@@ -335,7 +335,7 @@ public class CustomerServiceMessageServiceImpl implements CustomerServiceMessage
         } catch (Exception e) {
             logger.error(typing.toString(), e);
 
-            throw new RuntimeException("HttpUtil error.", e);
+            throw new RuntimeException(e);
         }
 
         if (result == null) {

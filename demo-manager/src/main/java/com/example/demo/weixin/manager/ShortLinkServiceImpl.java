@@ -36,7 +36,7 @@ public class ShortLinkServiceImpl implements ShortLinkService {
         } catch (Exception e) {
             logger.error(page.toString(), e);
 
-            throw new RuntimeException("HttpUtil error.", e);
+            throw new RuntimeException(e);
         }
 
         if (link == null) {

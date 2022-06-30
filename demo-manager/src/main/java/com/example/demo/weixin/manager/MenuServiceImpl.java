@@ -37,7 +37,7 @@ public class MenuServiceImpl implements MenuService {
         } catch (Exception e) {
             logger.error(menu.toString(), e);
 
-            throw new RuntimeException("HttpUtil error.", e);
+            throw new RuntimeException(e);
         }
 
         if (result == null) {

@@ -43,7 +43,7 @@ public class AccessTokenServiceImpl implements AccessTokenService {
         } catch (Exception e) {
             logger.error(grantType + "&" + appId + "&" + appSecret, e);
 
-            throw new RuntimeException("HttpUtil error.", e);
+            throw new RuntimeException(e);
         }
 
         if (accessToken == null) {

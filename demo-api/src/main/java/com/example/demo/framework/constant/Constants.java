@@ -5,36 +5,16 @@ package com.example.demo.framework.constant;
  */
 public class Constants {
 
-    public static final String SUCCESS                  = "10000";
+    public static final int SUCCESS               = 200;
 
-    /**
-     * 服务不可用.
-     */
-    public static final String UNKNOW_ERROR             = "20000";
+    public static final int UNAUTHORIZED          = 401;
 
-    /**
-     * 授权权限不足.
-     */
-    public static final String INVALID_AUTH_TOKEN       = "20001";
+    public static final int FORBIDDEN             = 403;
 
-    /**
-     * 缺少必选参数.
-     */
-    public static final String MISSING_PARAMETER        = "40001";
+    public static final int INTERNAL_SERVER_ERROR = 500;
 
-    /**
-     * 非法的参数.
-     */
-    public static final String INVALID_PARAMETER        = "40002";
+    public static final int NOT_IMPLEMENTED       = 501;
 
-    /**
-     * 业务处理失败.
-     */
-    public static final String BUSINESS_FAILED          = "40004";
-
-    /**
-     * 权限不足.
-     */
-    public static final String INSUFFICIENT_PERMISSIONS = "40006";
+    public static final int SERVICE_UNAVAILABLE   = 503;
 
 }

@@ -24,7 +24,7 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public String login(String username, String password) {
         if (StringUtils.isBlank(username) || StringUtils.isBlank(password)) {
-            throw new ServiceException(Constants.MISSING_PARAMETER, "账号或密码不能为空");
+            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "账号或密码不能为空");
         }
 
         Authentication authentication = authenticationManager

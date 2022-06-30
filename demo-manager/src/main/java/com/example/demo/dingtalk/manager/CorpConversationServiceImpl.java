@@ -55,7 +55,7 @@ public class CorpConversationServiceImpl implements CorpConversationService {
             response = client.execute(request, accessToken);
         } catch (ApiException e) {
             logger.error(JSON.toJSONString(request), e);
-            throw new RuntimeException("execute", e);
+            throw new RuntimeException(e);
         }
 
         if (response == null) {

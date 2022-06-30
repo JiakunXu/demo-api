@@ -58,7 +58,7 @@ public class UserStorageServiceImpl implements UserStorageService {
         } catch (Exception e) {
             logger.error(userStorage.toString(), e);
 
-            throw new RuntimeException("HttpUtil error.", e);
+            throw new RuntimeException(e);
         }
 
         return result;
@@ -98,7 +98,7 @@ public class UserStorageServiceImpl implements UserStorageService {
         } catch (Exception e) {
             logger.error(userStorage.toString(), e);
 
-            throw new RuntimeException("HttpUtil error.", e);
+            throw new RuntimeException(e);
         }
 
         return result;

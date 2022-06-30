@@ -24,8 +24,8 @@ public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint {
                          AuthenticationException authException) throws IOException,
                                                                 ServletException {
         response.setStatus(HttpStatus.OK.value());
-        response.getWriter().write(JSON
-            .toJSONString(new ExceptionResponse(Constants.INVALID_AUTH_TOKEN, "invalid token")));
+        response.getWriter().write(
+            JSON.toJSONString(new ExceptionResponse(Constants.UNAUTHORIZED, "invalid token")));
     }
 
 }

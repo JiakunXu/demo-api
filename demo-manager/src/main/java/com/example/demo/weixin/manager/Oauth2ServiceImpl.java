@@ -67,7 +67,7 @@ public class Oauth2ServiceImpl implements Oauth2Service {
         } catch (Exception e) {
             logger.error(sb.toString(), e);
 
-            throw new RuntimeException("HttpUtil error.");
+            throw new RuntimeException(e);
         }
 
         if (accessToken == null) {
@@ -106,7 +106,7 @@ public class Oauth2ServiceImpl implements Oauth2Service {
         } catch (Exception e) {
             logger.error(accessToken + "&" + openid, e);
 
-            throw new RuntimeException("HttpUtil error.", e);
+            throw new RuntimeException(e);
         }
 
         if (userInfo == null) {

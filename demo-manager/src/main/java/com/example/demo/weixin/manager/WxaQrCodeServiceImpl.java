@@ -36,7 +36,7 @@ public class WxaQrCodeServiceImpl implements WxaQrCodeService {
         } catch (Exception e) {
             logger.error(wxaQrCode.toString(), e);
 
-            throw new RuntimeException("HttpUtil error.", e);
+            throw new RuntimeException(e);
         }
 
         WxaCode code = JSON.parseObject(buffer, WxaCode.class);

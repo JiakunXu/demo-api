@@ -128,7 +128,7 @@ public class MessageServiceImpl implements MessageService {
             messageMapper.insert(messageDO);
         } catch (Exception e) {
             logger.error(messageDO.toString(), e);
-            throw new ServiceException(Constants.BUSINESS_FAILED, "信息创建失败，请稍后再试");
+            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息创建失败，请稍后再试");
         }
 
         message.setId(messageDO.getId());
@@ -172,7 +172,7 @@ public class MessageServiceImpl implements MessageService {
         } catch (Exception e) {
             logger.error(JSON.toJSONString(map), e);
 
-            throw new RuntimeException("HttpUtil error.", e);
+            throw new RuntimeException(e);
         }
 
         if (result == null) {

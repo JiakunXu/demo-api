@@ -34,7 +34,7 @@ public class JsapiTicketServiceImpl implements JsapiTicketService {
         } catch (Exception e) {
             logger.error(accessToken, e);
 
-            throw new RuntimeException("HttpUtil error.", e);
+            throw new RuntimeException(e);
         }
 
         if (jsapiTicket == null) {

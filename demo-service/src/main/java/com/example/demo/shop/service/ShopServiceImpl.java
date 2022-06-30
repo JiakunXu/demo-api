@@ -1,5 +1,6 @@
 package com.example.demo.shop.service;
 
+import com.example.demo.framework.constant.Constants;
 import com.example.demo.framework.util.BeanUtil;
 import com.example.demo.shop.api.IShopService;
 import com.example.demo.framework.exception.ServiceException;
@@ -60,7 +61,7 @@ public class ShopServiceImpl implements ShopService, IShopService {
             shopMapper.update(shopDO);
         } catch (Exception e) {
             logger.error(shopDO.toString(), e);
-            throw new ServiceException("errorCode", "message");
+            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "message");
         }
 
         return BeanUtil.copy(shopDO, Shop.class);

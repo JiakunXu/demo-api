@@ -23,7 +23,7 @@ public class WebSocketServiceImpl implements WebSocketService {
     @Override
     public void sendMessage(String tunnelId, String message) {
         if (StringUtils.isBlank(tunnelId) || StringUtils.isBlank(message)) {
-            throw new ServiceException(Constants.MISSING_PARAMETER, "参数信息不能为空");
+            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "参数信息不能为空");
         }
 
         WebSocketSession session = WebSocketManager.get(tunnelId);

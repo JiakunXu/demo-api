@@ -15,7 +15,6 @@ import com.aliyun.oss.OSSException;
 import com.aliyun.oss.model.ObjectMetadata;
 import com.aliyun.oss.model.PutObjectRequest;
 import com.example.demo.aliyun.api.OssService;
-import com.example.demo.framework.exception.ServiceException;
 
 /**
  * @author JiakunXu
@@ -64,14 +63,14 @@ public class OssServiceImpl implements OssService {
             logger.error("Request ID: " + oe.getRequestId());
             logger.error("Host ID: " + oe.getHostId());
 
-            throw new ServiceException(oe.getMessage());
+            throw new RuntimeException(oe);
         } catch (ClientException ce) {
             logger.error("Caught an ClientException, which means the client encountered "
                          + "a serious internal problem while trying to communicate with OSS, "
                          + "such as not being able to access the network.");
             logger.error("Error Message: " + ce.getMessage());
 
-            throw new ServiceException(ce.getMessage());
+            throw new RuntimeException(ce);
         } finally {
             // 关闭OSSClient。
             ossClient.shutdown();

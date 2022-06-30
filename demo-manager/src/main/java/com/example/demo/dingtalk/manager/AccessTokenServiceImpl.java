@@ -44,7 +44,7 @@ public class AccessTokenServiceImpl implements AccessTokenService {
             response = client.execute(request);
         } catch (ApiException e) {
             logger.error(JSON.toJSONString(request), e);
-            throw new RuntimeException("execute", e);
+            throw new RuntimeException(e);
         }
 
         if (response == null) {

@@ -46,7 +46,7 @@ public class MessageServiceImpl implements MessageService {
         } catch (Exception e) {
             logger.error(template.toString(), e);
 
-            throw new RuntimeException("HttpUtil error.", e);
+            throw new RuntimeException(e);
         }
 
         if (result == null) {
@@ -86,7 +86,7 @@ public class MessageServiceImpl implements MessageService {
         } catch (Exception e) {
             logger.error(subscribe.toString(), e);
 
-            throw new RuntimeException("HttpUtil error.", e);
+            throw new RuntimeException(e);
         }
 
         if (result == null) {
@@ -125,7 +125,7 @@ public class MessageServiceImpl implements MessageService {
         } catch (Exception e) {
             logger.error(uniform.toString(), e);
 
-            throw new RuntimeException("HttpUtil error.", e);
+            throw new RuntimeException(e);
         }
 
         if (result == null) {

@@ -50,7 +50,7 @@ public class PhoneNumberServiceImpl implements PhoneNumberService {
         } catch (Exception e) {
             logger.error(code, e);
 
-            throw new RuntimeException("HttpUtil error.", e);
+            throw new RuntimeException(e);
         }
 
         if (result == null) {

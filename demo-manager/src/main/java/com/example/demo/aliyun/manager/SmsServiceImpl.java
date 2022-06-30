@@ -58,10 +58,10 @@ public class SmsServiceImpl implements SmsService {
             data = JSON.parseObject(response.getData(), Data.class);
         } catch (ServerException e) {
             logger.error("ServerException", e);
-            throw new RuntimeException(e.getMessage());
+            throw new RuntimeException(e);
         } catch (ClientException e) {
             logger.error("ClientException", e);
-            throw new RuntimeException(e.getMessage());
+            throw new RuntimeException(e);
         }
 
         if (data == null) {

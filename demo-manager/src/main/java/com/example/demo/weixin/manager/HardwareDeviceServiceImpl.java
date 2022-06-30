@@ -39,7 +39,7 @@ public class HardwareDeviceServiceImpl implements HardwareDeviceService {
         } catch (Exception e) {
             logger.error(device.toString(), e);
 
-            throw new RuntimeException("HttpUtil error.", e);
+            throw new RuntimeException(e);
         }
 
         if (snTicket == null) {
@@ -72,7 +72,7 @@ public class HardwareDeviceServiceImpl implements HardwareDeviceService {
         } catch (Exception e) {
             logger.error(message.toString(), e);
 
-            throw new RuntimeException("HttpUtil error.", e);
+            throw new RuntimeException(e);
         }
 
         if (result == null) {

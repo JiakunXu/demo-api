@@ -43,7 +43,7 @@ public class TextServiceImpl implements TextService {
         } catch (Exception e) {
             logger.error(body.toString(), e);
 
-            throw new RuntimeException("HttpUtil error.", e);
+            throw new RuntimeException(e);
         }
 
         if (log == null) {

@@ -52,7 +52,7 @@ public class RedisServiceImpl<K, V> implements RedisService<K, V> {
             logger.error("add", e);
         }
 
-        throw new ServiceException(Constants.UNKNOW_ERROR, "redis add.");
+        throw new ServiceException(Constants.SERVICE_UNAVAILABLE, "redis add.");
     }
 
     @Override
@@ -79,7 +79,7 @@ public class RedisServiceImpl<K, V> implements RedisService<K, V> {
             logger.error("set", e);
         }
 
-        throw new ServiceException(Constants.UNKNOW_ERROR, "redis set.");
+        throw new ServiceException(Constants.SERVICE_UNAVAILABLE, "redis set.");
     }
 
     @Override
@@ -105,7 +105,7 @@ public class RedisServiceImpl<K, V> implements RedisService<K, V> {
             logger.error("get", e);
         }
 
-        throw new ServiceException(Constants.UNKNOW_ERROR, "redis get.");
+        throw new ServiceException(Constants.SERVICE_UNAVAILABLE, "redis get.");
     }
 
     @Override
@@ -117,7 +117,7 @@ public class RedisServiceImpl<K, V> implements RedisService<K, V> {
             logger.error("remove", e);
         }
 
-        throw new ServiceException(Constants.UNKNOW_ERROR, "redis remove.");
+        throw new ServiceException(Constants.SERVICE_UNAVAILABLE, "redis remove.");
     }
 
     @Override
@@ -145,7 +145,7 @@ public class RedisServiceImpl<K, V> implements RedisService<K, V> {
             logger.error("expire", e);
         }
 
-        throw new ServiceException(Constants.UNKNOW_ERROR, "redis expire.");
+        throw new ServiceException(Constants.SERVICE_UNAVAILABLE, "redis expire.");
     }
 
 }

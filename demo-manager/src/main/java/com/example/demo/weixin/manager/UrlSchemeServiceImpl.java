@@ -37,7 +37,7 @@ public class UrlSchemeServiceImpl implements UrlSchemeService {
         } catch (Exception e) {
             logger.error(urlScheme.toString(), e);
 
-            throw new RuntimeException("HttpUtil error.", e);
+            throw new RuntimeException(e);
         }
 
         if (openLink == null) {

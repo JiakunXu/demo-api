@@ -56,7 +56,7 @@ public class ObsServiceImpl implements ObsService {
             logger.error("Request ID: " + oe.getErrorRequestId());
             logger.error("Host ID: " + oe.getErrorHostId());
 
-            throw new ServiceException(oe.getMessage());
+            throw new RuntimeException(oe);
         } finally {
             try {
                 obsClient.close();

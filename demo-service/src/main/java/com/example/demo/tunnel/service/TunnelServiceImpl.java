@@ -30,7 +30,7 @@ public class TunnelServiceImpl implements TunnelService {
     @Override
     public Tunnel insertTunnel(BigInteger userId, String host) {
         if (userId == null) {
-            throw new ServiceException(Constants.MISSING_PARAMETER, "参数信息不能为空");
+            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "参数信息不能为空");
         }
 
         TunnelDO tunnelDO = new TunnelDO();
@@ -43,7 +43,7 @@ public class TunnelServiceImpl implements TunnelService {
             tunnelMapper.insert(tunnelDO);
         } catch (Exception e) {
             logger.error(tunnelDO.toString(), e);
-            throw new ServiceException(Constants.BUSINESS_FAILED, "信息创建失败，请稍后再试");
+            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息创建失败，请稍后再试");
         }
 
         return BeanUtil.copy(tunnelDO, Tunnel.class);
@@ -52,7 +52,7 @@ public class TunnelServiceImpl implements TunnelService {
     @Override
     public Tunnel deleteTunnel(String tunnelId, String modifier) {
         if (StringUtils.isBlank(tunnelId)) {
-            throw new ServiceException(Constants.MISSING_PARAMETER, "参数信息不能为空");
+            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "参数信息不能为空");
         }
 
         TunnelDO tunnelDO = new TunnelDO();
@@ -61,13 +61,13 @@ public class TunnelServiceImpl implements TunnelService {
 
         try {
             if (tunnelMapper.delete(tunnelDO) != 1) {
-                throw new ServiceException(Constants.BUSINESS_FAILED);
+                throw new ServiceException(Constants.INTERNAL_SERVER_ERROR);
             }
         } catch (ServiceException e) {
-            throw new ServiceException(Constants.BUSINESS_FAILED, "信息不存在");
+            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息不存在");
         } catch (Exception e) {
             logger.error(tunnelDO.toString(), e);
-            throw new ServiceException(Constants.BUSINESS_FAILED, "信息更新失败，请稍后再试");
+            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息更新失败，请稍后再试");
         }
 
         return BeanUtil.copy(tunnelDO, Tunnel.class);

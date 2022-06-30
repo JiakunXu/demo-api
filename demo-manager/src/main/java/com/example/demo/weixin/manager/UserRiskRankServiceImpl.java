@@ -44,7 +44,7 @@ public class UserRiskRankServiceImpl implements UserRiskRankService {
         } catch (Exception e) {
             logger.error(userInfo.toString(), e);
 
-            throw new RuntimeException("HttpUtil error.", e);
+            throw new RuntimeException(e);
         }
 
         if (userRisk == null) {

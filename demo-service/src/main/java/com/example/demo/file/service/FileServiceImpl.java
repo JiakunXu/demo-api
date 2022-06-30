@@ -87,7 +87,7 @@ public class FileServiceImpl implements FileService {
                     List<Predict> predictList = data.getPredictList();
                     for (Predict predict : predictList) {
                         if (predict.getProb() == 1) {
-                            throw new ServiceException(Constants.BUSINESS_FAILED, "【图片】包含违法违规内容");
+                            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "【图片】包含违法违规内容");
                         }
                     }
                 }
@@ -99,7 +99,7 @@ public class FileServiceImpl implements FileService {
     @Transactional(rollbackFor = RuntimeException.class)
     public File insertFile(String name, byte[] content, String contentType) throws IOException {
         if (StringUtils.isBlank(name) || content == null || StringUtils.isBlank(contentType)) {
-            throw new ServiceException(Constants.MISSING_PARAMETER, "参数信息不能为空");
+            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "参数信息不能为空");
         }
 
         validate(content);

@@ -80,7 +80,7 @@ public class ChatDetailServiceImpl implements ChatDetailService {
     public ChatDetail insertChatDetail(BigInteger userId, BigInteger friendId, String type,
                                        String content) {
         if (userId == null || friendId == null || StringUtils.isBlank(content)) {
-            throw new ServiceException(Constants.MISSING_PARAMETER, "参数信息不能为空");
+            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "参数信息不能为空");
         }
 
         String chatId = UUID.randomUUID().toString();
@@ -98,7 +98,7 @@ public class ChatDetailServiceImpl implements ChatDetailService {
             chatDetailMapper.insert(chatDetailDO0);
         } catch (Exception e) {
             logger.error(chatDetailDO0.toString(), e);
-            throw new ServiceException(Constants.BUSINESS_FAILED, "信息创建失败，请稍后再试");
+            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息创建失败，请稍后再试");
         }
 
         ChatDetailDO chatDetailDO1 = new ChatDetailDO();
@@ -114,7 +114,7 @@ public class ChatDetailServiceImpl implements ChatDetailService {
             chatDetailMapper.insert(chatDetailDO1);
         } catch (Exception e) {
             logger.error(chatDetailDO1.toString(), e);
-            throw new ServiceException(Constants.BUSINESS_FAILED, "信息创建失败，请稍后再试");
+            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息创建失败，请稍后再试");
         }
 
         producerService.sendOneway(topic, "chat.message", JSON.toJSONBytes(chatDetailDO1),

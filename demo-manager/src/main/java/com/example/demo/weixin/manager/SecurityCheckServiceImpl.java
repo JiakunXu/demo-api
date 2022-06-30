@@ -36,7 +36,7 @@ public class SecurityCheckServiceImpl implements SecurityCheckService {
         } catch (Exception e) {
             logger.error(accessToken, e);
 
-            throw new RuntimeException("HttpUtil error.", e);
+            throw new RuntimeException(e);
         }
 
         if (result == null) {

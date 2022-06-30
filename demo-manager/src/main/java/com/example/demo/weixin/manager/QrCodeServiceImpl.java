@@ -36,7 +36,7 @@ public class QrCodeServiceImpl implements QrCodeService {
         } catch (Exception e) {
             logger.error(qrCode.toString(), e);
 
-            throw new RuntimeException("HttpUtil error.", e);
+            throw new RuntimeException(e);
         }
 
         if (result == null) {

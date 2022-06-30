@@ -15,7 +15,7 @@ public abstract class AbstractResponse implements Serializable {
 
     private static final long   serialVersionUID = -2112675577113436644L;
 
-    private String              code;
+    private Integer             code;
 
     private String              msg;
 

@@ -39,7 +39,7 @@ public class UpdatableMessageServiceImpl implements UpdatableMessageService {
         } catch (Exception e) {
             logger.error(unionid + "&" + openid, e);
 
-            throw new RuntimeException("HttpUtil error.", e);
+            throw new RuntimeException(e);
         }
 
         if (activity == null) {
@@ -79,7 +79,7 @@ public class UpdatableMessageServiceImpl implements UpdatableMessageService {
         } catch (Exception e) {
             logger.error(activity.toString(), e);
 
-            throw new RuntimeException("HttpUtil error.", e);
+            throw new RuntimeException(e);
         }
 
         if (result == null) {

@@ -32,7 +32,7 @@ public class MediaServiceImpl implements MediaService {
         } catch (Exception e) {
             logger.error(accessToken + "&" + mediaId, e);
 
-            throw new RuntimeException("HttpUtil error.", e);
+            throw new RuntimeException(e);
         }
     }
 }

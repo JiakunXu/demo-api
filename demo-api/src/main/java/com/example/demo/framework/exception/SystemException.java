@@ -8,32 +8,31 @@ package com.example.demo.framework.exception;
  */
 public class SystemException extends Exception {
 
-	private static final long serialVersionUID = 5259805918456538208L;
+    private static final long serialVersionUID = 5259805918456538208L;
 
-	private final String errorCode;
+    private final Integer     code;
 
-	public SystemException(String errorCode, String message, Throwable cause) {
-		super(message, cause);
-		this.errorCode = errorCode;
-	}
+    public SystemException(Integer code, String message, Throwable cause) {
+        super(message, cause);
+        this.code = code;
+    }
 
-	public SystemException(String errorCode, Throwable cause) {
-		super(errorCode, cause);
-		this.errorCode = errorCode;
-	}
+    public SystemException(Integer code, Throwable cause) {
+        super(cause);
+        this.code = code;
+    }
 
-	public SystemException(String errorCode, String message) {
-		super(message);
-		this.errorCode = errorCode;
-	}
+    public SystemException(Integer code, String message) {
+        super(message);
+        this.code = code;
+    }
 
-	public SystemException(String errorCode) {
-		super(errorCode);
-		this.errorCode = errorCode;
-	}
+    public SystemException(Integer code) {
+        this.code = code;
+    }
 
-	public String getErrorCode() {
-		return errorCode;
-	}
+    public Integer getCode() {
+        return code;
+    }
 
 }

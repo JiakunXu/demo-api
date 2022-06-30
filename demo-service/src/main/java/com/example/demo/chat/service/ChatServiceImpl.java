@@ -106,7 +106,7 @@ public class ChatServiceImpl implements ChatService {
     @Override
     public Chat saveOrUpdate(BigInteger userId, BigInteger friendId, Chat chat) {
         if (userId == null || friendId == null || chat == null) {
-            throw new ServiceException(Constants.MISSING_PARAMETER, "参数信息不能为空");
+            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "参数信息不能为空");
         }
 
         chat.setUserId(userId);
@@ -122,7 +122,7 @@ public class ChatServiceImpl implements ChatService {
             }
         } catch (Exception e) {
             logger.error(chatDO.toString(), e);
-            throw new ServiceException(Constants.BUSINESS_FAILED, "信息更新失败，请稍后再试");
+            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息更新失败，请稍后再试");
         }
 
         return chat;
@@ -131,7 +131,7 @@ public class ChatServiceImpl implements ChatService {
     @Override
     public Chat read(BigInteger userId, BigInteger id) {
         if (userId == null || id == null) {
-            throw new ServiceException(Constants.MISSING_PARAMETER, "参数信息不能为空");
+            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "参数信息不能为空");
         }
 
         Chat chat = new Chat();
@@ -144,13 +144,13 @@ public class ChatServiceImpl implements ChatService {
 
         try {
             if (chatMapper.updateUnread(chatDO) != 1) {
-                throw new ServiceException(Constants.BUSINESS_FAILED);
+                throw new ServiceException(Constants.INTERNAL_SERVER_ERROR);
             }
         } catch (ServiceException e) {
-            throw new ServiceException(Constants.BUSINESS_FAILED, "信息不存在");
+            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息不存在");
         } catch (Exception e) {
             logger.error(chatDO.toString(), e);
-            throw new ServiceException(Constants.BUSINESS_FAILED, "信息更新失败，请稍后再试");
+            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息更新失败，请稍后再试");
         }
 
         return chat;

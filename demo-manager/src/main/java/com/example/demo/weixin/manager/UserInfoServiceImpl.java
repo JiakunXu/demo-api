@@ -51,7 +51,7 @@ public class UserInfoServiceImpl implements UserInfoService {
         } catch (Exception e) {
             logger.error(accessToken + "&" + openid, e);
 
-            throw new RuntimeException("HttpUtil error.", e);
+            throw new RuntimeException(e);
         }
 
         if (userInfo == null) {

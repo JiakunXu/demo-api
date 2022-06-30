@@ -28,7 +28,7 @@ public class LoginController extends BaseController {
         JSONObject object = this.getParameter(request, JSONObject.class);
 
         if (object == null) {
-            throw new ServiceException(Constants.MISSING_PARAMETER, "账号或密码不能为空");
+            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "账号或密码不能为空");
         }
 
         return new TokenResponse<>(
