@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.6.7</version>
+        <version>2.7.1</version>
         <relativePath/>
     </parent>
     <groupId>com.example</groupId>
@@ -42,15 +42,15 @@
         <commons-lang3.version>3.12.0</commons-lang3.version>
         <commons-pool2.version>2.11.1</commons-pool2.version>
         <dom4j.version>2.1.3</dom4j.version>
-        <druid-spring-boot.version>1.2.9</druid-spring-boot.version>
-        <dubbo-spring-boot.version>3.0.7</dubbo-spring-boot.version>
+        <druid-spring-boot.version>1.2.11</druid-spring-boot.version>
+        <dubbo-spring-boot.version>3.0.9</dubbo-spring-boot.version>
         <fastjson2.version>2.0.8</fastjson2.version>
         <httpclient.version>4.5.13</httpclient.version>
         <httpmime.version>4.5.13</httpmime.version>
         <jjwt.version>0.11.5</jjwt.version>
         <joda-time.version>2.10.14</joda-time.version>
         <mybatis-spring-boot.version>2.2.2</mybatis-spring-boot.version>
-        <mysql-connector.version>8.0.28</mysql-connector.version>
+        <mysql-connector.version>8.0.29</mysql-connector.version>
         <nacos-client.version>2.1.0</nacos-client.version>
         <poi-ooxml.version>5.2.2</poi-ooxml.version>
         <schedulerx2-spring-boot.version>1.5.0.2</schedulerx2-spring-boot.version>
@@ -184,13 +184,13 @@
             <dependency>
                 <groupId>com.aliyun.oss</groupId>
                 <artifactId>aliyun-sdk-oss</artifactId>
-                <version>3.15.0</version>
+                <version>3.15.1</version>
             </dependency>
 
             <dependency>
                 <groupId>com.aliyun.openservices</groupId>
                 <artifactId>ons-client</artifactId>
-                <version>2.0.1.Final</version>
+                <version>2.0.2.Final</version>
             </dependency>
 
             <dependency>
@@ -232,7 +232,7 @@
             <dependency>
                 <groupId>com.getui.push</groupId>
                 <artifactId>restful-sdk</artifactId>
-                <version>1.0.0.6</version>
+                <version>1.0.0.8</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
