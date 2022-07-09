@@ -61,7 +61,7 @@ public class ExcelUtil {
                 Row row = sheet.getRow(rownum);
                 int column = 0;
 
-                if (row.getCell(0).getCellType() == CellType.BLANK) {
+                if (row.getCell(0) == null || row.getCell(0).getCellType() == CellType.BLANK) {
                     continue;
                 }
 
@@ -274,6 +274,7 @@ public class ExcelUtil {
         }
 
         if (value == null) {
+            cell.setCellValue("");
             return;
         }
 
