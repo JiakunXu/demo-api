@@ -44,7 +44,7 @@
         <dom4j.version>2.1.3</dom4j.version>
         <druid-spring-boot.version>1.2.11</druid-spring-boot.version>
         <dubbo-spring-boot.version>3.0.9</dubbo-spring-boot.version>
-        <fastjson2.version>2.0.8</fastjson2.version>
+        <fastjson2.version>2.0.9</fastjson2.version>
         <httpclient.version>4.5.13</httpclient.version>
         <httpmime.version>4.5.13</httpmime.version>
         <jjwt.version>0.11.5</jjwt.version>
