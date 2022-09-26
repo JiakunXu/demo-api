@@ -1,6 +1,7 @@
 package com.example.demo.weixin.manager;
 
 import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONObject;
 import com.example.demo.framework.util.HttpUtil;
 import com.example.demo.weixin.api.PhoneNumberService;
 import com.example.demo.weixin.api.bo.wxa.PhoneNumber;
@@ -42,11 +43,14 @@ public class PhoneNumberServiceImpl implements PhoneNumberService {
             throw new RuntimeException("code cannot be null.");
         }
 
+        JSONObject parameter = new JSONObject();
+        parameter.put("code", code);
+
         Result result;
 
         try {
-            result = JSON.parseObject(
-                HttpUtil.post(PhoneNumberService.HTTPS_GET_URL + accessToken, code), Result.class);
+            result = JSON.parseObject(HttpUtil.post(PhoneNumberService.HTTPS_POST_URL + accessToken,
+                parameter.toJSONString()), Result.class);
         } catch (Exception e) {
             logger.error(code, e);
 
