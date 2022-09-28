@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -245,7 +246,8 @@ public class ExcelUtil {
                             JSON.toJSONString(DateUtil.getJavaDate(cell.getNumericCellValue())), clazz);
                 }
             } else {
-                return JSON.parseObject(JSON.toJSONString(cell.getNumericCellValue()), clazz);
+                return JSON.parseObject(
+                        JSON.toJSONString(BigDecimal.valueOf(cell.getNumericCellValue())), clazz);
             }
         }
 
