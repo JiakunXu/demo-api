@@ -2,6 +2,7 @@ package com.example.demo.weixin.manager;
 
 import com.alibaba.fastjson2.JSON;
 import com.example.demo.weixin.api.WxaCodeService;
+import com.example.demo.weixin.api.bo.BaseResult;
 import com.example.demo.weixin.api.bo.wxa.WxaCode;
 import com.example.demo.framework.util.HttpUtil;
 import org.apache.commons.lang3.StringUtils;
@@ -18,13 +19,13 @@ public class WxaCodeServiceImpl implements WxaCodeService {
     private static final Logger logger = LoggerFactory.getLogger(WxaCodeServiceImpl.class);
 
     @Override
-    public WxaCode getWxaCodeUnlimit(String accessToken, WxaCode wxaCode) throws RuntimeException {
+    public byte[] getWxaCodeUnlimit(String accessToken, WxaCode wxaCode) throws RuntimeException {
         if (StringUtils.isBlank(accessToken)) {
             throw new RuntimeException("access_token cannot be null.");
         }
 
         if (wxaCode == null) {
-            throw new RuntimeException("media_id cannot be null.");
+            throw new RuntimeException("wxa_code cannot be null.");
         }
 
         byte[] buffer;
@@ -38,15 +39,14 @@ public class WxaCodeServiceImpl implements WxaCodeService {
             throw new RuntimeException(e);
         }
 
-        WxaCode code = JSON.parseObject(buffer, WxaCode.class);
+        if (JSON.isValidObject(buffer)) {
+            BaseResult result = JSON.parseObject(buffer, BaseResult.class);
 
-        if (code != null) {
-            throw new RuntimeException(code.getErrMsg());
+            if (result != null) {
+                throw new RuntimeException(result.getErrMsg());
+            }
         }
 
-        wxaCode.setContentType("image/jpeg");
-        wxaCode.setBuffer(buffer);
-
-        return wxaCode;
+        return buffer;
     }
 }

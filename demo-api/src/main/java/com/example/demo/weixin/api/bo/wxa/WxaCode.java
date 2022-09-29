@@ -1,10 +1,11 @@
 package com.example.demo.weixin.api.bo.wxa;
 
 import com.alibaba.fastjson2.annotation.JSONField;
-import com.example.demo.weixin.api.bo.BaseResult;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+
+import java.io.Serializable;
 
 /**
  * @author JiakunXu
@@ -12,7 +13,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class WxaCode extends BaseResult {
+public class WxaCode implements Serializable {
 
     private static final long serialVersionUID = 2805710848332841282L;
 
