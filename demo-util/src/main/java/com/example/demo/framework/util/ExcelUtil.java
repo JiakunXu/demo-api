@@ -276,7 +276,6 @@ public class ExcelUtil {
         }
 
         if (value == null) {
-            cell.setCellValue("");
             return;
         }
 
