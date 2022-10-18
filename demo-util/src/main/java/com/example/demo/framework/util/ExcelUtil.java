@@ -220,6 +220,7 @@ public class ExcelUtil {
             for (String p : prop.split("[.]")) {
                 Method getMethod = findGetMethod(obj, p);
                 if (getMethod == null) {
+                    obj = null;
                     break;
                 }
                 obj = getMethod.invoke(obj);
