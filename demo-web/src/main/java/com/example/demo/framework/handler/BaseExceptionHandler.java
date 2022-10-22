@@ -5,6 +5,7 @@ import com.example.demo.framework.exception.ServiceException;
 import com.example.demo.framework.exception.SystemException;
 import com.example.demo.framework.response.ExceptionResponse;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -13,6 +14,14 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
  */
 @RestControllerAdvice
 public class BaseExceptionHandler {
+
+    @ExceptionHandler(value = AuthenticationException.class)
+    public ExceptionResponse exceptionHandler(AuthenticationException e) {
+        ExceptionResponse response = new ExceptionResponse(Constants.INTERNAL_SERVER_ERROR,
+            e.getMessage());
+
+        return response;
+    }
 
     @ExceptionHandler(value = AccessDeniedException.class)
     public ExceptionResponse exceptionHandler(AccessDeniedException e) {

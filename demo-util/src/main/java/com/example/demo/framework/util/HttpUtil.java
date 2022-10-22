@@ -37,10 +37,22 @@ public class HttpUtil {
      * @throws Exception
      */
     public static String get(String uri) throws Exception {
+        return get(uri, null);
+    }
+
+    /**
+     * 
+     * @param uri
+     * @param header
+     * @return
+     * @throws Exception
+     */
+    public static String get(String uri, Map<String, String> header) throws Exception {
         CloseableHttpClient httpclient = HttpClients.createDefault();
 
         try {
             HttpGet httpget = new HttpGet(uri);
+            httpget.setHeaders(getHeaders(header));
 
             // Create a custom response handler
             ResponseHandler<String> responseHandler = new ResponseHandler<String>() {
