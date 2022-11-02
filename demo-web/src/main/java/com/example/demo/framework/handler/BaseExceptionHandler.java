@@ -47,7 +47,7 @@ public class BaseExceptionHandler {
     @ExceptionHandler(value = Exception.class)
     public ExceptionResponse exceptionHandler(Exception e) {
         ExceptionResponse response = new ExceptionResponse(Constants.SERVICE_UNAVAILABLE,
-            e == null ? "系统错误" : e.toString());
+            e == null ? "系统错误" : e.getMessage());
 
         return response;
     }
