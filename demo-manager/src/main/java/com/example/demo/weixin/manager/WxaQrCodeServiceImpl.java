@@ -3,6 +3,7 @@ package com.example.demo.weixin.manager;
 import com.alibaba.fastjson2.JSON;
 import com.example.demo.framework.util.HttpUtil;
 import com.example.demo.weixin.api.WxaQrCodeService;
+import com.example.demo.weixin.api.bo.BaseResult;
 import com.example.demo.weixin.api.bo.wxa.WxaCode;
 import com.example.demo.weixin.api.bo.wxa.WxaQrCode;
 import org.apache.commons.lang3.StringUtils;
@@ -19,7 +20,7 @@ public class WxaQrCodeServiceImpl implements WxaQrCodeService {
     private static final Logger logger = LoggerFactory.getLogger(WxaQrCodeServiceImpl.class);
 
     @Override
-    public WxaQrCode getWxaQrCode(String accessToken, WxaQrCode wxaQrCode) throws RuntimeException {
+    public byte[] getWxaQrCode(String accessToken, WxaQrCode wxaQrCode) throws RuntimeException {
         if (StringUtils.isBlank(accessToken)) {
             throw new RuntimeException("access_token cannot be null.");
         }
@@ -39,16 +40,15 @@ public class WxaQrCodeServiceImpl implements WxaQrCodeService {
             throw new RuntimeException(e);
         }
 
-        WxaCode code = JSON.parseObject(buffer, WxaCode.class);
+        if (JSON.isValidObject(buffer)) {
+            BaseResult result = JSON.parseObject(buffer, BaseResult.class);
 
-        if (code != null) {
-            throw new RuntimeException(code.getErrMsg());
+            if (result != null) {
+                throw new RuntimeException(result.getErrMsg());
+            }
         }
 
-        wxaQrCode.setContentType("image/jpeg");
-        wxaQrCode.setBuffer(buffer);
-
-        return wxaQrCode;
+        return buffer;
     }
 
 }

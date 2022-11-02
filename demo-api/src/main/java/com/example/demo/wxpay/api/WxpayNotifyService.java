@@ -1,6 +1,6 @@
 package com.example.demo.wxpay.api;
 
-import com.example.water.wxpay.api.bo.WxpayNotify;
+import com.example.demo.wxpay.api.bo.WxpayNotify;
 
 public interface WxpayNotifyService {
 

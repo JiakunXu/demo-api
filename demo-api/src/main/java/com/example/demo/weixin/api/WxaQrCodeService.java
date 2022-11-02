@@ -17,6 +17,6 @@ public interface WxaQrCodeService {
      * @throws RuntimeException
      * @see <a href="https://developers.weixin.qq.com/miniprogram/dev/api-backend/open-api/qr-code/wxacode.createQRCode.html">微信官方文档</a>
      */
-    WxaQrCode getWxaQrCode(String accessToken, WxaQrCode wxaQrCode) throws RuntimeException;
+    byte[] getWxaQrCode(String accessToken, WxaQrCode wxaQrCode) throws RuntimeException;
 
 }
