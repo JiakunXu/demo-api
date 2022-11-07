@@ -25,7 +25,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         user.setAccountNonExpired(!user.getExpired());
         user.setAccountNonLocked(!user.getLocked());
-        user.setEnabled(user.getEnabled());
+        user.setEnabled(Boolean.TRUE.equals(user.getEnabled()));
 
         return user;
     }
