@@ -248,7 +248,7 @@ public class ExcelUtil {
                 }
             } else {
                 return JSON.parseObject(
-                        JSON.toJSONString(BigDecimal.valueOf(cell.getNumericCellValue())), clazz);
+                        JSON.toJSONString(new BigDecimal(cell.getNumericCellValue())), clazz);
             }
         }
 
