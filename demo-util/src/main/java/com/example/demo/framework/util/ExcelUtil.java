@@ -92,7 +92,7 @@ public class ExcelUtil {
                         Object sub = getMethod.invoke(obj);
                         if (sub != null) {
                             obj = sub;
-                            break;
+                            continue;
                         }
                         Method setMethod = findSetMethod(obj, p);
                         if (setMethod == null) {
