@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -23,7 +23,7 @@ import com.example.demo.framework.filter.TokenAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
+@EnableMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class WebSecurityConfig {
 
     @Autowired
@@ -52,8 +52,8 @@ public class WebSecurityConfig {
         httpSecurity.headers().frameOptions().disable();
         httpSecurity.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
-        httpSecurity.authorizeRequests().antMatchers("/login").permitAll();
-        httpSecurity.authorizeRequests().anyRequest().authenticated();
+        httpSecurity.authorizeHttpRequests().requestMatchers("/login").permitAll();
+        httpSecurity.authorizeHttpRequests().anyRequest().authenticated();
 
         httpSecurity.exceptionHandling().authenticationEntryPoint(authenticationEntryPoint);
         httpSecurity.csrf().disable();
