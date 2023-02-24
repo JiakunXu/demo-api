@@ -28,4 +28,6 @@ public interface TransactionsService {
 
     String get(String spMchid, String subMchid, String outTradeNo) throws RuntimeException;
 
+    String close(String spMchid, String subMchid, String outTradeNo) throws RuntimeException;
+
 }
