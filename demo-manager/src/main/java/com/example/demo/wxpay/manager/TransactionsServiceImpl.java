@@ -79,7 +79,7 @@ public class TransactionsServiceImpl implements TransactionsService {
     @Override
     public String getPrepayId(Transaction transaction) throws RuntimeException {
         if (transaction == null) {
-            throw new RuntimeException("交易信息不能为空.");
+            throw new RuntimeException("订单信息不能为空.");
         }
 
         CloseableHttpClient httpClient = createDefault();
@@ -112,7 +112,7 @@ public class TransactionsServiceImpl implements TransactionsService {
     @Override
     public String getH5Url(Transaction transaction) throws RuntimeException {
         if (transaction == null) {
-            throw new RuntimeException("交易信息不能为空.");
+            throw new RuntimeException("订单信息不能为空.");
         }
 
         CloseableHttpClient httpClient = createDefault();
@@ -145,7 +145,7 @@ public class TransactionsServiceImpl implements TransactionsService {
     @Override
     public String get(String spMchid, String subMchid, String outTradeNo) throws RuntimeException {
         if (StringUtils.isAnyBlank(spMchid, subMchid, outTradeNo)) {
-            throw new RuntimeException("交易信息不能为空.");
+            throw new RuntimeException("订单信息不能为空.");
         }
 
         CloseableHttpClient httpClient = createDefault();
@@ -170,7 +170,42 @@ public class TransactionsServiceImpl implements TransactionsService {
             IOUtils.close(httpClient);
         }
 
-        throw new RuntimeException("信息获取失败.");
+        throw new RuntimeException("查询订单失败.");
+    }
+
+    @Override
+    public String close(String spMchid, String subMchid,
+                        String outTradeNo) throws RuntimeException {
+        if (StringUtils.isAnyBlank(spMchid, subMchid, outTradeNo)) {
+            throw new RuntimeException("订单信息不能为空.");
+        }
+
+        JSONObject object = new JSONObject();
+        object.put("sp_mchid", spMchid);
+        object.put("sub_mchid", subMchid);
+
+        CloseableHttpClient httpClient = createDefault();
+
+        HttpPost httpPost = new HttpPost(HTTPS_TRADE_URL + "/" + outTradeNo + "/close");
+        httpPost.addHeader("Accept", "application/json");
+        httpPost.addHeader("Content-type", "application/json; charset=utf-8");
+        httpPost.setEntity(new StringEntity(object.toJSONString(), StandardCharsets.UTF_8));
+
+        try {
+            CloseableHttpResponse response = httpClient.execute(httpPost);
+            int status = response.getStatusLine().getStatusCode();
+            if (status >= 200 && status < 300) {
+                return EntityUtils.toString(response.getEntity());
+            } else {
+
+            }
+        } catch (IOException e) {
+            logger.error(outTradeNo, e);
+        } finally {
+            IOUtils.close(httpClient);
+        }
+
+        throw new RuntimeException("关闭订单失败.");
     }
 
 }
