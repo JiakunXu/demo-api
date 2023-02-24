@@ -174,8 +174,7 @@ public class TransactionsServiceImpl implements TransactionsService {
     }
 
     @Override
-    public String close(String spMchid, String subMchid,
-                        String outTradeNo) throws RuntimeException {
+    public void close(String spMchid, String subMchid, String outTradeNo) throws RuntimeException {
         if (StringUtils.isAnyBlank(spMchid, subMchid, outTradeNo)) {
             throw new RuntimeException("订单信息不能为空.");
         }
@@ -195,9 +194,11 @@ public class TransactionsServiceImpl implements TransactionsService {
             CloseableHttpResponse response = httpClient.execute(httpPost);
             int status = response.getStatusLine().getStatusCode();
             if (status >= 200 && status < 300) {
-                return EntityUtils.toString(response.getEntity());
+                return;
             } else {
-
+                JSONObject result = JSON.parseObject(EntityUtils.toString(response.getEntity()),
+                    JSONObject.class);
+                throw new RuntimeException(result.getString("message"));
             }
         } catch (IOException e) {
             logger.error(outTradeNo, e);
