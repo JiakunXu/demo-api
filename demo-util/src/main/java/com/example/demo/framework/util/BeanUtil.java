@@ -75,10 +75,10 @@ public class BeanUtil {
         BeanCopier copier = BeanCopier.create(source.get(0).getClass(), target.get().getClass(),
             false);
 
-        source.forEach(s -> {
-            T o = target.get();
-            copier.copy(s, o, null);
-            list.add(o);
+        source.forEach(item -> {
+            T object = target.get();
+            copier.copy(item, object, null);
+            list.add(object);
         });
 
         return list;
