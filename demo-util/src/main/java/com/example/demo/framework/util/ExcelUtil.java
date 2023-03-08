@@ -124,11 +124,9 @@ public class ExcelUtil {
             return;
         }
 
-        // Workbook workbook = null;
         SXSSFWorkbook workbook = null;
 
         try {
-            // workbook = WorkbookFactory.create(in);
             workbook = new SXSSFWorkbook(new XSSFWorkbook(in));
 
             Sheet sheet = workbook.getSheetAt(0);
