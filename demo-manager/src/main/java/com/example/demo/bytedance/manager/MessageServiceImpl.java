@@ -121,7 +121,7 @@ public class MessageServiceImpl implements MessageService {
 
         Message message = JSON.parseObject(data, Message.class);
 
-        MessageDO messageDO = BeanUtil.copy(message, MessageDO::new);
+        MessageDO messageDO = BeanUtil.copy(message, MessageDO.class);
         messageDO.setCreator("sys");
 
         try {

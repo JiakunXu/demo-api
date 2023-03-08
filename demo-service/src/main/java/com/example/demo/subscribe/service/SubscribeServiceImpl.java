@@ -77,8 +77,8 @@ public class SubscribeServiceImpl implements SubscribeService {
         subscribe.setScene(scene);
         subscribe.setSceneId(new BigInteger(sceneId));
 
-        return BeanUtil.copy(listSubscribes(BeanUtil.copy(subscribe, SubscribeDO::new)),
-            Tunnel::new);
+        return BeanUtil.copy(listSubscribes(BeanUtil.copy(subscribe, SubscribeDO.class)),
+            Tunnel.class);
     }
 
     @Override
@@ -94,7 +94,7 @@ public class SubscribeServiceImpl implements SubscribeService {
         subscribeDO.setScene(scene);
         subscribeDO.setSceneId(new BigInteger(sceneId));
 
-        return BeanUtil.copy(get(subscribeDO), Subscribe::new);
+        return BeanUtil.copy(get(subscribeDO), Subscribe.class);
     }
 
     @Override
@@ -133,7 +133,7 @@ public class SubscribeServiceImpl implements SubscribeService {
             throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息创建失败，请稍后再试");
         }
 
-        return BeanUtil.copy(subscribeDO, Subscribe::new);
+        return BeanUtil.copy(subscribeDO, Subscribe.class);
     }
 
     @Override

@@ -62,7 +62,7 @@ public class ChatServiceImpl implements ChatService {
         chatDO.setPageNo(Integer.parseInt(pageNo));
         chatDO.setPageSize(Integer.parseInt(pageSize));
 
-        List<Chat> list = BeanUtil.copy(list(chatDO), Chat::new);
+        List<Chat> list = BeanUtil.copy(list(chatDO), Chat.class);
 
         if (list == null || list.size() == 0) {
             return null;
@@ -100,7 +100,7 @@ public class ChatServiceImpl implements ChatService {
         chatDO.setUserId(userId);
         chatDO.setFriendId(friendId);
 
-        return BeanUtil.copy(get(chatDO), Chat::new);
+        return BeanUtil.copy(get(chatDO), Chat.class);
     }
 
     @Override
@@ -112,7 +112,7 @@ public class ChatServiceImpl implements ChatService {
         chat.setUserId(userId);
         chat.setFriendId(friendId);
 
-        ChatDO chatDO = BeanUtil.copy(chat, ChatDO::new);
+        ChatDO chatDO = BeanUtil.copy(chat, ChatDO.class);
         chatDO.setCreator(userId.toString());
         chatDO.setModifier(userId.toString());
 
@@ -139,7 +139,7 @@ public class ChatServiceImpl implements ChatService {
         chat.setUserId(userId);
         chat.setUnread(0);
 
-        ChatDO chatDO = BeanUtil.copy(chat, ChatDO::new);
+        ChatDO chatDO = BeanUtil.copy(chat, ChatDO.class);
         chatDO.setModifier(userId.toString());
 
         try {

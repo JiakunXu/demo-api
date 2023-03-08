@@ -153,7 +153,7 @@ public class WxpayNotifyServiceImpl implements WxpayNotifyService {
             throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "参数信息不能为空");
         }
 
-        WxpayNotifyDO wxpayNotifyDO = BeanUtil.copy(wxpayNotify, WxpayNotifyDO::new);
+        WxpayNotifyDO wxpayNotifyDO = BeanUtil.copy(wxpayNotify, WxpayNotifyDO.class);
 
         try {
             wxpayNotifyMapper.insert(wxpayNotifyDO);

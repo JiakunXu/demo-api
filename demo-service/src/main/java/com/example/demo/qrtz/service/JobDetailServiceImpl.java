@@ -31,7 +31,7 @@ public class JobDetailServiceImpl implements JobDetailService {
             return 0;
         }
 
-        return count(BeanUtil.copy(jobDetail, JobDetailDO::new));
+        return count(BeanUtil.copy(jobDetail, JobDetailDO.class));
     }
 
     @Override
@@ -40,8 +40,8 @@ public class JobDetailServiceImpl implements JobDetailService {
             return null;
         }
 
-        List<JobDetail> list = BeanUtil.copy(list(BeanUtil.copy(jobDetail, JobDetailDO::new)),
-            JobDetail::new);
+        List<JobDetail> list = BeanUtil.copy(list(BeanUtil.copy(jobDetail, JobDetailDO.class)),
+            JobDetail.class);
 
         if (list == null || list.size() == 0) {
             return null;
@@ -67,7 +67,7 @@ public class JobDetailServiceImpl implements JobDetailService {
         jobDetailDO.setJobName(jobName);
         jobDetailDO.setJobGroup(jobGroup);
 
-        JobDetail jobDetail = BeanUtil.copy(get(jobDetailDO), JobDetail::new);
+        JobDetail jobDetail = BeanUtil.copy(get(jobDetailDO), JobDetail.class);
 
         if (jobDetail == null) {
             return null;

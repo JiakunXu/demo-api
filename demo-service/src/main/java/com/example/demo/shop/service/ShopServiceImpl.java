@@ -39,7 +39,7 @@ public class ShopServiceImpl implements ShopService, IShopService {
     public List<Shop> listShops() {
         ShopDO shopDO = new ShopDO();
 
-        return BeanUtil.copy(list(shopDO), Shop::new);
+        return BeanUtil.copy(list(shopDO), Shop.class);
     }
 
     @Override
@@ -47,7 +47,7 @@ public class ShopServiceImpl implements ShopService, IShopService {
         ShopDO shopDO = new ShopDO();
         shopDO.setId(BigInteger.ONE);
 
-        return BeanUtil.copy(get(shopDO), Shop::new);
+        return BeanUtil.copy(get(shopDO), Shop.class);
     }
 
     @Override
@@ -64,7 +64,7 @@ public class ShopServiceImpl implements ShopService, IShopService {
             throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "message");
         }
 
-        return BeanUtil.copy(shopDO, Shop::new);
+        return BeanUtil.copy(shopDO, Shop.class);
     }
 
     private int count(ShopDO shopDO) {
