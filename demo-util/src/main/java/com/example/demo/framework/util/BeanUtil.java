@@ -1,7 +1,7 @@
 package com.example.demo.framework.util;
 
 import com.alibaba.fastjson2.JSON;
-import org.springframework.beans.BeanUtils;
+import org.springframework.cglib.beans.BeanCopier;
 import org.springframework.lang.NonNull;
 
 import java.util.ArrayList;
@@ -49,7 +49,7 @@ public class BeanUtil {
 
         T object = target.get();
 
-        BeanUtils.copyProperties(source, object);
+        BeanCopier.create(source.getClass(), object.getClass(), false).copy(source, object, null);
 
         return object;
     }
@@ -68,7 +68,18 @@ public class BeanUtil {
 
         List<T> list = new ArrayList<>();
 
-        source.forEach(s -> list.add(copy(s, target)));
+        if (source.size() == 0) {
+            return list;
+        }
+
+        BeanCopier copier = BeanCopier.create(source.get(0).getClass(), target.get().getClass(),
+            false);
+
+        source.forEach(s -> {
+            T o = target.get();
+            copier.copy(s, o, null);
+            list.add(o);
+        });
 
         return list;
     }
