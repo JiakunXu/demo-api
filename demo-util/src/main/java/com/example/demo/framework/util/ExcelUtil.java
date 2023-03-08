@@ -138,8 +138,8 @@ public class ExcelUtil {
                 XSSFSheet xssfSheet = workbook.getXSSFWorkbook().getSheetAt(0);
 
                 CellStyle rowStyle = getRowStyle(xssfSheet, rownum);
-                CellType[] cellType = getCellType(xssfSheet, rownum);
-                CellStyle[] cellStyle = getCellStyle(xssfSheet, rownum);
+                CellType[] cellType = getCellType(xssfSheet, rownum, props.size());
+                CellStyle[] cellStyle = getCellStyle(xssfSheet, rownum, props.size());
 
                 for (Object object : dataList) {
                     if (rownum == 2) {
@@ -254,8 +254,8 @@ public class ExcelUtil {
         }
     }
 
-    private static <T> T getCell(Row row, int column, Class<T> clazz) {
-        Cell cell = row.getCell(column);
+    private static <T> T getCell(Row row, int cellnum, Class<T> clazz) {
+        Cell cell = row.getCell(cellnum);
 
         if (cell == null) {
             return null;
@@ -288,12 +288,12 @@ public class ExcelUtil {
         return null;
     }
 
-    private static void setCell(Sheet sheet, int rownum, int column, Object value,
+    private static void setCell(Sheet sheet, int rownum, int cellnum, Object value,
                                 CellType cellType, CellStyle cellStyle) {
-        Cell cell = sheet.getRow(rownum).getCell(column);
+        Cell cell = sheet.getRow(rownum).getCell(cellnum);
 
         if (cell == null) {
-            cell = sheet.getRow(rownum).createCell(column, cellType);
+            cell = sheet.getRow(rownum).createCell(cellnum, cellType);
             cell.setCellStyle(cellStyle);
         }
 
@@ -328,22 +328,22 @@ public class ExcelUtil {
         return sheet.getRow(rownum).getRowStyle();
     }
 
-    private static CellType[] getCellType(Sheet sheet, int rownum) {
+    private static CellType[] getCellType(Sheet sheet, int rownum, int cellnum) {
         Row row = sheet.getRow(rownum);
         List<CellType> list = new ArrayList<>();
 
-        for (int i = 0; i < row.getPhysicalNumberOfCells(); i++) {
+        for (int i = 0; i < cellnum; i++) {
             list.add(row.getCell(i).getCellType());
         }
 
         return list.toArray(new CellType[0]);
     }
 
-    private static CellStyle[] getCellStyle(Sheet sheet, int rownum) {
+    private static CellStyle[] getCellStyle(Sheet sheet, int rownum, int cellnum) {
         Row row = sheet.getRow(rownum);
         List<CellStyle> list = new ArrayList<>();
 
-        for (int i = 0; i < row.getPhysicalNumberOfCells(); i++) {
+        for (int i = 0; i < cellnum; i++) {
             list.add(row.getCell(i).getCellStyle());
         }
 
