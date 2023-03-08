@@ -59,7 +59,7 @@ public class ChatDetailServiceImpl implements ChatDetailService {
         chatDetailDO.setPageNo(Integer.parseInt(pageNo));
         chatDetailDO.setPageSize(Integer.parseInt(pageSize));
 
-        return BeanUtil.copy(list(chatDetailDO), ChatDetail.class);
+        return BeanUtil.copy(list(chatDetailDO), ChatDetail::new);
     }
 
     @Override
@@ -72,7 +72,7 @@ public class ChatDetailServiceImpl implements ChatDetailService {
         chatDetailDO.setId(id);
         chatDetailDO.setUserId(userId);
 
-        return BeanUtil.copy(get(chatDetailDO), ChatDetail.class);
+        return BeanUtil.copy(get(chatDetailDO), ChatDetail::new);
     }
 
     @Override
@@ -138,7 +138,7 @@ public class ChatDetailServiceImpl implements ChatDetailService {
         chat1.setUnread(1);
         producerService.sendOneway(topic, "chat.update", JSON.toJSONBytes(chat1), chatId);
 
-        return BeanUtil.copy(chatDetailDO0, ChatDetail.class);
+        return BeanUtil.copy(chatDetailDO0, ChatDetail::new);
     }
 
     private List<ChatDetailDO> list(ChatDetailDO chatDetailDO) {

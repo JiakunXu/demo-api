@@ -31,7 +31,7 @@ public class AgentServiceImpl implements AgentService {
         AgentDO agentDO = new AgentDO();
         agentDO.setAgentId(agentId);
 
-        return BeanUtil.copy(get(agentDO), Agent.class);
+        return BeanUtil.copy(get(agentDO), Agent::new);
     }
 
     private AgentDO get(AgentDO agentDO) {

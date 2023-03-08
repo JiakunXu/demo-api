@@ -112,7 +112,7 @@ public class AlipayNotifyServiceImpl implements AlipayNotifyService {
             throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "参数信息不能为空");
         }
 
-        AlipayNotifyDO alipayNotifyDO = BeanUtil.copy(alipayNotify, AlipayNotifyDO.class);
+        AlipayNotifyDO alipayNotifyDO = BeanUtil.copy(alipayNotify, AlipayNotifyDO::new);
 
         try {
             alipayNotifyMapper.insert(alipayNotifyDO);

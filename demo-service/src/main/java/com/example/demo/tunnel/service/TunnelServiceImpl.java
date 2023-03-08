@@ -46,7 +46,7 @@ public class TunnelServiceImpl implements TunnelService {
             throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息创建失败，请稍后再试");
         }
 
-        return BeanUtil.copy(tunnelDO, Tunnel.class);
+        return BeanUtil.copy(tunnelDO, Tunnel::new);
     }
 
     @Override
@@ -70,7 +70,7 @@ public class TunnelServiceImpl implements TunnelService {
             throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息更新失败，请稍后再试");
         }
 
-        return BeanUtil.copy(tunnelDO, Tunnel.class);
+        return BeanUtil.copy(tunnelDO, Tunnel::new);
     }
 
 }

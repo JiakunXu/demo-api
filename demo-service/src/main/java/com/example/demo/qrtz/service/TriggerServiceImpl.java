@@ -35,7 +35,7 @@ public class TriggerServiceImpl implements TriggerService {
         triggerDO.setJobName(jobName);
         triggerDO.setJobGroup(jobGroup);
 
-        Trigger trigger = BeanUtil.copy(get(triggerDO), Trigger.class);
+        Trigger trigger = BeanUtil.copy(get(triggerDO), Trigger::new);
 
         if (trigger == null) {
             return null;

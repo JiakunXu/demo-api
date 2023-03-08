@@ -31,7 +31,7 @@ public class CronTriggerServiceImpl implements CronTriggerService {
         cronTriggerDO.setTriggerName(triggerName);
         cronTriggerDO.setTriggerGroup(triggerGroup);
 
-        return BeanUtil.copy(get(cronTriggerDO), CronTrigger.class);
+        return BeanUtil.copy(get(cronTriggerDO), CronTrigger::new);
     }
 
     private CronTriggerDO get(CronTriggerDO cronTriggerDO) {
