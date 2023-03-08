@@ -14,12 +14,16 @@ import java.util.Map;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.DateUtil;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.BeanUtils;
 
 import com.alibaba.fastjson2.JSON;
@@ -40,8 +44,8 @@ public class ExcelUtil {
 
     public static <T> List<T> read(InputStream in, Class<T> clazz,
                                    List<String> props) throws IOException, InstantiationException,
-            IllegalAccessException,
-            InvocationTargetException {
+                                                       IllegalAccessException,
+                                                       InvocationTargetException {
         if (props == null) {
             return null;
         }
@@ -80,7 +84,7 @@ public class ExcelUtil {
                             Method setMethod = findSetMethod(obj, p);
                             if (setMethod != null) {
                                 setMethod.invoke(obj,
-                                        getCell(row, column++, setMethod.getParameterTypes()[0]));
+                                    getCell(row, column++, setMethod.getParameterTypes()[0]));
                             }
                             break;
                         }
@@ -115,22 +119,35 @@ public class ExcelUtil {
 
     public static void write(InputStream in, OutputStream out, List<?> dataList,
                              List<String> props) throws IOException, InvocationTargetException,
-            IllegalAccessException {
+                                                 IllegalAccessException {
         if (props == null) {
             return;
         }
 
-        Workbook workbook = null;
+        // Workbook workbook = null;
+        SXSSFWorkbook workbook = null;
 
         try {
-            workbook = WorkbookFactory.create(in);
+            // workbook = WorkbookFactory.create(in);
+            workbook = new SXSSFWorkbook(new XSSFWorkbook(in));
 
             Sheet sheet = workbook.getSheetAt(0);
             int rownum = 2;
 
             if (dataList != null && dataList.size() > 0) {
+                XSSFSheet xssfSheet = workbook.getXSSFWorkbook().getSheetAt(0);
+
+                CellStyle rowStyle = getRowStyle(xssfSheet, rownum);
+                CellType[] cellType = getCellType(xssfSheet, rownum);
+                CellStyle[] cellStyle = getCellStyle(xssfSheet, rownum);
+
                 for (Object object : dataList) {
-                    setRow(sheet, rownum++, object, props);
+                    if (rownum == 2) {
+                        setRow(xssfSheet, rownum++, object, props, rowStyle, cellType, cellStyle);
+                        continue;
+                    }
+
+                    setRow(sheet, rownum++, object, props, rowStyle, cellType, cellStyle);
                 }
             }
 
@@ -142,8 +159,8 @@ public class ExcelUtil {
 
     public static void write(InputStream in, OutputStream out, Object data,
                              Map<String, List<String>> props) throws IOException,
-            InvocationTargetException,
-            IllegalAccessException {
+                                                              InvocationTargetException,
+                                                              IllegalAccessException {
         if (props == null) {
             return;
         }
@@ -171,10 +188,10 @@ public class ExcelUtil {
 
                     if (obj instanceof List) {
                         for (Object object : (List) obj) {
-                            setRow(sheet, rownum++, object, map.getValue());
+                            setRow(sheet, rownum++, object, map.getValue(), null, null, null);
                         }
                     } else {
-                        setRow(sheet, rownum, obj, map.getValue());
+                        setRow(sheet, rownum, obj, map.getValue(), null, null, null);
                     }
                 }
             }
@@ -194,7 +211,7 @@ public class ExcelUtil {
 
         for (Method method : methods) {
             if (method.getName().equals("set" + StringUtils.capitalize(name))
-                    && method.getParameterTypes().length == 1) {
+                && method.getParameterTypes().length == 1) {
                 return method;
             }
         }
@@ -202,14 +219,15 @@ public class ExcelUtil {
         return null;
     }
 
-    private static void setRow(Sheet sheet, int rownum, Object object,
-                               List<String> props) throws InvocationTargetException,
-            IllegalAccessException {
+    private static void setRow(Sheet sheet, int rownum, Object object, List<String> props,
+                               CellStyle rowStyle, CellType[] cellType,
+                               CellStyle[] cellStyle) throws InvocationTargetException,
+                                                      IllegalAccessException {
         Row row = sheet.getRow(rownum);
 
         if (row == null) {
             row = sheet.createRow(rownum);
-            row.setRowStyle(sheet.getRow(rownum - 1).getRowStyle());
+            row.setRowStyle(rowStyle);
         }
 
         int column = 0;
@@ -229,7 +247,10 @@ public class ExcelUtil {
                 }
             }
 
-            setCell(sheet, rownum, column++, obj);
+            setCell(sheet, rownum, column, obj, cellType == null ? null : cellType[column],
+                cellStyle == null ? null : cellStyle[column]);
+
+            column++;
         }
     }
 
@@ -244,11 +265,11 @@ public class ExcelUtil {
             if (DateUtil.isCellDateFormatted(cell)) {
                 if (clazz == Date.class) {
                     return JSON.parseObject(
-                            JSON.toJSONString(DateUtil.getJavaDate(cell.getNumericCellValue())), clazz);
+                        JSON.toJSONString(DateUtil.getJavaDate(cell.getNumericCellValue())), clazz);
                 }
             } else {
                 return JSON.parseObject(
-                        JSON.toJSONString(new BigDecimal(cell.getNumericCellValue())), clazz);
+                    JSON.toJSONString(new BigDecimal(cell.getNumericCellValue())), clazz);
             }
         }
 
@@ -267,13 +288,13 @@ public class ExcelUtil {
         return null;
     }
 
-    private static void setCell(Sheet sheet, int rownum, int column, Object value) {
+    private static void setCell(Sheet sheet, int rownum, int column, Object value,
+                                CellType cellType, CellStyle cellStyle) {
         Cell cell = sheet.getRow(rownum).getCell(column);
 
         if (cell == null) {
-            cell = sheet.getRow(rownum).createCell(column,
-                    sheet.getRow(rownum - 1).getCell(column).getCellType());
-            cell.setCellStyle(sheet.getRow(rownum - 1).getCell(column).getCellStyle());
+            cell = sheet.getRow(rownum).createCell(column, cellType);
+            cell.setCellStyle(cellStyle);
         }
 
         if (value == null) {
@@ -301,6 +322,32 @@ public class ExcelUtil {
         }
 
         cell.setCellValue(JSON.toJSONString(value));
+    }
+
+    private static CellStyle getRowStyle(Sheet sheet, int rownum) {
+        return sheet.getRow(rownum).getRowStyle();
+    }
+
+    private static CellType[] getCellType(Sheet sheet, int rownum) {
+        Row row = sheet.getRow(rownum);
+        List<CellType> list = new ArrayList<>();
+
+        for (int i = 0; i < row.getPhysicalNumberOfCells(); i++) {
+            list.add(row.getCell(i).getCellType());
+        }
+
+        return list.toArray(new CellType[0]);
+    }
+
+    private static CellStyle[] getCellStyle(Sheet sheet, int rownum) {
+        Row row = sheet.getRow(rownum);
+        List<CellStyle> list = new ArrayList<>();
+
+        for (int i = 0; i < row.getPhysicalNumberOfCells(); i++) {
+            list.add(row.getCell(i).getCellStyle());
+        }
+
+        return list.toArray(new CellStyle[0]);
     }
 
 }
