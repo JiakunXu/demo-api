@@ -26,7 +26,7 @@ public class JsonConfigurer {
 
         FastJsonConfig fastJsonConfig = new FastJsonConfig();
         fastJsonConfig.setDateFormat("yyyy-MM-dd HH:mm:ss");
-        fastJsonConfig.setWriterFeatures(JSONWriter.Feature.WriteNullListAsEmpty);
+        // fastJsonConfig.setWriterFeatures(JSONWriter.Feature.WriteNullListAsEmpty);
         SimplePropertyPreFilter writerFilter = new SimplePropertyPreFilter();
         writerFilter.getExcludes().add("codes");
         fastJsonConfig.setWriterFilters(writerFilter);
