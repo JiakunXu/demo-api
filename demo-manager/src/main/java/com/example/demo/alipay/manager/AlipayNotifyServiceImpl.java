@@ -36,14 +36,6 @@ public class AlipayNotifyServiceImpl implements AlipayNotifyService {
 
     @Override
     public AlipayNotify getAlipayNotify(Map<String, String> parameters) {
-        try {
-            if (!Factory.Payment.Common().verifyNotify(parameters)) {
-                throw new RuntimeException("验签失败");
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-
         AlipayNotify alipayNotify = new AlipayNotify();
         alipayNotify.setNotifyTime(getDate(parameters.get("notify_time")));
         alipayNotify.setNotifyType(parameters.get("notify_type"));
@@ -76,6 +68,14 @@ public class AlipayNotifyServiceImpl implements AlipayNotifyService {
         alipayNotify.setFundBillList(parameters.get("fund_bill_list"));
         alipayNotify.setPassbackParams(parameters.get("passback_params"));
         alipayNotify.setVoucherDetailList(parameters.get("voucher_detail_list"));
+
+        try {
+            if (!Factory.Payment.Common().verifyNotify(parameters)) {
+                throw new RuntimeException("验签失败");
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
         return alipayNotify;
     }
