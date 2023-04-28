@@ -16,7 +16,7 @@ public class AlipayTradeServiceImpl implements AlipayTradeService {
                          String buyerId) {
         try {
             AlipayTradeCreateResponse response = Factory.Payment.Common().agent(appAuthToken)
-                .create(URLEncoder.encode(subject, "UTF-8"), outTradeNo, totalAmount, buyerId);
+                .create(subject, outTradeNo, totalAmount, buyerId);
             if (ResponseChecker.success(response)) {
                 return response.getHttpBody();
             } else {

@@ -16,7 +16,7 @@ public class AlipayTradePageServiceImpl implements AlipayTradePageService {
                       String returnUrl) {
         try {
             AlipayTradePagePayResponse response = Factory.Payment.Page().agent(appAuthToken)
-                .pay(URLEncoder.encode(subject, "UTF-8"), outTradeNo, totalAmount, returnUrl);
+                .pay(subject, outTradeNo, totalAmount, returnUrl);
             if (ResponseChecker.success(response)) {
                 return response.getBody();
             } else {

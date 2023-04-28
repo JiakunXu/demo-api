@@ -15,8 +15,8 @@ public class AlipayTradeWapServiceImpl implements AlipayTradeWapService {
     public String pay(String appAuthToken, String subject, String outTradeNo, String totalAmount,
                       String quitUrl, String returnUrl) {
         try {
-            AlipayTradeWapPayResponse response = Factory.Payment.Wap().agent(appAuthToken).pay(
-                URLEncoder.encode(subject, "UTF-8"), outTradeNo, totalAmount, quitUrl, returnUrl);
+            AlipayTradeWapPayResponse response = Factory.Payment.Wap().agent(appAuthToken)
+                .pay(subject, outTradeNo, totalAmount, quitUrl, returnUrl);
             if (ResponseChecker.success(response)) {
                 return response.getBody();
             } else {
