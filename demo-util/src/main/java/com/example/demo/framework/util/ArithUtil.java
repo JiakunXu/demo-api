@@ -1,6 +1,7 @@
 package com.example.demo.framework.util;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 /**
  * 如果需要精确计算,非要用String来够造BigDecimal不可
@@ -99,7 +100,7 @@ public final class ArithUtil {
         BigDecimal b1 = new BigDecimal(Double.toString(v1));
         BigDecimal b2 = new BigDecimal(Double.toString(v2));
 
-        return b1.divide(b2, scale, BigDecimal.ROUND_HALF_UP).doubleValue();
+        return b1.divide(b2, scale, RoundingMode.HALF_UP).doubleValue();
     }
 
     /**
@@ -119,7 +120,7 @@ public final class ArithUtil {
         BigDecimal b = new BigDecimal(Double.toString(v));
         BigDecimal one = BigDecimal.ONE;
 
-        return b.divide(one, scale, BigDecimal.ROUND_HALF_UP).doubleValue();
+        return b.divide(one, scale, RoundingMode.HALF_UP).doubleValue();
     }
 
 }
