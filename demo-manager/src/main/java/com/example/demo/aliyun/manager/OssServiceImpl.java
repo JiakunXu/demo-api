@@ -12,6 +12,7 @@ import com.aliyun.oss.ClientException;
 import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
 import com.aliyun.oss.OSSException;
+import com.aliyun.oss.model.CopyObjectRequest;
 import com.aliyun.oss.model.ObjectMetadata;
 import com.aliyun.oss.model.PutObjectRequest;
 import com.example.demo.aliyun.api.OssService;
@@ -77,5 +78,49 @@ public class OssServiceImpl implements OssService {
         }
 
         return key;
+    }
+
+    @Override
+    public String copyObject(String sourceBucketName, String sourceKey,
+                             String destinationBucketName, String destinationKey,
+                             String contentType) {
+        // 创建OSSClient实例。
+        OSS ossClient = new OSSClientBuilder().build(endpoint, accessKeyId, secretAccessKey);
+
+        try {
+            // 创建CopyObjectRequest对象。
+            CopyObjectRequest copyObjectRequest = new CopyObjectRequest(sourceBucketName, sourceKey,
+                destinationBucketName, destinationKey);
+
+            // 设置新的文件元信息。
+            ObjectMetadata metadata = new ObjectMetadata();
+            metadata.setContentType(contentType);
+            copyObjectRequest.setNewObjectMetadata(metadata);
+
+            // 复制文件。
+            ossClient.copyObject(copyObjectRequest);
+        } catch (OSSException oe) {
+            logger.error("Caught an OSSException, which means your request made it to OSS, "
+                         + "but was rejected with an error response for some reason.");
+            logger.error("Error Message:" + oe.getErrorMessage());
+            logger.error("Error Code:" + oe.getErrorCode());
+            logger.error("Request ID:" + oe.getRequestId());
+            logger.error("Host ID:" + oe.getHostId());
+
+            throw new RuntimeException(oe);
+        } catch (ClientException ce) {
+            logger.error("Caught an ClientException, which means the client encountered "
+                         + "a serious internal problem while trying to communicate with OSS, "
+                         + "such as not being able to access the network.");
+            logger.error("Error Message:" + ce.getMessage());
+
+            throw new RuntimeException(ce);
+        } finally {
+            if (ossClient != null) {
+                ossClient.shutdown();
+            }
+        }
+
+        return destinationKey;
     }
 }
