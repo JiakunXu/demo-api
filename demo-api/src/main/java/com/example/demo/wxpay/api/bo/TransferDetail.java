@@ -19,6 +19,18 @@ public class TransferDetail implements Serializable {
     private String            outDetailNo;
 
     /**
+     * 微信明细单号
+     */
+    @JSONField(name = "detail_id")
+    private String            detailId;
+
+    /**
+     * 明细状态
+     */
+    @JSONField(name = "detail_status")
+    private String            detailStatus;
+
+    /**
      * 转账金额
      */
     @JSONField(name = "transfer_amount")
@@ -31,6 +43,12 @@ public class TransferDetail implements Serializable {
     private String            transferRemark;
 
     /**
+     * 明细失败原因
+     */
+    @JSONField(name = "fail_reason")
+    private String            failReason;
+
+    /**
      * 用户在直连商户应用下的用户标示
      */
     private String            openid;
@@ -40,5 +58,17 @@ public class TransferDetail implements Serializable {
      */
     @JSONField(name = "user_name")
     private String            userName;
+
+    /**
+     * 转账发起时间
+     */
+    @JSONField(name = "initiate_time")
+    private String            initiateTime;
+
+    /**
+     * 明细更新时间
+     */
+    @JSONField(name = "update_time")
+    private String            updateTime;
 
 }
