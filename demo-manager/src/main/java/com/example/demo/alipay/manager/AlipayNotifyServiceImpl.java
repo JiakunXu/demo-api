@@ -82,8 +82,7 @@ public class AlipayNotifyServiceImpl implements AlipayNotifyService {
 
     @Override
     public AlipayNotify getAlipayNotify(String appAuthToken, String outTradeNo) {
-        JSONObject data = JSON.parseObject(alipayTradeService.query(appAuthToken, outTradeNo),
-            JSONObject.class);
+        JSONObject data = JSON.parseObject(alipayTradeService.query(appAuthToken, outTradeNo));
 
         AlipayNotify alipayNotify = new AlipayNotify();
         alipayNotify.setNotifyId(UUID.randomUUID().toString());

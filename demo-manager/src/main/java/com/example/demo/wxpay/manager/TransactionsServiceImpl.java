@@ -93,8 +93,7 @@ public class TransactionsServiceImpl implements TransactionsService {
         try {
             CloseableHttpResponse response = httpClient.execute(httpPost);
             int status = response.getStatusLine().getStatusCode();
-            JSONObject result = JSON.parseObject(EntityUtils.toString(response.getEntity()),
-                JSONObject.class);
+            JSONObject result = JSON.parseObject(EntityUtils.toString(response.getEntity()));
             if (status >= 200 && status < 300) {
                 return result.getString("prepay_id");
             } else {
@@ -126,8 +125,7 @@ public class TransactionsServiceImpl implements TransactionsService {
         try {
             CloseableHttpResponse response = httpClient.execute(httpPost);
             int status = response.getStatusLine().getStatusCode();
-            JSONObject result = JSON.parseObject(EntityUtils.toString(response.getEntity()),
-                JSONObject.class);
+            JSONObject result = JSON.parseObject(EntityUtils.toString(response.getEntity()));
             if (status >= 200 && status < 300) {
                 return result.getString("h5_url");
             } else {
@@ -160,8 +158,7 @@ public class TransactionsServiceImpl implements TransactionsService {
             if (status >= 200 && status < 300) {
                 return EntityUtils.toString(response.getEntity());
             } else {
-                JSONObject result = JSON.parseObject(EntityUtils.toString(response.getEntity()),
-                    JSONObject.class);
+                JSONObject result = JSON.parseObject(EntityUtils.toString(response.getEntity()));
                 throw new RuntimeException(result.getString("message"));
             }
         } catch (IOException e) {
@@ -196,8 +193,7 @@ public class TransactionsServiceImpl implements TransactionsService {
             if (status >= 200 && status < 300) {
                 return;
             } else {
-                JSONObject result = JSON.parseObject(EntityUtils.toString(response.getEntity()),
-                    JSONObject.class);
+                JSONObject result = JSON.parseObject(EntityUtils.toString(response.getEntity()));
                 throw new RuntimeException(result.getString("message"));
             }
         } catch (IOException e) {

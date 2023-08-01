@@ -88,8 +88,7 @@ public class WxpayNotifyServiceImpl implements WxpayNotifyService {
                 apiV3Key.getBytes(StandardCharsets.UTF_8));
             Notification notification = handler.parse(request);
 
-            JSONObject decryptData = JSON.parseObject(notification.getDecryptData(),
-                JSONObject.class);
+            JSONObject decryptData = JSON.parseObject(notification.getDecryptData());
 
             WxpayNotify wxpayNotify = new WxpayNotify();
             wxpayNotify.setId(notification.getId());
@@ -122,8 +121,8 @@ public class WxpayNotifyServiceImpl implements WxpayNotifyService {
 
     @Override
     public WxpayNotify getWxpayNotify(String subMchid, String outTradeNo) {
-        JSONObject data = JSON.parseObject(
-            transactionsService.get(merchantId, subMchid, outTradeNo), JSONObject.class);
+        JSONObject data = JSON
+            .parseObject(transactionsService.get(merchantId, subMchid, outTradeNo));
 
         WxpayNotify wxpayNotify = new WxpayNotify();
         wxpayNotify.setId(UUID.randomUUID().toString());
