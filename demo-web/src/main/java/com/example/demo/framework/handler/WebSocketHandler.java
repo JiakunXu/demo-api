@@ -88,14 +88,14 @@ public class WebSocketHandler extends TextWebSocketHandler {
 
     /**
      * 
-     * @param skey
+     * @param token
      * @return
      */
-    private User getUser(String skey) {
+    private User getUser(String token) {
         try {
-            return redisService.get(skey);
+            return redisService.get(token);
         } catch (Exception e) {
-            logger.error("getUser", e);
+            logger.error("get", e);
         }
 
         return null;
