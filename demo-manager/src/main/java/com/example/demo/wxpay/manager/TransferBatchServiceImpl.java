@@ -92,11 +92,12 @@ public class TransferBatchServiceImpl implements TransferBatchService {
         try {
             CloseableHttpResponse response = httpClient.execute(httpPost);
             int status = response.getStatusLine().getStatusCode();
-            JSONObject result = JSON.parseObject(EntityUtils.toString(response.getEntity()),
-                JSONObject.class);
             if (status >= 200 && status < 300) {
-                return null;
+                return JSON.parseObject(EntityUtils.toString(response.getEntity()),
+                    TransferBatch.class);
             } else {
+                JSONObject result = JSON.parseObject(EntityUtils.toString(response.getEntity()),
+                    JSONObject.class);
                 throw new RuntimeException(result.getString("message"));
             }
         } catch (IOException e) {
@@ -125,7 +126,7 @@ public class TransferBatchServiceImpl implements TransferBatchService {
             JSONObject result = JSON.parseObject(EntityUtils.toString(response.getEntity()),
                 JSONObject.class);
             if (status >= 200 && status < 300) {
-                return null;
+                return JSON.parseObject(result.getString("transfer_batch"), TransferBatch.class);
             } else {
                 throw new RuntimeException(result.getString("message"));
             }
@@ -156,7 +157,7 @@ public class TransferBatchServiceImpl implements TransferBatchService {
             JSONObject result = JSON.parseObject(EntityUtils.toString(response.getEntity()),
                 JSONObject.class);
             if (status >= 200 && status < 300) {
-                return null;
+                return JSON.parseObject(result.getString("transfer_batch"), TransferBatch.class);
             } else {
                 throw new RuntimeException(result.getString("message"));
             }
@@ -184,11 +185,12 @@ public class TransferBatchServiceImpl implements TransferBatchService {
         try {
             CloseableHttpResponse response = httpClient.execute(httpGet);
             int status = response.getStatusLine().getStatusCode();
-            JSONObject result = JSON.parseObject(EntityUtils.toString(response.getEntity()),
-                JSONObject.class);
             if (status >= 200 && status < 300) {
-                return null;
+                return JSON.parseObject(EntityUtils.toString(response.getEntity()),
+                    TransferDetail.class);
             } else {
+                JSONObject result = JSON.parseObject(EntityUtils.toString(response.getEntity()),
+                    JSONObject.class);
                 throw new RuntimeException(result.getString("message"));
             }
         } catch (IOException e) {
@@ -216,11 +218,12 @@ public class TransferBatchServiceImpl implements TransferBatchService {
         try {
             CloseableHttpResponse response = httpClient.execute(httpGet);
             int status = response.getStatusLine().getStatusCode();
-            JSONObject result = JSON.parseObject(EntityUtils.toString(response.getEntity()),
-                JSONObject.class);
             if (status >= 200 && status < 300) {
-                return null;
+                return JSON.parseObject(EntityUtils.toString(response.getEntity()),
+                    TransferDetail.class);
             } else {
+                JSONObject result = JSON.parseObject(EntityUtils.toString(response.getEntity()),
+                    JSONObject.class);
                 throw new RuntimeException(result.getString("message"));
             }
         } catch (IOException e) {
