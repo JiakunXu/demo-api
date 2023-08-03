@@ -18,7 +18,6 @@ public class SseServiceImpl implements SseService {
 
     @Override
     public void send(String tunnelId, String message) {
-
         SseEmitter emitter = SseManager.get(tunnelId);
 
         if (emitter == null) {
@@ -28,8 +27,30 @@ public class SseServiceImpl implements SseService {
         try {
             emitter.send(message);
         } catch (IOException e) {
-            logger.error("send", e);
+            emitter.completeWithError(e);
         }
+    }
+
+    @Override
+    public void complete(String tunnelId) {
+        SseEmitter emitter = SseManager.get(tunnelId);
+
+        if (emitter == null) {
+            return;
+        }
+
+        emitter.complete();
+    }
+
+    @Override
+    public void completeWithError(String tunnelId, Throwable ex) {
+        SseEmitter emitter = SseManager.get(tunnelId);
+
+        if (emitter == null) {
+            return;
+        }
+
+        emitter.completeWithError(ex);
     }
 
 }
