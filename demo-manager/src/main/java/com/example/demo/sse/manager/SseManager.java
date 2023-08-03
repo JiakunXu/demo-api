@@ -45,7 +45,7 @@ public class SseManager {
         SseEmitter sseEmitter = EMITTER.remove(key);
 
         if (sseEmitter != null) {
-            sseEmitter.complete();
+            // sseEmitter.complete();
         }
 
         return sseEmitter;
