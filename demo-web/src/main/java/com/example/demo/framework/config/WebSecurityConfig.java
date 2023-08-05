@@ -1,15 +1,17 @@
 package com.example.demo.framework.config;
 
+import com.example.demo.framework.filter.TokenAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -20,10 +22,9 @@ import org.springframework.security.web.authentication.logout.LogoutFilter;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.web.filter.CorsFilter;
 
-import com.example.demo.framework.filter.TokenAuthenticationFilter;
-
-import static org.springframework.security.config.Customizer.withDefaults;
-
+/**
+ * @author JiakunXu
+ */
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity(prePostEnabled = true, securedEnabled = true)
@@ -52,26 +53,26 @@ public class WebSecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.headers((headers) -> {
-            headers.cacheControl((cacheControl) -> cacheControl.disable());
-            headers.frameOptions((frameOptions) -> frameOptions.disable());
+        httpSecurity.headers(headers -> {
+            headers.cacheControl(HeadersConfigurer.CacheControlConfig::disable);
+            headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable);
         });
 
-        httpSecurity.sessionManagement((sessionManagement) -> sessionManagement
+        httpSecurity.sessionManagement(sessionManagement -> sessionManagement
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
-        httpSecurity.authorizeHttpRequests((authorizeHttpRequests) -> {
+        httpSecurity.authorizeHttpRequests(authorizeHttpRequests -> {
             authorizeHttpRequests.requestMatchers("/login").permitAll();
             authorizeHttpRequests.anyRequest().authenticated();
         });
 
-        httpSecurity.exceptionHandling((exceptionHandling) -> exceptionHandling
+        httpSecurity.exceptionHandling(exceptionHandling -> exceptionHandling
             .authenticationEntryPoint(authenticationEntryPoint));
 
-        httpSecurity.csrf((csrf) -> csrf.disable());
+        httpSecurity.csrf(AbstractHttpConfigurer::disable);
 
         httpSecurity.logout(
-            (logout) -> logout.logoutUrl("/logout").logoutSuccessHandler(logoutSuccessHandler));
+            logout -> logout.logoutUrl("/logout").logoutSuccessHandler(logoutSuccessHandler));
 
         httpSecurity.addFilterBefore(tokenAuthenticationFilter,
             UsernamePasswordAuthenticationFilter.class);
