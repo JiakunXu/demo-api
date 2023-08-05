@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -20,6 +21,8 @@ import org.springframework.security.web.authentication.logout.LogoutSuccessHandl
 import org.springframework.web.filter.CorsFilter;
 
 import com.example.demo.framework.filter.TokenAuthenticationFilter;
+
+import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableWebSecurity
@@ -49,15 +52,26 @@ public class WebSecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.headers().frameOptions().disable();
-        httpSecurity.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        httpSecurity.headers((headers) -> {
+            headers.cacheControl((cacheControl) -> cacheControl.disable());
+            headers.frameOptions((frameOptions) -> frameOptions.disable());
+        });
 
-        httpSecurity.authorizeHttpRequests().requestMatchers("/login").permitAll();
-        httpSecurity.authorizeHttpRequests().anyRequest().authenticated();
+        httpSecurity.sessionManagement((sessionManagement) -> sessionManagement
+            .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
-        httpSecurity.exceptionHandling().authenticationEntryPoint(authenticationEntryPoint);
-        httpSecurity.csrf().disable();
-        httpSecurity.logout().logoutUrl("/logout").logoutSuccessHandler(logoutSuccessHandler);
+        httpSecurity.authorizeHttpRequests((authorizeHttpRequests) -> {
+            authorizeHttpRequests.requestMatchers("/login").permitAll();
+            authorizeHttpRequests.anyRequest().authenticated();
+        });
+
+        httpSecurity.exceptionHandling((exceptionHandling) -> exceptionHandling
+            .authenticationEntryPoint(authenticationEntryPoint));
+
+        httpSecurity.csrf((csrf) -> csrf.disable());
+
+        httpSecurity.logout(
+            (logout) -> logout.logoutUrl("/logout").logoutSuccessHandler(logoutSuccessHandler));
 
         httpSecurity.addFilterBefore(tokenAuthenticationFilter,
             UsernamePasswordAuthenticationFilter.class);
