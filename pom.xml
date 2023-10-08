@@ -41,7 +41,7 @@
         <commons-io.version>2.13.0</commons-io.version>
         <commons-lang3.version>3.13.0</commons-lang3.version>
         <commons-pool2.version>2.11.1</commons-pool2.version>
-        <druid-spring-boot.version>1.2.18</druid-spring-boot.version>
+        <druid-spring-boot.version>1.2.20</druid-spring-boot.version>
         <dubbo-spring-boot.version>3.2.4</dubbo-spring-boot.version>
         <fastjson2.version>2.0.38</fastjson2.version>
         <httpclient.version>4.5.14</httpclient.version>
@@ -65,7 +65,7 @@
 
             <dependency>
                 <groupId>com.alibaba</groupId>
-                <artifactId>druid-spring-boot-starter</artifactId>
+                <artifactId>druid-spring-boot-3-starter</artifactId>
                 <version>${druid-spring-boot.version}</version>
             </dependency>
 
