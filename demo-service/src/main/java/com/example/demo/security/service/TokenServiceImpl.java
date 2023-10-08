@@ -1,6 +1,6 @@
 package com.example.demo.security.service;
 
-import java.security.Key;
+import javax.crypto.SecretKey;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -21,7 +21,6 @@ import com.example.demo.security.api.VersionService;
 import com.example.demo.security.api.bo.LoginUser;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 
 @Service
@@ -84,8 +83,7 @@ public class TokenServiceImpl implements TokenService {
         Map<String, String> map = new HashMap<>();
         map.put(Claims.ID, token);
 
-        return Jwts.builder().setClaims(map).signWith(getSecretKey(), SignatureAlgorithm.HS512)
-            .compact();
+        return Jwts.builder().claims(map).signWith(getSecretKey(), Jwts.SIG.HS512).compact();
     }
 
     @Override
@@ -107,13 +105,13 @@ public class TokenServiceImpl implements TokenService {
     }
 
     private String getKey(String token) {
-        Claims claims = Jwts.parserBuilder().setSigningKey(getSecretKey()).build()
-            .parseClaimsJws(StringUtils.removeStart(token, TOKEN_PREFIX)).getBody();
+        Claims claims = Jwts.parser().verifyWith(getSecretKey()).build()
+            .parseSignedClaims(StringUtils.removeStart(token, TOKEN_PREFIX)).getPayload();
 
         return claims.getId();
     }
 
-    private Key getSecretKey() {
+    private SecretKey getSecretKey() {
         return Keys.hmacShaKeyFor(
             "QeHAkZiUnXSfKGWxOosEanTCTTsHLHSCdKKgbBNohOBVlnVEhDuCjyhBDrTUXTVv".getBytes());
     }
