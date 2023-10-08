@@ -15,7 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-@Service
+@Service("userInfoService3")
 public class UserInfoServiceImpl implements UserInfoService {
 
     private static final Logger logger = LoggerFactory.getLogger(UserInfoServiceImpl.class);
