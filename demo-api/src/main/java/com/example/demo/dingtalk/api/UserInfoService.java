@@ -1,20 +1,15 @@
 package com.example.demo.dingtalk.api;
 
-import com.example.demo.dingtalk.api.bo.user.UserInfo;
+import com.example.demo.dingtalk.api.bo.UserInfo;
 
-/**
- * @author JiakunXu
- */
 public interface UserInfoService {
 
-    String HTTPS_USER_INFO_URL = "https://oapi.dingtalk.com/user/getuserinfo";
+    String HTTPS_GET_URL           = "https://oapi.dingtalk.com/topapi/v2/user/get";
 
-    /**
-     * 
-     * @param accessToken
-     * @param code
-     * @throws RuntimeException
-     */
-    UserInfo getUserInfo(String accessToken, String code) throws RuntimeException;
+    String HTTPS_GET_BY_MOBILE_URL = "https://oapi.dingtalk.com/topapi/v2/user/getbymobile";
+
+    UserInfo getUserInfo(String accessToken, String userid) throws RuntimeException;
+
+    String getUserid(String accessToken, String mobile) throws RuntimeException;
 
 }

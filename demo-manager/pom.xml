@@ -44,6 +44,11 @@
 
         <dependency>
             <groupId>com.aliyun</groupId>
+            <artifactId>dingtalk</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.aliyun</groupId>
             <artifactId>alibaba-dingtalk-service-sdk</artifactId>
         </dependency>
 
