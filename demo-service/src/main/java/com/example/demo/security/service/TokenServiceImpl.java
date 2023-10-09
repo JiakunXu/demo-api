@@ -7,6 +7,7 @@ import java.util.UUID;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AccountExpiredException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.LockedException;
@@ -34,6 +35,9 @@ public class TokenServiceImpl implements TokenService {
 
     @Autowired
     private VersionService                  versionService;
+
+    @Value("${secret.key}")
+    private String                          secretKey;
 
     private final UserDetailsChecker        preAuthenticationChecks = new DefaultPreAuthenticationChecks();
 
@@ -112,8 +116,7 @@ public class TokenServiceImpl implements TokenService {
     }
 
     private SecretKey getSecretKey() {
-        return Keys.hmacShaKeyFor(
-            "QeHAkZiUnXSfKGWxOosEanTCTTsHLHSCdKKgbBNohOBVlnVEhDuCjyhBDrTUXTVv".getBytes());
+        return Keys.hmacShaKeyFor(secretKey.getBytes());
     }
 
     private static class DefaultPreAuthenticationChecks implements UserDetailsChecker {
