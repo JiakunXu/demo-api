@@ -68,7 +68,7 @@ public class BeanUtil {
 
         List<T> list = new ArrayList<>();
 
-        if (source.size() == 0) {
+        if (source.isEmpty()) {
             return list;
         }
 
