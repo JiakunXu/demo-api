@@ -36,7 +36,7 @@ public class AlipayConfigurer {
     private String encryptKey;
 
     @Bean
-    public void init() {
+    public String init() {
         Config config = new Config();
         config.protocol = "https";
         config.gatewayHost = "openapi.alipay.com";
@@ -59,6 +59,8 @@ public class AlipayConfigurer {
         } catch (Exception e) {
             // throw new RuntimeException(e.getMessage(), e);
         }
+
+        return null;
     }
 
 }
