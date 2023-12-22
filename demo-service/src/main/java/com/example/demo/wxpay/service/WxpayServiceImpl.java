@@ -37,13 +37,13 @@ public class WxpayServiceImpl implements WxpayService {
 
     @Override
     public String build(String spAppid, String openid, String subMchid, String description,
-                        String payNo, int totalFee, String timeExpire, String attach) {
+                        String outTradeNo, String timeExpire, String attach, int totalFee) {
         Transaction transaction = new Transaction();
         transaction.setSpAppid(spAppid);
         transaction.setSpMchid(spMchid);
         transaction.setSubMchid(subMchid);
         transaction.setDescription(description);
-        transaction.setOutTradeNo(payNo);
+        transaction.setOutTradeNo(outTradeNo);
         transaction.setTimeExpire(timeExpire);
         transaction.setAttach(attach);
         transaction.setNotifyUrl(notifyUrl);
@@ -85,14 +85,14 @@ public class WxpayServiceImpl implements WxpayService {
     }
 
     @Override
-    public String build(String spAppid, String subMchid, String description, String payNo,
-                        int totalFee, String timeExpire, String attach, String ip) {
+    public String build(String spAppid, String subMchid, String description, String outTradeNo,
+                        String timeExpire, String attach, int totalFee, String ip) {
         Transaction transaction = new Transaction();
         transaction.setSpAppid(spAppid);
         transaction.setSpMchid(spMchid);
         transaction.setSubMchid(subMchid);
         transaction.setDescription(description);
-        transaction.setOutTradeNo(payNo);
+        transaction.setOutTradeNo(outTradeNo);
         transaction.setTimeExpire(timeExpire);
         transaction.setAttach(attach);
         transaction.setNotifyUrl(notifyUrl);
@@ -104,6 +104,28 @@ public class WxpayServiceImpl implements WxpayService {
         transaction.setSceneInfo(sceneInfo);
 
         return transactionsService.getH5Url(transaction);
+    }
+
+    @Override
+    public String build(String spAppid, String subMchid, String description, String outTradeNo,
+                        String timeExpire, String attach, int totalFee) {
+        Transaction transaction = new Transaction();
+        transaction.setSpAppid(spAppid);
+        transaction.setSpMchid(spMchid);
+        transaction.setSubMchid(subMchid);
+        transaction.setDescription(description);
+        transaction.setOutTradeNo(outTradeNo);
+        transaction.setTimeExpire(timeExpire);
+        transaction.setAttach(attach);
+        transaction.setNotifyUrl(notifyUrl);
+        transaction.setAmount(new Transaction.Amount(totalFee));
+
+        return transactionsService.getCodeUrl(transaction);
+    }
+
+    @Override
+    public void close(String subMchid, String outTradeNo) {
+        transactionsService.close(spMchid, subMchid, outTradeNo);
     }
 
 }

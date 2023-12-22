@@ -141,6 +141,38 @@ public class TransactionsServiceImpl implements TransactionsService {
     }
 
     @Override
+    public String getCodeUrl(Transaction transaction) throws RuntimeException {
+        if (transaction == null) {
+            throw new RuntimeException("订单信息不能为空.");
+        }
+
+        CloseableHttpClient httpClient = createDefault();
+
+        HttpPost httpPost = new HttpPost(HTTPS_NATIVE_URL);
+        httpPost.addHeader("Accept", "application/json");
+        httpPost.addHeader("Content-type", "application/json; charset=utf-8");
+        httpPost
+            .setEntity(new StringEntity(JSON.toJSONString(transaction), StandardCharsets.UTF_8));
+
+        try {
+            CloseableHttpResponse response = httpClient.execute(httpPost);
+            int status = response.getStatusLine().getStatusCode();
+            JSONObject result = JSON.parseObject(EntityUtils.toString(response.getEntity()));
+            if (status >= 200 && status < 300) {
+                return result.getString("code_url");
+            } else {
+                throw new RuntimeException(result.getString("message"));
+            }
+        } catch (IOException e) {
+            logger.error(transaction.toString(), e);
+        } finally {
+            IOUtils.close(httpClient);
+        }
+
+        throw new RuntimeException("Native下单失败.");
+    }
+
+    @Override
     public String get(String spMchid, String subMchid, String outTradeNo) throws RuntimeException {
         if (StringUtils.isAnyBlank(spMchid, subMchid, outTradeNo)) {
             throw new RuntimeException("订单信息不能为空.");
