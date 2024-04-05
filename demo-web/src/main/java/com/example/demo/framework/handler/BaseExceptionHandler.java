@@ -57,7 +57,8 @@ public class BaseExceptionHandler {
     public ExceptionResponse exceptionHandler(Exception e) {
         ExceptionResponse response = new ExceptionResponse(Constants.SERVICE_UNAVAILABLE,
             e == null ? "系统错误"
-                : (e.getCause() == null ? e.getMessage() : e.getCause().getMessage()));
+                : (e.getMessage() != null || e.getCause() == null ? e.getMessage()
+                    : e.getCause().getMessage()));
 
         return response;
     }
