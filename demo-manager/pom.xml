@@ -59,7 +59,7 @@
 
         <dependency>
             <groupId>com.github.wechatpay-apiv3</groupId>
-            <artifactId>wechatpay-apache-httpclient</artifactId>
+            <artifactId>wechatpay-java</artifactId>
         </dependency>
 
         <dependency>

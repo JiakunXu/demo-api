@@ -1,9 +1,9 @@
 package com.example.demo.wxpay.api.bo;
 
-import java.io.Serializable;
-
 import lombok.Getter;
 import lombok.Setter;
+
+import java.io.Serializable;
 
 @Getter
 @Setter
@@ -27,14 +27,18 @@ public class WxpayNotify implements Serializable {
     private String            eventType;
 
     /**
+     * 回调摘要
+     */
+    private String            summary;
+
+    /**
      * 通知数据类型
      */
     private String            resourceType;
 
-    /**
-     * 回调摘要
-     */
-    private String            summary;
+    private String            appid;
+
+    private String            mchid;
 
     /**
      * 服务商应用id
@@ -115,5 +119,33 @@ public class WxpayNotify implements Serializable {
      * 优惠功能
      */
     private String            promotionDetail;
+
+    public enum TradeState {
+                            /**
+                             * 交易状态
+                             */
+                            SUCCESS("SUCCESS", "支付成功"),
+
+                            REFUND("REFUND", "转入退款"),
+
+                            NOTPAY("NOTPAY", "未支付"),
+
+                            CLOSED("CLOSED", "已关闭"),
+
+                            REVOKED("REVOKED", "已撤销（仅付款码支付会返回）"),
+
+                            USERPAYING("USERPAYING", "用户支付中（仅付款码支付会返回）"),
+
+                            PAYERROR("PAYERROR", "支付失败（仅付款码支付会返回）");
+
+        public final String value;
+
+        public final String desc;
+
+        TradeState(String value, String desc) {
+            this.value = value;
+            this.desc = desc;
+        }
+    }
 
 }

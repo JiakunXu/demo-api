@@ -1,14 +1,15 @@
 package com.example.demo.wxpay.dao.dataobject;
 
-import com.example.demo.framework.query.BaseQuery;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.io.Serializable;
+
 @Getter
 @Setter
 @ToString
-public class WxpayNotifyDO extends BaseQuery {
+public class WxpayNotifyDO implements Serializable {
 
     private static final long serialVersionUID = -7407102721978781501L;
 
@@ -28,14 +29,18 @@ public class WxpayNotifyDO extends BaseQuery {
     private String            eventType;
 
     /**
+     * 回调摘要
+     */
+    private String            summary;
+
+    /**
      * 通知数据类型
      */
     private String            resourceType;
 
-    /**
-     * 回调摘要
-     */
-    private String            summary;
+    private String            appid;
+
+    private String            mchid;
 
     /**
      * 服务商应用id
