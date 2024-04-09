@@ -10,31 +10,28 @@ import org.springframework.context.annotation.Configuration;
 public class WxpayConfigurer {
 
     @Value("${wxpay.apiV3Key}")
-    private String  apiV3Key;
+    private String apiV3Key;
 
     @Value("${wxpay.merchant.id}")
-    private String  merchantId;
+    private String merchantId;
 
     @Value("${wxpay.merchant.serialNumber}")
-    private String  serialNumber;
+    private String serialNumber;
 
     @Value("${wxpay.privateKey.path}")
-    private String  privateKeyPath;
+    private String privateKeyPath;
 
     @Value("${wxpay.partner.apiV3Key}")
-    private String  partnerApiV3Key;
+    private String partnerApiV3Key;
 
     @Value("${wxpay.partner.merchant.id}")
-    private String  partnerMerchantId;
+    private String partnerMerchantId;
 
     @Value("${wxpay.partner.merchant.serialNumber}")
-    private String  partnerSerialNumber;
+    private String partnerSerialNumber;
 
     @Value("${wxpay.partner.privateKey.path}")
-    private String  partnerPrivateKeyPath;
-
-    @Value("${devMode}")
-    private boolean devMode;
+    private String partnerPrivateKeyPath;
 
     @Bean(name = "merchantConfig")
     public Config init0() {
@@ -43,9 +40,7 @@ public class WxpayConfigurer {
                 .privateKeyFromPath(privateKeyPath).merchantSerialNumber(serialNumber)
                 .apiV3Key(apiV3Key).build();
         } catch (Exception e) {
-            if (!devMode) {
-                throw new RuntimeException(e);
-            }
+            // throw new RuntimeException(e);
         }
 
         return null;
@@ -58,9 +53,7 @@ public class WxpayConfigurer {
                 .privateKeyFromPath(partnerPrivateKeyPath).merchantSerialNumber(partnerSerialNumber)
                 .apiV3Key(partnerApiV3Key).build();
         } catch (Exception e) {
-            if (!devMode) {
-                throw new RuntimeException(e);
-            }
+            // throw new RuntimeException(e);
         }
 
         return null;
