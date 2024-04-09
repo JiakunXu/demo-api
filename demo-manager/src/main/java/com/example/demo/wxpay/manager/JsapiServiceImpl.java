@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Service
+@Service("com.example.demo.wxpay.manager.jsapiService")
 public class JsapiServiceImpl implements JsapiService {
 
     private static final Logger logger = LoggerFactory.getLogger(JsapiServiceImpl.class);

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 /**
  * @author JiakunXu
  */
-@Service("userInfoService")
+@Service("com.example.demo.bytedance.manager.userInfoService")
 public class UserInfoServiceImpl implements UserInfoService {
 
     @Override

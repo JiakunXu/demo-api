@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 /**
  * @author JiakunXu
  */
-@Service("accessTokenService")
+@Service("com.example.demo.bytedance.manager.accessTokenService")
 public class AccessTokenServiceImpl implements AccessTokenService {
 
     private static final Logger logger = LoggerFactory.getLogger(AccessTokenServiceImpl.class);

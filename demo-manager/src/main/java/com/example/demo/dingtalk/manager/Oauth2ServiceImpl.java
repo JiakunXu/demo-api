@@ -14,7 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-@Service("oauth2Service3")
+@Service("com.example.demo.dingtalk.manager.oauth2Service")
 public class Oauth2ServiceImpl implements Oauth2Service {
 
     private static final Logger logger = LoggerFactory.getLogger(Oauth2ServiceImpl.class);

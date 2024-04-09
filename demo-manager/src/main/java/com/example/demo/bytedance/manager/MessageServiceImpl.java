@@ -28,7 +28,7 @@ import java.util.Map;
 /**
  * @author JiakunXu
  */
-@Service("messageService")
+@Service("com.example.demo.bytedance.manager.messageService")
 public class MessageServiceImpl implements MessageService {
 
     private static final Logger logger = LoggerFactory.getLogger(MessageServiceImpl.class);
@@ -166,9 +166,8 @@ public class MessageServiceImpl implements MessageService {
         SendResult result;
 
         try {
-            result = JSON
-                .parseObject(HttpUtil.post(MessageService.HTTPS_MESSAGE_URL + accessToken,
-                    JSON.toJSONString(map)), SendResult.class);
+            result = JSON.parseObject(HttpUtil.post(MessageService.HTTPS_MESSAGE_URL + accessToken,
+                JSON.toJSONString(map)), SendResult.class);
         } catch (Exception e) {
             logger.error(JSON.toJSONString(map), e);
 

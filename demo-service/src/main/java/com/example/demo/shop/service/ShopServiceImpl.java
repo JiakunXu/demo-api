@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * @author JiakunXu
  */
-@Service("shopService")
+@Service("com.example.demo.shop.service.shopService")
 public class ShopServiceImpl implements ShopService, IShopService {
 
     private static final Logger logger = LoggerFactory.getLogger(ShopServiceImpl.class);

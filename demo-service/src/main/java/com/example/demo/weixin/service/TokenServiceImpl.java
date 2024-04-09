@@ -15,7 +15,7 @@ import com.example.demo.framework.exception.ServiceException;
 /**
  * @author JiakunXu
  */
-@Service("tokenService2")
+@Service("com.example.demo.weixin.service.tokenService")
 public class TokenServiceImpl implements TokenService {
 
     private static final Logger          logger = LoggerFactory.getLogger(TokenServiceImpl.class);

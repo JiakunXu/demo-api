@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 /**
  * @author JiakunXu
  */
-@Service("qrCodeService")
+@Service("com.example.demo.bytedance.manager.qrCodeService")
 public class QrCodeServiceImpl implements QrCodeService {
 
     private static final Logger logger = LoggerFactory.getLogger(QrCodeServiceImpl.class);

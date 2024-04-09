@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 /**
  * @author JiakunXu
  */
-@Service("code2SessionService")
+@Service("com.example.demo.bytedance.manager.code2SessionService")
 public class Code2SessionServiceImpl implements Code2SessionService {
 
     private static final Logger logger = LoggerFactory.getLogger(Code2SessionServiceImpl.class);
