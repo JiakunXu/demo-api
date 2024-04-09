@@ -1,10 +1,12 @@
 package com.example.demo.security.service;
 
-import javax.crypto.SecretKey;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
-
+import com.example.demo.cache.api.RedisService;
+import com.example.demo.security.api.TokenService;
+import com.example.demo.security.api.VersionService;
+import com.example.demo.security.api.bo.LoginUser;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.security.Keys;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,13 +18,10 @@ import org.springframework.security.core.userdetails.UserDetailsChecker;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.cache.api.RedisService;
-import com.example.demo.security.api.TokenService;
-import com.example.demo.security.api.VersionService;
-import com.example.demo.security.api.bo.LoginUser;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.security.Keys;
+import javax.crypto.SecretKey;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 @Service
 public class TokenServiceImpl implements TokenService {
