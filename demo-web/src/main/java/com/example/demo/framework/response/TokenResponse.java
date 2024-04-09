@@ -4,6 +4,8 @@ import com.example.demo.framework.constant.Constants;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Map;
+
 @Getter
 @Setter
 public class TokenResponse<T> extends AbstractResponse {
@@ -12,9 +14,17 @@ public class TokenResponse<T> extends AbstractResponse {
 
     private T                 token;
 
-    public TokenResponse(T object) {
+    private T                 ticket;
+
+    public TokenResponse(T token) {
         this.setCode(Constants.SUCCESS);
-        this.setToken(object);
+        this.setToken(token);
+    }
+
+    public TokenResponse(Map<String, T> map) {
+        this.setCode(Constants.SUCCESS);
+        this.setToken(map.get("token"));
+        this.setTicket(map.get("ticket"));
     }
 
 }

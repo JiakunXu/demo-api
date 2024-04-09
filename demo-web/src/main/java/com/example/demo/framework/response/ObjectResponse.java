@@ -13,11 +13,11 @@ public class ObjectResponse<T> extends AbstractResponse {
 
     private static final long serialVersionUID = 5661972515266196297L;
 
-    private T                 object;
+    private T                 data;
 
-    public ObjectResponse(T object) {
+    public ObjectResponse(T data) {
         this.setCode(Constants.SUCCESS);
-        this.setObject(object);
+        this.setData(data);
     }
 
 }

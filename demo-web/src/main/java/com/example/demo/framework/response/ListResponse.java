@@ -17,17 +17,17 @@ public class ListResponse<T> extends AbstractResponse {
 
     private Integer           total;
 
-    private List<T>           list;
+    private List<T>           rows;
 
-    public ListResponse(int total, List<T> list) {
+    public ListResponse(int total, List<T> rows) {
         this.setCode(Constants.SUCCESS);
         this.setTotal(total);
-        this.setList(list);
+        this.setRows(rows);
     }
 
-    public ListResponse(List<T> list) {
+    public ListResponse(List<T> rows) {
         this.setCode(Constants.SUCCESS);
-        this.setList(list);
+        this.setRows(rows);
     }
 
 }
