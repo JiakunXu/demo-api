@@ -132,7 +132,7 @@ public class ExcelUtil {
             Sheet sheet = workbook.getSheetAt(0);
             int rownum = 2;
 
-            if (dataList != null && dataList.size() > 0) {
+            if (dataList != null && !dataList.isEmpty()) {
                 XSSFSheet xssfSheet = workbook.getXSSFWorkbook().getSheetAt(0);
 
                 CellStyle rowStyle = getRowStyle(xssfSheet, rownum);
