@@ -21,6 +21,8 @@ import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONObject;
 import org.apache.commons.codec.binary.Base64;
 
 /**
@@ -222,7 +224,13 @@ public class WXBizMsgCrypt {
 
 		// System.out.println("发送给平台的签名是: " + signature[1].toString());
 		// 生成发送的xml
-		String result = XMLParse.generate(encrypt, signature, timeStamp, nonce);
+		JSONObject data = new JSONObject();
+		data.put("Encrypt", encrypt);
+		data.put("MsgSignature", signature);
+		data.put("TimeStamp", timeStamp);
+		data.put("Nonce", nonce);
+
+		String result = data.toJSONString();
 		return result;
 	}
 
@@ -247,7 +255,7 @@ public class WXBizMsgCrypt {
 
 		// 密钥，公众账号的app secret
 		// 提取密文
-		Object[] encrypt = XMLParse.extract(postData);
+		JSONObject encrypt = JSON.parseObject(postData);
 
 		// 验证安全签名
 		String signature = SHA1.getSHA1(token, timeStamp, nonce, "");
@@ -260,7 +268,7 @@ public class WXBizMsgCrypt {
 		}
 
 		// 解密
-		String result = decrypt(encrypt[1].toString());
+		String result = decrypt(encrypt.getString("Encrypt"));
 		return result;
 	}
 
