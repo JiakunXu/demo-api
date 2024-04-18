@@ -43,14 +43,15 @@ public class PhoneNumberServiceImpl implements PhoneNumberService {
             throw new RuntimeException("code cannot be null.");
         }
 
-        JSONObject parameter = new JSONObject();
-        parameter.put("code", code);
+        JSONObject data = new JSONObject();
+        data.put("code", code);
 
         Result result;
 
         try {
-            result = JSON.parseObject(HttpUtil.post(PhoneNumberService.HTTPS_POST_URL + accessToken,
-                parameter.toJSONString()), Result.class);
+            result = JSON.parseObject(
+                HttpUtil.post(PhoneNumberService.HTTPS_POST_URL + accessToken, data.toJSONString()),
+                Result.class);
         } catch (Exception e) {
             logger.error(code, e);
 

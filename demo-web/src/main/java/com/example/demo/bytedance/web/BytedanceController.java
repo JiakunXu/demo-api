@@ -35,10 +35,10 @@ public class BytedanceController extends BaseController {
 
     @RequestMapping(value = "/callback", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
     public String callback(HttpServletRequest request, HttpServletResponse response) {
-        JSONObject json = JSON.parseObject(this.getParameter(request));
+        JSONObject data = JSON.parseObject(this.getParameter(request));
 
-        messageService.callback(json.getString("msg_signature"), json.getString("timestamp"),
-            json.getString("nonce"), json.getString("msg"));
+        messageService.callback(data.getString("msg_signature"), data.getString("timestamp"),
+            data.getString("nonce"), data.getString("msg"));
 
         return "success";
     }

@@ -55,14 +55,14 @@ public class AttachmentServiceImpl implements AttachmentService {
             FileInfo fileInfo = storageService.commitFile(accessToken, String.valueOf(spaceId),
                 unionId, fileUploadInfo.getUploadKey(), file.getName(), "0");
 
-            JSONObject object = new JSONObject();
-            object.put("spaceId", fileInfo.getSpaceId());
-            object.put("fileName", fileInfo.getName());
-            object.put("fileSize", fileInfo.getSize());
-            object.put("fileType", fileInfo.getType());
-            object.put("fileId", fileInfo.getId());
+            JSONObject data = new JSONObject();
+            data.put("spaceId", fileInfo.getSpaceId());
+            data.put("fileName", fileInfo.getName());
+            data.put("fileSize", fileInfo.getSize());
+            data.put("fileType", fileInfo.getType());
+            data.put("fileId", fileInfo.getId());
 
-            list.add(object);
+            list.add(data);
         }
 
         return JSON.toJSONString(list);

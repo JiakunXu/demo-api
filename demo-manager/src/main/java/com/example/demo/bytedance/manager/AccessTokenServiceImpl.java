@@ -34,16 +34,16 @@ public class AccessTokenServiceImpl implements AccessTokenService {
             throw new RuntimeException("grant_type is null.");
         }
 
-        JSONObject object = new JSONObject();
-        object.put("appid", appId);
-        object.put("secret", appSecret);
-        object.put("grant_type", grantType);
+        JSONObject data = new JSONObject();
+        data.put("appid", appId);
+        data.put("secret", appSecret);
+        data.put("grant_type", grantType);
 
         Result result;
 
         try {
             result = JSON.parseObject(
-                HttpUtil.post(AccessTokenService.HTTPS_TOKEN_URL, JSON.toJSONString(object)),
+                HttpUtil.post(AccessTokenService.HTTPS_TOKEN_URL, JSON.toJSONString(data)),
                 Result.class);
         } catch (Exception e) {
             logger.error(appId + "&" + appSecret + "&" + grantType, e);
