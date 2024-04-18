@@ -28,6 +28,18 @@ public class WxaCode implements Serializable {
     private String            page;
 
     /**
+     * 默认是true，检查page 是否存在，为 true 时 page 必须是已经发布的小程序存在的页面（否则报错）；为 false 时允许小程序未发布或者 page 不存在， 但page 有数量上限（60000个）请勿滥用
+     */
+    @JSONField(name = "check_path")
+    private Boolean           checkPath;
+
+    /**
+     * 要打开的小程序版本。正式版为 "release"，体验版为 "trial"，开发版为 "develop"。默认是正式版
+     */
+    @JSONField(name = "env_version")
+    private String            envVersion;
+
+    /**
      * 二维码的宽度，单位 px，最小 280px，最大 1280px.
      */
     private Integer           width;
@@ -59,5 +71,19 @@ public class WxaCode implements Serializable {
      * 数据 Buffer.
      */
     private byte[]            buffer;
+
+    @Getter
+    @Setter
+    public static class LineColor implements Serializable {
+
+        private static final long serialVersionUID = -4682306844587994906L;
+
+        private int               r;
+
+        private int               g;
+
+        private int               b;
+
+    }
 
 }
