@@ -21,4 +21,22 @@ public class TemplateInfo implements Serializable {
     @JSONField(name = "parameter_list")
     private List<Parameter>   parameterList;
 
+    @Getter
+    @Setter
+    public static class Parameter implements Serializable {
+
+        private static final long serialVersionUID = -8739749071365849495L;
+
+        /**
+         * 要修改的参数名.
+         */
+        private String            name;
+
+        /**
+         * 修改后的参数值.
+         */
+        private String            value;
+
+    }
+
 }
