@@ -19,11 +19,6 @@ public class AlipayController extends BaseController {
 
     private static final Logger logger = LoggerFactory.getLogger(AlipayController.class);
 
-    @RequestMapping(value = "/callback", method = RequestMethod.POST)
-    public String callback(HttpServletRequest request, HttpServletResponse response) {
-        return null;
-    }
-
     @RequestMapping(value = "/notify", method = RequestMethod.POST)
     public String notify(HttpServletRequest request, HttpServletResponse response) {
         Map<String, String> parameters = new HashMap<>();
