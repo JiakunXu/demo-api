@@ -42,12 +42,12 @@ public class PushApiServiceImpl implements PushApiService {
     @Override
     public String pushToSingleByCid(String cid, String title, String body,
                                     String url) throws RuntimeException {
-        JSONObject object = new JSONObject();
-        object.put("title", title);
-        object.put("body", body);
-        object.put("url", url);
+        JSONObject data = new JSONObject();
+        data.put("title", title);
+        data.put("body", body);
+        data.put("url", url);
 
-        String payload = object.toJSONString();
+        String payload = data.toJSONString();
 
         Audience audience = new Audience();
         audience.addCid(cid);
