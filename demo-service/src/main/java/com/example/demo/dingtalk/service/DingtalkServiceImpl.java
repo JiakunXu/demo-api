@@ -32,14 +32,14 @@ public class DingtalkServiceImpl implements DingtalkService {
             DingCallbackCrypto callbackCrypto = new DingCallbackCrypto(token, encodingAesKey,
                 appKey);
 
-            JSONObject object = JSON
+            JSONObject data = JSON
                 .parseObject(callbackCrypto.getDecryptMsg(signature, timeStamp, nonce, encrypt));
 
-            String eventType = object.getString("EventType");
+            String eventType = data.getString("EventType");
 
             // 审批实例开始、结束
             if ("bpms_instance_change".equals(eventType)) {
-                change(object);
+                change(data);
             }
 
             return callbackCrypto.getEncryptedMap("success");
@@ -50,12 +50,12 @@ public class DingtalkServiceImpl implements DingtalkService {
         return null;
     }
 
-    private void change(JSONObject object) {
-        String processCode = object.getString("processCode");
+    private void change(JSONObject data) {
+        String processCode = data.getString("processCode");
 
-        String processInstanceId = object.getString("processInstanceId");
-        String type = object.getString("type");
-        String result = object.getString("result");
+        String processInstanceId = data.getString("processInstanceId");
+        String type = data.getString("type");
+        String result = data.getString("result");
 
         // 审批正常结束（同意或拒绝）
         if ("finish".equals(type)) {

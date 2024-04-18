@@ -25,14 +25,14 @@ public class LoginController extends BaseController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public TokenResponse<String> login(HttpServletRequest request, HttpServletResponse response) {
-        JSONObject object = this.getParameter(request, JSONObject.class);
+        JSONObject data = this.getParameter(request, JSONObject.class);
 
-        if (object == null) {
+        if (data == null) {
             throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "账号或密码不能为空");
         }
 
         return new TokenResponse<>(
-            loginService.login(object.getString("username"), object.getString("password")));
+            loginService.login(data.getString("username"), data.getString("password")));
     }
 
 }
