@@ -21,7 +21,7 @@ public class WeixinController extends BaseController {
     @Autowired
     private ReceivingService receivingService;
 
-    @RequestMapping(value = "/callback", method = RequestMethod.GET, produces = MediaType.TEXT_PLAIN_VALUE)
+    @RequestMapping(value = "/notify", method = RequestMethod.GET, produces = MediaType.TEXT_PLAIN_VALUE)
     public String verify(HttpServletRequest request, HttpServletResponse response) {
         String signature = this.getParameter(request, "signature");
         String timestamp = this.getParameter(request, "timestamp");
@@ -31,14 +31,14 @@ public class WeixinController extends BaseController {
         return receivingService.verify(signature, timestamp, nonce, echoStr);
     }
 
-    @RequestMapping(value = "/callback", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
-    public String callback(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping(value = "/notify", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
+    public String notify(HttpServletRequest request, HttpServletResponse response) {
         String signature = this.getParameter(request, "signature");
         String timestamp = this.getParameter(request, "timestamp");
         String nonce = this.getParameter(request, "nonce");
         String data = this.getParameter(request);
 
-        return receivingService.callback(signature, timestamp, nonce, data);
+        return receivingService.notify(signature, timestamp, nonce, data);
     }
 
     @RequestMapping(value = "/ticket", method = RequestMethod.GET)

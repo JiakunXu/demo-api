@@ -40,8 +40,8 @@ public class ReceivingServiceImpl implements ReceivingService {
     }
 
     @Override
-    public String callback(String signature, String timestamp, String nonce,
-                           String data) throws RuntimeException {
+    public String notify(String signature, String timestamp, String nonce,
+                         String data) throws RuntimeException {
         if (StringUtils.isBlank(signature) || StringUtils.isBlank(timestamp)
             || StringUtils.isBlank(nonce)) {
             throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "参数信息不能为空");

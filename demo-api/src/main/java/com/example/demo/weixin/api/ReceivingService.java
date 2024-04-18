@@ -26,7 +26,7 @@ public interface ReceivingService {
      * @return
      * @throws RuntimeException
      */
-    String callback(String signature, String timestamp, String nonce,
-                    String data) throws RuntimeException;
+    String notify(String signature, String timestamp, String nonce,
+                  String data) throws RuntimeException;
 
 }
