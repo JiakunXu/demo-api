@@ -18,13 +18,13 @@ public class DingtalkController extends BaseController {
     @Autowired
     private DingtalkService dingtalkService;
 
-    @RequestMapping(value = "/callback", method = RequestMethod.POST)
+    @RequestMapping(value = "/notify", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, String> callBack(@RequestParam(value = "signature", required = false) String signature,
-                                        @RequestParam(value = "timestamp", required = false) String timeStamp,
-                                        @RequestParam(value = "nonce", required = false) String nonce,
-                                        @RequestBody(required = false) JSONObject data) {
-        return dingtalkService.callback(signature, timeStamp, nonce, data.getString("encrypt"));
+    public Map<String, String> notify(@RequestParam(value = "signature", required = false) String signature,
+                                      @RequestParam(value = "timestamp", required = false) String timeStamp,
+                                      @RequestParam(value = "nonce", required = false) String nonce,
+                                      @RequestBody(required = false) JSONObject data) {
+        return dingtalkService.notify(signature, timeStamp, nonce, data.getString("encrypt"));
     }
 
 }

@@ -26,8 +26,8 @@ public class DingtalkServiceImpl implements DingtalkService {
     private String              encodingAesKey;
 
     @Override
-    public Map<String, String> callback(String signature, String timeStamp, String nonce,
-                                        String encrypt) {
+    public Map<String, String> notify(String signature, String timeStamp, String nonce,
+                                      String encrypt) {
         try {
             DingCallbackCrypto callbackCrypto = new DingCallbackCrypto(token, encodingAesKey,
                 appKey);
