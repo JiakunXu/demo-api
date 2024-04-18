@@ -115,8 +115,8 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
-    public Message callback(String signature, String timestamp, String nonce,
-                            String data) throws RuntimeException {
+    public Message notify(String signature, String timestamp, String nonce,
+                          String data) throws RuntimeException {
         validate(signature, timestamp, nonce, data);
 
         Message message = JSON.parseObject(data, Message.class);

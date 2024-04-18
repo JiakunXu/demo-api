@@ -31,8 +31,8 @@ public interface MessageService {
      * @return
      * @throws RuntimeException
      */
-    Message callback(String signature, String timestamp, String nonce,
-                     String data) throws RuntimeException;
+    Message notify(String signature, String timestamp, String nonce,
+                   String data) throws RuntimeException;
 
     /**
      *

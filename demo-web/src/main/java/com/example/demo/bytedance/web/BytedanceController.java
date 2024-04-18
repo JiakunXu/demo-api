@@ -23,7 +23,7 @@ public class BytedanceController extends BaseController {
     @Autowired
     private MessageService messageService;
 
-    @RequestMapping(value = "/callback", method = RequestMethod.GET, produces = MediaType.TEXT_PLAIN_VALUE)
+    @RequestMapping(value = "/notify", method = RequestMethod.GET, produces = MediaType.TEXT_PLAIN_VALUE)
     public String verify(HttpServletRequest request, HttpServletResponse response) {
         String signature = this.getParameter(request, "signature");
         String timestamp = this.getParameter(request, "timestamp");
@@ -33,11 +33,11 @@ public class BytedanceController extends BaseController {
         return messageService.verify(signature, timestamp, nonce, echostr);
     }
 
-    @RequestMapping(value = "/callback", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
-    public String callback(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping(value = "/notify", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
+    public String notify(HttpServletRequest request, HttpServletResponse response) {
         JSONObject data = JSON.parseObject(this.getParameter(request));
 
-        messageService.callback(data.getString("msg_signature"), data.getString("timestamp"),
+        messageService.notify(data.getString("msg_signature"), data.getString("timestamp"),
             data.getString("nonce"), data.getString("msg"));
 
         return "success";
