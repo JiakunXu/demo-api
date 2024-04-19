@@ -26,7 +26,7 @@ public class UrlSchemeServiceImpl implements UrlSchemeService {
 
         try {
             openLink = JSON
-                .parseObject(HttpUtil.post(MessageFormat.format(HTTPS_GENERATE_URL, accessToken),
+                .parseObject(HttpUtil.post(MessageFormat.format(HTTPS_POST_URL, accessToken),
                     JSON.toJSONString(urlScheme)), OpenLink.class);
         } catch (Exception e) {
             logger.error(urlScheme.toString(), e);

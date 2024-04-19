@@ -8,7 +8,7 @@ import com.example.demo.weixin.api.bo.wxa.Page;
  */
 public interface ShortLinkService {
 
-    String HTTPS_GENERATE_URL = "https://api.weixin.qq.com/wxa/genwxashortlink?access_token={0}";
+    String HTTPS_POST_URL = "https://api.weixin.qq.com/wxa/genwxashortlink?access_token={0}";
 
     /**
      * Short Link.

@@ -7,7 +7,7 @@ import com.example.demo.weixin.api.bo.BaseResult;
  */
 public interface SecurityCheckService {
 
-    String HTTPS_MSG_URL = "https://api.weixin.qq.com/wxa/msg_sec_check?access_token={0}";
+    String HTTPS_POST_URL = "https://api.weixin.qq.com/wxa/msg_sec_check?access_token={0}";
 
     /**
      *

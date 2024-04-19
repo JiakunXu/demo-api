@@ -8,7 +8,7 @@ import com.example.demo.weixin.api.bo.qrcode.Result;
  */
 public interface QrCodeService {
 
-    String HTTPS_CREATE_URL = "https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token={0}";
+    String HTTPS_POST_URL = "https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token={0}";
 
     /**
      * 

@@ -34,7 +34,7 @@ public class UserInfoServiceImpl implements UserInfoService {
         UserInfo userInfo;
 
         try {
-            userInfo = JSON.parseObject(HttpUtil.get(MessageFormat.format(HTTPS_USER_INFO_URL,
+            userInfo = JSON.parseObject(HttpUtil.get(MessageFormat.format(HTTPS_GET_URL,
                 accessToken, openid, StringUtils.isBlank(lang) ? "zh_CN" : lang)), UserInfo.class);
         } catch (Exception e) {
             logger.error(accessToken + "&" + openid, e);

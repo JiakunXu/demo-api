@@ -7,7 +7,7 @@ import com.example.demo.weixin.api.bo.token.AccessToken;
  */
 public interface AccessTokenService {
 
-    String HTTPS_TOKEN_URL = "https://api.weixin.qq.com/cgi-bin/token?grant_type={0}&appid={1}&secret={2}";
+    String HTTPS_GET_URL = "https://api.weixin.qq.com/cgi-bin/token?grant_type={0}&appid={1}&secret={2}";
 
     /**
      *

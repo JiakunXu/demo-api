@@ -8,7 +8,7 @@ import com.example.demo.weixin.api.bo.wxa.UrlScheme;
  */
 public interface UrlSchemeService {
 
-    String HTTPS_GENERATE_URL = "https://api.weixin.qq.com/wxa/generatescheme?access_token={0}";
+    String HTTPS_POST_URL = "https://api.weixin.qq.com/wxa/generatescheme?access_token={0}";
 
     /**
      * URL Scheme.

@@ -7,7 +7,7 @@ import com.example.demo.weixin.api.bo.js.JsapiTicket;
  */
 public interface JsapiTicketService {
 
-    String HTTPS_TICKET_URL = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token={0}&type=jsapi";
+    String HTTPS_GET_URL = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token={0}&type=jsapi";
 
     /**
      *

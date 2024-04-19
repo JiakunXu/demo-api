@@ -24,7 +24,7 @@ public class SecurityCheckServiceImpl implements SecurityCheckService {
 
         try {
             result = JSON.parseObject(
-                HttpUtil.post(MessageFormat.format(HTTPS_MSG_URL, accessToken), content),
+                HttpUtil.post(MessageFormat.format(HTTPS_POST_URL, accessToken), content),
                 BaseResult.class);
         } catch (Exception e) {
             logger.error(accessToken, e);

@@ -24,9 +24,9 @@ public class QrCodeServiceImpl implements QrCodeService {
         Result result;
 
         try {
-            result = JSON
-                .parseObject(HttpUtil.post(MessageFormat.format(HTTPS_CREATE_URL, accessToken),
-                    JSON.toJSONString(qrCode)), Result.class);
+            result = JSON.parseObject(HttpUtil
+                .post(MessageFormat.format(HTTPS_POST_URL, accessToken), JSON.toJSONString(qrCode)),
+                Result.class);
         } catch (Exception e) {
             logger.error(qrCode.toString(), e);
             throw new RuntimeException(e);

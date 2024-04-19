@@ -25,7 +25,7 @@ public class MenuServiceImpl implements MenuService {
 
         try {
             result = JSON.parseObject(HttpUtil
-                .post(MessageFormat.format(HTTPS_CREATE_URL, accessToken), JSON.toJSONString(menu)),
+                .post(MessageFormat.format(HTTPS_POST_URL, accessToken), JSON.toJSONString(menu)),
                 BaseResult.class);
         } catch (Exception e) {
             logger.error(menu.toString(), e);

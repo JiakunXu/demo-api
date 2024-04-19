@@ -26,7 +26,7 @@ public class AccessTokenServiceImpl implements AccessTokenService {
 
         try {
             accessToken = JSON.parseObject(
-                HttpUtil.get(MessageFormat.format(HTTPS_TOKEN_URL, grantType, appid, secret)),
+                HttpUtil.get(MessageFormat.format(HTTPS_GET_URL, grantType, appid, secret)),
                 AccessToken.class);
         } catch (Exception e) {
             logger.error(grantType + "&" + appid + "&" + secret, e);
