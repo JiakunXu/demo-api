@@ -5,7 +5,6 @@ import com.example.demo.framework.util.HttpUtil;
 import com.example.demo.weixin.api.MenuService;
 import com.example.demo.weixin.api.bo.BaseResult;
 import com.example.demo.weixin.api.bo.menu.Menu;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -20,14 +19,6 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public BaseResult create(String accessToken, Menu menu) throws RuntimeException {
-        if (StringUtils.isBlank(accessToken)) {
-            throw new RuntimeException("access_token cannot be null.");
-        }
-
-        if (menu == null) {
-            throw new RuntimeException("menu cannot be null.");
-        }
-
         BaseResult result;
 
         try {

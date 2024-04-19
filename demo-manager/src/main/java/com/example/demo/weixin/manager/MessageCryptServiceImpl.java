@@ -3,7 +3,6 @@ package com.example.demo.weixin.manager;
 import com.example.demo.weixin.api.MessageCryptService;
 import com.qq.weixin.mp.aes.AesException;
 import com.qq.weixin.mp.aes.WXBizMsgCrypt;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -24,18 +23,6 @@ public class MessageCryptServiceImpl implements MessageCryptService {
      * @return
      */
     private WXBizMsgCrypt init(String token, String encodingAesKey, String appid) {
-        if (StringUtils.isBlank(token)) {
-            throw new RuntimeException("token cannot be null.");
-        }
-
-        if (StringUtils.isBlank(encodingAesKey)) {
-            throw new RuntimeException("encoding_aes_key cannot be null.");
-        }
-
-        if (StringUtils.isBlank(appid)) {
-            throw new RuntimeException("appid cannot be null.");
-        }
-
         try {
             return new WXBizMsgCrypt(token, encodingAesKey, appid);
         } catch (AesException e) {
