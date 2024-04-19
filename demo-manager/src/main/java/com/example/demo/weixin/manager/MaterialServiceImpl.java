@@ -10,6 +10,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.text.MessageFormat;
+
 /**
  * @author JiakunXu
  */
@@ -23,10 +25,10 @@ public class MaterialServiceImpl implements MaterialService {
         Count count;
 
         try {
-            count = JSON.parseObject(HttpUtil.get(HTTPS_COUNT_URL + accessToken), Count.class);
+            count = JSON.parseObject(
+                HttpUtil.get(MessageFormat.format(HTTPS_COUNT_URL, accessToken)), Count.class);
         } catch (Exception e) {
             logger.error(accessToken, e);
-
             throw new RuntimeException(e);
         }
 
@@ -46,12 +48,11 @@ public class MaterialServiceImpl implements MaterialService {
         Material material;
 
         try {
-            material = JSON.parseObject(
-                HttpUtil.post(HTTPS_LIST_URL + accessToken, JSON.toJSONString(parameter)),
-                Material.class);
+            material = JSON
+                .parseObject(HttpUtil.post(MessageFormat.format(HTTPS_LIST_URL, accessToken),
+                    JSON.toJSONString(parameter)), Material.class);
         } catch (Exception e) {
             logger.error(accessToken, e);
-
             throw new RuntimeException(e);
         }
 

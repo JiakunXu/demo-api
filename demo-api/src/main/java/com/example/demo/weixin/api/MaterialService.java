@@ -9,9 +9,9 @@ import com.example.demo.weixin.api.bo.material.Parameter;
  */
 public interface MaterialService {
 
-    String HTTPS_COUNT_URL = "https://api.weixin.qq.com/cgi-bin/material/get_materialcount?access_token=";
+    String HTTPS_COUNT_URL = "https://api.weixin.qq.com/cgi-bin/material/get_materialcount?access_token={0}";
 
-    String HTTPS_LIST_URL  = "https://api.weixin.qq.com/cgi-bin/material/batchget_material?access_token=";
+    String HTTPS_LIST_URL  = "https://api.weixin.qq.com/cgi-bin/material/batchget_material?access_token={0}";
 
     /**
      * 
