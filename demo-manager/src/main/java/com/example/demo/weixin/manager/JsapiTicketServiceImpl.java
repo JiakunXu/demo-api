@@ -1,14 +1,15 @@
 package com.example.demo.weixin.manager;
 
+import com.alibaba.fastjson2.JSON;
+import com.example.demo.weixin.api.JsapiTicketService;
+import com.example.demo.weixin.api.bo.js.JsapiTicket;
+import com.example.demo.framework.util.HttpUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import com.alibaba.fastjson2.JSON;
-import com.example.demo.weixin.api.JsapiTicketService;
-import com.example.demo.weixin.api.bo.js.JsapiTicket;
-import com.example.demo.framework.util.HttpUtil;
+import java.text.MessageFormat;
 
 /**
  * @author JiakunXu
@@ -28,8 +29,7 @@ public class JsapiTicketServiceImpl implements JsapiTicketService {
 
         try {
             jsapiTicket = JSON.parseObject(
-                HttpUtil.get(
-                    JsapiTicketService.HTTPS_TICKET_URL.replace("$ACCESS_TOKEN$", accessToken)),
+                HttpUtil.get(MessageFormat.format(HTTPS_TICKET_URL, accessToken)),
                 JsapiTicket.class);
         } catch (Exception e) {
             logger.error(accessToken, e);
@@ -53,4 +53,5 @@ public class JsapiTicketServiceImpl implements JsapiTicketService {
 
         return jsapiTicket;
     }
+
 }
