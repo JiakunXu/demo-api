@@ -5,7 +5,6 @@ import com.example.demo.framework.util.HttpUtil;
 import com.example.demo.weixin.api.ShortLinkService;
 import com.example.demo.weixin.api.bo.wxa.Link;
 import com.example.demo.weixin.api.bo.wxa.Page;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -20,14 +19,6 @@ public class ShortLinkServiceImpl implements ShortLinkService {
 
     @Override
     public Link generateShortLink(String accessToken, Page page) throws RuntimeException {
-        if (StringUtils.isBlank(accessToken)) {
-            throw new RuntimeException("access_token cannot be null.");
-        }
-
-        if (page == null) {
-            throw new RuntimeException("page cannot be null.");
-        }
-
         Link link;
 
         try {

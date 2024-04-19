@@ -35,14 +35,6 @@ public class PhoneNumberServiceImpl implements PhoneNumberService {
             throw new RuntimeException("appid cannot be null.");
         }
 
-        if (StringUtils.isBlank(accessToken)) {
-            throw new RuntimeException("access_token cannot be null.");
-        }
-
-        if (StringUtils.isBlank(code)) {
-            throw new RuntimeException("code cannot be null.");
-        }
-
         JSONObject data = new JSONObject();
         data.put("code", code);
 

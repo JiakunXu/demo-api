@@ -5,7 +5,6 @@ import com.example.demo.framework.util.HttpUtil;
 import com.example.demo.weixin.api.QrCodeService;
 import com.example.demo.weixin.api.bo.qrcode.QrCode;
 import com.example.demo.weixin.api.bo.qrcode.Result;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -20,14 +19,6 @@ public class QrCodeServiceImpl implements QrCodeService {
 
     @Override
     public Result create(String accessToken, QrCode qrCode) throws RuntimeException {
-        if (StringUtils.isBlank(accessToken)) {
-            throw new RuntimeException("access_token cannot be null.");
-        }
-
-        if (qrCode == null) {
-            throw new RuntimeException("qrcode cannot be null.");
-        }
-
         Result result;
 
         try {
