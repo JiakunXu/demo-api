@@ -6,7 +6,6 @@ import com.example.demo.weixin.api.MaterialService;
 import com.example.demo.weixin.api.bo.material.Count;
 import com.example.demo.weixin.api.bo.material.Material;
 import com.example.demo.weixin.api.bo.material.Parameter;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -21,10 +20,6 @@ public class MaterialServiceImpl implements MaterialService {
 
     @Override
     public Count count(String accessToken) throws RuntimeException {
-        if (StringUtils.isBlank(accessToken)) {
-            throw new RuntimeException("access_token cannot be null.");
-        }
-
         Count count;
 
         try {
@@ -48,14 +43,6 @@ public class MaterialServiceImpl implements MaterialService {
 
     @Override
     public Material list(String accessToken, Parameter parameter) throws RuntimeException {
-        if (StringUtils.isBlank(accessToken)) {
-            throw new RuntimeException("access_token cannot be null.");
-        }
-
-        if (parameter == null) {
-            throw new RuntimeException("parameter cannot be null.");
-        }
-
         Material material;
 
         try {
