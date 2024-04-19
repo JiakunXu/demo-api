@@ -8,6 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.text.MessageFormat;
+
 /**
  * @author JiakunXu
  */
@@ -22,11 +24,10 @@ public class SecurityCheckServiceImpl implements SecurityCheckService {
 
         try {
             result = JSON.parseObject(
-                HttpUtil.post(SecurityCheckService.HTTPS_MSG_URL + accessToken, content),
+                HttpUtil.post(MessageFormat.format(HTTPS_MSG_URL, accessToken), content),
                 BaseResult.class);
         } catch (Exception e) {
             logger.error(accessToken, e);
-
             throw new RuntimeException(e);
         }
 

@@ -9,6 +9,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.text.MessageFormat;
+
 /**
  * @author JiakunXu
  */
@@ -22,11 +24,11 @@ public class QrCodeServiceImpl implements QrCodeService {
         Result result;
 
         try {
-            result = JSON.parseObject(HttpUtil.post(QrCodeService.HTTPS_CREATE_URL + accessToken,
-                JSON.toJSONString(qrCode)), Result.class);
+            result = JSON
+                .parseObject(HttpUtil.post(MessageFormat.format(HTTPS_CREATE_URL, accessToken),
+                    JSON.toJSONString(qrCode)), Result.class);
         } catch (Exception e) {
             logger.error(qrCode.toString(), e);
-
             throw new RuntimeException(e);
         }
 

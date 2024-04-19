@@ -18,6 +18,7 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import java.security.AlgorithmParameters;
 import java.security.Security;
+import java.text.MessageFormat;
 import java.util.Arrays;
 
 /**
@@ -41,12 +42,11 @@ public class PhoneNumberServiceImpl implements PhoneNumberService {
         Result result;
 
         try {
-            result = JSON.parseObject(
-                HttpUtil.post(PhoneNumberService.HTTPS_POST_URL + accessToken, data.toJSONString()),
+            result = JSON.parseObject(HttpUtil
+                .post(MessageFormat.format(HTTPS_POST_URL, accessToken), data.toJSONString()),
                 Result.class);
         } catch (Exception e) {
             logger.error(code, e);
-
             throw new RuntimeException(e);
         }
 

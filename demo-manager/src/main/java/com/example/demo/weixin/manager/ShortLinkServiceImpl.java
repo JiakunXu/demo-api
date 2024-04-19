@@ -9,6 +9,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.text.MessageFormat;
+
 /**
  * @author JiakunXu
  */
@@ -22,11 +24,11 @@ public class ShortLinkServiceImpl implements ShortLinkService {
         Link link;
 
         try {
-            link = JSON.parseObject(HttpUtil.post(ShortLinkService.HTTPS_GENERATE_URL + accessToken,
-                JSON.toJSONString(page)), Link.class);
+            link = JSON
+                .parseObject(HttpUtil.post(MessageFormat.format(HTTPS_GENERATE_URL, accessToken),
+                    JSON.toJSONString(page)), Link.class);
         } catch (Exception e) {
             logger.error(page.toString(), e);
-
             throw new RuntimeException(e);
         }
 
