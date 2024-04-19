@@ -8,7 +8,7 @@ import com.example.demo.weixin.api.bo.wxa.UserRisk;
  */
 public interface UserRiskRankService {
 
-    String HTTPS_GET_URL = "https://api.weixin.qq.com/wxa/getuserriskrank?access_token=";
+    String HTTPS_GET_URL = "https://api.weixin.qq.com/wxa/getuserriskrank?access_token={0}";
 
     /**
      * 根据提交的用户信息数据获取用户的安全等级 risk_rank，无需用户授权.
