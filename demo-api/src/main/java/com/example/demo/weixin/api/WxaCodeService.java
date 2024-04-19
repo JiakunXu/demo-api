@@ -7,7 +7,7 @@ import com.example.demo.weixin.api.bo.wxa.WxaCode;
  */
 public interface WxaCodeService {
 
-    String HTTPS_GET_URL = "https://api.weixin.qq.com/wxa/getwxacodeunlimit?access_token=";
+    String HTTPS_GET_URL = "https://api.weixin.qq.com/wxa/getwxacodeunlimit?access_token={0}";
 
     /**
      *

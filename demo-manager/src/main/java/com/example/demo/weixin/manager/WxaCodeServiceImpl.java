@@ -5,10 +5,11 @@ import com.example.demo.weixin.api.WxaCodeService;
 import com.example.demo.weixin.api.bo.BaseResult;
 import com.example.demo.weixin.api.bo.wxa.WxaCode;
 import com.example.demo.framework.util.HttpUtil;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+
+import java.text.MessageFormat;
 
 /**
  * @author JiakunXu
@@ -20,18 +21,10 @@ public class WxaCodeServiceImpl implements WxaCodeService {
 
     @Override
     public byte[] getWxaCodeUnlimit(String accessToken, WxaCode wxaCode) throws RuntimeException {
-        if (StringUtils.isBlank(accessToken)) {
-            throw new RuntimeException("access_token cannot be null.");
-        }
-
-        if (wxaCode == null) {
-            throw new RuntimeException("wxa_code cannot be null.");
-        }
-
         byte[] buffer;
 
         try {
-            buffer = HttpUtil.download(WxaCodeService.HTTPS_GET_URL + accessToken,
+            buffer = HttpUtil.download(MessageFormat.format(HTTPS_GET_URL, accessToken),
                 JSON.toJSONString(wxaCode));
         } catch (Exception e) {
             logger.error(wxaCode.toString(), e);
@@ -49,4 +42,5 @@ public class WxaCodeServiceImpl implements WxaCodeService {
 
         return buffer;
     }
+
 }

@@ -7,7 +7,7 @@ import com.example.demo.weixin.api.bo.wxa.WxaQrCode;
  */
 public interface WxaQrCodeService {
 
-    String HTTPS_GET_URL = "https://api.weixin.qq.com/cgi-bin/wxaapp/createwxaqrcode?access_token=";
+    String HTTPS_GET_URL = "https://api.weixin.qq.com/cgi-bin/wxaapp/createwxaqrcode?access_token={0}";
 
     /**
      * 
