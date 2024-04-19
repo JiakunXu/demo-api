@@ -5,7 +5,7 @@ package com.example.demo.weixin.api;
  */
 public interface MediaService {
 
-    String HTTPS_GET_URL = "https://api.weixin.qq.com/cgi-bin/media/get?access_token=$ACCESS_TOKEN$&media_id=$MEDIA_ID$";
+    String HTTPS_GET_URL = "https://api.weixin.qq.com/cgi-bin/media/get?access_token={0}&media_id={1}";
 
     /**
      * 获取临时素材（即下载临时的多媒体文件）.
