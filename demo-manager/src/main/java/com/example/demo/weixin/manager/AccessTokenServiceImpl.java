@@ -20,16 +20,16 @@ public class AccessTokenServiceImpl implements AccessTokenService {
     private static final Logger logger = LoggerFactory.getLogger(AccessTokenServiceImpl.class);
 
     @Override
-    public AccessToken getAccessToken(String grantType, String appId,
-                                      String appSecret) throws RuntimeException {
+    public AccessToken getAccessToken(String grantType, String appid,
+                                      String secret) throws RuntimeException {
         AccessToken accessToken;
 
         try {
             accessToken = JSON.parseObject(
-                HttpUtil.get(MessageFormat.format(HTTPS_TOKEN_URL, grantType, appId, appSecret)),
+                HttpUtil.get(MessageFormat.format(HTTPS_TOKEN_URL, grantType, appid, secret)),
                 AccessToken.class);
         } catch (Exception e) {
-            logger.error(grantType + "&" + appId + "&" + appSecret, e);
+            logger.error(grantType + "&" + appid + "&" + secret, e);
 
             throw new RuntimeException(e);
         }

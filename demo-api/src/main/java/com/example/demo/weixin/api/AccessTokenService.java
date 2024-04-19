@@ -12,13 +12,13 @@ public interface AccessTokenService {
     /**
      *
      * @param grantType 获取access_token填写client_credential.
-     * @param appId 第三方用户唯一凭证.
-     * @param appSecret 第三方用户唯一凭证密钥，即appsecret.
+     * @param appid 第三方用户唯一凭证.
+     * @param secret 第三方用户唯一凭证密钥，即appsecret.
      * @return
      * @throws RuntimeException
      * @see <a href="https://developers.weixin.qq.com/doc/offiaccount/Basic_Information/Get_access_token.html">微信官方文档</a>
      */
-    AccessToken getAccessToken(String grantType, String appId,
-                               String appSecret) throws RuntimeException;
+    AccessToken getAccessToken(String grantType, String appid,
+                               String secret) throws RuntimeException;
 
 }

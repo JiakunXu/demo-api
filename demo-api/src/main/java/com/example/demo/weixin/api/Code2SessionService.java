@@ -7,7 +7,7 @@ import com.example.demo.weixin.api.bo.sns.Session;
  */
 public interface Code2SessionService {
 
-    String HTTPS_CODE_2_SESSION_URL = "https://api.weixin.qq.com/sns/jscode2session?grant_type=authorization_code";
+    String HTTPS_CODE_2_SESSION_URL = "https://api.weixin.qq.com/sns/jscode2session?grant_type=authorization_code&appid={0}&secret={1}&js_code={2}";
 
     /**
      *
