@@ -38,11 +38,10 @@ public class TextServiceImpl implements TextService {
             header.put("X-Token", accessToken);
 
             log = JSON.parseObject(
-                HttpUtil.post(TextService.HTTPS_DETECT_URL, JSON.toJSONString(body), header),
+                HttpUtil.post(TextService.HTTPS_POST_URL, JSON.toJSONString(body), header),
                 Log.class);
         } catch (Exception e) {
             logger.error(body.toString(), e);
-
             throw new RuntimeException(e);
         }
 

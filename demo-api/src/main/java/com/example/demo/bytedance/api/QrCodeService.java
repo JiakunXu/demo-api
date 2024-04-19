@@ -7,7 +7,7 @@ import com.example.demo.bytedance.api.bo.qrcode.Body;
  */
 public interface QrCodeService {
 
-    String HTTPS_CREATE_URL = "https://developer.toutiao.com/api/apps/qrcode";
+    String HTTPS_POST_URL = "https://developer.toutiao.com/api/apps/qrcode";
 
     /**
      * 

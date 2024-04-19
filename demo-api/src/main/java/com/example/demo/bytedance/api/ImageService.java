@@ -8,7 +8,7 @@ import com.example.demo.bytedance.api.bo.text.Log;
  */
 public interface ImageService {
 
-    String HTTPS_DETECT_URL = "https://developer.toutiao.com/api/v2/tags/image";
+    String HTTPS_POST_URL = "https://developer.toutiao.com/api/v2/tags/image";
 
     /**
      *

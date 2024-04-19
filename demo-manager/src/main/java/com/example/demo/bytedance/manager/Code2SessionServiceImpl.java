@@ -24,11 +24,10 @@ public class Code2SessionServiceImpl implements Code2SessionService {
 
         try {
             session = JSON.parseObject(
-                HttpUtil.get(MessageFormat.format(HTTPS_CODE_2_SESSION_URL, appid, secret, code)),
+                HttpUtil.get(MessageFormat.format(HTTPS_GET_URL, appid, secret, code)),
                 Session.class);
         } catch (Exception e) {
             logger.error(appid + "&" + secret + "&" + code, e);
-
             throw new RuntimeException(e);
         }
 

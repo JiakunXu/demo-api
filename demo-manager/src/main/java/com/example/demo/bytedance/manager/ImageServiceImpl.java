@@ -38,11 +38,10 @@ public class ImageServiceImpl implements ImageService {
             header.put("X-Token", accessToken);
 
             log = JSON.parseObject(
-                HttpUtil.post(ImageService.HTTPS_DETECT_URL, JSON.toJSONString(body), header),
+                HttpUtil.post(ImageService.HTTPS_POST_URL, JSON.toJSONString(body), header),
                 Log.class);
         } catch (Exception e) {
             logger.error(body.toString(), e);
-
             throw new RuntimeException(e);
         }
 

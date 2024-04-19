@@ -7,7 +7,7 @@ import com.example.demo.bytedance.api.bo.token.AccessToken;
  */
 public interface AccessTokenService {
 
-    String HTTPS_TOKEN_URL = "https://developer.toutiao.com/api/apps/v2/token";
+    String HTTPS_POST_URL = "https://developer.toutiao.com/api/apps/v2/token";
 
     /**
      *

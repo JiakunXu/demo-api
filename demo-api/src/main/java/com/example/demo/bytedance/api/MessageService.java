@@ -8,7 +8,7 @@ import com.example.demo.bytedance.api.bo.message.Message;
  */
 public interface MessageService {
 
-    String HTTPS_MESSAGE_URL = "https://developer.toutiao.com/api/apps/message/custom/send?access_token=";
+    String HTTPS_POST_URL = "https://developer.toutiao.com/api/apps/message/custom/send?access_token=";
 
     /**
      *

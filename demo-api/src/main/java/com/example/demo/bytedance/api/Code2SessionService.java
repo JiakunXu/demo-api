@@ -7,7 +7,7 @@ import com.example.demo.bytedance.api.bo.session.Session;
  */
 public interface Code2SessionService {
 
-    String HTTPS_CODE_2_SESSION_URL = "https://developer.toutiao.com/api/apps/jscode2session?appid={0}&secret={1}&code={2}";
+    String HTTPS_GET_URL = "https://developer.toutiao.com/api/apps/jscode2session?appid={0}&secret={1}&code={2}";
 
     /**
      *

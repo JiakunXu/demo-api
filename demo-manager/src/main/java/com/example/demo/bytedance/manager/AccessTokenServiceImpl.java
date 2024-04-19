@@ -31,11 +31,10 @@ public class AccessTokenServiceImpl implements AccessTokenService {
 
         try {
             result = JSON.parseObject(
-                HttpUtil.post(AccessTokenService.HTTPS_TOKEN_URL, JSON.toJSONString(data)),
+                HttpUtil.post(AccessTokenService.HTTPS_POST_URL, JSON.toJSONString(data)),
                 Result.class);
         } catch (Exception e) {
             logger.error(appId + "&" + appSecret + "&" + grantType, e);
-
             throw new RuntimeException(e);
         }
 
