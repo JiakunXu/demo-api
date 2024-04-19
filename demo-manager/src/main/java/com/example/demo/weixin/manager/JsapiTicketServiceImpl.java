@@ -21,10 +21,6 @@ public class JsapiTicketServiceImpl implements JsapiTicketService {
 
     @Override
     public JsapiTicket getJsapiTicket(String accessToken) throws RuntimeException {
-        if (StringUtils.isBlank(accessToken)) {
-            throw new RuntimeException("access_token cannot be null.");
-        }
-
         JsapiTicket jsapiTicket;
 
         try {
