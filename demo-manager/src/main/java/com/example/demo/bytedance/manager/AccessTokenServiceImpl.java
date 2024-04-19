@@ -22,18 +22,6 @@ public class AccessTokenServiceImpl implements AccessTokenService {
     @Override
     public AccessToken getAccessToken(String appId, String appSecret,
                                       String grantType) throws RuntimeException {
-        if (StringUtils.isBlank(appId)) {
-            throw new RuntimeException("appid is null.");
-        }
-
-        if (StringUtils.isBlank(appSecret)) {
-            throw new RuntimeException("secret is null.");
-        }
-
-        if (StringUtils.isBlank(grantType)) {
-            throw new RuntimeException("grant_type is null.");
-        }
-
         JSONObject data = new JSONObject();
         data.put("appid", appId);
         data.put("secret", appSecret);

@@ -20,10 +20,6 @@ public class QrCodeServiceImpl implements QrCodeService {
 
     @Override
     public byte[] create(String accessToken, Body body) throws RuntimeException {
-        if (StringUtils.isBlank(accessToken)) {
-            throw new RuntimeException("access_token is null.");
-        }
-
         if (body == null) {
             throw new RuntimeException("body is null.");
         }
