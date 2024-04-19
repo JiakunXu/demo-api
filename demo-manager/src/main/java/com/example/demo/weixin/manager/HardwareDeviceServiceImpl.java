@@ -12,6 +12,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.text.MessageFormat;
+
 /**
  * @author JiakunXu
  */
@@ -26,11 +28,10 @@ public class HardwareDeviceServiceImpl implements HardwareDeviceService {
 
         try {
             snTicket = JSON.parseObject(HttpUtil
-                .post(HardwareDeviceService.HTTPS_GET_URL + accessToken, JSON.toJSONString(device)),
+                .post(MessageFormat.format(HTTPS_GET_URL, accessToken), JSON.toJSONString(device)),
                 SnTicket.class);
         } catch (Exception e) {
             logger.error(device.toString(), e);
-
             throw new RuntimeException(e);
         }
 
@@ -51,11 +52,10 @@ public class HardwareDeviceServiceImpl implements HardwareDeviceService {
 
         try {
             result = JSON
-                .parseObject(HttpUtil.post(HardwareDeviceService.HTTPS_SEND_URL + accessToken,
+                .parseObject(HttpUtil.post(MessageFormat.format(HTTPS_SEND_URL, accessToken),
                     JSON.toJSONString(message)), BaseResult.class);
         } catch (Exception e) {
             logger.error(message.toString(), e);
-
             throw new RuntimeException(e);
         }
 

@@ -10,9 +10,9 @@ import com.example.demo.weixin.api.bo.device.Message;
  */
 public interface HardwareDeviceService {
 
-    String HTTPS_GET_URL  = "https://api.weixin.qq.com/wxa/getsnticket?access_token=";
+    String HTTPS_GET_URL  = "https://api.weixin.qq.com/wxa/getsnticket?access_token={0}";
 
-    String HTTPS_SEND_URL = "https://api.weixin.qq.com/cgi-bin/message/device/subscribe/send?access_token=";
+    String HTTPS_SEND_URL = "https://api.weixin.qq.com/cgi-bin/message/device/subscribe/send?access_token={0}";
 
     /**
      * 获取设备票据，5 分钟内有效.

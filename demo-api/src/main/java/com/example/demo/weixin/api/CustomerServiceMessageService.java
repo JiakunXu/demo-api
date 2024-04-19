@@ -20,9 +20,9 @@ import com.example.demo.weixin.api.bo.message.WxCard;
  */
 public interface CustomerServiceMessageService {
 
-    String HTTPS_SEND_URL   = "https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=";
+    String HTTPS_SEND_URL   = "https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token={0}";
 
-    String HTTPS_TYPING_URL = "https://api.weixin.qq.com/cgi-bin/message/custom/typing?access_token=";
+    String HTTPS_TYPING_URL = "https://api.weixin.qq.com/cgi-bin/message/custom/typing?access_token={0}";
 
     /**
      * 发送文本消息.

@@ -27,7 +27,6 @@ public class MessageCryptServiceImpl implements MessageCryptService {
             return new WXBizMsgCrypt(token, encodingAesKey, appid);
         } catch (AesException e) {
             logger.error(token + "&" + encodingAesKey + "&" + appid, e);
-
             throw new RuntimeException(e);
         }
     }
@@ -41,7 +40,6 @@ public class MessageCryptServiceImpl implements MessageCryptService {
             return crypt.verifyUrl(signature, timestamp, nonce, echoStr);
         } catch (AesException e) {
             logger.error(signature + "&" + timestamp + "&" + nonce + "&" + echoStr, e);
-
             throw new RuntimeException(e);
         }
     }
@@ -55,7 +53,6 @@ public class MessageCryptServiceImpl implements MessageCryptService {
             return crypt.decryptMsg(signature, timestamp, nonce, data);
         } catch (AesException e) {
             logger.error(signature + "&" + timestamp + "&" + nonce + "&" + data, e);
-
             throw new RuntimeException(e);
         }
     }
@@ -69,7 +66,6 @@ public class MessageCryptServiceImpl implements MessageCryptService {
             return crypt.encryptMsg(data, timestamp, nonce);
         } catch (AesException e) {
             logger.error(data + "&" + timestamp + "&" + nonce, e);
-
             throw new RuntimeException(e);
         }
     }

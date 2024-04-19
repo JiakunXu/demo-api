@@ -30,7 +30,6 @@ public class AccessTokenServiceImpl implements AccessTokenService {
                 AccessToken.class);
         } catch (Exception e) {
             logger.error(grantType + "&" + appid + "&" + secret, e);
-
             throw new RuntimeException(e);
         }
 

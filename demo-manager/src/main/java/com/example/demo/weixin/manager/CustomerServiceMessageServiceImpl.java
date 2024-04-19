@@ -22,6 +22,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.text.MessageFormat;
+
 /**
  * @author JiakunXu
  */
@@ -42,13 +44,11 @@ public class CustomerServiceMessageServiceImpl implements CustomerServiceMessage
         Result result;
 
         try {
-            result = JSON.parseObject(
-                HttpUtil.post(CustomerServiceMessageService.HTTPS_SEND_URL + accessToken,
-                    JSON.toJSONString(custom)),
+            result = JSON.parseObject(HttpUtil
+                .post(MessageFormat.format(HTTPS_SEND_URL, accessToken), JSON.toJSONString(custom)),
                 Result.class);
         } catch (Exception e) {
             logger.error(custom.toString(), e);
-
             throw new RuntimeException(e);
         }
 
@@ -187,10 +187,9 @@ public class CustomerServiceMessageServiceImpl implements CustomerServiceMessage
         BaseResult result;
 
         try {
-            result = JSON.parseObject(
-                HttpUtil.post(CustomerServiceMessageService.HTTPS_TYPING_URL + accessToken,
-                    JSON.toJSONString(typing)),
-                BaseResult.class);
+            result = JSON
+                .parseObject(HttpUtil.post(MessageFormat.format(HTTPS_TYPING_URL, accessToken),
+                    JSON.toJSONString(typing)), BaseResult.class);
         } catch (Exception e) {
             logger.error(typing.toString(), e);
 

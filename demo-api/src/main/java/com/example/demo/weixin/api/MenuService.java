@@ -8,7 +8,7 @@ import com.example.demo.weixin.api.bo.menu.Menu;
  */
 public interface MenuService {
 
-    String HTTPS_CREATE_URL = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=";
+    String HTTPS_CREATE_URL = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token={0}";
 
     /**
      * 自定义菜单 / 创建接口.

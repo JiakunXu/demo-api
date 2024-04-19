@@ -22,7 +22,6 @@ public class MediaServiceImpl implements MediaService {
             return HttpUtil.download(MessageFormat.format(HTTPS_GET_URL, accessToken, mediaId));
         } catch (Exception e) {
             logger.error(accessToken + "&" + mediaId, e);
-
             throw new RuntimeException(e);
         }
     }
