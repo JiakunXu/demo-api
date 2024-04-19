@@ -12,9 +12,9 @@ public interface Oauth2Service {
 
     String HTTPS_QRCONNECT_URL    = "https://open.weixin.qq.com/connect/qrconnect";
 
-    String HTTPS_ACCESS_TOKEN_URL = "https://api.weixin.qq.com/sns/oauth2/access_token?grant_type=authorization_code";
+    String HTTPS_ACCESS_TOKEN_URL = "https://api.weixin.qq.com/sns/oauth2/access_token?grant_type=authorization_code&appid={0}&secret={1}&code={2}";
 
-    String HTTPS_USER_INFO_URL    = "https://api.weixin.qq.com/sns/userinfo?access_token=$ACCESS_TOKEN$&openid=$OPENID$&lang=$LANG$";
+    String HTTPS_USER_INFO_URL    = "https://api.weixin.qq.com/sns/userinfo?access_token={0}&openid={1}&lang={2}";
 
     /**
      * 第一步：用户同意授权，获取code.
