@@ -26,14 +26,6 @@ public class UserStorageServiceImpl implements UserStorageService {
     @Override
     public Result set(String accessToken, String openid,
                       List<KvItem> kvItemList) throws RuntimeException {
-        if (StringUtils.isBlank(accessToken)) {
-            throw new RuntimeException("access_token is null.");
-        }
-
-        if (StringUtils.isBlank(openid)) {
-            throw new RuntimeException("openid is null.");
-        }
-
         UserStorage userStorage = new UserStorage();
         userStorage.setAccessToken(accessToken);
         userStorage.setOpenid(openid);
@@ -67,14 +59,6 @@ public class UserStorageServiceImpl implements UserStorageService {
     @Override
     public Result remove(String accessToken, String openid,
                          List<KvItem> kvItemList) throws RuntimeException {
-        if (StringUtils.isBlank(accessToken)) {
-            throw new RuntimeException("access_token is null.");
-        }
-
-        if (StringUtils.isBlank(openid)) {
-            throw new RuntimeException("openid is null.");
-        }
-
         UserStorage userStorage = new UserStorage();
         userStorage.setAccessToken(accessToken);
         userStorage.setOpenid(openid);

@@ -146,18 +146,6 @@ public class MessageServiceImpl implements MessageService {
     @Override
     public SendResult send(String accessToken, String openId,
                            String content) throws RuntimeException {
-        if (StringUtils.isBlank(accessToken)) {
-            throw new RuntimeException("access_token is null.");
-        }
-
-        if (StringUtils.isBlank(openId)) {
-            throw new RuntimeException("open_id is null.");
-        }
-
-        if (StringUtils.isBlank(content)) {
-            throw new RuntimeException("content is null.");
-        }
-
         Map<String, String> map = new HashMap<>(3);
         map.put("open_id", openId);
         map.put("msg_type", "text");
