@@ -28,7 +28,6 @@ public class WxaQrCodeServiceImpl implements WxaQrCodeService {
                 JSON.toJSONString(wxaQrCode));
         } catch (Exception e) {
             logger.error(wxaQrCode.toString(), e);
-
             throw new RuntimeException(e);
         }
 

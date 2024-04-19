@@ -38,7 +38,6 @@ public class UserInfoServiceImpl implements UserInfoService {
                 accessToken, openid, StringUtils.isBlank(lang) ? "zh_CN" : lang)), UserInfo.class);
         } catch (Exception e) {
             logger.error(accessToken + "&" + openid, e);
-
             throw new RuntimeException(e);
         }
 

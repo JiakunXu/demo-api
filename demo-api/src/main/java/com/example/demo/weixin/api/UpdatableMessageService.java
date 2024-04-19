@@ -10,7 +10,7 @@ public interface UpdatableMessageService {
 
     String HTTPS_CREATE_URL = "https://api.weixin.qq.com/cgi-bin/message/wxopen/activityid/create?access_token={0}&unionid={1}&openid={2}";
 
-    String HTTPS_SEND_URL   = "https://api.weixin.qq.com/cgi-bin/message/wxopen/updatablemsg/send?access_token=";
+    String HTTPS_SEND_URL   = "https://api.weixin.qq.com/cgi-bin/message/wxopen/updatablemsg/send?access_token={0}";
 
     /**
      * 创建被分享动态消息或私密消息的 activity_id.

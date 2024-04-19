@@ -9,6 +9,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.text.MessageFormat;
+
 /**
  * @author JiakunXu
  */
@@ -23,12 +25,11 @@ public class UrlSchemeServiceImpl implements UrlSchemeService {
         OpenLink openLink;
 
         try {
-            openLink = JSON.parseObject(
-                HttpUtil.post(HTTPS_GENERATE_URL + accessToken, JSON.toJSONString(urlScheme)),
-                OpenLink.class);
+            openLink = JSON
+                .parseObject(HttpUtil.post(MessageFormat.format(HTTPS_GENERATE_URL, accessToken),
+                    JSON.toJSONString(urlScheme)), OpenLink.class);
         } catch (Exception e) {
             logger.error(urlScheme.toString(), e);
-
             throw new RuntimeException(e);
         }
 

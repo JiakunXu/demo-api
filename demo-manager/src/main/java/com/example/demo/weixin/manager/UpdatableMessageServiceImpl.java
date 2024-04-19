@@ -30,7 +30,6 @@ public class UpdatableMessageServiceImpl implements UpdatableMessageService {
                 Activity.class);
         } catch (Exception e) {
             logger.error(accessToken + "&" + unionid + "&" + openid, e);
-
             throw new RuntimeException(e);
         }
 
@@ -57,12 +56,11 @@ public class UpdatableMessageServiceImpl implements UpdatableMessageService {
         BaseResult result;
 
         try {
-            result = JSON.parseObject(
-                HttpUtil.post(HTTPS_SEND_URL + accessToken, JSON.toJSONString(activity)),
-                BaseResult.class);
+            result = JSON
+                .parseObject(HttpUtil.post(MessageFormat.format(HTTPS_SEND_URL, accessToken),
+                    JSON.toJSONString(activity)), BaseResult.class);
         } catch (Exception e) {
             logger.error(activity.toString(), e);
-
             throw new RuntimeException(e);
         }
 
