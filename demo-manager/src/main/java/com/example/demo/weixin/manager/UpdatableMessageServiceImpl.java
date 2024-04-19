@@ -5,10 +5,11 @@ import com.example.demo.framework.util.HttpUtil;
 import com.example.demo.weixin.api.UpdatableMessageService;
 import com.example.demo.weixin.api.bo.BaseResult;
 import com.example.demo.weixin.api.bo.message.Activity;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+
+import java.text.MessageFormat;
 
 /**
  * @author JiakunXu
@@ -21,23 +22,14 @@ public class UpdatableMessageServiceImpl implements UpdatableMessageService {
     @Override
     public Activity createActivityId(String accessToken, String unionid,
                                      String openid) throws RuntimeException {
-        if (StringUtils.isBlank(accessToken)) {
-            throw new RuntimeException("access_token cannot be null.");
-        }
-
-        if (StringUtils.isBlank(unionid) && StringUtils.isBlank(openid)) {
-            throw new RuntimeException("unionid && openid cannot be null.");
-        }
-
         Activity activity;
 
         try {
             activity = JSON.parseObject(
-                HttpUtil.get(UpdatableMessageService.HTTPS_CREATE_URL + accessToken + "&unionid="
-                             + unionid + "&openid=" + openid),
+                HttpUtil.get(MessageFormat.format(HTTPS_CREATE_URL, accessToken, unionid, openid)),
                 Activity.class);
         } catch (Exception e) {
-            logger.error(unionid + "&" + openid, e);
+            logger.error(accessToken + "&" + unionid + "&" + openid, e);
 
             throw new RuntimeException(e);
         }
@@ -56,14 +48,6 @@ public class UpdatableMessageServiceImpl implements UpdatableMessageService {
     @Override
     public BaseResult setUpdatableMsg(String accessToken, String activityId,
                                       Activity activity) throws RuntimeException {
-        if (StringUtils.isBlank(accessToken)) {
-            throw new RuntimeException("access_token cannot be null.");
-        }
-
-        if (StringUtils.isBlank(activityId)) {
-            throw new RuntimeException("activity_id cannot be null.");
-        }
-
         if (activity == null) {
             throw new RuntimeException("activity cannot be null.");
         }
@@ -73,9 +57,9 @@ public class UpdatableMessageServiceImpl implements UpdatableMessageService {
         BaseResult result;
 
         try {
-            result = JSON
-                .parseObject(HttpUtil.post(UpdatableMessageService.HTTPS_SEND_URL + accessToken,
-                    JSON.toJSONString(activity)), BaseResult.class);
+            result = JSON.parseObject(
+                HttpUtil.post(HTTPS_SEND_URL + accessToken, JSON.toJSONString(activity)),
+                BaseResult.class);
         } catch (Exception e) {
             logger.error(activity.toString(), e);
 

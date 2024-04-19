@@ -8,7 +8,7 @@ import com.example.demo.weixin.api.bo.message.Activity;
  */
 public interface UpdatableMessageService {
 
-    String HTTPS_CREATE_URL = "https://api.weixin.qq.com/cgi-bin/message/wxopen/activityid/create?access_token=";
+    String HTTPS_CREATE_URL = "https://api.weixin.qq.com/cgi-bin/message/wxopen/activityid/create?access_token={0}&unionid={1}&openid={2}";
 
     String HTTPS_SEND_URL   = "https://api.weixin.qq.com/cgi-bin/message/wxopen/updatablemsg/send?access_token=";
 
