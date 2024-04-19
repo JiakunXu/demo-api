@@ -5,7 +5,6 @@ import com.example.demo.framework.util.HttpUtil;
 import com.example.demo.weixin.api.UrlSchemeService;
 import com.example.demo.weixin.api.bo.wxa.OpenLink;
 import com.example.demo.weixin.api.bo.wxa.UrlScheme;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -21,19 +20,12 @@ public class UrlSchemeServiceImpl implements UrlSchemeService {
     @Override
     public OpenLink generateScheme(String accessToken,
                                    UrlScheme urlScheme) throws RuntimeException {
-        if (StringUtils.isBlank(accessToken)) {
-            throw new RuntimeException("access_token cannot be null.");
-        }
-
-        if (urlScheme == null) {
-            throw new RuntimeException("url_scheme cannot be null.");
-        }
-
         OpenLink openLink;
 
         try {
-            openLink = JSON.parseObject(HttpUtil.post(UrlSchemeService.HTTPS_GENERATE_URL + accessToken,
-                JSON.toJSONString(urlScheme)), OpenLink.class);
+            openLink = JSON.parseObject(
+                HttpUtil.post(HTTPS_GENERATE_URL + accessToken, JSON.toJSONString(urlScheme)),
+                OpenLink.class);
         } catch (Exception e) {
             logger.error(urlScheme.toString(), e);
 
