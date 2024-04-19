@@ -22,14 +22,6 @@ public class HardwareDeviceServiceImpl implements HardwareDeviceService {
 
     @Override
     public SnTicket getSnTicket(String accessToken, Device device) throws RuntimeException {
-        if (StringUtils.isBlank(accessToken)) {
-            throw new RuntimeException("access_token cannot be null.");
-        }
-
-        if (device == null) {
-            throw new RuntimeException("device cannot be null.");
-        }
-
         SnTicket snTicket;
 
         try {
@@ -55,14 +47,6 @@ public class HardwareDeviceServiceImpl implements HardwareDeviceService {
 
     @Override
     public BaseResult send(String accessToken, Message message) throws RuntimeException {
-        if (StringUtils.isBlank(accessToken)) {
-            throw new RuntimeException("access_token cannot be null.");
-        }
-
-        if (message == null) {
-            throw new RuntimeException("message cannot be null.");
-        }
-
         BaseResult result;
 
         try {
