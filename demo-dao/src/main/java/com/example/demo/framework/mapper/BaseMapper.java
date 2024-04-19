@@ -7,6 +7,8 @@ import java.util.List;
  */
 public interface BaseMapper<T> {
 
+    T stats(T t);
+
     /**
      *
      * @param t
