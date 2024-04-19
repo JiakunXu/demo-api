@@ -11,11 +11,11 @@ import com.example.demo.weixin.api.bo.message.Uniform;
  */
 public interface MessageService {
 
-    String HTTPS_TEMPLATE_URL  = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=";
+    String HTTPS_TEMPLATE_URL  = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token={0}";
 
-    String HTTPS_SUBSCRIBE_URL = "https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=";
+    String HTTPS_SUBSCRIBE_URL = "https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token={0}";
 
-    String HTTPS_UNIFORM_URL   = "https://api.weixin.qq.com/cgi-bin/message/wxopen/template/uniform_send?access_token=";
+    String HTTPS_UNIFORM_URL   = "https://api.weixin.qq.com/cgi-bin/message/wxopen/template/uniform_send?access_token={0}";
 
     /**
      *
