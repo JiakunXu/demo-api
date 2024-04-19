@@ -8,7 +8,7 @@ import com.example.demo.weixin.api.bo.user.MiniUserInfo;
  */
 public interface UserInfoService {
 
-    String HTTPS_USER_INFO_URL = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=$ACCESS_TOKEN$&openid=$OPENID$&lang=$LANG$";
+    String HTTPS_USER_INFO_URL = "https://api.weixin.qq.com/cgi-bin/user/info?access_token={0}&openid={1}&lang={2}";
 
     /**
      * 获取用户基本信息(UnionID机制).

@@ -1,6 +1,10 @@
 package com.example.demo.weixin.manager;
 
+import com.alibaba.fastjson2.JSON;
+import com.example.demo.weixin.api.UserInfoService;
 import com.example.demo.weixin.api.bo.user.MiniUserInfo;
+import com.example.demo.weixin.api.bo.user.UserInfo;
+import com.example.demo.framework.util.HttpUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.util.encoders.Base64;
@@ -8,16 +12,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import com.alibaba.fastjson2.JSON;
-import com.example.demo.weixin.api.UserInfoService;
-import com.example.demo.weixin.api.bo.user.UserInfo;
-import com.example.demo.framework.util.HttpUtil;
-
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import java.security.AlgorithmParameters;
 import java.security.Security;
+import java.text.MessageFormat;
 import java.util.Arrays;
 
 /**
@@ -31,23 +31,11 @@ public class UserInfoServiceImpl implements UserInfoService {
     @Override
     public UserInfo getUserInfo(String accessToken, String openid,
                                 String lang) throws RuntimeException {
-        if (StringUtils.isBlank(accessToken)) {
-            throw new RuntimeException("access_token cannot be null.");
-        }
-
-        if (StringUtils.isBlank(openid)) {
-            throw new RuntimeException("openid cannot be null.");
-        }
-
-        lang = StringUtils.isBlank(lang) ? "zh_CN" : lang;
-
         UserInfo userInfo;
 
         try {
-            userInfo = JSON.parseObject(HttpUtil
-                .get(UserInfoService.HTTPS_USER_INFO_URL.replace("$ACCESS_TOKEN$", accessToken)
-                    .replace("$OPENID$", openid).replace("$LANG$", lang)),
-                UserInfo.class);
+            userInfo = JSON.parseObject(HttpUtil.get(MessageFormat.format(HTTPS_USER_INFO_URL,
+                accessToken, openid, StringUtils.isBlank(lang) ? "zh_CN" : lang)), UserInfo.class);
         } catch (Exception e) {
             logger.error(accessToken + "&" + openid, e);
 
