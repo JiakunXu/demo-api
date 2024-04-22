@@ -1,12 +1,12 @@
 package com.example.demo.dingtalk.service;
 
-import com.example.demo.dingtalk.api.NotifyService;
+import com.example.demo.dingtalk.api.DingtalkNotifyService;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
 
-@Service("com.example.demo.dingtalk.service.notifyService")
-public class NotifyServiceImpl implements NotifyService {
+@Service
+public class DingtalkNotifyServiceImpl implements DingtalkNotifyService {
 
     @Override
     public Map<String, String> notify(String signature, String timeStamp, String nonce,
