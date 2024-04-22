@@ -1,4 +1,4 @@
-package com.example.demo.alipay.manager;
+package com.example.demo.alipay.service;
 
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
