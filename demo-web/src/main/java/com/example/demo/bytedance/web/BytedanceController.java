@@ -2,7 +2,7 @@ package com.example.demo.bytedance.web;
 
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
-import com.example.demo.bytedance.api.NotifyService;
+import com.example.demo.bytedance.api.BytedanceNotifyService;
 import com.example.demo.framework.web.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -21,7 +21,7 @@ import jakarta.servlet.http.HttpServletResponse;
 public class BytedanceController extends BaseController {
 
     @Autowired
-    private NotifyService notifyService;
+    private BytedanceNotifyService bytedanceNotifyService;
 
     @RequestMapping(value = "/notify", method = RequestMethod.GET, produces = MediaType.TEXT_PLAIN_VALUE)
     public String verify(HttpServletRequest request, HttpServletResponse response) {
@@ -30,14 +30,14 @@ public class BytedanceController extends BaseController {
         String nonce = this.getParameter(request, "nonce");
         String echostr = this.getParameter(request, "echostr");
 
-        return notifyService.verify(signature, timestamp, nonce, echostr);
+        return bytedanceNotifyService.verify(signature, timestamp, nonce, echostr);
     }
 
     @RequestMapping(value = "/notify", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
     public String notify(HttpServletRequest request, HttpServletResponse response) {
         JSONObject data = JSON.parseObject(this.getParameter(request));
 
-        notifyService.notify(data.getString("msg_signature"), data.getString("timestamp"),
+        bytedanceNotifyService.notify(data.getString("msg_signature"), data.getString("timestamp"),
             data.getString("nonce"), data.getString("msg"));
 
         return "success";

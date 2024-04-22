@@ -1,13 +1,13 @@
 package com.example.demo.weixin.service;
 
-import com.example.demo.weixin.api.NotifyService;
+import com.example.demo.weixin.api.WeixinNotifyService;
 import org.springframework.stereotype.Service;
 
 /**
  * @author JiakunXu
  */
-@Service("com.example.demo.weixin.service.notifyService")
-public class NotifyServiceImpl implements NotifyService {
+@Service
+public class WeixinNotifyServiceImpl implements WeixinNotifyService {
 
     @Override
     public String verify(String signature, String timestamp, String nonce, String echoStr) {

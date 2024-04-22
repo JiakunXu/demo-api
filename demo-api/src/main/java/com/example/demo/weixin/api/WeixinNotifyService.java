@@ -1,6 +1,6 @@
 package com.example.demo.weixin.api;
 
-public interface NotifyService {
+public interface WeixinNotifyService {
 
     String verify(String signature, String timestamp, String nonce, String echoStr);
 
