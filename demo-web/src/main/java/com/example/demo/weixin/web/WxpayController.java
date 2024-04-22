@@ -12,7 +12,7 @@ import jakarta.servlet.http.HttpServletResponse;
  * @author JiakunXu
  */
 @RestController
-@RequestMapping(value = "/api/wxpay")
+@RequestMapping(value = "/wxpay")
 public class WxpayController extends BaseController {
 
     @RequestMapping(value = "/notify", method = RequestMethod.POST)

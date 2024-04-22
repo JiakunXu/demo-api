@@ -17,7 +17,7 @@ import jakarta.servlet.http.HttpServletResponse;
  * @author JiakunXu
  */
 @RestController
-@RequestMapping(value = "/api/bytedance")
+@RequestMapping(value = "/bytedance")
 public class BytedanceController extends BaseController {
 
     @Autowired

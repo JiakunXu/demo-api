@@ -1,7 +1,7 @@
 package com.example.demo.dingtalk.web;
 
 import com.alibaba.fastjson2.JSONObject;
-import com.example.demo.dingtalk.api.DingtalkService;
+import com.example.demo.dingtalk.api.DingtalkNotifyService;
 import com.example.demo.framework.web.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +16,7 @@ import java.util.Map;
 public class DingtalkController extends BaseController {
 
     @Autowired
-    private DingtalkService dingtalkService;
+    private DingtalkNotifyService dingtalkNotifyService;
 
     @RequestMapping(value = "/notify", method = RequestMethod.POST)
     @ResponseBody
@@ -24,7 +24,7 @@ public class DingtalkController extends BaseController {
                                       @RequestParam(value = "timestamp", required = false) String timeStamp,
                                       @RequestParam(value = "nonce", required = false) String nonce,
                                       @RequestBody(required = false) JSONObject data) {
-        return dingtalkService.notify(signature, timeStamp, nonce, data.getString("encrypt"));
+        return dingtalkNotifyService.notify(signature, timeStamp, nonce, data.getString("encrypt"));
     }
 
 }

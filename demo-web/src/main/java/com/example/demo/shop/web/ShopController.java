@@ -18,7 +18,7 @@ import jakarta.servlet.http.HttpServletResponse;
  * @author JiakunXu
  */
 @RestController
-@RequestMapping(value = "/api/shop")
+@RequestMapping(value = "/shop")
 public class ShopController extends BaseController {
 
     @Autowired

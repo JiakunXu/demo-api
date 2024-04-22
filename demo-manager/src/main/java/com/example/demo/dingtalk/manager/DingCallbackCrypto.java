@@ -1,4 +1,4 @@
-package com.example.demo.dingtalk.service;
+package com.example.demo.dingtalk.manager;
 
 import java.io.ByteArrayOutputStream;
 import java.lang.reflect.Field;
@@ -27,11 +27,11 @@ import org.apache.commons.codec.binary.Base64;
  */
 public class DingCallbackCrypto {
 
-    private static final Charset CHARSET = Charset.forName("utf-8");
-    private static final Base64 base64 = new Base64();
-    private byte[] aesKey;
-    private String token;
-    private String corpId;
+    private static final Charset CHARSET               = Charset.forName("utf-8");
+    private static final Base64  base64                = new Base64();
+    private byte[]               aesKey;
+    private String               token;
+    private String               corpId;
     /**
      * ask getPaddingBytes key固定长度
      **/
@@ -39,7 +39,7 @@ public class DingCallbackCrypto {
     /**
      * 加密随机字符串字节长度
      **/
-    private static final Integer RANDOM_LENGTH = 16;
+    private static final Integer RANDOM_LENGTH         = 16;
 
     /**
      * 构造函数
@@ -52,7 +52,8 @@ public class DingCallbackCrypto {
      *
      * @throws DingTalkEncryptException 执行失败，请查看该异常的错误码和具体的错误信息
      */
-    public DingCallbackCrypto(String token, String encodingAesKey, String corpId) throws DingTalkEncryptException {
+    public DingCallbackCrypto(String token, String encodingAesKey,
+                              String corpId) throws DingTalkEncryptException {
         if (null == encodingAesKey || encodingAesKey.length() != AES_ENCODE_KEY_LENGTH) {
             throw new DingTalkEncryptException(DingTalkEncryptException.AES_KEY_ILLEGAL);
         }
@@ -74,13 +75,15 @@ public class DingCallbackCrypto {
      * @return
      * @throws DingTalkEncryptException
      */
-    public Map<String, String> getEncryptedMap(String plaintext, Long timeStamp, String nonce)
-            throws DingTalkEncryptException {
+    public Map<String, String> getEncryptedMap(String plaintext, Long timeStamp,
+                                               String nonce) throws DingTalkEncryptException {
         if (null == plaintext) {
-            throw new DingTalkEncryptException(DingTalkEncryptException.ENCRYPTION_PLAINTEXT_ILLEGAL);
+            throw new DingTalkEncryptException(
+                DingTalkEncryptException.ENCRYPTION_PLAINTEXT_ILLEGAL);
         }
         if (null == timeStamp) {
-            throw new DingTalkEncryptException(DingTalkEncryptException.ENCRYPTION_TIMESTAMP_ILLEGAL);
+            throw new DingTalkEncryptException(
+                DingTalkEncryptException.ENCRYPTION_TIMESTAMP_ILLEGAL);
         }
         if (null == nonce) {
             throw new DingTalkEncryptException(DingTalkEncryptException.ENCRYPTION_NONCE_ILLEGAL);
@@ -106,8 +109,8 @@ public class DingCallbackCrypto {
      * @return 解密后的原文
      * @throws DingTalkEncryptException
      */
-    public String getDecryptMsg(String msgSignature, String timeStamp, String nonce, String encryptMsg)
-            throws DingTalkEncryptException {
+    public String getDecryptMsg(String msgSignature, String timeStamp, String nonce,
+                                String encryptMsg) throws DingTalkEncryptException {
         //校验签名
         String signature = getSignature(token, timeStamp, nonce, encryptMsg);
         if (!signature.equals(msgSignature)) {
@@ -180,14 +183,17 @@ public class DingCallbackCrypto {
             byte[] networkOrder = Arrays.copyOfRange(bytes, 16, 20);
             int plainTextLegth = Utils.bytes2int(networkOrder);
             plainText = new String(Arrays.copyOfRange(bytes, 20, 20 + plainTextLegth), CHARSET);
-            fromCorpid = new String(Arrays.copyOfRange(bytes, 20 + plainTextLegth, bytes.length), CHARSET);
+            fromCorpid = new String(Arrays.copyOfRange(bytes, 20 + plainTextLegth, bytes.length),
+                CHARSET);
         } catch (Exception e) {
-            throw new DingTalkEncryptException(DingTalkEncryptException.COMPUTE_DECRYPT_TEXT_LENGTH_ERROR);
+            throw new DingTalkEncryptException(
+                DingTalkEncryptException.COMPUTE_DECRYPT_TEXT_LENGTH_ERROR);
         }
 
         // corpid不相同的情况
         if (!fromCorpid.equals(corpId)) {
-            throw new DingTalkEncryptException(DingTalkEncryptException.COMPUTE_DECRYPT_TEXT_CORPID_ERROR);
+            throw new DingTalkEncryptException(
+                DingTalkEncryptException.COMPUTE_DECRYPT_TEXT_CORPID_ERROR);
         }
         return plainText;
     }
@@ -202,10 +208,10 @@ public class DingCallbackCrypto {
      * @return
      * @throws DingTalkEncryptException
      */
-    public String getSignature(String token, String timestamp, String nonce, String encrypt)
-            throws DingTalkEncryptException {
+    public String getSignature(String token, String timestamp, String nonce,
+                               String encrypt) throws DingTalkEncryptException {
         try {
-            String[] array = new String[] {token, timestamp, nonce, encrypt};
+            String[] array = new String[] { token, timestamp, nonce, encrypt };
             Arrays.sort(array);
             // System.out.println(JSON.toJSONString(array));
             StringBuffer sb = new StringBuffer();
@@ -251,8 +257,8 @@ public class DingCallbackCrypto {
         }
 
         public static byte[] int2Bytes(int count) {
-            byte[] byteArr = new byte[] {(byte)(count >> 24 & 255), (byte)(count >> 16 & 255), (byte)(count >> 8 & 255),
-                    (byte)(count & 255)};
+            byte[] byteArr = new byte[] { (byte) (count >> 24 & 255), (byte) (count >> 16 & 255),
+                                          (byte) (count >> 8 & 255), (byte) (count & 255) };
             return byteArr;
         }
 
@@ -269,8 +275,8 @@ public class DingCallbackCrypto {
     }
 
     public static class PKCS7Padding {
-        private static final Charset CHARSET = Charset.forName("utf-8");
-        private static final int BLOCK_SIZE = 32;
+        private static final Charset CHARSET    = Charset.forName("utf-8");
+        private static final int     BLOCK_SIZE = 32;
 
         public PKCS7Padding() {
         }
@@ -301,25 +307,25 @@ public class DingCallbackCrypto {
         }
 
         private static char chr(int a) {
-            byte target = (byte)(a & 255);
-            return (char)target;
+            byte target = (byte) (a & 255);
+            return (char) target;
         }
     }
 
     public static class DingTalkEncryptException extends Exception {
-        public static final int SUCCESS = 0;
-        public static final int ENCRYPTION_PLAINTEXT_ILLEGAL = 900001;
-        public static final int ENCRYPTION_TIMESTAMP_ILLEGAL = 900002;
-        public static final int ENCRYPTION_NONCE_ILLEGAL = 900003;
-        public static final int AES_KEY_ILLEGAL = 900004;
-        public static final int SIGNATURE_NOT_MATCH = 900005;
-        public static final int COMPUTE_SIGNATURE_ERROR = 900006;
-        public static final int COMPUTE_ENCRYPT_TEXT_ERROR = 900007;
-        public static final int COMPUTE_DECRYPT_TEXT_ERROR = 900008;
-        public static final int COMPUTE_DECRYPT_TEXT_LENGTH_ERROR = 900009;
-        public static final int COMPUTE_DECRYPT_TEXT_CORPID_ERROR = 900010;
-        private static Map<Integer, String> msgMap = new HashMap();
-        private Integer code;
+        public static final int             SUCCESS                           = 0;
+        public static final int             ENCRYPTION_PLAINTEXT_ILLEGAL      = 900001;
+        public static final int             ENCRYPTION_TIMESTAMP_ILLEGAL      = 900002;
+        public static final int             ENCRYPTION_NONCE_ILLEGAL          = 900003;
+        public static final int             AES_KEY_ILLEGAL                   = 900004;
+        public static final int             SIGNATURE_NOT_MATCH               = 900005;
+        public static final int             COMPUTE_SIGNATURE_ERROR           = 900006;
+        public static final int             COMPUTE_ENCRYPT_TEXT_ERROR        = 900007;
+        public static final int             COMPUTE_DECRYPT_TEXT_ERROR        = 900008;
+        public static final int             COMPUTE_DECRYPT_TEXT_LENGTH_ERROR = 900009;
+        public static final int             COMPUTE_DECRYPT_TEXT_CORPID_ERROR = 900010;
+        private static Map<Integer, String> msgMap                            = new HashMap();
+        private Integer                     code;
 
         static {
             msgMap.put(0, "成功");
@@ -340,10 +346,11 @@ public class DingCallbackCrypto {
         }
 
         public DingTalkEncryptException(Integer exceptionCode) {
-            super((String)msgMap.get(exceptionCode));
+            super((String) msgMap.get(exceptionCode));
             this.code = exceptionCode;
         }
     }
+
     static {
         try {
             Security.setProperty("crypto.policy", "limited");
@@ -352,25 +359,30 @@ public class DingCallbackCrypto {
         }
 
     }
+
     private static void RemoveCryptographyRestrictions() throws Exception {
         Class<?> jceSecurity = getClazz("javax.crypto.JceSecurity");
         Class<?> cryptoPermissions = getClazz("javax.crypto.CryptoPermissions");
         Class<?> cryptoAllPermission = getClazz("javax.crypto.CryptoAllPermission");
         if (jceSecurity != null) {
             setFinalStaticValue(jceSecurity, "isRestricted", false);
-            PermissionCollection defaultPolicy = (PermissionCollection)getFieldValue(jceSecurity, "defaultPolicy", (Object)null, PermissionCollection.class);
+            PermissionCollection defaultPolicy = (PermissionCollection) getFieldValue(jceSecurity,
+                "defaultPolicy", (Object) null, PermissionCollection.class);
             if (cryptoPermissions != null) {
-                Map<?, ?> map = (Map)getFieldValue(cryptoPermissions, "perms", defaultPolicy, Map.class);
+                Map<?, ?> map = (Map) getFieldValue(cryptoPermissions, "perms", defaultPolicy,
+                    Map.class);
                 map.clear();
             }
 
             if (cryptoAllPermission != null) {
-                Permission permission = (Permission)getFieldValue(cryptoAllPermission, "INSTANCE", (Object)null, Permission.class);
+                Permission permission = (Permission) getFieldValue(cryptoAllPermission, "INSTANCE",
+                    (Object) null, Permission.class);
                 defaultPolicy.add(permission);
             }
         }
 
     }
+
     private static Class<?> getClazz(String className) {
         Class clazz = null;
 
@@ -381,15 +393,19 @@ public class DingCallbackCrypto {
 
         return clazz;
     }
-    private static void setFinalStaticValue(Class<?> srcClazz, String fieldName, Object newValue) throws Exception {
+
+    private static void setFinalStaticValue(Class<?> srcClazz, String fieldName,
+                                            Object newValue) throws Exception {
         Field field = srcClazz.getDeclaredField(fieldName);
         field.setAccessible(true);
         Field modifiersField = Field.class.getDeclaredField("modifiers");
         modifiersField.setAccessible(true);
         modifiersField.setInt(field, field.getModifiers() & -17);
-        field.set((Object)null, newValue);
+        field.set((Object) null, newValue);
     }
-    private static <T> T getFieldValue(Class<?> srcClazz, String fieldName, Object owner, Class<T> dstClazz) throws Exception {
+
+    private static <T> T getFieldValue(Class<?> srcClazz, String fieldName, Object owner,
+                                       Class<T> dstClazz) throws Exception {
         Field field = srcClazz.getDeclaredField(fieldName);
         field.setAccessible(true);
         return dstClazz.cast(field.get(owner));

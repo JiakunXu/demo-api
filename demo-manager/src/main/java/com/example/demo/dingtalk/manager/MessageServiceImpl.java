@@ -1,20 +1,19 @@
-package com.example.demo.dingtalk.service;
+package com.example.demo.dingtalk.manager;
 
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
-import com.example.demo.dingtalk.api.DingtalkService;
+import com.example.demo.dingtalk.api.MessageService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
 
 @Service
-public class DingtalkServiceImpl implements DingtalkService {
+public class MessageServiceImpl implements MessageService {
 
-    private static final Logger logger = LoggerFactory.getLogger(DingtalkServiceImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(MessageServiceImpl.class);
 
     @Value("${dingtalk.app.key}")
     private String              appKey;
