@@ -5,11 +5,6 @@ import com.example.demo.bytedance.api.MessageService;
 import com.example.demo.bytedance.api.TokenService;
 import com.example.demo.bytedance.api.bo.message.SendResult;
 import com.example.demo.bytedance.api.bo.message.Message;
-import com.example.demo.bytedance.dao.dataobject.MessageDO;
-import com.example.demo.bytedance.dao.mapper.MessageMapper;
-import com.example.demo.framework.constant.Constants;
-import com.example.demo.framework.exception.ServiceException;
-import com.example.demo.framework.util.BeanUtil;
 import com.example.demo.framework.util.EncryptUtil;
 import com.example.demo.framework.util.HttpUtil;
 import org.apache.commons.lang3.StringUtils;
@@ -35,9 +30,6 @@ public class MessageServiceImpl implements MessageService {
 
     @Autowired
     private TokenService        tokenService;
-
-    @Autowired
-    private MessageMapper       messageMapper;
 
     @Value("${bytedance.token}")
     private String              token;
@@ -121,18 +113,6 @@ public class MessageServiceImpl implements MessageService {
 
         Message message = JSON.parseObject(data, Message.class);
 
-        MessageDO messageDO = BeanUtil.copy(message, MessageDO.class);
-        messageDO.setCreator("sys");
-
-        try {
-            messageMapper.insert(messageDO);
-        } catch (Exception e) {
-            logger.error(messageDO.toString(), e);
-            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息创建失败，请稍后再试");
-        }
-
-        message.setId(messageDO.getId());
-
         try {
             send(tokenService.getToken(appId, appSecret, "client_credential"),
                 message.getFromUserName(), "感谢您的留言。");
@@ -154,8 +134,9 @@ public class MessageServiceImpl implements MessageService {
         SendResult result;
 
         try {
-            result = JSON.parseObject(HttpUtil.post(MessageService.HTTPS_POST_URL + accessToken,
-                JSON.toJSONString(map)), SendResult.class);
+            result = JSON.parseObject(
+                HttpUtil.post(MessageService.HTTPS_POST_URL + accessToken, JSON.toJSONString(map)),
+                SendResult.class);
         } catch (Exception e) {
             logger.error(JSON.toJSONString(map), e);
             throw new RuntimeException(e);

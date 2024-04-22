@@ -14,7 +14,7 @@ import java.math.BigInteger;
 @Getter
 @Setter
 @ToString
-public class MessageDO extends BaseDO {
+public class BytedanceNotifyDO extends BaseDO {
 
     private static final long serialVersionUID = 7889307835833273313L;
 
