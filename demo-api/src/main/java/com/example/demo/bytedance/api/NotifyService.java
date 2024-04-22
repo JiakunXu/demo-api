@@ -2,7 +2,7 @@ package com.example.demo.bytedance.api;
 
 import com.example.demo.bytedance.api.bo.message.Message;
 
-public interface BytedanceNotifyService {
+public interface NotifyService {
 
     String verify(String signature, String timestamp, String nonce, String echostr);
 
