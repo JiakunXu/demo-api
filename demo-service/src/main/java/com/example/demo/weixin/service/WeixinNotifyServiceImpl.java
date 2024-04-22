@@ -1,5 +1,6 @@
 package com.example.demo.weixin.service;
 
+import com.example.demo.weixin.api.MessageService;
 import com.example.demo.weixin.api.WeixinNotifyService;
 import com.example.demo.weixin.dao.mapper.WeixinNotifyMapper;
 import org.slf4j.Logger;
@@ -14,6 +15,9 @@ import org.springframework.stereotype.Service;
 public class WeixinNotifyServiceImpl implements WeixinNotifyService {
 
     private static final Logger logger = LoggerFactory.getLogger(WeixinNotifyServiceImpl.class);
+
+    @Autowired
+    private MessageService      messageService;
 
     @Autowired
     private WeixinNotifyMapper  weixinNotifyMapper;

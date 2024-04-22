@@ -1,6 +1,7 @@
 package com.example.demo.bytedance.service;
 
 import com.example.demo.bytedance.api.BytedanceNotifyService;
+import com.example.demo.bytedance.api.MessageService;
 import com.example.demo.bytedance.api.bo.message.Message;
 import com.example.demo.bytedance.dao.mapper.BytedanceNotifyMapper;
 import org.slf4j.Logger;
@@ -16,6 +17,9 @@ public class BytedanceNotifyServiceImpl implements BytedanceNotifyService {
 
     private static final Logger   logger = LoggerFactory
         .getLogger(BytedanceNotifyServiceImpl.class);
+
+    @Autowired
+    private MessageService        messageService;
 
     @Autowired
     private BytedanceNotifyMapper bytedanceNotifyMapper;
