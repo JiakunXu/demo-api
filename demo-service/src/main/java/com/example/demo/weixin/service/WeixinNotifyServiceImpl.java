@@ -29,6 +29,8 @@ public class WeixinNotifyServiceImpl implements WeixinNotifyService {
 
     @Override
     public String notify(String signature, String timestamp, String nonce, String data) {
+        messageService.notify(signature, timestamp, nonce, data);
+
         return "";
     }
 

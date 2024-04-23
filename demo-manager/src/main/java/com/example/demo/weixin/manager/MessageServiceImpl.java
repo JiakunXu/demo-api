@@ -54,10 +54,6 @@ public class MessageServiceImpl implements MessageService {
     @Override
     public Result send(String accessToken, String toUser,
                        Template template) throws RuntimeException {
-        if (template == null || template.getData() == null) {
-            throw new RuntimeException("template cannot be null.");
-        }
-
         template.setToUser(toUser);
 
         Result result;
