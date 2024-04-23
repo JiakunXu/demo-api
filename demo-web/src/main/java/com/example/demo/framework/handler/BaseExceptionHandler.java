@@ -53,10 +53,20 @@ public class BaseExceptionHandler {
         return response;
     }
 
+    @ExceptionHandler(value = RuntimeException.class)
+    public ExceptionResponse exceptionHandler(RuntimeException e) {
+        ExceptionResponse response = new ExceptionResponse(Constants.INTERNAL_SERVER_ERROR,
+            e == null ? "INTERNAL_SERVER_ERROR"
+                : (e.getMessage() != null || e.getCause() == null ? e.getMessage()
+                    : e.getCause().getMessage()));
+
+        return response;
+    }
+
     @ExceptionHandler(value = Exception.class)
     public ExceptionResponse exceptionHandler(Exception e) {
         ExceptionResponse response = new ExceptionResponse(Constants.SERVICE_UNAVAILABLE,
-            e == null ? "系统错误"
+            e == null ? "SERVICE_UNAVAILABLE"
                 : (e.getMessage() != null || e.getCause() == null ? e.getMessage()
                     : e.getCause().getMessage()));
 
