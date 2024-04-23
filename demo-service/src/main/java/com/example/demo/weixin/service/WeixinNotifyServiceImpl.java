@@ -24,7 +24,7 @@ public class WeixinNotifyServiceImpl implements WeixinNotifyService {
 
     @Override
     public String verify(String signature, String timestamp, String nonce, String echoStr) {
-        return "";
+        return messageService.verify(signature, timestamp, nonce, echoStr);
     }
 
     @Override
