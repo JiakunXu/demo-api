@@ -22,10 +22,6 @@ public class UserRiskRankServiceImpl implements UserRiskRankService {
     @Override
     public UserRisk getUserRiskRank(String appid, String accessToken,
                                     UserInfo userInfo) throws RuntimeException {
-        if (userInfo == null) {
-            throw new RuntimeException("user_info cannot be null.");
-        }
-
         userInfo.setAppid(appid);
 
         UserRisk userRisk;
