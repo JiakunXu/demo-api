@@ -15,7 +15,7 @@ import java.lang.annotation.Annotation;
 @Component
 public class NotNullAspect {
 
-    @Before("within(com.example.demo..*) && !within(com.example.demo.framework..*)")
+    @Before("within(com.example.demo.*.service)")
     public void doBefore(JoinPoint joinPoint) {
         Annotation[][] annotations = ((MethodSignature) joinPoint.getSignature()).getMethod()
             .getParameterAnnotations();
