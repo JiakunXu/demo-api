@@ -81,10 +81,6 @@ public class MessageServiceImpl implements MessageService {
     @Override
     public BaseResult send(String accessToken, String toUser,
                            Subscribe subscribe) throws RuntimeException {
-        if (subscribe == null || subscribe.getData() == null) {
-            throw new RuntimeException("subscribe cannot be null.");
-        }
-
         subscribe.setToUser(toUser);
 
         BaseResult result;
@@ -112,10 +108,6 @@ public class MessageServiceImpl implements MessageService {
     @Override
     public BaseResult send(String accessToken, String toUser,
                            Uniform uniform) throws RuntimeException {
-        if (uniform == null) {
-            throw new RuntimeException("uniform cannot be null.");
-        }
-
         uniform.setToUser(toUser);
 
         BaseResult result;
