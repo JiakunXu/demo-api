@@ -9,7 +9,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class Dict extends BaseBO {
+public class DictData extends BaseBO {
 
     private static final long serialVersionUID = -8188973827667833073L;
 
