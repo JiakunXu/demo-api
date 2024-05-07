@@ -1,8 +1,6 @@
 package com.example.demo.framework.util;
 
 import org.apache.hc.client5.http.ClientProtocolException;
-import org.apache.hc.client5.http.classic.methods.HttpGet;
-import org.apache.hc.client5.http.classic.methods.HttpPost;
 import org.apache.hc.client5.http.entity.UrlEncodedFormEntity;
 import org.apache.hc.client5.http.entity.mime.MultipartEntityBuilder;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
@@ -10,6 +8,7 @@ import org.apache.hc.client5.http.impl.classic.HttpClients;
 import org.apache.hc.core5.http.*;
 import org.apache.hc.core5.http.io.entity.EntityUtils;
 import org.apache.hc.core5.http.io.entity.StringEntity;
+import org.apache.hc.core5.http.io.support.ClassicRequestBuilder;
 import org.apache.hc.core5.http.message.BasicHeader;
 import org.apache.hc.core5.http.message.BasicNameValuePair;
 
@@ -46,10 +45,10 @@ public class HttpUtil {
      */
     public static String get(String uri, Map<String, String> header) throws Exception {
         try (CloseableHttpClient httpclient = HttpClients.createDefault()) {
-            HttpGet httpget = new HttpGet(uri);
-            httpget.setHeaders(getHeaders(header));
+            ClassicHttpRequest httpGet = ClassicRequestBuilder.get(uri)
+                .setHeaders(getHeaders(header)).build();
 
-            return httpclient.execute(httpget, response -> {
+            return httpclient.execute(httpGet, response -> {
                 int status = response.getCode();
                 if (status >= STATUS_CODE_200 && status < STATUS_CODE_300) {
                     HttpEntity entity = response.getEntity();
@@ -81,12 +80,13 @@ public class HttpUtil {
     public static String post(String uri, Map<String, String> parameter,
                               Map<String, String> header) throws Exception {
         try (CloseableHttpClient httpclient = HttpClients.createDefault()) {
-            HttpPost httppost = new HttpPost(uri);
-            httppost.setHeaders(getHeaders(header));
-            httppost.setEntity(
-                new UrlEncodedFormEntity(getParameters(parameter), StandardCharsets.UTF_8));
+            ClassicHttpRequest httpPost = ClassicRequestBuilder.post(uri)
+                .setHeaders(getHeaders(header))
+                .setEntity(
+                    new UrlEncodedFormEntity(getParameters(parameter), StandardCharsets.UTF_8))
+                .build();
 
-            return httpclient.execute(httppost, response -> {
+            return httpclient.execute(httpPost, response -> {
                 int status = response.getCode();
                 if (status >= STATUS_CODE_200 && status < STATUS_CODE_300) {
                     HttpEntity entity = response.getEntity();
@@ -117,11 +117,11 @@ public class HttpUtil {
     public static String post(String uri, String parameter,
                               Map<String, String> header) throws Exception {
         try (CloseableHttpClient httpclient = HttpClients.createDefault()) {
-            HttpPost httppost = new HttpPost(uri);
-            httppost.setHeaders(getHeaders(header));
-            httppost.setEntity(new StringEntity(parameter, ContentType.APPLICATION_JSON));
+            ClassicHttpRequest httpPost = ClassicRequestBuilder.post(uri)
+                .setHeaders(getHeaders(header))
+                .setEntity(new StringEntity(parameter, ContentType.APPLICATION_JSON)).build();
 
-            return httpclient.execute(httppost, response -> {
+            return httpclient.execute(httpPost, response -> {
                 int status = response.getCode();
                 if (status >= STATUS_CODE_200 && status < STATUS_CODE_300) {
                     HttpEntity entity = response.getEntity();
@@ -157,10 +157,10 @@ public class HttpUtil {
                     ContentType.MULTIPART_FORM_DATA, "");
             }
 
-            HttpPost httppost = new HttpPost(uri);
-            httppost.setEntity(multipartEntityBuilder.build());
+            ClassicHttpRequest httpPost = ClassicRequestBuilder.post(uri)
+                .setEntity(multipartEntityBuilder.build()).build();
 
-            return httpclient.execute(httppost, response -> {
+            return httpclient.execute(httpPost, response -> {
                 int status = response.getCode();
                 if (status >= STATUS_CODE_200 && status < STATUS_CODE_300) {
                     HttpEntity entity = response.getEntity();
@@ -179,9 +179,9 @@ public class HttpUtil {
      */
     public static byte[] download(String uri) throws Exception {
         try (CloseableHttpClient httpclient = HttpClients.createDefault()) {
-            HttpGet httpget = new HttpGet(uri);
+            ClassicHttpRequest httpGet = ClassicRequestBuilder.get(uri).build();
 
-            return httpclient.execute(httpget, response -> {
+            return httpclient.execute(httpGet, response -> {
                 int status = response.getCode();
                 if (status >= STATUS_CODE_200 && status < STATUS_CODE_300) {
                     HttpEntity entity = response.getEntity();
@@ -195,10 +195,10 @@ public class HttpUtil {
 
     public static byte[] download(String uri, String parameter) throws Exception {
         try (CloseableHttpClient httpclient = HttpClients.createDefault()) {
-            HttpPost httppost = new HttpPost(uri);
-            httppost.setEntity(new StringEntity(parameter, ContentType.APPLICATION_JSON));
+            ClassicHttpRequest httpPost = ClassicRequestBuilder.post(uri)
+                .setEntity(new StringEntity(parameter, ContentType.APPLICATION_JSON)).build();
 
-            return httpclient.execute(httppost, response -> {
+            return httpclient.execute(httpPost, response -> {
                 int status = response.getCode();
                 if (status >= STATUS_CODE_200 && status < STATUS_CODE_300) {
                     HttpEntity entity = response.getEntity();
