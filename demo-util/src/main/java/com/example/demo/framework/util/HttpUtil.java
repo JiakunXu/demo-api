@@ -50,11 +50,15 @@ public class HttpUtil {
 
             return httpclient.execute(httpGet, response -> {
                 int status = response.getCode();
-                if (status >= STATUS_CODE_200 && status < STATUS_CODE_300) {
-                    HttpEntity entity = response.getEntity();
-                    return entity != null ? EntityUtils.toString(entity) : null;
-                } else {
-                    throw new ClientProtocolException("Unexpected response status: " + status);
+                HttpEntity entity = response.getEntity();
+                try {
+                    if (status >= STATUS_CODE_200 && status < STATUS_CODE_300) {
+                        return entity != null ? EntityUtils.toString(entity) : null;
+                    } else {
+                        throw new ClientProtocolException("Unexpected response status: " + status);
+                    }
+                } finally {
+                    EntityUtils.consume(entity);
                 }
             });
         }
@@ -88,11 +92,15 @@ public class HttpUtil {
 
             return httpclient.execute(httpPost, response -> {
                 int status = response.getCode();
-                if (status >= STATUS_CODE_200 && status < STATUS_CODE_300) {
-                    HttpEntity entity = response.getEntity();
-                    return entity != null ? EntityUtils.toString(entity) : null;
-                } else {
-                    throw new ClientProtocolException("Unexpected response status: " + status);
+                HttpEntity entity = response.getEntity();
+                try {
+                    if (status >= STATUS_CODE_200 && status < STATUS_CODE_300) {
+                        return entity != null ? EntityUtils.toString(entity) : null;
+                    } else {
+                        throw new ClientProtocolException("Unexpected response status: " + status);
+                    }
+                } finally {
+                    EntityUtils.consume(entity);
                 }
             });
         }
@@ -123,12 +131,16 @@ public class HttpUtil {
 
             return httpclient.execute(httpPost, response -> {
                 int status = response.getCode();
-                if (status >= STATUS_CODE_200 && status < STATUS_CODE_300) {
-                    HttpEntity entity = response.getEntity();
-                    return entity != null ? EntityUtils.toString(entity, StandardCharsets.UTF_8)
-                        : null;
-                } else {
-                    throw new ClientProtocolException("Unexpected response status: " + status);
+                HttpEntity entity = response.getEntity();
+                try {
+                    if (status >= STATUS_CODE_200 && status < STATUS_CODE_300) {
+                        return entity != null ? EntityUtils.toString(entity, StandardCharsets.UTF_8)
+                            : null;
+                    } else {
+                        throw new ClientProtocolException("Unexpected response status: " + status);
+                    }
+                } finally {
+                    EntityUtils.consume(entity);
                 }
             });
         }
@@ -162,11 +174,15 @@ public class HttpUtil {
 
             return httpclient.execute(httpPost, response -> {
                 int status = response.getCode();
-                if (status >= STATUS_CODE_200 && status < STATUS_CODE_300) {
-                    HttpEntity entity = response.getEntity();
-                    return entity != null ? EntityUtils.toString(entity) : null;
-                } else {
-                    throw new ClientProtocolException("Unexpected response status: " + status);
+                HttpEntity entity = response.getEntity();
+                try {
+                    if (status >= STATUS_CODE_200 && status < STATUS_CODE_300) {
+                        return entity != null ? EntityUtils.toString(entity) : null;
+                    } else {
+                        throw new ClientProtocolException("Unexpected response status: " + status);
+                    }
+                } finally {
+                    EntityUtils.consume(entity);
                 }
             });
         }
@@ -183,11 +199,15 @@ public class HttpUtil {
 
             return httpclient.execute(httpGet, response -> {
                 int status = response.getCode();
-                if (status >= STATUS_CODE_200 && status < STATUS_CODE_300) {
-                    HttpEntity entity = response.getEntity();
-                    return entity != null ? EntityUtils.toByteArray(entity) : null;
-                } else {
-                    throw new ClientProtocolException("Unexpected response status: " + status);
+                HttpEntity entity = response.getEntity();
+                try {
+                    if (status >= STATUS_CODE_200 && status < STATUS_CODE_300) {
+                        return entity != null ? EntityUtils.toByteArray(entity) : null;
+                    } else {
+                        throw new ClientProtocolException("Unexpected response status: " + status);
+                    }
+                } finally {
+                    EntityUtils.consume(entity);
                 }
             });
         }
@@ -200,11 +220,15 @@ public class HttpUtil {
 
             return httpclient.execute(httpPost, response -> {
                 int status = response.getCode();
-                if (status >= STATUS_CODE_200 && status < STATUS_CODE_300) {
-                    HttpEntity entity = response.getEntity();
-                    return entity != null ? EntityUtils.toByteArray(entity) : null;
-                } else {
-                    throw new ClientProtocolException("Unexpected response status: " + status);
+                HttpEntity entity = response.getEntity();
+                try {
+                    if (status >= STATUS_CODE_200 && status < STATUS_CODE_300) {
+                        return entity != null ? EntityUtils.toByteArray(entity) : null;
+                    } else {
+                        throw new ClientProtocolException("Unexpected response status: " + status);
+                    }
+                } finally {
+                    EntityUtils.consume(entity);
                 }
             });
         }
