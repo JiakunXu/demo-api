@@ -50,7 +50,7 @@ public class HttpUtil {
 
             return httpclient.execute(httpGet, response -> {
                 int status = response.getCode();
-                HttpEntity entity = response.getEntity();
+                final HttpEntity entity = response.getEntity();
                 try {
                     if (status >= STATUS_CODE_200 && status < STATUS_CODE_300) {
                         return entity != null ? EntityUtils.toString(entity) : null;
@@ -92,7 +92,7 @@ public class HttpUtil {
 
             return httpclient.execute(httpPost, response -> {
                 int status = response.getCode();
-                HttpEntity entity = response.getEntity();
+                final HttpEntity entity = response.getEntity();
                 try {
                     if (status >= STATUS_CODE_200 && status < STATUS_CODE_300) {
                         return entity != null ? EntityUtils.toString(entity) : null;
@@ -131,7 +131,7 @@ public class HttpUtil {
 
             return httpclient.execute(httpPost, response -> {
                 int status = response.getCode();
-                HttpEntity entity = response.getEntity();
+                final HttpEntity entity = response.getEntity();
                 try {
                     if (status >= STATUS_CODE_200 && status < STATUS_CODE_300) {
                         return entity != null ? EntityUtils.toString(entity, StandardCharsets.UTF_8)
@@ -174,7 +174,7 @@ public class HttpUtil {
 
             return httpclient.execute(httpPost, response -> {
                 int status = response.getCode();
-                HttpEntity entity = response.getEntity();
+                final HttpEntity entity = response.getEntity();
                 try {
                     if (status >= STATUS_CODE_200 && status < STATUS_CODE_300) {
                         return entity != null ? EntityUtils.toString(entity) : null;
@@ -199,7 +199,7 @@ public class HttpUtil {
 
             return httpclient.execute(httpGet, response -> {
                 int status = response.getCode();
-                HttpEntity entity = response.getEntity();
+                final HttpEntity entity = response.getEntity();
                 try {
                     if (status >= STATUS_CODE_200 && status < STATUS_CODE_300) {
                         return entity != null ? EntityUtils.toByteArray(entity) : null;
@@ -220,7 +220,7 @@ public class HttpUtil {
 
             return httpclient.execute(httpPost, response -> {
                 int status = response.getCode();
-                HttpEntity entity = response.getEntity();
+                final HttpEntity entity = response.getEntity();
                 try {
                     if (status >= STATUS_CODE_200 && status < STATUS_CODE_300) {
                         return entity != null ? EntityUtils.toByteArray(entity) : null;
