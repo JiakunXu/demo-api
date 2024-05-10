@@ -45,7 +45,8 @@ public class StorageServiceImpl implements StorageService {
         } catch (Exception e) {
             logger.error(JSON.toJSONString(request), e);
 
-            TeaException err = new TeaException(e.getMessage(), e);
+            TeaException err = e instanceof TeaException ? (TeaException) e
+                : new TeaException(e.getMessage(), e);
             if (!Common.empty(err.code) && !Common.empty(err.message)) {
                 throw new RuntimeException(err.message);
             } else {
@@ -81,7 +82,8 @@ public class StorageServiceImpl implements StorageService {
         } catch (Exception e) {
             logger.error(JSON.toJSONString(request), e);
 
-            TeaException err = new TeaException(e.getMessage(), e);
+            TeaException err = e instanceof TeaException ? (TeaException) e
+                : new TeaException(e.getMessage(), e);
             if (!Common.empty(err.code) && !Common.empty(err.message)) {
                 throw new RuntimeException(err.message);
             } else {
