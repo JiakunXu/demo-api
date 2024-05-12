@@ -1,10 +1,9 @@
 package com.example.demo.aliyun.service;
 
-import com.aliyun.openservices.ons.api.Action;
-import com.aliyun.openservices.ons.api.ConsumeContext;
-import com.aliyun.openservices.ons.api.Message;
-import com.aliyun.openservices.ons.api.MessageListener;
 import com.example.demo.socket.api.WebSocketService;
+import org.apache.rocketmq.common.message.MessageExt;
+import org.apache.rocketmq.spring.annotation.RocketMQMessageListener;
+import org.apache.rocketmq.spring.core.RocketMQListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +15,8 @@ import org.springframework.stereotype.Service;
  *
  */
 @Service
-public class ConsumerBroadcastListener implements MessageListener {
+@RocketMQMessageListener(consumerGroup = "consumer-group", topic = "topic", selectorExpression = "web.socket", enableMsgTrace = true)
+public class ConsumerBroadcastListener implements RocketMQListener<MessageExt> {
 
     private static final Logger logger = LoggerFactory.getLogger(ConsumerBroadcastListener.class);
 
@@ -24,22 +24,18 @@ public class ConsumerBroadcastListener implements MessageListener {
     private WebSocketService    webSocketService;
 
     @Override
-    public Action consume(Message message, ConsumeContext consumeContext) {
-        String tag = message.getTag();
+    public void onMessage(MessageExt message) {
+        String tag = message.getTags();
 
         if ("web.socket".equals(tag)) {
             try {
-                String tunnelId = message.getKey();
+                String tunnelId = message.getKeys();
 
                 webSocketService.sendMessage(tunnelId, new String(message.getBody()));
             } catch (Exception e) {
                 logger.error("web.socket", e);
             }
-
-            return Action.CommitMessage;
         }
-
-        return Action.ReconsumeLater;
     }
 
 }

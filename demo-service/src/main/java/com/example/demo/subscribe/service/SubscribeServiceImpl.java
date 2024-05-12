@@ -154,7 +154,7 @@ public class SubscribeServiceImpl implements SubscribeService {
             }
 
             for (Tunnel tunnel : list) {
-                producerService.sendOneway(topic, "web.socket", JSON.toJSONBytes(message),
+                producerService.send(topic, "web.socket", JSON.toJSONBytes(message),
                     tunnel.getTunnelId());
             }
 
