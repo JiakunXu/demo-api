@@ -37,9 +37,6 @@ public class ChatDetailServiceImpl implements ChatDetailService {
     @Autowired
     private ChatDetailMapper    chatDetailMapper;
 
-    @Value("${aliyun.ons.topic}")
-    private String              topic;
-
     @Override
     public List<ChatDetail> listChatDetails(BigInteger userId, String id, String friendId,
                                             String pageNo, String pageSize) {
@@ -117,7 +114,8 @@ public class ChatDetailServiceImpl implements ChatDetailService {
             throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息创建失败，请稍后再试");
         }
 
-        producerService.send(topic, "chat.message", JSON.toJSONBytes(chatDetailDO1),
+        producerService.send(
+            "topic", "chat.message", JSON.toJSONBytes(chatDetailDO1),
             chatDetailDO1.getUserId().toString());
 
         Date chatTime = new Date();
@@ -128,7 +126,7 @@ public class ChatDetailServiceImpl implements ChatDetailService {
         chat0.setChatTime(chatTime);
         chat0.setChatDetailId(chatDetailDO0.getId());
         chat0.setUnread(0);
-        producerService.send(topic, "chat.update", JSON.toJSONBytes(chat0), chatId);
+        producerService.send("topic", "chat.update", JSON.toJSONBytes(chat0), chatId);
 
         Chat chat1 = new Chat();
         chat1.setUserId(chatDetailDO1.getUserId());
@@ -136,7 +134,7 @@ public class ChatDetailServiceImpl implements ChatDetailService {
         chat1.setChatTime(chatTime);
         chat1.setChatDetailId(chatDetailDO1.getId());
         chat1.setUnread(1);
-        producerService.send(topic, "chat.update", JSON.toJSONBytes(chat1), chatId);
+        producerService.send("topic", "chat.update", JSON.toJSONBytes(chat1), chatId);
 
         return BeanUtil.copy(chatDetailDO0, ChatDetail.class);
     }

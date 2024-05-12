@@ -36,9 +36,6 @@ public class SubscribeServiceImpl implements SubscribeService {
     @Autowired
     private SubscribeMapper     subscribeMapper;
 
-    @Value("${aliyun.ons.topic}")
-    private String              topic;
-
     @Override
     public int countSubscribe(BigInteger userId, String appId, String scene, String sceneId) {
         if (userId == null || StringUtils.isBlank(scene) || StringUtils.isBlank(sceneId)) {
@@ -154,7 +151,8 @@ public class SubscribeServiceImpl implements SubscribeService {
             }
 
             for (Tunnel tunnel : list) {
-                producerService.send(topic, "web.socket", JSON.toJSONBytes(message),
+                producerService
+                    .send("topic", "web.socket", JSON.toJSONBytes(message),
                     tunnel.getTunnelId());
             }
 
