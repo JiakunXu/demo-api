@@ -21,11 +21,11 @@ public class ProducerServiceImpl implements ProducerService {
     private RocketMQTemplate    rocketMQTemplate;
 
     @Override
-    public String syncSend(String topic, String tags, byte[] body, String key) {
+    public String syncSend(String topic, String tags, byte[] body, String keys) {
         try {
             return rocketMQTemplate
                 .syncSend(topic + ":" + tags,
-                    MessageBuilder.withPayload(body).setHeader(RocketMQHeaders.KEYS, key).build())
+                    MessageBuilder.withPayload(body).setHeader(RocketMQHeaders.KEYS, keys).build())
                 .getMsgId();
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -33,10 +33,10 @@ public class ProducerServiceImpl implements ProducerService {
     }
 
     @Override
-    public String syncSend(String topic, String tags, byte[] body, String key, long delayTime) {
+    public String syncSend(String topic, String tags, byte[] body, String keys, long delayTime) {
         try {
             return rocketMQTemplate.syncSendDelayTimeSeconds(topic + ":" + tags,
-                MessageBuilder.withPayload(body).setHeader(RocketMQHeaders.KEYS, key).build(),
+                MessageBuilder.withPayload(body).setHeader(RocketMQHeaders.KEYS, keys).build(),
                 delayTime).getMsgId();
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -44,10 +44,10 @@ public class ProducerServiceImpl implements ProducerService {
     }
 
     @Override
-    public void send(String topic, String tags, byte[] body, String key) {
+    public void send(String topic, String tags, byte[] body, String keys) {
         try {
             rocketMQTemplate.send(topic + ":" + tags,
-                MessageBuilder.withPayload(body).setHeader(RocketMQHeaders.KEYS, key).build());
+                MessageBuilder.withPayload(body).setHeader(RocketMQHeaders.KEYS, keys).build());
         } catch (Exception e) {
             logger.error("send", e);
         }

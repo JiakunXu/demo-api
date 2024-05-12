@@ -5,10 +5,10 @@ package com.example.demo.aliyun.api;
  */
 public interface ProducerService {
 
-    String syncSend(String topic, String tags, byte[] body, String key);
+    String syncSend(String topic, String tags, byte[] body, String keys);
 
-    String syncSend(String topic, String tags, byte[] body, String key, long delayTime);
+    String syncSend(String topic, String tags, byte[] body, String keys, long delayTime);
 
-    void send(String topic, String tags, byte[] body, String key);
+    void send(String topic, String tags, byte[] body, String keys);
 
 }
