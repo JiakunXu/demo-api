@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.2.4</version>
+        <version>3.2.5</version>
         <relativePath/>
     </parent>
     <groupId>com.example</groupId>
@@ -39,17 +39,17 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <alipay-easysdk.version>2.2.3</alipay-easysdk.version>
-        <commons-io.version>2.16.0</commons-io.version>
+        <commons-io.version>2.16.1</commons-io.version>
         <commons-lang3.version>3.14.0</commons-lang3.version>
         <commons-pool2.version>2.12.0</commons-pool2.version>
         <druid-spring-boot.version>1.2.22</druid-spring-boot.version>
-        <dubbo-spring-boot.version>3.2.11</dubbo-spring-boot.version>
-        <fastjson2.version>2.0.48</fastjson2.version>
+        <dubbo-spring-boot.version>3.2.12</dubbo-spring-boot.version>
+        <fastjson2.version>2.0.49</fastjson2.version>
         <httpclient.version>5.3.1</httpclient.version>
         <jjwt.version>0.12.5</jjwt.version>
         <joda-time.version>2.12.7</joda-time.version>
         <mybatis-spring-boot.version>3.0.3</mybatis-spring-boot.version>
-        <nacos-client.version>2.3.1</nacos-client.version>
+        <nacos-client.version>2.3.2</nacos-client.version>
         <poi.version>5.2.5</poi.version>
         <rocketmq.version>2.3.0</rocketmq.version>
     </properties>
