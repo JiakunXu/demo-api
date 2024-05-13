@@ -64,14 +64,14 @@ public class OssServiceImpl implements OssService {
             logger.error("Request ID: " + oe.getRequestId());
             logger.error("Host ID: " + oe.getHostId());
 
-            throw new RuntimeException(oe);
+            throw new RuntimeException(oe.getErrorMessage(), oe);
         } catch (ClientException ce) {
             logger.error("Caught an ClientException, which means the client encountered "
                          + "a serious internal problem while trying to communicate with OSS, "
                          + "such as not being able to access the network.");
             logger.error("Error Message: " + ce.getMessage());
 
-            throw new RuntimeException(ce);
+            throw new RuntimeException(ce.getMessage(), ce);
         } finally {
             // 关闭OSSClient。
             ossClient.shutdown();
@@ -107,14 +107,14 @@ public class OssServiceImpl implements OssService {
             logger.error("Request ID:" + oe.getRequestId());
             logger.error("Host ID:" + oe.getHostId());
 
-            throw new RuntimeException(oe);
+            throw new RuntimeException(oe.getErrorMessage(), oe);
         } catch (ClientException ce) {
             logger.error("Caught an ClientException, which means the client encountered "
                          + "a serious internal problem while trying to communicate with OSS, "
                          + "such as not being able to access the network.");
             logger.error("Error Message:" + ce.getMessage());
 
-            throw new RuntimeException(ce);
+            throw new RuntimeException(ce.getMessage(), ce);
         } finally {
             if (ossClient != null) {
                 ossClient.shutdown();
