@@ -1,15 +1,13 @@
 package com.example.demo.aliyun.manager;
 
-import com.alibaba.fastjson2.JSON;
-import com.aliyuncs.CommonRequest;
-import com.aliyuncs.CommonResponse;
 import com.aliyuncs.DefaultAcsClient;
 import com.aliyuncs.IAcsClient;
+import com.aliyuncs.alinlp.model.v20200629.GetPosChEcomRequest;
+import com.aliyuncs.alinlp.model.v20200629.GetPosChEcomResponse;
 import com.aliyuncs.exceptions.ClientException;
 import com.aliyuncs.exceptions.ServerException;
 import com.aliyuncs.profile.DefaultProfile;
 import com.example.demo.aliyun.api.NlpService;
-import com.example.demo.aliyun.api.bo.nlp.Data;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -30,42 +28,29 @@ public class NlpServiceImpl implements NlpService {
     private String              secret;
 
     @Override
-    public Data getWsChGeneral(String text) {
+    public String getWsChGeneral(String text) {
         DefaultProfile profile = DefaultProfile.getProfile(regionId, accessKeyId, secret);
         IAcsClient client = new DefaultAcsClient(profile);
 
-        CommonRequest request = new CommonRequest();
-        request.setSysDomain("alinlp.cn-hangzhou.aliyuncs.com");
-        request.setSysVersion("2020-06-29");
-        request.setSysAction("GetWsChGeneral");
-        request.putQueryParameter("ServiceCode", "alinlp");
-        request.putQueryParameter("Text", text);
-        request.putQueryParameter("TokenizerId", "GENERAL_CHN");
+        GetPosChEcomRequest request = new GetPosChEcomRequest();
+        request.setSysEndpoint("alinlp.cn-hangzhou.aliyuncs.com");
+        request.setServiceCode("alinlp");
+        request.setText(text);
+        request.setTokenizerId("GENERAL_CHN");
 
-        Data data = null;
+        GetPosChEcomResponse response;
 
         try {
-            CommonResponse response = client.getCommonResponse(request);
-            data = JSON.parseObject(response.getData(), Data.class);
+            response = client.getAcsResponse(request);
         } catch (ServerException e) {
             logger.error("ServerException", e);
-            throw new RuntimeException(e.getMessage());
+            throw new RuntimeException(e);
         } catch (ClientException e) {
             logger.error("ClientException", e);
-            throw new RuntimeException(e.getMessage());
+            throw new RuntimeException(e);
         }
 
-        if (data == null) {
-            throw new RuntimeException("data is null.");
-        }
-
-        String requestId = data.getRequestId();
-
-        data = JSON.parseObject(data.getData(), Data.class);
-
-        data.setRequestId(requestId);
-
-        return data;
+        return response.getData();
     }
 
 }
