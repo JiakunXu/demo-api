@@ -192,7 +192,6 @@ public class CustomerServiceMessageServiceImpl implements CustomerServiceMessage
                     JSON.toJSONString(typing)), BaseResult.class);
         } catch (Exception e) {
             logger.error(typing.toString(), e);
-
             throw new RuntimeException(e.getMessage(), e);
         }
 

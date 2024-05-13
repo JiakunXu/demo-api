@@ -37,7 +37,6 @@ public class UserStorageServiceImpl implements UserStorageService {
                 EncryptUtil.encryptHmac(JSON.toJSONString(userStorage), "session_key"));
         } catch (IOException e) {
             logger.error(userStorage.toString(), e);
-
             throw new RuntimeException(e.getMessage(), e);
         }
 
@@ -49,7 +48,6 @@ public class UserStorageServiceImpl implements UserStorageService {
                 Result.class);
         } catch (Exception e) {
             logger.error(userStorage.toString(), e);
-
             throw new RuntimeException(e.getMessage(), e);
         }
 
@@ -70,7 +68,6 @@ public class UserStorageServiceImpl implements UserStorageService {
                 EncryptUtil.encryptHmac(JSON.toJSONString(userStorage), "session_key"));
         } catch (IOException e) {
             logger.error(userStorage.toString(), e);
-
             throw new RuntimeException(e.getMessage(), e);
         }
 
@@ -81,7 +78,6 @@ public class UserStorageServiceImpl implements UserStorageService {
                 JSON.toJSONString(userStorage)), Result.class);
         } catch (Exception e) {
             logger.error(userStorage.toString(), e);
-
             throw new RuntimeException(e.getMessage(), e);
         }
 

@@ -51,7 +51,6 @@ public class JsapiServiceImpl implements JsapiService {
             signature = EncryptUtil.encryptSha(sb.toString());
         } catch (IOException e) {
             logger.error("encryptSHA", e);
-
             throw new RuntimeException(e.getMessage());
         }
 
