@@ -23,14 +23,6 @@ public class TextServiceImpl implements TextService {
 
     @Override
     public Log detect(String accessToken, Body body) throws RuntimeException {
-        if (StringUtils.isBlank(accessToken)) {
-            throw new RuntimeException("access_token is null.");
-        }
-
-        if (body == null) {
-            throw new RuntimeException("body is null.");
-        }
-
         Log log;
 
         try {
