@@ -7,16 +7,16 @@ import com.aliyuncs.alinlp.model.v20200629.GetPosChEcomResponse;
 import com.aliyuncs.exceptions.ClientException;
 import com.aliyuncs.exceptions.ServerException;
 import com.aliyuncs.profile.DefaultProfile;
-import com.example.demo.aliyun.api.NlpService;
+import com.example.demo.aliyun.api.PosChEcomService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
-public class NlpServiceImpl implements NlpService {
+public class PosChEcomServiceImpl implements PosChEcomService {
 
-    private static final Logger logger = LoggerFactory.getLogger(NlpServiceImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(PosChEcomServiceImpl.class);
 
     @Value("${aliyun.region.id}")
     private String              regionId;

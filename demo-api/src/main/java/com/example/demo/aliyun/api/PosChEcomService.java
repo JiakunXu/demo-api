@@ -1,6 +1,6 @@
 package com.example.demo.aliyun.api;
 
-public interface NlpService {
+public interface PosChEcomService {
 
     String getPosChEcom(String text);
 
