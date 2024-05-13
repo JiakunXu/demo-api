@@ -10,10 +10,10 @@ spring:
       max-file-size: 99MB
       max-request-size: 99MB
   datasource:
+    url: jdbc:mysql://?useSSL=false&serverTimezone=GMT%2B8
+    username: ''
+    password: ''
     druid:
-      url: jdbc:mysql://?useSSL=false&serverTimezone=GMT%2B8
-      username: ''
-      password: ''
       initial-size: 5
       min-idle: 10
       max-active: 20
@@ -31,7 +31,7 @@ spring:
   data:
     redis:
       host: ''
-      port: ''
+      port: 6379
       password: ''
       database: 0
       timeout: 1000
@@ -62,7 +62,7 @@ mybatis:
   type-aliases-package: com.example.demo.*.dao.dataobject
 
 rocketmq:
-  name-server: localhost:9876
+  name-server: ''
   producer:
     group: producer-group
 
@@ -81,17 +81,12 @@ aliyun:
     secret: secret
   cdn:
     privateKey: ''
-  green:
-    region:
-      id: ''
-    seed: ''
   oss:
     bucketName: ''
     endpoint: ''
     url: ''
-  sms:
-    region:
-      id: ''
+  region:
+    id: ''
   uid: ''
 
 huawei:
