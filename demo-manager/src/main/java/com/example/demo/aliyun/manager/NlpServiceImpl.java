@@ -20,6 +20,9 @@ public class NlpServiceImpl implements NlpService {
 
     private static final Logger logger = LoggerFactory.getLogger(NlpServiceImpl.class);
 
+    @Value("${aliyun.region.id}")
+    private String              regionId;
+
     @Value("${aliyun.accessKey.id}")
     private String              accessKeyId;
 
@@ -28,7 +31,7 @@ public class NlpServiceImpl implements NlpService {
 
     @Override
     public Data getWsChGeneral(String text) {
-        DefaultProfile profile = DefaultProfile.getProfile("regionId", accessKeyId, secret);
+        DefaultProfile profile = DefaultProfile.getProfile(regionId, accessKeyId, secret);
         IAcsClient client = new DefaultAcsClient(profile);
 
         CommonRequest request = new CommonRequest();
