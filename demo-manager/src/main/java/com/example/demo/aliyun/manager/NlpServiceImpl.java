@@ -28,7 +28,7 @@ public class NlpServiceImpl implements NlpService {
     private String              secret;
 
     @Override
-    public String getWsChGeneral(String text) {
+    public String getPosChEcom(String text) {
         DefaultProfile profile = DefaultProfile.getProfile(regionId, accessKeyId, secret);
         IAcsClient client = new DefaultAcsClient(profile);
 
