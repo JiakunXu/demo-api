@@ -1,21 +1,17 @@
 package com.example.demo.aliyun.manager;
 
 import com.alibaba.fastjson2.JSON;
-import com.example.demo.aliyun.api.bo.sms.Data;
+import com.aliyun.dysmsapi20170525.Client;
+import com.aliyun.dysmsapi20170525.models.SendSmsRequest;
+import com.aliyun.dysmsapi20170525.models.SendSmsResponse;
+import com.aliyun.tea.TeaException;
+import com.aliyun.teaopenapi.models.Config;
+import com.aliyun.teautil.Common;
+import com.example.demo.aliyun.api.SmsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
-import com.aliyuncs.CommonRequest;
-import com.aliyuncs.CommonResponse;
-import com.aliyuncs.DefaultAcsClient;
-import com.aliyuncs.IAcsClient;
-import com.aliyuncs.exceptions.ClientException;
-import com.aliyuncs.exceptions.ServerException;
-import com.aliyuncs.http.MethodType;
-import com.aliyuncs.profile.DefaultProfile;
-import com.example.demo.aliyun.api.SmsService;
 
 /**
  * @author JiakunXu
@@ -25,54 +21,49 @@ public class SmsServiceImpl implements SmsService {
 
     private static final Logger logger = LoggerFactory.getLogger(SmsServiceImpl.class);
 
-    @Value("${aliyun.sms.region.id}")
-    private String              regionId;
-
     @Value("${aliyun.accessKey.id}")
     private String              accessKeyId;
 
     @Value("${aliyun.accessKey.secret}")
-    private String              secret;
+    private String              accessKeySecret;
 
     @Override
-    public Data send(String signName, String templateCode, String templateParam,
-                     String phoneNumbers) {
-        DefaultProfile profile = DefaultProfile.getProfile(regionId, accessKeyId, secret);
-        IAcsClient client = new DefaultAcsClient(profile);
-
-        CommonRequest request = new CommonRequest();
-        request.setSysMethod(MethodType.POST);
-        request.setSysDomain("dysmsapi.aliyuncs.com");
-        request.setSysVersion("2017-05-25");
-        request.setSysAction("SendSms");
-        request.putQueryParameter("RegionId", regionId);
-        request.putQueryParameter("PhoneNumbers", phoneNumbers);
-        request.putQueryParameter("SignName", signName);
-        request.putQueryParameter("TemplateCode", templateCode);
-        request.putQueryParameter("TemplateParam", templateParam);
-
-        Data data = null;
+    public String send(String signName, String templateCode, String templateParam,
+                       String phoneNumbers) {
+        Client client;
 
         try {
-            CommonResponse response = client.getCommonResponse(request);
-            data = JSON.parseObject(response.getData(), Data.class);
-        } catch (ServerException e) {
-            logger.error("ServerException", e);
-            throw new RuntimeException(e);
-        } catch (ClientException e) {
-            logger.error("ClientException", e);
+            client = new Client(new Config().setAccessKeyId(accessKeyId)
+                .setAccessKeySecret(accessKeySecret).setEndpoint("dysmsapi.aliyuncs.com"));
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
-        if (data == null) {
-            throw new RuntimeException("data is null.");
+        SendSmsRequest request = new SendSmsRequest().setSignName(signName)
+            .setTemplateCode(templateCode).setTemplateParam(templateParam)
+            .setPhoneNumbers(phoneNumbers);
+
+        SendSmsResponse response;
+
+        try {
+            response = client.sendSms(request);
+        } catch (Exception e) {
+            logger.error(JSON.toJSONString(request), e);
+
+            TeaException err = e instanceof TeaException ? (TeaException) e
+                : new TeaException(e.getMessage(), e);
+            if (!Common.empty(err.code) && !Common.empty(err.message)) {
+                throw new RuntimeException(err.message);
+            } else {
+                throw new RuntimeException(e);
+            }
         }
 
-        if (!"OK".equals(data.getCode())) {
-            throw new RuntimeException(data.getMessage());
+        if (!"OK".equals(response.getBody().getCode())) {
+            throw new RuntimeException(response.getBody().getMessage());
         }
 
-        return data;
+        return response.getBody().getBizId();
     }
 
 }
