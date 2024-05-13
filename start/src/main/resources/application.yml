@@ -1,0 +1,174 @@
+server:
+  address: 127.0.0.1
+  port: 8080
+
+spring:
+  main:
+    allow-circular-references: true
+  servlet:
+    multipart:
+      max-file-size: 99MB
+      max-request-size: 99MB
+  datasource:
+    druid:
+      url: jdbc:mysql://?useSSL=false&serverTimezone=GMT%2B8
+      username: ''
+      password: ''
+      initial-size: 5
+      min-idle: 10
+      max-active: 20
+      max-wait: 60000
+      time-between-eviction-runs-millis: 2000
+      min-evictable-idle-time-millis: 600000
+      max-evictable-idle-time-millis: 900000
+      validation-query: SELECT 1
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      keep-alive: true
+      phy-max-use-count: 1000
+      async-init: true
+  data:
+    redis:
+      host: ''
+      port: ''
+      password: ''
+      database: 0
+      timeout: 1000
+      lettuce:
+        pool:
+          max-active: 8
+          max-idle: 8
+          max-wait: -1
+          min-idle: 0
+  quartz:
+    job-store-type: jdbc
+    properties:
+      org:
+        quartz:
+          scheduler:
+            instanceId: AUTO
+          threadPool:
+            class: org.quartz.simpl.SimpleThreadPool
+            threadCount: 5
+          jobStore:
+            isClustered: true
+    scheduler-name: scheduler
+    startup-delay: 1
+
+mybatis:
+  config-location: classpath:mybatis-config.xml
+  mapper-locations: classpath:mappers/*.xml
+  type-aliases-package: com.example.demo.*.dao.dataobject
+
+rocketmq:
+  name-server: localhost:9876
+  producer:
+    group: producer-group
+
+dubbo:
+  application:
+    name: demo
+  registry:
+    address: ''
+  protocol:
+    name: dubbo
+    port: -1
+
+aliyun:
+  accessKey:
+    id: id
+    secret: secret
+  cdn:
+    privateKey: ''
+  green:
+    region:
+      id: ''
+    seed: ''
+  oss:
+    bucketName: ''
+    endpoint: ''
+    url: ''
+  sms:
+    region:
+      id: ''
+  uid: ''
+
+huawei:
+  accessKey:
+    id: ''
+    secret: ''
+  obs:
+    endpoint: ''
+
+alipay:
+  app:
+    id: ''
+  privateKey:
+    path: ''
+  merchantCert:
+    path: ''
+  cert:
+    path: ''
+  rootCert:
+    path: ''
+  notify:
+    url: ''
+  encrypt:
+    key: ''
+
+weixin:
+  app:
+    id: ''
+    secret: ''
+  token: ''
+  encodingAesKey: ''
+
+wxpay:
+  app:
+    id: ''
+  apiV3Key: ''
+  merchant:
+    id: ''
+    name: ''
+    serialNumber: ''
+  privateKey:
+    path: ''
+  notify:
+    url: ''
+    refund:
+      url: ''
+    service:
+      url: ''
+  partner:
+    app:
+      id: ''
+    apiV3Key: ''
+    merchant:
+      id: ''
+      name: ''
+      serialNumber: ''
+    privateKey:
+      path: ''
+    notify:
+      url: ''
+      refund:
+        url: ''
+      service:
+        url: ''
+
+bytedance:
+  app:
+    id: ''
+    secret: ''
+  token: ''
+
+dingtalk:
+  app:
+    key: ''
+    secret: ''
+  token: ''
+  encodingAesKey: ''
+
+secret:
+  key: ''
