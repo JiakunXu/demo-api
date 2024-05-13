@@ -30,7 +30,7 @@ public class UpdatableMessageServiceImpl implements UpdatableMessageService {
                 Activity.class);
         } catch (Exception e) {
             logger.error(accessToken + "&" + unionid + "&" + openid, e);
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage(), e);
         }
 
         if (activity == null) {
@@ -61,7 +61,7 @@ public class UpdatableMessageServiceImpl implements UpdatableMessageService {
                     JSON.toJSONString(activity)), BaseResult.class);
         } catch (Exception e) {
             logger.error(activity.toString(), e);
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage(), e);
         }
 
         if (result == null) {

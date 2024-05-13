@@ -29,7 +29,7 @@ public class JsapiTicketServiceImpl implements JsapiTicketService {
                 JsapiTicket.class);
         } catch (Exception e) {
             logger.error(accessToken, e);
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage(), e);
         }
 
         if (jsapiTicket == null) {

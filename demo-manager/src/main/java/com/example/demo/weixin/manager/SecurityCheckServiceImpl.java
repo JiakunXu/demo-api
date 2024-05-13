@@ -28,7 +28,7 @@ public class SecurityCheckServiceImpl implements SecurityCheckService {
                 BaseResult.class);
         } catch (Exception e) {
             logger.error(accessToken, e);
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage(), e);
         }
 
         if (result == null) {

@@ -36,7 +36,7 @@ public class SmsServiceImpl implements SmsService {
             client = new Client(new Config().setAccessKeyId(accessKeyId)
                 .setAccessKeySecret(accessKeySecret).setEndpoint("dysmsapi.aliyuncs.com"));
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage(), e);
         }
 
         SendSmsRequest request = new SendSmsRequest().setSignName(signName)
@@ -55,7 +55,7 @@ public class SmsServiceImpl implements SmsService {
             if (!Common.empty(err.code) && !Common.empty(err.message)) {
                 throw new RuntimeException(err.message);
             } else {
-                throw new RuntimeException(e);
+                throw new RuntimeException(e.getMessage(), e);
             }
         }
 

@@ -27,7 +27,7 @@ public class JobServiceImpl implements JobService {
         try {
             return (Class<? extends org.quartz.Job>) Class.forName(className);
         } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage(), e);
         }
     }
 
@@ -54,7 +54,7 @@ public class JobServiceImpl implements JobService {
                 throw new RuntimeException("【" + name + " & " + group + "】已存在");
             }
         } catch (SchedulerException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage(), e);
         }
 
         JobDetail jobDetail = JobBuilder.newJob(getJobClass(job.getClassName()))
@@ -76,7 +76,7 @@ public class JobServiceImpl implements JobService {
         try {
             return scheduler.scheduleJob(jobDetail, trigger);
         } catch (SchedulerException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage(), e);
         }
     }
 
@@ -112,7 +112,7 @@ public class JobServiceImpl implements JobService {
 
             return scheduler.rescheduleJob(triggerKey, newTrigger);
         } catch (SchedulerException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage(), e);
         }
     }
 
@@ -121,7 +121,7 @@ public class JobServiceImpl implements JobService {
         try {
             return scheduler.deleteJob(JobKey.jobKey(name, group));
         } catch (SchedulerException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage(), e);
         }
     }
 
@@ -130,7 +130,7 @@ public class JobServiceImpl implements JobService {
         try {
             scheduler.triggerJob(JobKey.jobKey(name, group));
         } catch (SchedulerException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage(), e);
         }
     }
 
@@ -139,7 +139,7 @@ public class JobServiceImpl implements JobService {
         try {
             scheduler.pauseJob(JobKey.jobKey(name, group));
         } catch (SchedulerException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage(), e);
         }
     }
 
@@ -148,7 +148,7 @@ public class JobServiceImpl implements JobService {
         try {
             scheduler.resumeJob(JobKey.jobKey(name, group));
         } catch (SchedulerException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage(), e);
         }
     }
 

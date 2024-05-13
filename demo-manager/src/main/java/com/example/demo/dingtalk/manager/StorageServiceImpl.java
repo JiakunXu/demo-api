@@ -28,7 +28,7 @@ public class StorageServiceImpl implements StorageService {
         try {
             client = new Client(new Config().setProtocol("https").setRegionId("central"));
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage(), e);
         }
 
         GetFileUploadInfoHeaders headers = new GetFileUploadInfoHeaders()
@@ -50,7 +50,7 @@ public class StorageServiceImpl implements StorageService {
             if (!Common.empty(err.code) && !Common.empty(err.message)) {
                 throw new RuntimeException(err.message);
             } else {
-                throw new RuntimeException(e);
+                throw new RuntimeException(e.getMessage(), e);
             }
         }
 
@@ -65,7 +65,7 @@ public class StorageServiceImpl implements StorageService {
         try {
             client = new Client(new Config().setProtocol("https").setRegionId("central"));
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage(), e);
         }
 
         CommitFileHeaders commitFileHeaders = new CommitFileHeaders()
@@ -87,7 +87,7 @@ public class StorageServiceImpl implements StorageService {
             if (!Common.empty(err.code) && !Common.empty(err.message)) {
                 throw new RuntimeException(err.message);
             } else {
-                throw new RuntimeException(e);
+                throw new RuntimeException(e.getMessage(), e);
             }
         }
 

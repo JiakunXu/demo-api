@@ -26,7 +26,7 @@ public class Oauth2ServiceImpl implements Oauth2Service {
         try {
             client = new Client(new Config().setProtocol("https").setRegionId("central"));
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage(), e);
         }
 
         GetAccessTokenRequest request = new GetAccessTokenRequest().setAppKey(appKey)
@@ -44,7 +44,7 @@ public class Oauth2ServiceImpl implements Oauth2Service {
             if (!Common.empty(err.code) && !Common.empty(err.message)) {
                 throw new RuntimeException(err.message);
             } else {
-                throw new RuntimeException(e);
+                throw new RuntimeException(e.getMessage(), e);
             }
         }
 

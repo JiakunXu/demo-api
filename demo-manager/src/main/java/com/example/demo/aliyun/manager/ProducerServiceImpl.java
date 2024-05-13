@@ -28,7 +28,7 @@ public class ProducerServiceImpl implements ProducerService {
                     MessageBuilder.withPayload(body).setHeader(RocketMQHeaders.KEYS, keys).build())
                 .getMsgId();
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage(), e);
         }
     }
 
@@ -39,7 +39,7 @@ public class ProducerServiceImpl implements ProducerService {
                 MessageBuilder.withPayload(body).setHeader(RocketMQHeaders.KEYS, keys).build(),
                 delayTime).getMsgId();
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage(), e);
         }
     }
 

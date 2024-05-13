@@ -74,7 +74,7 @@ public class AlipayNotifyServiceImpl implements AlipayNotifyService {
                 throw new RuntimeException("验签失败");
             }
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage(), e);
         }
 
         return alipayNotify;

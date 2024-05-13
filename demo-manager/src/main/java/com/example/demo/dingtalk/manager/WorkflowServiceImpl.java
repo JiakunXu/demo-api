@@ -29,7 +29,7 @@ public class WorkflowServiceImpl implements WorkflowService {
         try {
             client = new Client(new Config().setProtocol("https").setRegionId("central"));
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage(), e);
         }
 
         GetAttachmentSpaceHeaders headers = new GetAttachmentSpaceHeaders()
@@ -49,7 +49,7 @@ public class WorkflowServiceImpl implements WorkflowService {
             if (!Common.empty(err.code) && !Common.empty(err.message)) {
                 throw new RuntimeException(err.message);
             } else {
-                throw new RuntimeException(e);
+                throw new RuntimeException(e.getMessage(), e);
             }
         }
 
@@ -65,7 +65,7 @@ public class WorkflowServiceImpl implements WorkflowService {
         try {
             client = new Client(new Config().setProtocol("https").setRegionId("central"));
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage(), e);
         }
 
         StartProcessInstanceHeaders headers = new StartProcessInstanceHeaders()
@@ -103,7 +103,7 @@ public class WorkflowServiceImpl implements WorkflowService {
             if (!Common.empty(err.code) && !Common.empty(err.message)) {
                 throw new RuntimeException(err.message);
             } else {
-                throw new RuntimeException(e);
+                throw new RuntimeException(e.getMessage(), e);
             }
         }
 
@@ -118,7 +118,7 @@ public class WorkflowServiceImpl implements WorkflowService {
         try {
             client = new Client(new Config().setProtocol("https").setRegionId("central"));
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage(), e);
         }
 
         TerminateProcessInstanceHeaders headers = new TerminateProcessInstanceHeaders()
@@ -140,7 +140,7 @@ public class WorkflowServiceImpl implements WorkflowService {
             if (!Common.empty(err.code) && !Common.empty(err.message)) {
                 throw new RuntimeException(err.message);
             } else {
-                throw new RuntimeException(e);
+                throw new RuntimeException(e.getMessage(), e);
             }
         }
 

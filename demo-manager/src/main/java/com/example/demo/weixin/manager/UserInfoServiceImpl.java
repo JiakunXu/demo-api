@@ -38,7 +38,7 @@ public class UserInfoServiceImpl implements UserInfoService {
                 accessToken, openid, StringUtils.isBlank(lang) ? "zh_CN" : lang)), UserInfo.class);
         } catch (Exception e) {
             logger.error(accessToken + "&" + openid, e);
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage(), e);
         }
 
         if (userInfo == null) {
@@ -105,7 +105,7 @@ public class UserInfoServiceImpl implements UserInfoService {
                 userInfo = JSON.parseObject(result, MiniUserInfo.class);
             }
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage(), e);
         }
 
         if (userInfo == null) {

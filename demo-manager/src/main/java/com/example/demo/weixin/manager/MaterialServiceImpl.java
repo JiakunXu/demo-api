@@ -29,7 +29,7 @@ public class MaterialServiceImpl implements MaterialService {
                 HttpUtil.get(MessageFormat.format(HTTPS_COUNT_URL, accessToken)), Count.class);
         } catch (Exception e) {
             logger.error(accessToken, e);
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage(), e);
         }
 
         if (count == null) {
@@ -53,7 +53,7 @@ public class MaterialServiceImpl implements MaterialService {
                     JSON.toJSONString(parameter)), Material.class);
         } catch (Exception e) {
             logger.error(accessToken, e);
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage(), e);
         }
 
         if (material == null) {

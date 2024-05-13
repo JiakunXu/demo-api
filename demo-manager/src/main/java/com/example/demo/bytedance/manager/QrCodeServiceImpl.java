@@ -31,7 +31,7 @@ public class QrCodeServiceImpl implements QrCodeService {
             qrCode = HttpUtil.download(QrCodeService.HTTPS_POST_URL, JSON.toJSONString(body));
         } catch (Exception e) {
             logger.error(body.toString(), e);
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage(), e);
         }
 
         if (qrCode == null) {

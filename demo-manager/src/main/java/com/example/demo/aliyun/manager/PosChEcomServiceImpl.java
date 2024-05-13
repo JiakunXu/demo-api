@@ -44,10 +44,10 @@ public class PosChEcomServiceImpl implements PosChEcomService {
             response = client.getAcsResponse(request);
         } catch (ServerException e) {
             logger.error("ServerException", e);
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage(), e);
         } catch (ClientException e) {
             logger.error("ClientException", e);
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage(), e);
         }
 
         return response.getData();

@@ -30,7 +30,7 @@ public class UrlSchemeServiceImpl implements UrlSchemeService {
                     JSON.toJSONString(urlScheme)), OpenLink.class);
         } catch (Exception e) {
             logger.error(urlScheme.toString(), e);
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage(), e);
         }
 
         if (openLink == null) {

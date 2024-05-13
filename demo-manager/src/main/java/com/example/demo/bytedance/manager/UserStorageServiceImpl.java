@@ -38,7 +38,7 @@ public class UserStorageServiceImpl implements UserStorageService {
         } catch (IOException e) {
             logger.error(userStorage.toString(), e);
 
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage(), e);
         }
 
         Result result;
@@ -50,7 +50,7 @@ public class UserStorageServiceImpl implements UserStorageService {
         } catch (Exception e) {
             logger.error(userStorage.toString(), e);
 
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage(), e);
         }
 
         return result;
@@ -71,7 +71,7 @@ public class UserStorageServiceImpl implements UserStorageService {
         } catch (IOException e) {
             logger.error(userStorage.toString(), e);
 
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage(), e);
         }
 
         Result result;
@@ -82,7 +82,7 @@ public class UserStorageServiceImpl implements UserStorageService {
         } catch (Exception e) {
             logger.error(userStorage.toString(), e);
 
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage(), e);
         }
 
         return result;

@@ -28,7 +28,7 @@ public class ShortLinkServiceImpl implements ShortLinkService {
                 JSON.toJSONString(page)), Link.class);
         } catch (Exception e) {
             logger.error(page.toString(), e);
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage(), e);
         }
 
         if (link == null) {

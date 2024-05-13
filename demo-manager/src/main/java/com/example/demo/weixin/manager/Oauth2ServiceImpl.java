@@ -45,7 +45,7 @@ public class Oauth2ServiceImpl implements Oauth2Service {
                 AccessToken.class);
         } catch (Exception e) {
             logger.error(appid + "&" + secret + "&" + code, e);
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage(), e);
         }
 
         if (accessToken == null) {
@@ -70,7 +70,7 @@ public class Oauth2ServiceImpl implements Oauth2Service {
                 accessToken, openid, StringUtils.isBlank(lang) ? "zh_CN" : lang)), UserInfo.class);
         } catch (Exception e) {
             logger.error(accessToken + "&" + openid, e);
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage(), e);
         }
 
         if (userInfo == null) {

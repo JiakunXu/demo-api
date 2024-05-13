@@ -139,7 +139,7 @@ public class MessageServiceImpl implements MessageService {
                 SendResult.class);
         } catch (Exception e) {
             logger.error(JSON.toJSONString(map), e);
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage(), e);
         }
 
         if (result == null) {

@@ -37,7 +37,7 @@ public class UserInfoServiceImpl implements UserInfoService {
             userInfo = JSON.parseObject(Decrypt.decrypt(encryptedData, sessionKey, iv),
                 UserInfo.class);
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage(), e);
         }
 
         if (userInfo == null) {

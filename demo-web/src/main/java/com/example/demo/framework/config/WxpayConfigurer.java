@@ -40,7 +40,7 @@ public class WxpayConfigurer {
                 .privateKeyFromPath(privateKeyPath).merchantSerialNumber(serialNumber)
                 .apiV3Key(apiV3Key).build();
         } catch (Exception e) {
-            // throw new RuntimeException(e);
+            // throw new RuntimeException(e.getMessage(), e);
         }
 
         return null;
@@ -53,7 +53,7 @@ public class WxpayConfigurer {
                 .privateKeyFromPath(partnerPrivateKeyPath).merchantSerialNumber(partnerSerialNumber)
                 .apiV3Key(partnerApiV3Key).build();
         } catch (Exception e) {
-            // throw new RuntimeException(e);
+            // throw new RuntimeException(e.getMessage(), e);
         }
 
         return null;

@@ -47,7 +47,7 @@ public class PhoneNumberServiceImpl implements PhoneNumberService {
                 Result.class);
         } catch (Exception e) {
             logger.error(code, e);
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage(), e);
         }
 
         if (result == null) {
@@ -125,7 +125,7 @@ public class PhoneNumberServiceImpl implements PhoneNumberService {
                 phoneNumber = JSON.parseObject(result, PhoneNumber.class);
             }
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage(), e);
         }
 
         if (phoneNumber == null) {

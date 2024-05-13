@@ -33,7 +33,7 @@ public class OssServiceImpl implements OssService {
             connection.setConnectTimeout(10000);
             connection.connect();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage(), e);
         }
 
         try (OutputStream out = connection.getOutputStream()) {
@@ -43,7 +43,7 @@ public class OssServiceImpl implements OssService {
                 throw new RuntimeException("上传失败");
             }
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage(), e);
         } finally {
             IOUtils.close(connection);
         }

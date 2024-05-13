@@ -42,7 +42,7 @@ public class TextServiceImpl implements TextService {
                 Log.class);
         } catch (Exception e) {
             logger.error(body.toString(), e);
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage(), e);
         }
 
         if (log == null) {

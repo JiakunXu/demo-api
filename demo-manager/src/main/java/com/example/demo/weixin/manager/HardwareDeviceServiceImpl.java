@@ -32,7 +32,7 @@ public class HardwareDeviceServiceImpl implements HardwareDeviceService {
                 SnTicket.class);
         } catch (Exception e) {
             logger.error(device.toString(), e);
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage(), e);
         }
 
         if (snTicket == null) {
@@ -56,7 +56,7 @@ public class HardwareDeviceServiceImpl implements HardwareDeviceService {
                     JSON.toJSONString(message)), BaseResult.class);
         } catch (Exception e) {
             logger.error(message.toString(), e);
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage(), e);
         }
 
         if (result == null) {

@@ -29,7 +29,7 @@ public class QrCodeServiceImpl implements QrCodeService {
                 Result.class);
         } catch (Exception e) {
             logger.error(qrCode.toString(), e);
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage(), e);
         }
 
         if (result == null) {

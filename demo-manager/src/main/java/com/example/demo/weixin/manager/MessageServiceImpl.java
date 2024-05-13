@@ -64,7 +64,7 @@ public class MessageServiceImpl implements MessageService {
                     JSON.toJSONString(template)), Result.class);
         } catch (Exception e) {
             logger.error(template.toString(), e);
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage(), e);
         }
 
         if (result == null) {
@@ -91,7 +91,7 @@ public class MessageServiceImpl implements MessageService {
                     JSON.toJSONString(subscribe)), BaseResult.class);
         } catch (Exception e) {
             logger.error(subscribe.toString(), e);
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage(), e);
         }
 
         if (result == null) {
@@ -118,7 +118,7 @@ public class MessageServiceImpl implements MessageService {
                     JSON.toJSONString(uniform)), BaseResult.class);
         } catch (Exception e) {
             logger.error(uniform.toString(), e);
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage(), e);
         }
 
         if (result == null) {

@@ -28,7 +28,7 @@ public class WxaCodeServiceImpl implements WxaCodeService {
                 JSON.toJSONString(wxaCode));
         } catch (Exception e) {
             logger.error(wxaCode.toString(), e);
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage(), e);
         }
 
         if (JSON.isValidObject(buffer)) {

@@ -49,7 +49,7 @@ public class CustomerServiceMessageServiceImpl implements CustomerServiceMessage
                 Result.class);
         } catch (Exception e) {
             logger.error(custom.toString(), e);
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage(), e);
         }
 
         if (result == null) {
@@ -193,7 +193,7 @@ public class CustomerServiceMessageServiceImpl implements CustomerServiceMessage
         } catch (Exception e) {
             logger.error(typing.toString(), e);
 
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage(), e);
         }
 
         if (result == null) {

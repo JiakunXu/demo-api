@@ -28,7 +28,7 @@ public class Code2SessionServiceImpl implements Code2SessionService {
                 Session.class);
         } catch (Exception e) {
             logger.error(appid + "&" + secret + "&" + jsCode, e);
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage(), e);
         }
 
         if (session == null) {
