@@ -40,8 +40,9 @@ public class TokenServiceImpl implements TokenService {
             throw new RuntimeException("grantType 不能为空.");
         }
 
-        String token = null;
         String key = appId.trim() + "&" + appSecret.trim() + "&" + grantType.trim();
+
+        String token = null;
 
         try {
             token = redisService.get(RedisService.CACHE_KEY_TT_TOKEN + key);
@@ -54,6 +55,7 @@ public class TokenServiceImpl implements TokenService {
         }
 
         AccessToken accessToken = accessTokenService.getAccessToken(appId, appSecret, grantType);
+
         token = accessToken.getAccessToken();
 
         try {
