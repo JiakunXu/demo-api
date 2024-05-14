@@ -25,8 +25,7 @@ public class MediaServiceImpl implements MediaService {
         OapiMediaUploadRequest request = new OapiMediaUploadRequest();
         request.setType(type);
         // 要上传的媒体文件
-        FileItem item = new FileItem(fileName, content);
-        request.setMedia(item);
+        request.setMedia(new FileItem(fileName, content));
 
         OapiMediaUploadResponse response;
 
