@@ -5,7 +5,9 @@ import com.alibaba.fastjson2.JSONObject;
 import com.dingtalk.api.DefaultDingTalkClient;
 import com.dingtalk.api.DingTalkClient;
 import com.dingtalk.api.request.OapiMessageCorpconversationAsyncsendV2Request;
+import com.dingtalk.api.request.OapiMessageCorpconversationRecallRequest;
 import com.dingtalk.api.response.OapiMessageCorpconversationAsyncsendV2Response;
+import com.dingtalk.api.response.OapiMessageCorpconversationRecallResponse;
 import com.example.demo.dingtalk.api.MessageService;
 import com.taobao.api.ApiException;
 import org.apache.commons.lang3.StringUtils;
@@ -98,7 +100,7 @@ public class MessageServiceImpl implements MessageService {
         try {
             response = client.execute(request, accessToken);
         } catch (ApiException e) {
-            logger.error(com.alibaba.fastjson.JSON.toJSONString(request), e);
+            logger.error(JSON.toJSONString(request), e);
             throw new RuntimeException(e.getMessage(), e);
         }
 
@@ -136,7 +138,7 @@ public class MessageServiceImpl implements MessageService {
         try {
             response = client.execute(request, accessToken);
         } catch (ApiException e) {
-            logger.error(com.alibaba.fastjson.JSON.toJSONString(request), e);
+            logger.error(JSON.toJSONString(request), e);
             throw new RuntimeException(e.getMessage(), e);
         }
 
@@ -151,6 +153,34 @@ public class MessageServiceImpl implements MessageService {
         }
 
         return response.getTaskId();
+    }
+
+    @Override
+    public void recall(String accessToken, Long agentId, Long msgTaskId) {
+        DingTalkClient client = new DefaultDingTalkClient(HTTPS_RECALL_URL);
+
+        OapiMessageCorpconversationRecallRequest request = new OapiMessageCorpconversationRecallRequest();
+        request.setAgentId(agentId);
+        request.setMsgTaskId(msgTaskId);
+
+        OapiMessageCorpconversationRecallResponse response;
+
+        try {
+            response = client.execute(request, accessToken);
+        } catch (ApiException e) {
+            logger.error(JSON.toJSONString(request), e);
+            throw new RuntimeException(e.getMessage(), e);
+        }
+
+        if (response == null) {
+            throw new RuntimeException("response is null.");
+        }
+
+        String errCode = response.getErrorCode();
+
+        if (StringUtils.isNotBlank(errCode) && !"0".equals(errCode)) {
+            throw new RuntimeException(response.getErrmsg());
+        }
     }
 
 }
