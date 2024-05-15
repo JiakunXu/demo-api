@@ -80,7 +80,7 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public void send(String accessToken, Long agentId, String useridList, String mediaId) {
+    public Long send(String accessToken, Long agentId, String useridList, String mediaId) {
         DingTalkClient client = new DefaultDingTalkClient(HTTPS_SEND_URL);
 
         OapiMessageCorpconversationAsyncsendV2Request request = new OapiMessageCorpconversationAsyncsendV2Request();
@@ -111,10 +111,12 @@ public class MessageServiceImpl implements MessageService {
         if (StringUtils.isNotBlank(errCode) && !"0".equals(errCode)) {
             throw new RuntimeException(response.getErrmsg());
         }
+
+        return response.getTaskId();
     }
 
     @Override
-    public void send(String accessToken, Long agentId, String useridList, String title,
+    public Long send(String accessToken, Long agentId, String useridList, String title,
                      String text) {
         DingTalkClient client = new DefaultDingTalkClient(HTTPS_SEND_URL);
 
@@ -147,6 +149,8 @@ public class MessageServiceImpl implements MessageService {
         if (StringUtils.isNotBlank(errCode) && !"0".equals(errCode)) {
             throw new RuntimeException(response.getErrmsg());
         }
+
+        return response.getTaskId();
     }
 
 }

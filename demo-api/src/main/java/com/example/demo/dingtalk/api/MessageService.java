@@ -8,8 +8,8 @@ public interface MessageService {
 
     Map<String, String> notify(String signature, String timeStamp, String nonce, String encrypt);
 
-    void send(String accessToken, Long agentId, String useridList, String mediaId);
+    Long send(String accessToken, Long agentId, String useridList, String mediaId);
 
-    void send(String accessToken, Long agentId, String useridList, String title, String text);
+    Long send(String accessToken, Long agentId, String useridList, String title, String text);
 
 }
