@@ -108,9 +108,9 @@ public class MessageServiceImpl implements MessageService {
             throw new RuntimeException("response is null.");
         }
 
-        String errCode = response.getErrorCode();
+        Long errcode = response.getErrcode();
 
-        if (StringUtils.isNotBlank(errCode) && !"0".equals(errCode)) {
+        if (errcode != null && errcode != 0) {
             throw new RuntimeException(response.getErrmsg());
         }
 
@@ -146,9 +146,9 @@ public class MessageServiceImpl implements MessageService {
             throw new RuntimeException("response is null.");
         }
 
-        String errCode = response.getErrorCode();
+        Long errcode = response.getErrcode();
 
-        if (StringUtils.isNotBlank(errCode) && !"0".equals(errCode)) {
+        if (errcode != null && errcode != 0) {
             throw new RuntimeException(response.getErrmsg());
         }
 
@@ -176,9 +176,9 @@ public class MessageServiceImpl implements MessageService {
             throw new RuntimeException("response is null.");
         }
 
-        String errCode = response.getErrorCode();
+        Long errcode = response.getErrcode();
 
-        if (StringUtils.isNotBlank(errCode) && !"0".equals(errCode)) {
+        if (errcode != null && errcode != 0) {
             throw new RuntimeException(response.getErrmsg());
         }
     }

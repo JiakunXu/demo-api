@@ -40,9 +40,9 @@ public class UserInfoServiceImpl implements UserInfoService {
             throw new RuntimeException("response is null.");
         }
 
-        Long errCode = response.getErrcode();
+        Long errcode = response.getErrcode();
 
-        if (errCode != null && errCode != 0) {
+        if (errcode != null && errcode != 0) {
             throw new RuntimeException(response.getErrmsg());
         }
 
@@ -70,9 +70,9 @@ public class UserInfoServiceImpl implements UserInfoService {
             throw new RuntimeException("response is null.");
         }
 
-        Long errCode = response.getErrcode();
+        Long errcode = response.getErrcode();
 
-        if (errCode != null && errCode != 0) {
+        if (errcode != null && errcode != 0) {
             throw new RuntimeException(response.getErrmsg());
         }
 
