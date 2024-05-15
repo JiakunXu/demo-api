@@ -7,17 +7,17 @@ import com.aliyun.dingtalkoauth2_1_0.models.GetAccessTokenResponse;
 import com.aliyun.tea.TeaException;
 import com.aliyun.teaopenapi.models.Config;
 import com.aliyun.teautil.Common;
-import com.example.demo.dingtalk.api.Oauth2Service;
+import com.example.demo.dingtalk.api.AccessTokenService;
 import com.example.demo.dingtalk.api.bo.AccessToken;
 import com.example.demo.framework.util.BeanUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-@Service("com.example.demo.dingtalk.manager.oauth2Service")
-public class Oauth2ServiceImpl implements Oauth2Service {
+@Service("com.example.demo.dingtalk.manager.accessTokenService")
+public class AccessTokenServiceImpl implements AccessTokenService {
 
-    private static final Logger logger = LoggerFactory.getLogger(Oauth2ServiceImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(AccessTokenServiceImpl.class);
 
     @Override
     public AccessToken getAccessToken(String appKey, String appSecret) {

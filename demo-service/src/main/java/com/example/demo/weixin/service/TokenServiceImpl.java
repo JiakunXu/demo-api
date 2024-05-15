@@ -55,6 +55,7 @@ public class TokenServiceImpl implements TokenService {
         }
 
         AccessToken accessToken = accessTokenService.getAccessToken(grantType, appId, appSecret);
+
         token = accessToken.getAccessToken();
 
         try {

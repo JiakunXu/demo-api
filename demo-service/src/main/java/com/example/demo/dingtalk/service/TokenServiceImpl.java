@@ -1,8 +1,8 @@
 package com.example.demo.dingtalk.service;
 
 import com.example.demo.cache.api.RedisService;
-import com.example.demo.dingtalk.api.Oauth2Service;
 import com.example.demo.dingtalk.api.AccessTokenService;
+import com.example.demo.dingtalk.api.TokenService;
 import com.example.demo.dingtalk.api.bo.AccessToken;
 import com.example.demo.framework.exception.ServiceException;
 import org.apache.commons.lang3.StringUtils;
@@ -11,20 +11,19 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Service("com.example.demo.dingtalk.service.accessTokenService")
-public class AccessTokenServiceImpl implements AccessTokenService {
+@Service("com.example.demo.dingtalk.service.tokenService")
+public class TokenServiceImpl implements TokenService {
 
-    private static final Logger          logger = LoggerFactory
-        .getLogger(AccessTokenServiceImpl.class);
+    private static final Logger          logger = LoggerFactory.getLogger(TokenServiceImpl.class);
 
     @Autowired
     private RedisService<String, String> redisService;
 
     @Autowired
-    private Oauth2Service                oauth2Service;
+    private AccessTokenService           accessTokenService;
 
     @Override
-    public String getAccessToken(String appKey, String appSecret) throws RuntimeException {
+    public String getToken(String appKey, String appSecret) throws RuntimeException {
         if (StringUtils.isBlank(appKey)) {
             throw new RuntimeException("app_key is null.");
         }
@@ -47,7 +46,7 @@ public class AccessTokenServiceImpl implements AccessTokenService {
             return token;
         }
 
-        AccessToken accessToken = oauth2Service.getAccessToken(appKey, appSecret);
+        AccessToken accessToken = accessTokenService.getAccessToken(appKey, appSecret);
 
         token = accessToken.getAccessToken();
 
