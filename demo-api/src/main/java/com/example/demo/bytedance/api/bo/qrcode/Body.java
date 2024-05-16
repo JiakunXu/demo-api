@@ -56,4 +56,32 @@ public class Body implements Serializable {
     @JSONField(name = "set_icon")
     private Boolean           setIcon;
 
+    @Getter
+    @Setter
+    public static class LineColor implements Serializable {
+
+        private static final long serialVersionUID = -4682306844587994906L;
+
+        private int               r;
+
+        private int               g;
+
+        private int               b;
+
+    }
+
+    @Getter
+    @Setter
+    public static class Background implements Serializable {
+
+        private static final long serialVersionUID = -4682306844587994906L;
+
+        private int               r;
+
+        private int               g;
+
+        private int               b;
+
+    }
+
 }

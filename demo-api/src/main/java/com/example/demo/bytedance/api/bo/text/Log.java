@@ -39,4 +39,64 @@ public class Log implements Serializable {
 
     private String            exception;
 
+    @Getter
+    @Setter
+    public static class Data implements Serializable {
+
+        private static final long serialVersionUID = -6952598677610899377L;
+
+        /**
+         * 检测结果-状态码.
+         */
+        private int               code;
+
+        /**
+         * 检测结果- 消息.
+         */
+        private String            msg;
+
+        /**
+         * 检测结果-数据 id.
+         */
+        @JSONField(name = "data_id")
+        private String            dataId;
+
+        /**
+         * 检测结果-任务 id.
+         */
+        @JSONField(name = "task_id")
+        private String            taskId;
+
+        /**
+         * 检测结果-置信度列表.
+         */
+        @JSONField(name = "predicts")
+        private List<Predict>     predictList;
+
+        @Getter
+        @Setter
+        public static class Predict implements Serializable {
+
+            private static final long serialVersionUID = -6768050574984180332L;
+
+            /**
+             * 检测结果-置信度-服务/目标.
+             */
+            private String            target;
+
+            /**
+             * 检测结果-置信度-模型/标签.
+             */
+            @JSONField(name = "model_name")
+            private String            modelName;
+
+            /**
+             * 检测结果-置信度-概率，值为 0 或者 1，当值为 1 时表示检测的文本包含违法违规内容.
+             */
+            private int               prob;
+
+        }
+
+    }
+
 }

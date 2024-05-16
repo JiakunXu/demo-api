@@ -6,10 +6,7 @@ import com.example.demo.bytedance.api.TokenService;
 import com.example.demo.file.api.FileService;
 import com.example.demo.file.api.bo.File;
 import com.example.demo.bytedance.api.bo.text.Body;
-import com.example.demo.bytedance.api.bo.text.Data;
 import com.example.demo.bytedance.api.bo.text.Log;
-import com.example.demo.bytedance.api.bo.text.Predict;
-import com.example.demo.bytedance.api.bo.text.Task;
 import com.example.demo.framework.constant.Constants;
 import com.example.demo.framework.exception.ServiceException;
 import org.apache.commons.lang3.StringUtils;
@@ -62,9 +59,9 @@ public class FileServiceImpl implements FileService {
         targetList.add("politics");
         targetList.add("disgusting");
 
-        Task image = new Task(null, Base64.getEncoder().encodeToString(src));
+        Body.Task image = new Body.Task(null, Base64.getEncoder().encodeToString(src));
 
-        List<Task> taskList = new ArrayList<>();
+        List<Body.Task> taskList = new ArrayList<>();
         taskList.add(image);
 
         Body body = new Body();
@@ -81,13 +78,14 @@ public class FileServiceImpl implements FileService {
         }
 
         if (log != null) {
-            List<Data> dataList = log.getDataList();
-            for (Data data : dataList) {
+            List<Log.Data> dataList = log.getDataList();
+            for (Log.Data data : dataList) {
                 if (data.getCode() == 0) {
-                    List<Predict> predictList = data.getPredictList();
-                    for (Predict predict : predictList) {
+                    List<Log.Data.Predict> predictList = data.getPredictList();
+                    for (Log.Data.Predict predict : predictList) {
                         if (predict.getProb() == 1) {
-                            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "【图片】包含违法违规内容");
+                            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR,
+                                "【图片】包含违法违规内容");
                         }
                     }
                 }
