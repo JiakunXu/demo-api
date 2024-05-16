@@ -6,8 +6,6 @@ import com.alipay.easysdk.payment.wap.models.AlipayTradeWapPayResponse;
 import com.example.demo.alipay.api.AlipayTradeWapService;
 import org.springframework.stereotype.Service;
 
-import java.net.URLEncoder;
-
 @Service
 public class AlipayTradeWapServiceImpl implements AlipayTradeWapService {
 

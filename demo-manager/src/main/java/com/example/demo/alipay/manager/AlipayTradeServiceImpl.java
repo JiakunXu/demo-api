@@ -6,8 +6,6 @@ import com.alipay.easysdk.payment.common.models.*;
 import com.example.demo.alipay.api.AlipayTradeService;
 import org.springframework.stereotype.Service;
 
-import java.net.URLEncoder;
-
 @Service
 public class AlipayTradeServiceImpl implements AlipayTradeService {
 
