@@ -1,7 +1,7 @@
 package com.example.demo.bytedance.api;
 
-import com.example.demo.bytedance.api.bo.user.KvItem;
 import com.example.demo.bytedance.api.bo.user.Result;
+import com.example.demo.bytedance.api.bo.user.UserStorage;
 
 import java.util.List;
 
@@ -21,7 +21,8 @@ public interface UserStorageService {
      * @param kvItemList
      * @throws RuntimeException
      */
-    Result set(String accessToken, String openid, List<KvItem> kvItemList) throws RuntimeException;
+    Result set(String accessToken, String openid,
+               List<UserStorage.KvItem> kvItemList) throws RuntimeException;
 
     /**
      * 
@@ -31,6 +32,6 @@ public interface UserStorageService {
      * @throws RuntimeException
      */
     Result remove(String accessToken, String openid,
-                  List<KvItem> kvItemList) throws RuntimeException;
+                  List<UserStorage.KvItem> kvItemList) throws RuntimeException;
 
 }

@@ -2,12 +2,10 @@ package com.example.demo.bytedance.manager;
 
 import com.alibaba.fastjson2.JSON;
 import com.example.demo.bytedance.api.UserStorageService;
-import com.example.demo.bytedance.api.bo.user.KvItem;
 import com.example.demo.bytedance.api.bo.user.Result;
 import com.example.demo.bytedance.api.bo.user.UserStorage;
 import com.example.demo.framework.util.EncryptUtil;
 import com.example.demo.framework.util.HttpUtil;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -25,7 +23,7 @@ public class UserStorageServiceImpl implements UserStorageService {
 
     @Override
     public Result set(String accessToken, String openid,
-                      List<KvItem> kvItemList) throws RuntimeException {
+                      List<UserStorage.KvItem> kvItemList) throws RuntimeException {
         UserStorage userStorage = new UserStorage();
         userStorage.setAccessToken(accessToken);
         userStorage.setOpenid(openid);
@@ -56,7 +54,7 @@ public class UserStorageServiceImpl implements UserStorageService {
 
     @Override
     public Result remove(String accessToken, String openid,
-                         List<KvItem> kvItemList) throws RuntimeException {
+                         List<UserStorage.KvItem> kvItemList) throws RuntimeException {
         UserStorage userStorage = new UserStorage();
         userStorage.setAccessToken(accessToken);
         userStorage.setOpenid(openid);
