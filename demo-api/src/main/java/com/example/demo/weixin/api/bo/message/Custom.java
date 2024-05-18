@@ -1,6 +1,7 @@
 package com.example.demo.weixin.api.bo.message;
 
 import java.io.Serializable;
+import java.util.List;
 
 import com.alibaba.fastjson2.annotation.JSONField;
 import lombok.Getter;
@@ -50,6 +51,153 @@ public class Custom implements Serializable {
     private MiniProgramPage   miniProgramPage;
 
     private Link              link;
+
+    @Getter
+    @Setter
+    public static class Text implements Serializable {
+
+        private static final long serialVersionUID = 552698313157925708L;
+
+        /**
+         * 消息内容.
+         */
+        private String            content;
+
+    }
+
+    @Getter
+    @Setter
+    public static class Image implements Serializable {
+
+        private static final long serialVersionUID = -8440592062810395126L;
+
+        /**
+         * 图片媒体文件id，可以调用上传临时素材或者永久素材接口获取,永久素材media_id必须由发消息的应用创建.
+         */
+        @JSONField(name = "media_id")
+        private String            mediaId;
+
+    }
+
+    @Getter
+    @Setter
+    public static class Voice implements Serializable {
+
+        private static final long serialVersionUID = -8380547800046434617L;
+
+        /**
+         * 语音文件id，可以调用上传临时素材或者永久素材接口获取.
+         */
+        @JSONField(name = "media_id")
+        private String            mediaId;
+
+    }
+
+    @Getter
+    @Setter
+    public static class Video implements Serializable {
+
+        private static final long serialVersionUID = -6001711073891320714L;
+
+        /**
+         * 视频媒体文件id，可以调用上传临时素材或者永久素材接口获取.
+         */
+        @JSONField(name = "media_id")
+        private String            mediaId;
+
+        /**
+         * 缩略图.
+         */
+        @JSONField(name = "thumb_media_id")
+        private String            thumbMediaId;
+
+        /**
+         * 视频消息的标题.
+         */
+        private String            title;
+
+        /**
+         * 视频消息的描述.
+         */
+        private String            description;
+
+    }
+
+    @Getter
+    @Setter
+    public static class Music implements Serializable {
+
+        private static final long serialVersionUID = 4770849345906757609L;
+
+        /**
+         * 音乐消息的标题.
+         */
+        private String            title;
+
+        /**
+         * 音乐消息的描述.
+         */
+        private String            description;
+
+        /**
+         * 音乐链接.
+         */
+        @JSONField(name = "musicurl")
+        private String            musicUrl;
+
+        /**
+         * 高品质音乐链接，wifi环境优先使用该链接播放音乐.
+         */
+        @JSONField(name = "hqmusicurl")
+        private String            hqMusicUrl;
+
+        /**
+         * 缩略图.
+         */
+        @JSONField(name = "thumb_media_id")
+        private String            thumbMediaId;
+
+    }
+
+    @Getter
+    @Setter
+    public static class News implements Serializable {
+
+        private static final long serialVersionUID = -3435707328473697197L;
+
+        @JSONField(name = "articles")
+        private List<Article>     articleList;
+
+        @Getter
+        @Setter
+        public static class Article implements Serializable {
+
+            private static final long serialVersionUID = -4200095293164497228L;
+
+            /**
+             * 标题.
+             */
+            private String            title;
+
+            /**
+             * 描述.
+             */
+            private String            description;
+
+            /**
+             * 点击后跳转的链接.
+             */
+            private String            url;
+
+            /**
+             * 图文消息的图片链接，支持JPG、PNG格式，较好的效果为大图640*320，小图80*80。如不填，在客户端不显示图片.
+             */
+            @JSONField(name = "picurl")
+            private String            picUrl;
+
+        }
+
+    }
 
     @Getter
     @Setter

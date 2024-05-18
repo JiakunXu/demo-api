@@ -23,7 +23,7 @@ public interface CustomerServiceMessageService {
      * @see <a href="https://developers.weixin.qq.com/doc/offiaccount/Message_Management/Service_Center_messages.html#7">微信官方文档</a>
      * @see <a href="https://developers.weixin.qq.com/miniprogram/dev/api-backend/open-api/customer-message/customerServiceMessage.send.html">微信官方文档</a>
      */
-    Result send(String accessToken, String toUser, Text text) throws RuntimeException;
+    Result send(String accessToken, String toUser, Custom.Text text) throws RuntimeException;
 
     /**
      * 发送图片消息.
@@ -36,7 +36,7 @@ public interface CustomerServiceMessageService {
      * @see <a href="https://developers.weixin.qq.com/doc/offiaccount/Message_Management/Service_Center_messages.html#7">微信官方文档</a>
      * @see <a href="https://developers.weixin.qq.com/miniprogram/dev/api-backend/open-api/customer-message/customerServiceMessage.send.html">微信官方文档</a>
      */
-    Result send(String accessToken, String toUser, Image image) throws RuntimeException;
+    Result send(String accessToken, String toUser, Custom.Image image) throws RuntimeException;
 
     /**
      * 发送语音消息.
@@ -48,7 +48,7 @@ public interface CustomerServiceMessageService {
      * @throws RuntimeException
      * @see <a href="https://developers.weixin.qq.com/doc/offiaccount/Message_Management/Service_Center_messages.html#7">微信官方文档</a>
      */
-    Result send(String accessToken, String toUser, Voice voice) throws RuntimeException;
+    Result send(String accessToken, String toUser, Custom.Voice voice) throws RuntimeException;
 
     /**
      * 发送视频消息.
@@ -60,7 +60,7 @@ public interface CustomerServiceMessageService {
      * @throws RuntimeException
      * @see <a href="https://developers.weixin.qq.com/doc/offiaccount/Message_Management/Service_Center_messages.html#7">微信官方文档</a>
      */
-    Result send(String accessToken, String toUser, Video video) throws RuntimeException;
+    Result send(String accessToken, String toUser, Custom.Video video) throws RuntimeException;
 
     /**
      * 发送音乐消息.
@@ -72,7 +72,7 @@ public interface CustomerServiceMessageService {
      * @throws RuntimeException
      * @see <a href="https://developers.weixin.qq.com/doc/offiaccount/Message_Management/Service_Center_messages.html#7">微信官方文档</a>
      */
-    Result send(String accessToken, String toUser, Music music) throws RuntimeException;
+    Result send(String accessToken, String toUser, Custom.Music music) throws RuntimeException;
 
     /**
      * 发送图文消息（点击跳转到外链） 图文消息条数限制在1条以内，注意，如果图文数超过1，则将会返回错误码45008.
@@ -84,7 +84,7 @@ public interface CustomerServiceMessageService {
      * @throws RuntimeException
      * @see <a href="https://developers.weixin.qq.com/doc/offiaccount/Message_Management/Service_Center_messages.html#7">微信官方文档</a>
      */
-    Result send(String accessToken, String toUser, News news) throws RuntimeException;
+    Result send(String accessToken, String toUser, Custom.News news) throws RuntimeException;
 
     /**
      * 发送图文消息（点击跳转到图文消息页面） 图文消息条数限制在1条以内，注意，如果图文数超过1，则将会返回错误码45008.

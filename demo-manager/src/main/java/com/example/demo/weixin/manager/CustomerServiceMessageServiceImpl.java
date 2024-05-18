@@ -5,14 +5,8 @@ import com.example.demo.framework.util.HttpUtil;
 import com.example.demo.weixin.api.CustomerServiceMessageService;
 import com.example.demo.weixin.api.bo.BaseResult;
 import com.example.demo.weixin.api.bo.message.Custom;
-import com.example.demo.weixin.api.bo.message.Image;
-import com.example.demo.weixin.api.bo.message.Music;
-import com.example.demo.weixin.api.bo.message.News;
 import com.example.demo.weixin.api.bo.message.Result;
-import com.example.demo.weixin.api.bo.message.Text;
 import com.example.demo.weixin.api.bo.message.Typing;
-import com.example.demo.weixin.api.bo.message.Video;
-import com.example.demo.weixin.api.bo.message.Voice;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -59,7 +53,8 @@ public class CustomerServiceMessageServiceImpl implements CustomerServiceMessage
     }
 
     @Override
-    public Result send(String accessToken, String toUser, Text text) throws RuntimeException {
+    public Result send(String accessToken, String toUser,
+                       Custom.Text text) throws RuntimeException {
         Custom custom = new Custom();
         custom.setToUser(toUser);
         custom.setMsgType("text");
@@ -69,7 +64,8 @@ public class CustomerServiceMessageServiceImpl implements CustomerServiceMessage
     }
 
     @Override
-    public Result send(String accessToken, String toUser, Image image) throws RuntimeException {
+    public Result send(String accessToken, String toUser,
+                       Custom.Image image) throws RuntimeException {
         Custom custom = new Custom();
         custom.setToUser(toUser);
         custom.setMsgType("image");
@@ -79,7 +75,8 @@ public class CustomerServiceMessageServiceImpl implements CustomerServiceMessage
     }
 
     @Override
-    public Result send(String accessToken, String toUser, Voice voice) throws RuntimeException {
+    public Result send(String accessToken, String toUser,
+                       Custom.Voice voice) throws RuntimeException {
         Custom custom = new Custom();
         custom.setToUser(toUser);
         custom.setMsgType("voice");
@@ -89,7 +86,8 @@ public class CustomerServiceMessageServiceImpl implements CustomerServiceMessage
     }
 
     @Override
-    public Result send(String accessToken, String toUser, Video video) throws RuntimeException {
+    public Result send(String accessToken, String toUser,
+                       Custom.Video video) throws RuntimeException {
         Custom custom = new Custom();
         custom.setToUser(toUser);
         custom.setMsgType("video");
@@ -99,7 +97,8 @@ public class CustomerServiceMessageServiceImpl implements CustomerServiceMessage
     }
 
     @Override
-    public Result send(String accessToken, String toUser, Music music) throws RuntimeException {
+    public Result send(String accessToken, String toUser,
+                       Custom.Music music) throws RuntimeException {
         Custom custom = new Custom();
         custom.setToUser(toUser);
         custom.setMsgType("music");
@@ -109,7 +108,8 @@ public class CustomerServiceMessageServiceImpl implements CustomerServiceMessage
     }
 
     @Override
-    public Result send(String accessToken, String toUser, News news) throws RuntimeException {
+    public Result send(String accessToken, String toUser,
+                       Custom.News news) throws RuntimeException {
         Custom custom = new Custom();
         custom.setToUser(toUser);
         custom.setMsgType("news");
