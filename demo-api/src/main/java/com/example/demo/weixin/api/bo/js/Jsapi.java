@@ -3,6 +3,7 @@ package com.example.demo.weixin.api.bo.js;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
@@ -12,6 +13,7 @@ import java.io.Serializable;
 @Setter
 public class Jsapi implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = -1941311743234502564L;
 
     /**
