@@ -3,6 +3,7 @@ package com.example.demo.dingtalk.api.bo;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +12,7 @@ import java.util.Map;
 @Setter
 public class FileUploadInfo implements Serializable {
 
+    @Serial
     private static final long   serialVersionUID = -1178965263010134042L;
 
     /**
@@ -27,6 +29,7 @@ public class FileUploadInfo implements Serializable {
     @Setter
     public static class HeaderSignatureInfo implements Serializable {
 
+        @Serial
         private static final long   serialVersionUID = 5962298145679799774L;
 
         /**
