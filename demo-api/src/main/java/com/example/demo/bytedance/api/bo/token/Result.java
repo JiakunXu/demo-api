@@ -6,6 +6,8 @@ import com.example.demo.bytedance.api.bo.BaseResult;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serial;
+
 /**
  * @author JiakunXu
  */
@@ -13,6 +15,7 @@ import lombok.Setter;
 @Setter
 public class Result extends BaseResult {
 
+    @Serial
     private static final long serialVersionUID = -7764030576212518819L;
 
     @JSONField(name = "data")

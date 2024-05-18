@@ -3,6 +3,7 @@ package com.example.demo.alipay.api.bo;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -11,6 +12,7 @@ import java.util.Date;
 @Setter
 public class AlipayNotify implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 7535712257940638603L;
 
     /**

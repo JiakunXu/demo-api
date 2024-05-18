@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
 
@@ -16,6 +17,7 @@ import java.util.List;
 @ToString
 public class UserStorage implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 6803100618881966448L;
 
     /**

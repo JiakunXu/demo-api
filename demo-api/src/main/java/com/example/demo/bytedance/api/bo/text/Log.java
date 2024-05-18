@@ -4,6 +4,7 @@ import com.alibaba.fastjson2.annotation.JSONField;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
 
@@ -14,6 +15,7 @@ import java.util.List;
 @Setter
 public class Log implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = -2775327067303387248L;
 
     /**
@@ -43,6 +45,7 @@ public class Log implements Serializable {
     @Setter
     public static class Data implements Serializable {
 
+        @Serial
         private static final long serialVersionUID = -6952598677610899377L;
 
         /**
@@ -77,6 +80,7 @@ public class Log implements Serializable {
         @Setter
         public static class Predict implements Serializable {
 
+            @Serial
             private static final long serialVersionUID = -6768050574984180332L;
 
             /**
