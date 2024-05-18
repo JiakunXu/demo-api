@@ -6,10 +6,6 @@ import com.example.demo.weixin.api.CustomerServiceMessageService;
 import com.example.demo.weixin.api.bo.BaseResult;
 import com.example.demo.weixin.api.bo.message.Custom;
 import com.example.demo.weixin.api.bo.message.Image;
-import com.example.demo.weixin.api.bo.message.Link;
-import com.example.demo.weixin.api.bo.message.MiniProgramPage;
-import com.example.demo.weixin.api.bo.message.MpNews;
-import com.example.demo.weixin.api.bo.message.MpNewsArticle;
 import com.example.demo.weixin.api.bo.message.Music;
 import com.example.demo.weixin.api.bo.message.News;
 import com.example.demo.weixin.api.bo.message.Result;
@@ -17,7 +13,6 @@ import com.example.demo.weixin.api.bo.message.Text;
 import com.example.demo.weixin.api.bo.message.Typing;
 import com.example.demo.weixin.api.bo.message.Video;
 import com.example.demo.weixin.api.bo.message.Voice;
-import com.example.demo.weixin.api.bo.message.WxCard;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -124,7 +119,8 @@ public class CustomerServiceMessageServiceImpl implements CustomerServiceMessage
     }
 
     @Override
-    public Result send(String accessToken, String toUser, MpNews mpNews) throws RuntimeException {
+    public Result send(String accessToken, String toUser,
+                       Custom.MpNews mpNews) throws RuntimeException {
         Custom custom = new Custom();
         custom.setToUser(toUser);
         custom.setMsgType("mpnews");
@@ -135,7 +131,7 @@ public class CustomerServiceMessageServiceImpl implements CustomerServiceMessage
 
     @Override
     public Result send(String accessToken, String toUser,
-                       MpNewsArticle mpNewsArticle) throws RuntimeException {
+                       Custom.MpNewsArticle mpNewsArticle) throws RuntimeException {
         Custom custom = new Custom();
         custom.setToUser(toUser);
         custom.setMsgType("mpnewsarticle");
@@ -145,7 +141,8 @@ public class CustomerServiceMessageServiceImpl implements CustomerServiceMessage
     }
 
     @Override
-    public Result send(String accessToken, String toUser, WxCard wxCard) throws RuntimeException {
+    public Result send(String accessToken, String toUser,
+                       Custom.WxCard wxCard) throws RuntimeException {
         Custom custom = new Custom();
         custom.setToUser(toUser);
         custom.setMsgType("wxcard");
@@ -156,7 +153,7 @@ public class CustomerServiceMessageServiceImpl implements CustomerServiceMessage
 
     @Override
     public Result send(String accessToken, String toUser,
-                       MiniProgramPage miniProgramPage) throws RuntimeException {
+                       Custom.MiniProgramPage miniProgramPage) throws RuntimeException {
         Custom custom = new Custom();
         custom.setToUser(toUser);
         custom.setMsgType("miniprogrampage");
@@ -166,7 +163,8 @@ public class CustomerServiceMessageServiceImpl implements CustomerServiceMessage
     }
 
     @Override
-    public Result send(String accessToken, String toUser, Link link) throws RuntimeException {
+    public Result send(String accessToken, String toUser,
+                       Custom.Link link) throws RuntimeException {
         Custom custom = new Custom();
         custom.setToUser(toUser);
         custom.setMsgType("link");
