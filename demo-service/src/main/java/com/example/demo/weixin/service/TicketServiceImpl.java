@@ -1,17 +1,16 @@
 package com.example.demo.weixin.service;
 
 import com.example.demo.cache.api.RedisService;
-import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.example.demo.weixin.api.JsapiTicketService;
 import com.example.demo.weixin.api.TicketService;
 import com.example.demo.weixin.api.TokenService;
 import com.example.demo.weixin.api.bo.js.JsapiTicket;
 import com.example.demo.framework.exception.ServiceException;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * @author JiakunXu
@@ -25,23 +24,16 @@ public class TicketServiceImpl implements TicketService {
     private RedisService<String, String> redisService;
 
     @Autowired
-    private TokenService                 tokenService;
+    private JsapiTicketService           jsapiTicketService;
 
     @Autowired
-    private JsapiTicketService           jsapiTicketService;
+    private TokenService                 tokenService;
 
     @Override
     public String getTicket(String appId, String appSecret) throws RuntimeException {
-        if (StringUtils.isBlank(appId)) {
-            throw new RuntimeException("appId 不能为空.");
-        }
-
-        if (StringUtils.isBlank(appSecret)) {
-            throw new RuntimeException("appSecret 不能为空.");
-        }
+        String key = appId + "&" + appSecret;
 
         String ticket = null;
-        String key = appId.trim() + "&" + appSecret.trim();
 
         try {
             ticket = redisService.get(RedisService.CACHE_KEY_WX_TICKET + key);
@@ -53,17 +45,19 @@ public class TicketServiceImpl implements TicketService {
             return ticket;
         }
 
-        String token = tokenService.getToken("client_credential", appId, appSecret);
-        JsapiTicket jsapiTicket = jsapiTicketService.getJsapiTicket(token);
+        JsapiTicket jsapiTicket = jsapiTicketService
+            .getJsapiTicket(tokenService.getToken("client_credential", appId, appSecret));
+
         ticket = jsapiTicket.getTicket();
 
         try {
             redisService.set(RedisService.CACHE_KEY_WX_TICKET + key, ticket,
-                jsapiTicket.getExpiresIn());
+                jsapiTicket.getExpiresIn() - 5 * 60);
         } catch (ServiceException e) {
             logger.error(RedisService.CACHE_KEY_WX_TICKET + key, e);
         }
 
         return ticket;
     }
+
 }
