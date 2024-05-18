@@ -21,10 +21,10 @@ public class TicketServiceImpl implements TicketService {
     private static final Logger          logger = LoggerFactory.getLogger(TicketServiceImpl.class);
 
     @Autowired
-    private RedisService<String, String> redisService;
+    private JsapiTicketService           jsapiTicketService;
 
     @Autowired
-    private JsapiTicketService           jsapiTicketService;
+    private RedisService<String, String> redisService;
 
     @Autowired
     private TokenService                 tokenService;

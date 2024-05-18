@@ -23,7 +23,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-@Service
+@Service("com.example.demo.security.service.tokenService")
 public class TokenServiceImpl implements TokenService {
 
     @Autowired

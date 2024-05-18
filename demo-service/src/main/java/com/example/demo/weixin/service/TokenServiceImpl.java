@@ -20,10 +20,10 @@ public class TokenServiceImpl implements TokenService {
     private static final Logger          logger = LoggerFactory.getLogger(TokenServiceImpl.class);
 
     @Autowired
-    private RedisService<String, String> redisService;
+    private AccessTokenService           accessTokenService;
 
     @Autowired
-    private AccessTokenService           accessTokenService;
+    private RedisService<String, String> redisService;
 
     @Override
     public String getToken(String grantType, String appId,
