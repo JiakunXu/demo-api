@@ -24,17 +24,9 @@ public class TokenServiceImpl implements TokenService {
 
     @Override
     public String getToken(String appKey, String appSecret) throws RuntimeException {
-        if (StringUtils.isBlank(appKey)) {
-            throw new RuntimeException("app_key is null.");
-        }
-
-        if (StringUtils.isBlank(appSecret)) {
-            throw new RuntimeException("app_secret is null.");
-        }
+        String key = appKey + "&" + appSecret;
 
         String token = null;
-
-        String key = appKey.trim() + "&" + appSecret.trim();
 
         try {
             token = redisService.get(RedisService.CACHE_KEY_DD_TOKEN + key);

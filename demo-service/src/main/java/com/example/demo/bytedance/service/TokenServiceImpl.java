@@ -28,19 +28,7 @@ public class TokenServiceImpl implements TokenService {
     @Override
     public String getToken(String appId, String appSecret,
                            String grantType) throws RuntimeException {
-        if (StringUtils.isBlank(appId)) {
-            throw new RuntimeException("appId 不能为空.");
-        }
-
-        if (StringUtils.isBlank(appSecret)) {
-            throw new RuntimeException("appSecret 不能为空.");
-        }
-
-        if (StringUtils.isBlank(grantType)) {
-            throw new RuntimeException("grantType 不能为空.");
-        }
-
-        String key = appId.trim() + "&" + appSecret.trim() + "&" + grantType.trim();
+        String key = appId + "&" + appSecret + "&" + grantType;
 
         String token = null;
 
@@ -60,7 +48,7 @@ public class TokenServiceImpl implements TokenService {
 
         try {
             redisService.set(RedisService.CACHE_KEY_TT_TOKEN + key, token,
-                accessToken.getExpiresIn());
+                accessToken.getExpiresIn() - 5 * 60);
         } catch (ServiceException e) {
             logger.error(RedisService.CACHE_KEY_TT_TOKEN + key, e);
         }

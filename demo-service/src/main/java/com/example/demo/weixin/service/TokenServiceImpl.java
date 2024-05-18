@@ -1,16 +1,15 @@
 package com.example.demo.weixin.service;
 
 import com.example.demo.cache.api.RedisService;
+import com.example.demo.weixin.api.AccessTokenService;
+import com.example.demo.weixin.api.TokenService;
+import com.example.demo.weixin.api.bo.token.AccessToken;
+import com.example.demo.framework.exception.ServiceException;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.example.demo.weixin.api.AccessTokenService;
-import com.example.demo.weixin.api.TokenService;
-import com.example.demo.weixin.api.bo.token.AccessToken;
-import com.example.demo.framework.exception.ServiceException;
 
 /**
  * @author JiakunXu
@@ -29,20 +28,9 @@ public class TokenServiceImpl implements TokenService {
     @Override
     public String getToken(String grantType, String appId,
                            String appSecret) throws RuntimeException {
-        if (StringUtils.isBlank(grantType)) {
-            throw new RuntimeException("grantType 不能为空.");
-        }
-
-        if (StringUtils.isBlank(appId)) {
-            throw new RuntimeException("appId 不能为空.");
-        }
-
-        if (StringUtils.isBlank(appSecret)) {
-            throw new RuntimeException("appSecret 不能为空.");
-        }
+        String key = grantType + "&" + appId + "&" + appSecret;
 
         String token = null;
-        String key = grantType.trim() + "&" + appId.trim() + "&" + appSecret.trim();
 
         try {
             token = redisService.get(RedisService.CACHE_KEY_WX_TOKEN + key);
@@ -60,11 +48,12 @@ public class TokenServiceImpl implements TokenService {
 
         try {
             redisService.set(RedisService.CACHE_KEY_WX_TOKEN + key, token,
-                accessToken.getExpiresIn());
+                accessToken.getExpiresIn() - 5 * 60);
         } catch (ServiceException e) {
             logger.error(RedisService.CACHE_KEY_WX_TOKEN + key, e);
         }
 
         return token;
     }
+
 }
