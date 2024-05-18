@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
 
@@ -18,6 +19,7 @@ import java.util.List;
 @ToString
 public class Menu implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = -3786757350633940882L;
 
     @JSONField(name = "button")
@@ -27,6 +29,7 @@ public class Menu implements Serializable {
     @Setter
     public static class Button implements Serializable {
 
+        @Serial
         private static final long serialVersionUID = 8705272541703114748L;
 
         /**

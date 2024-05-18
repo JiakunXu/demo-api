@@ -1,5 +1,6 @@
 package com.example.demo.weixin.api.bo.message;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
 
@@ -18,6 +19,7 @@ import lombok.ToString;
 @ToString
 public class Custom implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 733672350056046345L;
 
     @JSONField(name = "touser")
@@ -56,6 +58,7 @@ public class Custom implements Serializable {
     @Setter
     public static class Text implements Serializable {
 
+        @Serial
         private static final long serialVersionUID = 552698313157925708L;
 
         /**
@@ -69,6 +72,7 @@ public class Custom implements Serializable {
     @Setter
     public static class Image implements Serializable {
 
+        @Serial
         private static final long serialVersionUID = -8440592062810395126L;
 
         /**
@@ -83,6 +87,7 @@ public class Custom implements Serializable {
     @Setter
     public static class Voice implements Serializable {
 
+        @Serial
         private static final long serialVersionUID = -8380547800046434617L;
 
         /**
@@ -97,6 +102,7 @@ public class Custom implements Serializable {
     @Setter
     public static class Video implements Serializable {
 
+        @Serial
         private static final long serialVersionUID = -6001711073891320714L;
 
         /**
@@ -127,6 +133,7 @@ public class Custom implements Serializable {
     @Setter
     public static class Music implements Serializable {
 
+        @Serial
         private static final long serialVersionUID = 4770849345906757609L;
 
         /**
@@ -163,6 +170,7 @@ public class Custom implements Serializable {
     @Setter
     public static class News implements Serializable {
 
+        @Serial
         private static final long serialVersionUID = -3435707328473697197L;
 
         @JSONField(name = "articles")
@@ -172,6 +180,7 @@ public class Custom implements Serializable {
         @Setter
         public static class Article implements Serializable {
 
+            @Serial
             private static final long serialVersionUID = -4200095293164497228L;
 
             /**
@@ -203,6 +212,7 @@ public class Custom implements Serializable {
     @Setter
     public static class MpNews implements Serializable {
 
+        @Serial
         private static final long serialVersionUID = 7061489935805032955L;
 
         @JSONField(name = "media_id")
@@ -214,6 +224,7 @@ public class Custom implements Serializable {
     @Setter
     public static class MpNewsArticle implements Serializable {
 
+        @Serial
         private static final long serialVersionUID = 1293536183206475031L;
 
         @JSONField(name = "article_id")
@@ -225,6 +236,7 @@ public class Custom implements Serializable {
     @Setter
     public static class WxCard implements Serializable {
 
+        @Serial
         private static final long serialVersionUID = 5035057128920912659L;
 
         @JSONField(name = "card_id")
@@ -236,6 +248,7 @@ public class Custom implements Serializable {
     @Setter
     public static class MiniProgramPage implements Serializable {
 
+        @Serial
         private static final long serialVersionUID = -1103517896641557915L;
 
         private String            title;
@@ -257,6 +270,7 @@ public class Custom implements Serializable {
     @Setter
     public static class Link implements Serializable {
 
+        @Serial
         private static final long serialVersionUID = 8488659987271370349L;
 
         /**

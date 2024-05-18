@@ -1,5 +1,6 @@
 package com.example.demo.weixin.api.bo.message;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 import com.alibaba.fastjson2.annotation.JSONField;
@@ -17,6 +18,7 @@ import lombok.ToString;
 @ToString
 public class Template implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = -7355661588948787559L;
 
     /**
@@ -51,6 +53,7 @@ public class Template implements Serializable {
     @Setter
     public static class MiniProgram implements Serializable {
 
+        @Serial
         private static final long serialVersionUID = 4742658373201267387L;
 
         /**

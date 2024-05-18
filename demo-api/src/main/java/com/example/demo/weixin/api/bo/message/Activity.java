@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
 
@@ -19,6 +20,7 @@ import java.util.List;
 @ToString
 public class Activity extends BaseResult {
 
+    @Serial
     private static final long serialVersionUID = -1592586901866328247L;
 
     /**
@@ -51,6 +53,7 @@ public class Activity extends BaseResult {
     @Setter
     public static class TemplateInfo implements Serializable {
 
+        @Serial
         private static final long serialVersionUID = -7104780464279026257L;
 
         @JSONField(name = "parameter_list")
@@ -60,6 +63,7 @@ public class Activity extends BaseResult {
         @Setter
         public static class Parameter implements Serializable {
 
+            @Serial
             private static final long serialVersionUID = -8739749071365849495L;
 
             /**

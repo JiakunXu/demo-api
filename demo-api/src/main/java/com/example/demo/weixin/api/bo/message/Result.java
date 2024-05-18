@@ -5,6 +5,7 @@ import com.example.demo.weixin.api.bo.BaseResult;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serial;
 import java.math.BigInteger;
 
 /**
@@ -14,6 +15,7 @@ import java.math.BigInteger;
 @Setter
 public class Result extends BaseResult {
 
+    @Serial
     private static final long serialVersionUID = -8725706372633271928L;
 
     @JSONField(name = "msgid")
