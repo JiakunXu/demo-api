@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
 
@@ -13,6 +14,7 @@ import java.util.List;
 @ToString
 public class ShippingInfo implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = -174323130548221296L;
 
     @JSONField(name = "order_key")
@@ -53,6 +55,7 @@ public class ShippingInfo implements Serializable {
     @ToString
     public static class OrderKey implements Serializable {
 
+        @Serial
         private static final long serialVersionUID = 65873314513630993L;
 
         @JSONField(name = "order_number_type")
@@ -81,6 +84,7 @@ public class ShippingInfo implements Serializable {
     @ToString
     public static class Shipping implements Serializable {
 
+        @Serial
         private static final long serialVersionUID = 2053632799119217743L;
 
         @JSONField(name = "tracking_no")
@@ -106,6 +110,7 @@ public class ShippingInfo implements Serializable {
         @ToString
         public static class Contact implements Serializable {
 
+            @Serial
             private static final long serialVersionUID = -2873975479310722783L;
 
             @JSONField(name = "consignor_contact")
@@ -123,6 +128,7 @@ public class ShippingInfo implements Serializable {
     @ToString
     public static class Payer implements Serializable {
 
+        @Serial
         private static final long serialVersionUID = -1818500801874140742L;
 
         private String            openid;

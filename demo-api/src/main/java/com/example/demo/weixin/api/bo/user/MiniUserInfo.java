@@ -3,6 +3,7 @@ package com.example.demo.weixin.api.bo.user;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
@@ -12,6 +13,7 @@ import java.io.Serializable;
 @Setter
 public class MiniUserInfo implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = -5265739422265707773L;
 
     private String            openId;
@@ -36,6 +38,7 @@ public class MiniUserInfo implements Serializable {
     @Setter
     public static class Watermark implements Serializable {
 
+        @Serial
         private static final long serialVersionUID = -946609595011819810L;
 
         /**

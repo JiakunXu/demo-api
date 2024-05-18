@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
@@ -15,6 +16,7 @@ import java.io.Serializable;
 @ToString
 public class Page implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = -3346507682950596722L;
 
     /**

@@ -5,6 +5,8 @@ import com.example.demo.weixin.api.bo.BaseResult;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serial;
+
 /**
  * @author JiakunXu
  */
@@ -12,6 +14,7 @@ import lombok.Setter;
 @Setter
 public class AccessToken extends BaseResult {
 
+    @Serial
     private static final long serialVersionUID = 2754621311801850489L;
 
     /**

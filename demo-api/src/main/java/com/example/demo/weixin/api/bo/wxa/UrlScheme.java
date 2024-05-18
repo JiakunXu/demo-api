@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
@@ -15,6 +16,7 @@ import java.io.Serializable;
 @ToString
 public class UrlScheme implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = -9098429045150610337L;
 
     /**
@@ -45,6 +47,7 @@ public class UrlScheme implements Serializable {
     @Setter
     public static class JumpWxa implements Serializable {
 
+        @Serial
         private static final long serialVersionUID = -8114479188174743438L;
 
         /**

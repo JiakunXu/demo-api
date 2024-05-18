@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.io.Serial;
+
 /**
  * @author JiakunXu
  */
@@ -13,6 +15,7 @@ import lombok.ToString;
 @ToString
 public class WxaQrCode extends BaseResult {
 
+    @Serial
     private static final long serialVersionUID = 2888579501128777299L;
 
     /**

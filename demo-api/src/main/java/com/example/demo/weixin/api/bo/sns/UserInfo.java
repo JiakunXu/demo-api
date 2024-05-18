@@ -5,6 +5,8 @@ import com.example.demo.weixin.api.bo.BaseResult;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serial;
+
 /**
  * 如果用户在微信客户端中访问第三方网页，公众号可以通过微信网页授权机制，来获取用户基本信息，进而实现业务逻辑。
  *
@@ -14,6 +16,7 @@ import lombok.Setter;
 @Setter
 public class UserInfo extends BaseResult {
 
+    @Serial
     private static final long serialVersionUID = -1214732071184914158L;
 
     /**

@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.io.Serial;
+
 /**
  * @author JiakunXu
  */
@@ -14,6 +16,7 @@ import lombok.ToString;
 @ToString
 public class Session extends BaseResult {
 
+    @Serial
     private static final long serialVersionUID = 4107709675927719697L;
 
     /**

@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
@@ -15,6 +16,7 @@ import java.io.Serializable;
 @ToString
 public class WxaCode implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 2805710848332841282L;
 
     /**
@@ -76,6 +78,7 @@ public class WxaCode implements Serializable {
     @Setter
     public static class LineColor implements Serializable {
 
+        @Serial
         private static final long serialVersionUID = -4682306844587994906L;
 
         private int               r;
