@@ -1,5 +1,6 @@
 package com.example.demo.weixin.api.bo.message;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 import lombok.Getter;
@@ -14,6 +15,7 @@ import lombok.Setter;
 @Setter
 public class Value implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1535813944895333616L;
 
     private String            value;
