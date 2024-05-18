@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
 
@@ -16,6 +17,7 @@ import java.util.List;
 @ToString
 public class Body implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = -4773047490509322993L;
 
     @JSONField(name = "targets")
@@ -31,6 +33,7 @@ public class Body implements Serializable {
     @Setter
     public static class Task implements Serializable {
 
+        @Serial
         private static final long serialVersionUID = -6449251347845073879L;
 
         /**

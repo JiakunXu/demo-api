@@ -4,6 +4,7 @@ import com.alibaba.fastjson2.annotation.JSONField;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigInteger;
 
@@ -14,6 +15,7 @@ import java.math.BigInteger;
 @Setter
 public class Message implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = -5501483433983115912L;
 
     private BigInteger        id;

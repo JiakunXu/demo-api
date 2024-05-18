@@ -1,5 +1,6 @@
 package com.example.demo.bytedance.api.bo.qrcode;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 import com.alibaba.fastjson2.annotation.JSONField;
@@ -15,6 +16,7 @@ import lombok.ToString;
 @ToString
 public class Body implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = -4773047490509322993L;
 
     /**
@@ -60,6 +62,7 @@ public class Body implements Serializable {
     @Setter
     public static class LineColor implements Serializable {
 
+        @Serial
         private static final long serialVersionUID = -4682306844587994906L;
 
         private int               r;
@@ -74,6 +77,7 @@ public class Body implements Serializable {
     @Setter
     public static class Background implements Serializable {
 
+        @Serial
         private static final long serialVersionUID = -4682306844587994906L;
 
         private int               r;
