@@ -1,5 +1,6 @@
 package com.example.demo.weixin.api.bo.qrcode;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 import com.alibaba.fastjson2.annotation.JSONField;
@@ -17,6 +18,7 @@ import lombok.ToString;
 @ToString
 public class QrCode implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 5295096285659716840L;
 
     /**
@@ -41,6 +43,7 @@ public class QrCode implements Serializable {
     @Setter
     public static class ActionInfo implements Serializable {
 
+        @Serial
         private static final long serialVersionUID = 3676011129584429955L;
 
         private Scene             scene;
@@ -49,6 +52,7 @@ public class QrCode implements Serializable {
         @Setter
         public static class Scene implements Serializable {
 
+            @Serial
             private static final long serialVersionUID = -8212451358776340371L;
 
             /**

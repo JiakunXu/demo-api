@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
@@ -15,6 +16,7 @@ import java.io.Serializable;
 @ToString
 public class Uniform implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = -1761801486337321558L;
 
     @JSONField(name = "touser")
@@ -30,6 +32,7 @@ public class Uniform implements Serializable {
     @Setter
     public static class WeappTemplateMsg implements Serializable {
 
+        @Serial
         private static final long serialVersionUID = -8184334201640264914L;
 
         /**
@@ -66,6 +69,7 @@ public class Uniform implements Serializable {
     @Setter
     public static class MpTemplateMsg implements Serializable {
 
+        @Serial
         private static final long serialVersionUID = 2865598852551062088L;
 
         /**
@@ -100,6 +104,7 @@ public class Uniform implements Serializable {
     @Setter
     public static class MiniProgram implements Serializable {
 
+        @Serial
         private static final long serialVersionUID = 4742658373201267387L;
 
         /**

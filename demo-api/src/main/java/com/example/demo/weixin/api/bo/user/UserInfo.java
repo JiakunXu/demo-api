@@ -5,6 +5,8 @@ import com.example.demo.weixin.api.bo.BaseResult;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serial;
+
 /**
  * 获取用户基本信息(UnionID机制)
  *
@@ -14,6 +16,7 @@ import lombok.Setter;
 @Setter
 public class UserInfo extends BaseResult {
 
+    @Serial
     private static final long serialVersionUID = 4291734362406176678L;
 
     /**

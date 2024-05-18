@@ -3,6 +3,7 @@ package com.example.demo.weixin.api.bo.wxa;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
@@ -12,6 +13,7 @@ import java.io.Serializable;
 @Setter
 public class PhoneNumber implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = -8347323944841762033L;
 
     private String            phoneNumber;
@@ -26,6 +28,7 @@ public class PhoneNumber implements Serializable {
     @Setter
     public static class Watermark implements Serializable {
 
+        @Serial
         private static final long serialVersionUID = -946609595011819810L;
 
         /**
