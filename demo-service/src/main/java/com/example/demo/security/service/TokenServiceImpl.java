@@ -2,7 +2,7 @@ package com.example.demo.security.service;
 
 import com.example.demo.cache.api.RedisService;
 import com.example.demo.security.api.TokenService;
-import com.example.demo.security.api.VersionService;
+import com.example.demo.security.api.RefreshTokenService;
 import com.example.demo.security.api.bo.LoginUser;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -33,7 +33,7 @@ public class TokenServiceImpl implements TokenService {
     private UserDetailsService              userDetailsService;
 
     @Autowired
-    private VersionService                  versionService;
+    private RefreshTokenService refreshTokenService;
 
     @Value("${secret.key}")
     private String                          secretKey;
@@ -52,7 +52,7 @@ public class TokenServiceImpl implements TokenService {
             return null;
         }
 
-        if (!versionService.validate(user)) {
+        if (!refreshTokenService.validate(user)) {
             user = (LoginUser) userDetailsService.loadUserByUsername(user.getUsername());
 
             if (user == null) {
@@ -69,7 +69,7 @@ public class TokenServiceImpl implements TokenService {
 
             redisService.set(getKey(token), user);
 
-            versionService.set(user);
+            refreshTokenService.set(user);
         }
 
         return user;
@@ -81,7 +81,7 @@ public class TokenServiceImpl implements TokenService {
 
         redisService.add(token, user);
 
-        versionService.set(user);
+        refreshTokenService.set(user);
 
         Map<String, String> map = new HashMap<>();
         map.put(Claims.ID, token);

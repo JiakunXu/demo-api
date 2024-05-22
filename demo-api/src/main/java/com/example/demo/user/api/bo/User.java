@@ -31,4 +31,6 @@ public class User extends BaseBO {
 
     private Boolean           enabled;
 
+    private String            refreshToken;
+
 }

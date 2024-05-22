@@ -2,7 +2,7 @@ package com.example.demo.security.api;
 
 import com.example.demo.user.api.bo.User;
 
-public interface VersionService {
+public interface RefreshTokenService {
 
     boolean validate(User user);
 

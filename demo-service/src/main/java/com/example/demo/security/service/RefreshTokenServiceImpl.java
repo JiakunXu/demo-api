@@ -1,22 +1,18 @@
 package com.example.demo.security.service;
 
-import java.util.Date;
-
+import com.example.demo.cache.api.RedisService;
+import com.example.demo.security.api.RefreshTokenService;
+import com.example.demo.user.api.bo.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.cache.api.RedisService;
-import com.example.demo.framework.util.DateUtil;
-import com.example.demo.security.api.VersionService;
-import com.example.demo.user.api.bo.User;
-
 @Service
-public class VersionServiceImpl implements VersionService {
+public class RefreshTokenServiceImpl implements RefreshTokenService {
 
     private static final Logger           logger = LoggerFactory
-        .getLogger(VersionServiceImpl.class);
+        .getLogger(RefreshTokenServiceImpl.class);
 
     @Autowired
     private RedisService<String, Boolean> redisService;
@@ -38,7 +34,7 @@ public class VersionServiceImpl implements VersionService {
 
         try {
             redisService.set(getKey(user), Boolean.TRUE,
-                RedisService.CACHE_KEY_USER_TIME_DEFAULT_EXP);
+                RedisService.CACHE_KEY_RE_TOKEN_DEFAULT_EXP);
         } catch (Exception e) {
             logger.error("set", e);
         }
@@ -58,10 +54,7 @@ public class VersionServiceImpl implements VersionService {
     }
 
     private String getKey(User user) {
-        Date time = user.getUpdateTime() == null ? user.getCreateTime() : user.getUpdateTime();
-
-        return RedisService.CACHE_KEY_USER_TIME + user.getId() + "@"
-               + DateUtil.getDateTime(time, "yyyyMMddHHmmss");
+        return RedisService.CACHE_KEY_RE_TOKEN + user.getId() + "@" + user.getRefreshToken();
     }
 
 }
