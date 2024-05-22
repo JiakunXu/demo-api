@@ -1,8 +1,8 @@
 package com.example.demo.security.service;
 
 import com.example.demo.cache.api.RedisService;
-import com.example.demo.security.api.TokenService;
 import com.example.demo.security.api.RefreshTokenService;
+import com.example.demo.security.api.TokenService;
 import com.example.demo.security.api.bo.LoginUser;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -30,10 +30,10 @@ public class TokenServiceImpl implements TokenService {
     private RedisService<String, LoginUser> redisService;
 
     @Autowired
-    private UserDetailsService              userDetailsService;
+    private RefreshTokenService             refreshTokenService;
 
     @Autowired
-    private RefreshTokenService refreshTokenService;
+    private UserDetailsService              userDetailsService;
 
     @Value("${secret.key}")
     private String                          secretKey;
