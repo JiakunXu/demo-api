@@ -34,7 +34,7 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
 
         try {
             redisService.set(getKey(user), Boolean.TRUE,
-                RedisService.CACHE_KEY_RE_TOKEN_DEFAULT_EXP);
+                RedisService.CACHE_KEY_REFRESH_TOKEN_DEFAULT_EXP);
         } catch (Exception e) {
             logger.error("set", e);
         }
@@ -54,7 +54,7 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
     }
 
     private String getKey(User user) {
-        return RedisService.CACHE_KEY_RE_TOKEN + user.getId() + "@" + user.getRefreshToken();
+        return RedisService.CACHE_KEY_REFRESH_TOKEN + user.getId() + "@" + user.getRefreshToken();
     }
 
 }

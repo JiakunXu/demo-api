@@ -52,9 +52,9 @@ public class DictDataServiceImpl implements DictDataService {
         DictData dictData = null;
 
         try {
-            dictData = redisService.get(RedisService.CACHE_KEY_DT_TYPE + key);
+            dictData = redisService.get(RedisService.CACHE_KEY_DICT_TYPE + key);
         } catch (ServiceException e) {
-            logger.error(RedisService.CACHE_KEY_DT_TYPE + key, e);
+            logger.error(RedisService.CACHE_KEY_DICT_TYPE + key, e);
         }
 
         if (dictData != null) {
@@ -72,9 +72,9 @@ public class DictDataServiceImpl implements DictDataService {
         }
 
         try {
-            redisService.set(RedisService.CACHE_KEY_DT_TYPE + key, dictData);
+            redisService.set(RedisService.CACHE_KEY_DICT_TYPE + key, dictData);
         } catch (ServiceException e) {
-            logger.error(RedisService.CACHE_KEY_DT_TYPE + key, e);
+            logger.error(RedisService.CACHE_KEY_DICT_TYPE + key, e);
         }
 
         return dictData;
