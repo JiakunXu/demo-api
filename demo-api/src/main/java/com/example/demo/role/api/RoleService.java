@@ -10,6 +10,8 @@ import java.util.List;
  */
 public interface RoleService {
 
+    String ROLE_ADMIN = "ROLE_ADMIN";
+
     void validate(BigInteger corpId, String id);
 
     void validate(BigInteger corpId, BigInteger id);
