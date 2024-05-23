@@ -32,7 +32,7 @@ public class RoleMenuController extends BaseController {
         String roleId = this.getParameter(request, "roleId");
 
         Map<String, Object> map = new HashMap<>();
-        map.put("checkedKeys", roleMenuService.listRoleMenus(this.getUser().getCorpId(), roleId));
+        map.put("checkedKeys", roleMenuService.listRoleMenus(roleId));
         map.put("menus", menuService.listMenus());
 
         return new ObjectResponse<>(map);

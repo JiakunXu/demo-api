@@ -11,7 +11,7 @@ public interface RoleMenuService {
 
     List<RoleMenu> listRoleMenus(BigInteger roleId);
 
-    List<BigInteger> listRoleMenus(BigInteger corpId, String roleId);
+    List<BigInteger> listRoleMenus(String roleId);
 
     List<RoleMenu> updateRoleMenu(BigInteger roleId, BigInteger[] menuIds, String modifier);
 
