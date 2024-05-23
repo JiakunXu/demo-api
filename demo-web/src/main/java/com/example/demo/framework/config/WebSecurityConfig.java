@@ -62,7 +62,9 @@ public class WebSecurityConfig {
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
         httpSecurity.authorizeHttpRequests(authorizeHttpRequests -> {
-            authorizeHttpRequests.requestMatchers("/captcha/get", "/login").permitAll();
+            authorizeHttpRequests.requestMatchers("/alipay/notify", "/bytedance/notify",
+                "/captcha/get", "/dingtalk/notify", "/login", "/weixin/notify", "/wxpay/notify")
+                .permitAll();
             authorizeHttpRequests.anyRequest().authenticated();
         });
 
