@@ -17,6 +17,10 @@ public interface UserService {
 
     User getUser(BigInteger id);
 
+    User getUser(BigInteger corpId, String id);
+
+    User getUser(BigInteger corpId, BigInteger id);
+
     LoginUser getUser(String username);
 
     User refreshToken(BigInteger corpId, BigInteger id, String modifier);
