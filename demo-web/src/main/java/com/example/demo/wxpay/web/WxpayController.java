@@ -1,4 +1,4 @@
-package com.example.demo.weixin.web;
+package com.example.demo.wxpay.web;
 
 import com.example.demo.framework.web.BaseController;
 import jakarta.servlet.http.HttpServletRequest;
