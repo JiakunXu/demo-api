@@ -12,10 +12,12 @@ import com.example.demo.role.api.bo.Role;
 import com.example.demo.role.dao.dataobject.RoleDO;
 import com.example.demo.role.dao.mapper.RoleMapper;
 import com.example.demo.user.api.UserRoleService;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigInteger;
 import java.util.List;
@@ -57,7 +59,11 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public int countRole(BigInteger corpId) {
-        return 0;
+        if (corpId == null) {
+            return 0;
+        }
+
+        return countRole(corpId, new Role());
     }
 
     @Override
@@ -73,25 +79,83 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public List<Role> listRoles(BigInteger corpId) {
-        return List.of();
+        if (corpId == null) {
+            return null;
+        }
+
+        Role role = new Role();
+        role.setPageNo(1);
+        role.setPageSize(99);
+
+        return listRoles(corpId, role);
     }
 
     @Override
     public List<Role> listRoles(BigInteger corpId, Role role) {
-        return List.of();
+        if (corpId == null || role == null) {
+            return null;
+        }
+
+        role.setCorpId(corpId);
+
+        return BeanUtil.copy(list(BeanUtil.copy(role, RoleDO.class)), Role.class);
     }
 
     @Override
     public Role getRole(BigInteger id) {
-        return null;
+        if (id == null) {
+            return null;
+        }
+
+        String key = id.toString();
+
+        Role role = null;
+
+        try {
+            role = redisService.get(RedisService.CACHE_KEY_ROLE_ID + key);
+        } catch (ServiceException e) {
+            logger.error(RedisService.CACHE_KEY_ROLE_ID + key, e);
+        }
+
+        if (role != null) {
+            return role;
+        }
+
+        role = BeanUtil.copy(get(new RoleDO(id)), Role.class);
+
+        if (role == null) {
+            return null;
+        }
+
+        try {
+            redisService.set(RedisService.CACHE_KEY_ROLE_ID + key, role);
+        } catch (ServiceException e) {
+            logger.error(RedisService.CACHE_KEY_ROLE_ID + key, e);
+        }
+
+        return role;
     }
 
     @Override
     public Role getRole(BigInteger corpId, String id) {
-        return null;
+        if (StringUtils.isBlank(id)) {
+            return null;
+        }
+
+        return getRole(corpId, new BigInteger(id));
     }
 
     @Override
+    public Role getRole(BigInteger corpId, BigInteger id) {
+        if (corpId == null || id == null) {
+            return null;
+        }
+
+        return BeanUtil.copy(get(new RoleDO(id, corpId)), Role.class);
+    }
+
+    @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public Role insertRole(BigInteger corpId, Role role, String creator) {
         return null;
     }

@@ -28,6 +28,8 @@ public interface RoleService {
 
     Role getRole(BigInteger corpId, String id);
 
+    Role getRole(BigInteger corpId, BigInteger id);
+
     Role insertRole(BigInteger corpId, Role role, String creator);
 
     Role updateRole(BigInteger corpId, BigInteger id, Role role, String modifier);

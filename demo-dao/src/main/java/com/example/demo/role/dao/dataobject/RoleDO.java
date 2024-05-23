@@ -40,4 +40,16 @@ public class RoleDO extends BaseDO {
      */
     private String            status;
 
+    public RoleDO() {
+    }
+
+    public RoleDO(BigInteger id) {
+        this.id = id;
+    }
+
+    public RoleDO(BigInteger id, BigInteger corpId) {
+        this.id = id;
+        this.corpId = corpId;
+    }
+
 }
