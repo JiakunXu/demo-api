@@ -94,7 +94,10 @@ public class UserRoleServiceImpl implements UserRoleService {
             return null;
         }
 
-        return BeanUtil.copy(list(new UserRoleDO(userId)), UserRole.class);
+        UserRoleDO userRoleDO = new UserRoleDO();
+        userRoleDO.setUserId(userId);
+
+        return BeanUtil.copy(list(userRoleDO), UserRole.class);
     }
 
     @Override
@@ -103,8 +106,11 @@ public class UserRoleServiceImpl implements UserRoleService {
             return null;
         }
 
-        List<UserRole> userRoleList = BeanUtil.copy(list(new UserRoleDO(userId, status)),
-            UserRole.class);
+        UserRoleDO userRoleDO = new UserRoleDO();
+        userRoleDO.setUserId(userId);
+        userRoleDO.setStatus(status);
+
+        List<UserRole> userRoleList = BeanUtil.copy(list(userRoleDO), UserRole.class);
 
         if (userRoleList == null || userRoleList.isEmpty()) {
             return null;
