@@ -4,6 +4,8 @@ import com.example.demo.framework.bo.BaseBO;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigInteger;
+
 /**
  * @author JiakunXu
  */
@@ -11,6 +13,24 @@ import lombok.Setter;
 @Setter
 public class Config extends BaseBO {
 
-    private static final long serialVersionUID = -5152838802670572752L;
+    private static final long serialVersionUID = 6796833802963843729L;
+
+    private BigInteger        id;
+
+    /**
+     * 名称
+     */
+    private String            name;
+
+    private String            key;
+
+    private String            value;
+
+    /**
+     * 备注
+     */
+    private String            remark;
+
+    private Boolean           system;
 
 }

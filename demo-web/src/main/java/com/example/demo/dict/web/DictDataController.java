@@ -29,29 +29,28 @@ public class DictDataController extends BaseController {
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public ListResponse<DictData> list(HttpServletRequest request, HttpServletResponse response) {
-        String typeId = null;
         String typeValue = this.getParameter(request, "type");
         DictData dict = this.getParameter(request, new DictData());
 
         if (dict.getPageNo() == null || dict.getPageSize() == null) {
             if (StringUtils.isNotBlank(typeValue)) {
                 return new ListResponse<>(
-                    dictDataService.listDictDatas(typeId, typeValue.split(",")));
+                    dictDataService.listDictDatas(null, typeValue.split(",")));
             }
 
-            return new ListResponse<>(dictDataService.listDictDatas(typeId, (String) null));
+            return new ListResponse<>(dictDataService.listDictDatas(null, (String) null));
         }
 
         dict.setName(this.getParameter(request, "name"));
         dict.setStatus(this.getParameter(request, "status"));
 
-        int count = dictDataService.countDictData(typeId, typeValue, dict);
+        int count = dictDataService.countDictData(null, typeValue, dict);
 
         if (count == 0) {
             return new ListResponse<>(0, null);
         }
 
-        return new ListResponse<>(count, dictDataService.listDictDatas(typeId, typeValue, dict));
+        return new ListResponse<>(count, dictDataService.listDictDatas(null, typeValue, dict));
     }
 
     @PreAuthorize("hasAuthority('dict:crud')")
