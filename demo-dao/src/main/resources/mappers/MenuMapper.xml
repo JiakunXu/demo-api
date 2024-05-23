@@ -1,0 +1,176 @@
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.menu.dao.mapper.MenuMapper">
+
+	<select id="count" parameterType="menuDO" resultType="java.lang.Integer">
+	<![CDATA[
+		SELECT COUNT(*)
+		  FROM `tb_menu` t
+		 WHERE t.`is_deleted` = 0
+		   AND t.`pid` = #{pid}
+	]]>
+	</select>
+
+	<select id="list" parameterType="menuDO" resultType="menuDO">
+	<![CDATA[
+		SELECT t.`id`,
+			   t.`pid`,
+			   t.`type`,
+			   t.`icon`,
+			   t.`name`,
+			   t.`path`,
+			   t.`component`,
+			   t.`query`,
+			   t.`code`,
+			   t.`order`,
+			   t.`is_external` AS external,
+			   t.`is_cached` AS cached,
+			   t.`is_hidden` AS hidden,
+			   t.`status`,
+			   t.`create_time` AS createTime
+		  FROM `tb_menu` t
+		 WHERE t.`is_deleted` = 0
+  	]]>
+		<if test="ids != null and ids.size > 0">
+		<![CDATA[ AND t.`id` IN ]]>
+			<foreach collection="ids" item="id" open="(" close=")" separator=",">#{id}</foreach>
+		</if>
+		<if test="pid != null">
+		<![CDATA[ AND t.`pid` = #{pid} ]]>
+		</if>
+		<if test="type != null and type != ''">
+		<![CDATA[ AND t.`type` = #{type} ]]>
+		</if>
+		<if test="types != null and types.length > 0">
+		<![CDATA[ AND t.`type` IN ]]>
+			<foreach collection="types" item="type" open="(" close=")" separator=",">#{type}</foreach>
+		</if>
+		<if test="name != null and name != ''">
+		<![CDATA[ AND t.`name` LIKE #{name,typeHandler=com.example.demo.framework.mybatis.type.WildcardTypeHanlderCallback} ]]>
+		</if>
+		<if test="status != null and status != ''">
+		<![CDATA[ AND t.`status` = #{status} ]]>
+		</if>
+		<if test="userId != null">
+		<![CDATA[
+			   AND EXISTS(
+			SELECT 1
+			  FROM `tb_role_menu` p, `tb_user_role` q, `tb_role` k
+			 WHERE t.`id` = p.`menu_id`
+			   AND p.`role_id` = q.`role_id`
+			   AND q.`role_id` = k.`id`
+			   AND p.`is_deleted` = 0
+			   AND q.`is_deleted` = 0
+			   AND k.`is_deleted` = 0
+			   AND k.`status` = 'E'
+			   AND q.`user_id` = #{userId})
+		]]>
+		</if>
+	<![CDATA[
+		 ORDER BY t.`pid`, t.`order`, t.`id` DESC
+	]]>
+	</select>
+
+	<select id="get" parameterType="menuDO" resultType="menuDO">
+	<![CDATA[
+		SELECT t.`id`,
+			   t.`pid`,
+			   t.`type`,
+			   t.`icon`,
+			   t.`name`,
+			   t.`path`,
+			   t.`component`,
+			   t.`query`,
+			   t.`code`,
+			   t.`order`,
+			   t.`is_external` AS external,
+			   t.`is_cached` AS cached,
+			   t.`is_hidden` AS hidden,
+			   t.`status`
+		  FROM `tb_menu` t
+		 WHERE t.`is_deleted` = 0
+		   AND t.`id` = #{id}
+	]]>
+	</select>
+
+	<insert id="insert" parameterType="menuDO" useGeneratedKeys="true" keyProperty="id">
+	<![CDATA[
+		INSERT
+		INTO `tb_menu`
+		  (
+			`pid`,
+			`type`,
+			`icon`,
+			`name`,
+			`path`,
+			`component`,
+			`query`,
+			`code`,
+			`order`,
+			`is_external`,
+			`is_cached`,
+			`is_hidden`,
+			`status`,
+			`is_deleted`,
+			`creator`,
+			`create_time`
+		  )
+		  VALUES
+		  (
+			#{pid},
+			#{type},
+			#{icon},
+			#{name},
+			#{path},
+			#{component},
+			#{query},
+			#{code},
+			#{order},
+			#{external},
+			#{cached},
+			#{hidden},
+			#{status},
+			0,
+			#{creator},
+			NOW()
+		  )
+	]]>
+	</insert>
+
+	<update id="update" parameterType="menuDO">
+	<![CDATA[
+		UPDATE `tb_menu` t
+		   SET t.`update_time` = NOW(),
+			   t.`modifier` = #{modifier},
+			   t.`pid` = #{pid},
+			   t.`type` = #{type},
+			   t.`icon` = #{icon},
+			   t.`name` = #{name},
+			   t.`path` = #{path},
+			   t.`component` = #{component},
+			   t.`query` = #{query},
+			   t.`code` = #{code},
+			   t.`order` = #{order},
+			   t.`is_external` = #{external},
+			   t.`is_cached` = #{cached},
+			   t.`is_hidden` = #{hidden},
+			   t.`status` = #{status}
+		 WHERE t.`is_deleted` = 0
+		   AND t.`id` = #{id}
+	]]>
+	</update>
+
+	<update id="delete" parameterType="menuDO">
+	<![CDATA[
+		UPDATE `tb_menu` t
+		   SET t.`update_time` = NOW(),
+			   t.`modifier` = #{modifier},
+			   t.`is_deleted` = 1
+		 WHERE t.`is_deleted` = 0
+		   AND t.`id` = #{id}
+	]]>
+	</update>
+
+</mapper>
