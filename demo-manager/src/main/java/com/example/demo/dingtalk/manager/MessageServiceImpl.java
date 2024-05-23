@@ -10,7 +10,6 @@ import com.dingtalk.api.response.OapiMessageCorpconversationAsyncsendV2Response;
 import com.dingtalk.api.response.OapiMessageCorpconversationRecallResponse;
 import com.example.demo.dingtalk.api.MessageService;
 import com.taobao.api.ApiException;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;

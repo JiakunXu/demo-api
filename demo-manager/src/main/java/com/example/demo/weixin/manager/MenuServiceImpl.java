@@ -14,7 +14,7 @@ import java.text.MessageFormat;
 /**
  * @author JiakunXu
  */
-@Service
+@Service("com.example.demo.weixin.manager.menuServiceImpl")
 public class MenuServiceImpl implements MenuService {
 
     private static final Logger logger = LoggerFactory.getLogger(MenuServiceImpl.class);
