@@ -187,10 +187,10 @@ public class MenuServiceImpl implements MenuService {
 
         try {
             if (menuMapper.update(menuDO) != 1) {
-                throw new ServiceException(Constants.INTERNAL_SERVER_ERROR);
+                throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "暂无权限");
             }
         } catch (ServiceException e) {
-            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "暂无权限");
+            throw e;
         } catch (Exception e) {
             logger.error(menuDO.toString(), e);
             throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息更新失败，请稍后再试");

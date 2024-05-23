@@ -144,10 +144,10 @@ public class ChatServiceImpl implements ChatService {
 
         try {
             if (chatMapper.updateUnread(chatDO) != 1) {
-                throw new ServiceException(Constants.INTERNAL_SERVER_ERROR);
+                throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息不存在");
             }
         } catch (ServiceException e) {
-            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息不存在");
+            throw e;
         } catch (Exception e) {
             logger.error(chatDO.toString(), e);
             throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息更新失败，请稍后再试");

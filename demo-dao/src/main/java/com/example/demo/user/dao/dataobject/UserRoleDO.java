@@ -40,16 +40,4 @@ public class UserRoleDO extends BaseDO {
      */
     private String            status;
 
-    public UserRoleDO() {
-    }
-
-    public UserRoleDO(BigInteger userId) {
-        this.userId = userId;
-    }
-
-    public UserRoleDO(BigInteger userId, String status) {
-        this.userId = userId;
-        this.status = status;
-    }
-
 }
