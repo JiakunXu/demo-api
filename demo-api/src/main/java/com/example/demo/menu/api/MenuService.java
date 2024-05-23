@@ -29,6 +29,8 @@ public interface MenuService {
 
     Menu getMenu(String id);
 
+    Menu getMenu(BigInteger id);
+
     Menu insertMenu(BigInteger pid, Menu menu, String creator);
 
     Menu updateMenu(BigInteger id, Menu menu, String modifier);

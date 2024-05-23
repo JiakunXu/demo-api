@@ -1,5 +1,7 @@
 package com.example.demo.menu.service;
 
+import com.example.demo.framework.annotation.NotBlank;
+import com.example.demo.framework.annotation.NotNull;
 import com.example.demo.framework.constant.Constants;
 import com.example.demo.framework.exception.ServiceException;
 import com.example.demo.framework.util.BeanUtil;
@@ -145,18 +147,23 @@ public class MenuServiceImpl implements MenuService {
             return null;
         }
 
+        return getMenu(new BigInteger(id));
+    }
+
+    @Override
+    public Menu getMenu(BigInteger id) {
+        if (id == null) {
+            return null;
+        }
+
         MenuDO menuDO = new MenuDO();
-        menuDO.setId(new BigInteger(id));
+        menuDO.setId(id);
 
         return BeanUtil.copy(get(menuDO), Menu.class);
     }
 
     @Override
-    public Menu insertMenu(BigInteger pid, Menu menu, String creator) {
-        if (pid == null || menu == null || StringUtils.isBlank(creator)) {
-            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "参数信息不能为空");
-        }
-
+    public Menu insertMenu(@NotNull BigInteger pid, @NotNull Menu menu, @NotBlank String creator) {
         menu.setPid(pid);
 
         MenuDO menuDO = BeanUtil.copy(menu, MenuDO.class);
@@ -175,11 +182,7 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public Menu updateMenu(BigInteger id, Menu menu, String modifier) {
-        if (id == null || menu == null || StringUtils.isBlank(modifier)) {
-            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "参数信息不能为空");
-        }
-
+    public Menu updateMenu(@NotNull BigInteger id, @NotNull Menu menu, @NotBlank String modifier) {
         menu.setId(id);
 
         MenuDO menuDO = BeanUtil.copy(menu, MenuDO.class);
@@ -200,11 +203,7 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public Menu deleteMenu(BigInteger id, String modifier) {
-        if (id == null || StringUtils.isBlank(modifier)) {
-            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "参数信息不能为空");
-        }
-
+    public Menu deleteMenu(@NotNull BigInteger id, @NotBlank String modifier) {
         if (countMenu(id) > 0) {
             throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "已包含菜单，请先删除下级菜单");
         }
