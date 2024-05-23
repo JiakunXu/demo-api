@@ -30,4 +30,11 @@ public class DictDataDO extends BaseDO {
 
     private String            status;
 
+    public DictDataDO() {
+    }
+
+    public DictDataDO(BigInteger id) {
+        this.id = id;
+    }
+
 }
