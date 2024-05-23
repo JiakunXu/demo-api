@@ -131,7 +131,7 @@ public class UserRoleServiceImpl implements UserRoleService {
             return 0;
         }
 
-        roleService.validate(corpId, roleId);
+        // TODO roleService.validate(corpId, roleId);
 
         user.setCorpId(corpId);
 
@@ -238,7 +238,7 @@ public class UserRoleServiceImpl implements UserRoleService {
 
         if (roleIds != null && roleIds.length > 0) {
             for (String roleId : roleIds) {
-                roleService.validate(corpId, roleId);
+                // TODO roleService.validate(corpId, roleId);
 
                 UserRole userRole = new UserRole();
                 userRole.setRoleId(new BigInteger(roleId));
@@ -296,7 +296,7 @@ public class UserRoleServiceImpl implements UserRoleService {
     @Transactional(rollbackFor = RuntimeException.class)
     public List<UserRole> updateUserRole(BigInteger corpId, @NotNull String[] userIds,
                                          BigInteger roleId, @NotBlank String modifier) {
-        roleService.validate(corpId, roleId);
+        // TODO roleService.validate(corpId, roleId);
 
         List<UserRole> list = new ArrayList<>();
 
@@ -328,7 +328,7 @@ public class UserRoleServiceImpl implements UserRoleService {
     public UserRole deleteUserRole(BigInteger corpId, BigInteger userId, BigInteger roleId,
                                    @NotBlank String modifier) {
         userService.validate(corpId, userId);
-        roleService.validate(corpId, roleId);
+        // TODO roleService.validate(corpId, roleId);
 
         UserRoleDO userRoleDO = new UserRoleDO();
         userRoleDO.setUserId(userId);
@@ -350,7 +350,7 @@ public class UserRoleServiceImpl implements UserRoleService {
     @Override
     public UserRole deleteUserRole(BigInteger corpId, @NotNull String[] userIds, BigInteger roleId,
                                    @NotBlank String modifier) {
-        roleService.validate(corpId, roleId);
+        // TODO roleService.validate(corpId, roleId);
 
         List<BigInteger> list = new ArrayList<>();
 

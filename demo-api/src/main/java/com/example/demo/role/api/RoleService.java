@@ -12,30 +12,24 @@ public interface RoleService {
 
     String ROLE_ADMIN = "ROLE_ADMIN";
 
-    void validate(BigInteger corpId, String id);
+    int countRole(Role role);
 
-    void validate(BigInteger corpId, BigInteger id);
+    List<Role> listRoles(Role role);
 
-    int countRole(BigInteger corpId);
+    List<Role> listRoles();
 
-    int countRole(BigInteger corpId, Role role);
-
-    List<Role> listRoles(BigInteger corpId);
-
-    List<Role> listRoles(BigInteger corpId, Role role);
+    Role getRole(String id);
 
     Role getRole(BigInteger id);
 
-    Role getRole(BigInteger corpId, String id);
+    BigInteger getRoleId(String code);
 
-    Role getRole(BigInteger corpId, BigInteger id);
+    Role insertRole(Role role, String creator);
 
-    Role insertRole(BigInteger corpId, Role role, String creator);
+    Role updateRole(BigInteger id, Role role, String modifier);
 
-    Role updateRole(BigInteger corpId, BigInteger id, Role role, String modifier);
+    Role updateRole(BigInteger id, String status, String modifier);
 
-    Role updateRole(BigInteger corpId, BigInteger id, String status, String modifier);
-
-    Role deleteRole(BigInteger corpId, BigInteger id, String modifier);
+    Role deleteRole(BigInteger id, String modifier);
 
 }

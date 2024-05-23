@@ -16,6 +16,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -40,65 +41,39 @@ public class RoleServiceImpl implements RoleService {
     private RoleMapper                 roleMapper;
 
     @Override
-    public void validate(BigInteger corpId, @NotBlank String id) {
-        validate(corpId, new BigInteger(id));
-    }
-
-    @Override
-    public void validate(@NotNull BigInteger corpId, @NotNull BigInteger id) {
-        RoleDO roleDO = new RoleDO();
-        roleDO.setId(id);
-        roleDO.setCorpId(corpId);
-
-        if (count(roleDO) > 0) {
-            return;
-        }
-
-        throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "暂无权限（角色）");
-    }
-
-    @Override
-    public int countRole(BigInteger corpId) {
-        if (corpId == null) {
+    public int countRole(Role role) {
+        if (role == null) {
             return 0;
         }
-
-        return countRole(corpId, new Role());
-    }
-
-    @Override
-    public int countRole(BigInteger corpId, Role role) {
-        if (corpId == null || role == null) {
-            return 0;
-        }
-
-        role.setCorpId(corpId);
 
         return count(BeanUtil.copy(role, RoleDO.class));
     }
 
     @Override
-    public List<Role> listRoles(BigInteger corpId) {
-        if (corpId == null) {
+    public List<Role> listRoles(Role role) {
+        if (role == null) {
             return null;
         }
 
-        Role role = new Role();
-        role.setPageNo(1);
-        role.setPageSize(99);
-
-        return listRoles(corpId, role);
+        return BeanUtil.copy(list(BeanUtil.copy(role, RoleDO.class)), Role.class);
     }
 
     @Override
-    public List<Role> listRoles(BigInteger corpId, Role role) {
-        if (corpId == null || role == null) {
+    public List<Role> listRoles() {
+        RoleDO roleDO = new RoleDO();
+        roleDO.setPageNo(1);
+        roleDO.setPageSize(99);
+
+        return BeanUtil.copy(list(roleDO), Role.class);
+    }
+
+    @Override
+    public Role getRole(String id) {
+        if (StringUtils.isBlank(id)) {
             return null;
         }
 
-        role.setCorpId(corpId);
-
-        return BeanUtil.copy(list(BeanUtil.copy(role, RoleDO.class)), Role.class);
+        return BeanUtil.copy(get(new RoleDO(new BigInteger(id))), Role.class);
     }
 
     @Override
@@ -137,42 +112,123 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public Role getRole(BigInteger corpId, String id) {
-        if (StringUtils.isBlank(id)) {
+    public BigInteger getRoleId(String code) {
+        if (StringUtils.isBlank(code)) {
             return null;
         }
 
-        return getRole(corpId, new BigInteger(id));
-    }
+        RoleDO roleDO = new RoleDO();
+        roleDO.setCode(code);
 
-    @Override
-    public Role getRole(BigInteger corpId, BigInteger id) {
-        if (corpId == null || id == null) {
+        Role role = BeanUtil.copy(get(roleDO), Role.class);
+
+        if (role == null) {
             return null;
         }
 
-        return BeanUtil.copy(get(new RoleDO(id, corpId)), Role.class);
+        return role.getId();
     }
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
-    public Role insertRole(BigInteger corpId, Role role, String creator) {
-        return null;
+    public Role insertRole(@NotNull Role role, @NotBlank String creator) {
+        RoleDO roleDO = BeanUtil.copy(role, RoleDO.class);
+        roleDO.setCreator(creator);
+
+        try {
+            roleMapper.insert(roleDO);
+        } catch (DuplicateKeyException e) {
+            logger.error(roleDO.toString(), e);
+            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "编号已存在");
+        } catch (Exception e) {
+            logger.error(roleDO.toString(), e);
+            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息创建失败，请稍后再试");
+        }
+
+        role.setId(roleDO.getId());
+
+        roleMenuService.updateRoleMenu(role.getId(), role.getMenuIds(), creator);
+
+        return role;
     }
 
     @Override
-    public Role updateRole(BigInteger corpId, BigInteger id, Role role, String modifier) {
-        return null;
+    @Transactional(rollbackFor = RuntimeException.class)
+    public Role updateRole(@NotNull BigInteger id, @NotNull Role role, @NotBlank String modifier) {
+        role.setId(id);
+
+        RoleDO roleDO = BeanUtil.copy(role, RoleDO.class);
+        roleDO.setModifier(modifier);
+
+        try {
+            if (roleMapper.update(roleDO) != 1) {
+                throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "暂无权限");
+            }
+        } catch (ServiceException e) {
+            throw e;
+        } catch (Exception e) {
+            logger.error(roleDO.toString(), e);
+            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息更新失败，请稍后再试");
+        }
+
+        roleMenuService.updateRoleMenu(role.getId(), role.getMenuIds(), modifier);
+
+        remove(id.toString());
+
+        return role;
     }
 
     @Override
-    public Role updateRole(BigInteger corpId, BigInteger id, String status, String modifier) {
-        return null;
+    public Role updateRole(@NotNull BigInteger id, @NotBlank String status,
+                           @NotBlank String modifier) {
+        RoleDO roleDO = new RoleDO();
+        roleDO.setId(id);
+        roleDO.setStatus(status);
+        roleDO.setModifier(modifier);
+
+        try {
+            if (roleMapper.updateStatus(roleDO) != 1) {
+                throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "暂无权限");
+            }
+        } catch (ServiceException e) {
+            throw e;
+        } catch (Exception e) {
+            logger.error(roleDO.toString(), e);
+            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息更新失败，请稍后再试");
+        }
+
+        remove(id.toString());
+
+        return BeanUtil.copy(roleDO, Role.class);
     }
 
     @Override
-    public Role deleteRole(BigInteger corpId, BigInteger id, String modifier) {
-        return null;
+    @Transactional(rollbackFor = RuntimeException.class)
+    public Role deleteRole(@NotNull BigInteger id, @NotBlank String modifier) {
+        if (userRoleService.countUserRole(id) > 0) {
+            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "已关联用户，请先调整用户角色");
+        }
+
+        RoleDO roleDO = new RoleDO();
+        roleDO.setId(id);
+        roleDO.setModifier(modifier);
+
+        try {
+            if (roleMapper.delete(roleDO) != 1) {
+                throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "暂无权限");
+            }
+        } catch (ServiceException e) {
+            throw e;
+        } catch (Exception e) {
+            logger.error(roleDO.toString(), e);
+            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息更新失败，请稍后再试");
+        }
+
+        roleMenuService.deleteRoleMenu(id, null, modifier);
+
+        remove(id.toString());
+
+        return BeanUtil.copy(roleDO, Role.class);
     }
 
     private void remove(String key) {
