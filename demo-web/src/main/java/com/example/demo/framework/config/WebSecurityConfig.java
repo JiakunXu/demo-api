@@ -62,7 +62,7 @@ public class WebSecurityConfig {
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
         httpSecurity.authorizeHttpRequests(authorizeHttpRequests -> {
-            authorizeHttpRequests.requestMatchers("/login").permitAll();
+            authorizeHttpRequests.requestMatchers("/captcha/get", "/login").permitAll();
             authorizeHttpRequests.anyRequest().authenticated();
         });
 
