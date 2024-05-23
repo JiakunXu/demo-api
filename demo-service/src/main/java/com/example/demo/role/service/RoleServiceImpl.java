@@ -5,6 +5,7 @@ import com.example.demo.framework.annotation.NotBlank;
 import com.example.demo.framework.annotation.NotNull;
 import com.example.demo.framework.constant.Constants;
 import com.example.demo.framework.exception.ServiceException;
+import com.example.demo.framework.util.BeanUtil;
 import com.example.demo.role.api.RoleMenuService;
 import com.example.demo.role.api.RoleService;
 import com.example.demo.role.api.bo.Role;
@@ -61,7 +62,13 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public int countRole(BigInteger corpId, Role role) {
-        return 0;
+        if (corpId == null || role == null) {
+            return 0;
+        }
+
+        role.setCorpId(corpId);
+
+        return count(BeanUtil.copy(role, RoleDO.class));
     }
 
     @Override
@@ -102,6 +109,14 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public Role deleteRole(BigInteger corpId, BigInteger id, String modifier) {
         return null;
+    }
+
+    private void remove(String key) {
+        try {
+            redisService.remove(RedisService.CACHE_KEY_ROLE_ID + key);
+        } catch (Exception e) {
+            logger.error(RedisService.CACHE_KEY_ROLE_ID + key, e);
+        }
     }
 
     private int count(RoleDO roleDO) {

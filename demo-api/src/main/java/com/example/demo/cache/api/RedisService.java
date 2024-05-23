@@ -20,11 +20,13 @@ public interface RedisService<K, V> extends CacheService<K, V> {
 
     String CACHE_KEY_DICT_TYPE                 = "key_dict_type@";
 
-    String CACHE_KEY_TT_TOKEN                  = "key_tt_token@";
-
     String CACHE_KEY_REFRESH_TOKEN             = "key_refresh_token@";
 
     long   CACHE_KEY_REFRESH_TOKEN_DEFAULT_EXP = 8 * 60 * 60;
+
+    String CACHE_KEY_ROLE_ID                   = "key_role_id@";
+
+    String CACHE_KEY_TT_TOKEN                  = "key_tt_token@";
 
     String CACHE_KEY_WX_TICKET                 = "key_wx_ticket@";
 
