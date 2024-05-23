@@ -1,0 +1,217 @@
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.user.dao.mapper.UserRoleMapper">
+
+	<select id="count" parameterType="userRoleDO" resultType="java.lang.Integer">
+	<![CDATA[
+		SELECT COUNT(*)
+		  FROM `tb_user_role` t
+		 WHERE t.`is_deleted` = 0
+	]]>
+		<if test="userId != null">
+		<![CDATA[ AND t.`user_id` = #{userId} ]]>
+		</if>
+		<if test="roleId != null">
+		<![CDATA[ AND t.`role_id` = #{roleId} ]]>
+		</if>
+		<if test="code != null and code != ''">
+		<![CDATA[
+			   AND EXISTS(
+			SELECT 1
+			  FROM `tb_role` p
+			 WHERE t.`role_id` = p.`id`
+			   AND p.`is_deleted` = 0
+			   AND p.`status` = 'E'
+			   AND p.`code` = #{code})
+		]]>
+		</if>
+		<if test="codes != null and codes.length > 0">
+		<![CDATA[
+			   AND EXISTS(
+			SELECT 1
+			  FROM `tb_role` p
+			 WHERE t.`role_id` = p.`id`
+			   AND p.`is_deleted` = 0
+			   AND p.`status` = 'E'
+			   AND p.`code` IN
+		]]>
+			<foreach collection="codes" item="code" open="(" close=")" separator=",">#{code}</foreach>
+		<![CDATA[ ) ]]>
+		</if>
+	</select>
+
+	<select id="list" parameterType="userRoleDO" resultType="userRoleDO">
+	<![CDATA[
+		SELECT t.`id`,
+			   t.`user_id` AS userId,
+			   t.`role_id` AS roleId
+		  FROM `tb_user_role` t
+		 WHERE t.`is_deleted` = 0
+		   AND t.`user_id` = #{userId}
+	]]>
+		<if test="status != null and status != ''">
+		<![CDATA[
+			   AND EXISTS(
+			SELECT 1
+			  FROM `tb_role` p
+			 WHERE t.`role_id` = p.`id`
+			   AND p.`is_deleted` = 0
+			   AND p.`status` = #{status})
+		]]>
+		</if>
+	</select>
+
+	<select id="countUser" parameterType="userDO" resultType="java.lang.Integer">
+	<![CDATA[
+		SELECT COUNT(*)
+		  FROM `tb_user` t
+		 WHERE t.`is_deleted` = 0
+		   AND t.`corp_id` = #{corpId}
+	]]>
+		<if test="status != null and status != ''">
+		<![CDATA[ AND t.`status` = #{status} ]]>
+		</if>
+		<if test="exists == true">
+		<![CDATA[
+			   AND EXISTS(
+		]]>
+		</if>
+		<if test="exists == false">
+		<![CDATA[
+			   AND NOT EXISTS(
+		]]>
+		</if>
+		<![CDATA[
+			SELECT 1
+			  FROM `tb_user_role` p, `tb_role` q
+			 WHERE t.`id` = p.`user_id`
+			   AND q.`id` = p.`role_id`
+			   AND p.`is_deleted` = 0
+			   AND q.`is_deleted` = 0
+		]]>
+		<if test="roleId != null">
+		<![CDATA[ AND p.`role_id` = #{roleId} ]]>
+		</if>
+		<if test="codes != null and codes.length > 0">
+		<![CDATA[ AND q.`code` IN ]]>
+			<foreach collection="codes" item="code" open="(" close=")" separator=",">#{code}</foreach>
+		</if>
+		<if test="status != null and status != ''">
+		<![CDATA[ AND q.`status` = #{status} ]]>
+		</if>
+		<![CDATA[ ) ]]>
+		<if test="name != null and name != ''">
+		<![CDATA[ AND t.`name` LIKE #{name,typeHandler=com.example.demo.framework.mybatis.type.WildcardTypeHanlderCallback} ]]>
+		</if>
+		<if test="mobile != null and mobile != ''">
+		<![CDATA[ AND t.`mobile` LIKE #{mobile,typeHandler=com.example.demo.framework.mybatis.type.WildcardTypeHanlderCallback} ]]>
+		</if>
+	</select>
+
+	<select id="listUsers" parameterType="userDO" resultType="userDO">
+	<![CDATA[
+		SELECT t.`id`,
+			   t.`name`,
+			   t.`nickname`,
+			   t.`mobile`,
+			   t.`email`,
+			   t.`status`,
+			   t.`create_time` AS createTime
+		  FROM `tb_user` t
+		 WHERE t.`is_deleted` = 0
+		   AND t.`corp_id` = #{corpId}
+	]]>
+		<if test="status != null and status != ''">
+		<![CDATA[ AND t.`status` = #{status} ]]>
+		</if>
+		<if test="exists == true">
+		<![CDATA[
+			   AND EXISTS(
+		]]>
+		</if>
+		<if test="exists == false">
+		<![CDATA[
+			   AND NOT EXISTS(
+		]]>
+		</if>
+		<![CDATA[
+			SELECT 1
+			  FROM `tb_user_role` p, `tb_role` q
+			 WHERE t.`id` = p.`user_id`
+			   AND q.`id` = p.`role_id`
+			   AND p.`is_deleted` = 0
+			   AND q.`is_deleted` = 0
+		]]>
+		<if test="roleId != null">
+		<![CDATA[ AND p.`role_id` = #{roleId} ]]>
+		</if>
+		<if test="codes != null and codes.length > 0">
+		<![CDATA[ AND q.`code` IN ]]>
+			<foreach collection="codes" item="code" open="(" close=")" separator=",">#{code}</foreach>
+		</if>
+		<if test="status != null and status != ''">
+		<![CDATA[ AND q.`status` = #{status} ]]>
+		</if>
+		<![CDATA[ ) ]]>
+		<if test="name != null and name != ''">
+		<![CDATA[ AND t.`name` LIKE #{name,typeHandler=com.example.demo.framework.mybatis.type.WildcardTypeHanlderCallback} ]]>
+		</if>
+		<if test="mobile != null and mobile != ''">
+		<![CDATA[ AND t.`mobile` LIKE #{mobile,typeHandler=com.example.demo.framework.mybatis.type.WildcardTypeHanlderCallback} ]]>
+		</if>
+	<![CDATA[
+		 ORDER BY t.`id` DESC
+		 LIMIT #{offset}, #{pageSize}
+	]]>
+	</select>
+
+	<insert id="insert" parameterType="userRoleDO" useGeneratedKeys="true" keyProperty="id">
+	<![CDATA[
+		INSERT
+		INTO `tb_user_role`
+		  (
+			`user_id`,
+			`role_id`,
+			`is_deleted`,
+			`creator`,
+			`create_time`
+		  )
+		  VALUES
+		  (
+			#{userId},
+			#{roleId},
+			0,
+			#{creator},
+			NOW()
+		  )
+	]]>
+	</insert>
+
+	<update id="delete" parameterType="userRoleDO">
+	<![CDATA[
+		UPDATE `tb_user_role` t
+		   SET t.`update_time` = NOW(),
+			   t.`modifier` = #{modifier},
+			   t.`is_deleted` = 1
+		 WHERE t.`is_deleted` = 0
+	]]>
+		<if test="id != null">
+		<![CDATA[ AND t.`id` = #{id} ]]>
+		</if>
+		<if test="id == null">
+		<![CDATA[
+		   AND t.`role_id` = #{roleId}
+		]]>
+			<if test="userId != null">
+			<![CDATA[ AND t.`user_id` = #{userId} ]]>
+			</if>
+			<if test="userId == null">
+			<![CDATA[ AND t.`user_id` IN ]]>
+				<foreach collection="userIds" item="userId" open="(" close=")" separator=",">#{userId}</foreach>
+			</if>
+		</if>
+	</update>
+
+</mapper>
