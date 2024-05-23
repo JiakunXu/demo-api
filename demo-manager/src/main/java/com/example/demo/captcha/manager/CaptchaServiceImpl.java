@@ -104,7 +104,6 @@ public class CaptchaServiceImpl extends DefaultTextCreator implements CaptchaSer
                 RedisService.CACHE_KEY_CAPTCHA_DEFAULT_EXP);
         } catch (ServiceException e) {
             logger.error("add", e);
-
             throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "系统正忙，请稍后再试");
         }
 
@@ -114,7 +113,6 @@ public class CaptchaServiceImpl extends DefaultTextCreator implements CaptchaSer
             ImageIO.write(image, "jpg", stream);
         } catch (IOException e) {
             logger.error("write", e);
-
             throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "系统正忙，请稍后再试");
         }
 
