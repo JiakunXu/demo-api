@@ -14,6 +14,10 @@ public interface RedisService<K, V> extends CacheService<K, V> {
      */
     long   DEFAULT_EXP                         = 24 * 60 * 60;
 
+    String CACHE_KEY_CAPTCHA                   = "key_captcha@";
+
+    long   CACHE_KEY_CAPTCHA_DEFAULT_EXP       = 60;
+
     String CACHE_KEY_DD_TICKET                 = "key_dd_ticket@";
 
     String CACHE_KEY_DD_TOKEN                  = "key_dd_token@";
