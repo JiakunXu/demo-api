@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.io.Serial;
 import java.math.BigInteger;
 
 /**
@@ -13,14 +14,13 @@ import java.math.BigInteger;
 @Getter
 @Setter
 @ToString
-public class ShopDO extends BaseDO {
+public class CorpDO extends BaseDO {
 
+    @Serial
     private static final long serialVersionUID = 1738874407695964779L;
 
     private BigInteger        id;
 
     private String            name;
-
-    private String            content;
 
 }

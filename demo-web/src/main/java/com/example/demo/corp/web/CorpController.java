@@ -25,13 +25,13 @@ public class CorpController extends BaseController {
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public ListResponse<Corp> list(HttpServletRequest request, HttpServletResponse response) {
-        int count = corpService.countShop();
+        int count = corpService.countCorp();
 
         if (count == 0) {
             return new ListResponse<>(0, null);
         }
 
-        return new ListResponse<>(count, corpService.listShops());
+        return new ListResponse<>(count, corpService.listCorps());
     }
 
     @RequestMapping(value = "/get", method = RequestMethod.GET)
@@ -39,7 +39,7 @@ public class CorpController extends BaseController {
         String name = this.getParameter(request, "name");
         User user = this.getParameter(request, User.class);
 
-        return new ObjectResponse<>(corpService.getShop());
+        return new ObjectResponse<>(corpService.getCorp());
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
@@ -47,7 +47,7 @@ public class CorpController extends BaseController {
         String name = this.getParameter(request, "name");
         User user = this.getParameter(request, User.class);
 
-        return new ObjectResponse<>(corpService.updateShop());
+        return new ObjectResponse<>(corpService.updateCorp());
     }
 
 }

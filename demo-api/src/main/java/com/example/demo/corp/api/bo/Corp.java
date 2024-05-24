@@ -4,6 +4,7 @@ import com.example.demo.framework.bo.BaseBO;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serial;
 import java.math.BigInteger;
 
 /**
@@ -13,10 +14,11 @@ import java.math.BigInteger;
 @Setter
 public class Corp extends BaseBO {
 
-    private BigInteger id;
+    @Serial
+    private static final long serialVersionUID = 7032789874318590836L;
 
-    private String     name;
+    private BigInteger        id;
 
-    private String     content;
+    private String            name;
 
 }

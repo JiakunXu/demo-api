@@ -1,11 +1,11 @@
 package com.example.demo.corp.service;
 
+import com.example.demo.corp.dao.dataobject.CorpDO;
 import com.example.demo.framework.constant.Constants;
 import com.example.demo.framework.util.BeanUtil;
-import com.example.demo.corp.api.IShopService;
+import com.example.demo.corp.api.ICorpService;
 import com.example.demo.framework.exception.ServiceException;
-import com.example.demo.corp.dao.dataobject.ShopDO;
-import com.example.demo.corp.dao.mapper.ShopMapper;
+import com.example.demo.corp.dao.mapper.CorpMapper;
 import com.example.demo.corp.api.CorpService;
 import com.example.demo.corp.api.bo.Corp;
 import org.slf4j.Logger;
@@ -20,78 +20,78 @@ import java.util.List;
 /**
  * @author JiakunXu
  */
-@Service("com.example.demo.shop.service.shopService")
-public class CorpServiceImpl implements CorpService, IShopService {
+@Service("com.example.demo.corp.service.corpService")
+public class CorpServiceImpl implements CorpService, ICorpService {
 
     private static final Logger logger = LoggerFactory.getLogger(CorpServiceImpl.class);
 
     @Autowired
-    private ShopMapper          shopMapper;
+    private CorpMapper          corpMapper;
 
     @Override
-    public int countShop() {
-        ShopDO shopDO = new ShopDO();
+    public int countCorp() {
+        CorpDO corpDO = new CorpDO();
 
-        return count(shopDO);
+        return count(corpDO);
     }
 
     @Override
-    public List<Corp> listShops() {
-        ShopDO shopDO = new ShopDO();
+    public List<Corp> listCorps() {
+        CorpDO corpDO = new CorpDO();
 
-        return BeanUtil.copy(list(shopDO), Corp.class);
+        return BeanUtil.copy(list(corpDO), Corp.class);
     }
 
     @Override
-    public Corp getShop() {
-        ShopDO shopDO = new ShopDO();
-        shopDO.setId(BigInteger.ONE);
+    public Corp getCorp() {
+        CorpDO corpDO = new CorpDO();
+        corpDO.setId(BigInteger.ONE);
 
-        return BeanUtil.copy(get(shopDO), Corp.class);
+        return BeanUtil.copy(get(corpDO), Corp.class);
     }
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
-    public Corp updateShop() {
-        ShopDO shopDO = new ShopDO();
-        shopDO.setId(BigInteger.ONE);
-        shopDO.setName("N");
+    public Corp updateCorp() {
+        CorpDO corpDO = new CorpDO();
+        corpDO.setId(BigInteger.ONE);
+        corpDO.setName("N");
 
         try {
-            shopMapper.update(shopDO);
+            corpMapper.update(corpDO);
         } catch (Exception e) {
-            logger.error(shopDO.toString(), e);
+            logger.error(corpDO.toString(), e);
             throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "message");
         }
 
-        return BeanUtil.copy(shopDO, Corp.class);
+        return BeanUtil.copy(corpDO, Corp.class);
     }
 
-    private int count(ShopDO shopDO) {
+    private int count(CorpDO corpDO) {
         try {
-            return shopMapper.count(shopDO);
+            return corpMapper.count(corpDO);
         } catch (Exception e) {
-            logger.error(shopDO.toString(), e);
+            logger.error(corpDO.toString(), e);
         }
 
         return 0;
     }
 
-    private List<ShopDO> list(ShopDO shopDO) {
+    private List<CorpDO> list(CorpDO corpDO) {
         try {
-            return shopMapper.list(shopDO);
+            return corpMapper.list(corpDO);
         } catch (Exception e) {
-            logger.error(shopDO.toString(), e);
+            logger.error(corpDO.toString(), e);
         }
 
         return null;
     }
 
-    private ShopDO get(ShopDO shopDO) {
+    private CorpDO get(CorpDO corpDO) {
         try {
-            return shopMapper.get(shopDO);
+            return corpMapper.get(corpDO);
         } catch (Exception e) {
-            logger.error(shopDO.toString(), e);
+            logger.error(corpDO.toString(), e);
         }
 
         return null;

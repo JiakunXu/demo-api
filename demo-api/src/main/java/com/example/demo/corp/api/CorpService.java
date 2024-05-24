@@ -9,28 +9,12 @@ import java.util.List;
  */
 public interface CorpService {
 
-    /**
-     * 
-     * @return
-     */
-    int countShop();
+    int countCorp();
 
-    /**
-     * 
-     * @return
-     */
-    List<Corp> listShops();
+    List<Corp> listCorps();
 
-    /**
-     * 
-     * @return
-     */
-    Corp getShop();
+    Corp getCorp();
 
-    /**
-     * 
-     * @return
-     */
-    Corp updateShop();
+    Corp updateCorp();
 
 }
