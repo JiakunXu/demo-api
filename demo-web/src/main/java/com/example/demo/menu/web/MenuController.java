@@ -42,25 +42,25 @@ public class MenuController extends BaseController {
         return new ObjectResponse<>(menuService.getMenu(id));
     }
 
-    @Log(module = "")
+    @Log(module = "菜单", desc = "新增")
     @PreAuthorize("hasAuthority('menu:crud')")
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public ObjectResponse<Menu> save(HttpServletRequest request, HttpServletResponse response) {
         Menu menu = this.getParameter(request, Menu.class);
         return new ObjectResponse<>(
-                menuService.insertMenu(menu.getPid(), menu, this.getUser().getName()));
+            menuService.insertMenu(menu.getPid(), menu, this.getUser().getName()));
     }
 
-    @Log(module = "")
+    @Log(module = "菜单", desc = "修改")
     @PreAuthorize("hasAuthority('menu:crud')")
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public ObjectResponse<Menu> update(HttpServletRequest request, HttpServletResponse response) {
         Menu menu = this.getParameter(request, Menu.class);
         return new ObjectResponse<>(
-                menuService.updateMenu(menu.getId(), menu, this.getUser().getName()));
+            menuService.updateMenu(menu.getId(), menu, this.getUser().getName()));
     }
 
-    @Log(module = "")
+    @Log(module = "菜单", desc = "删除")
     @PreAuthorize("hasAuthority('menu:crud')")
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public ObjectResponse<Menu> delete(HttpServletRequest request, HttpServletResponse response) {
