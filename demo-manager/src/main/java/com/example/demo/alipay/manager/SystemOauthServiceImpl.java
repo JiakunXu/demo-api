@@ -5,12 +5,12 @@ import com.alibaba.fastjson2.JSONObject;
 import com.alipay.easysdk.base.oauth.models.AlipaySystemOauthTokenResponse;
 import com.alipay.easysdk.factory.Factory;
 import com.alipay.easysdk.kernel.util.ResponseChecker;
-import com.example.demo.alipay.api.AlipaySystemOauthService;
+import com.example.demo.alipay.api.SystemOauthService;
 import com.example.demo.alipay.api.bo.token.OauthToken;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AlipaySystemOauthServiceImpl implements AlipaySystemOauthService {
+public class SystemOauthServiceImpl implements SystemOauthService {
 
     @Override
     public OauthToken getToken(String code) {
