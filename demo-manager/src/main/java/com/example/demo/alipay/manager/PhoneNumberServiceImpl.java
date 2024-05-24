@@ -1,7 +1,7 @@
 package com.example.demo.alipay.manager;
 
 import com.alibaba.fastjson2.JSON;
-import com.example.demo.alipay.api.AlipayAesService;
+import com.example.demo.alipay.api.AesService;
 import com.example.demo.alipay.api.PhoneNumberService;
 import com.example.demo.alipay.api.bo.user.PhoneNumber;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,19 +11,19 @@ import org.springframework.stereotype.Service;
 public class PhoneNumberServiceImpl implements PhoneNumberService {
 
     @Autowired
-    private AlipayAesService alipayAesService;
+    private AesService aesService;
 
     @Override
     public PhoneNumber getPhoneNumber(String content, String sign) {
         try {
-            if (!AlipaySignature.rsaCheck(content, sign)) {
+            if (!Signature.rsaCheck(content, sign)) {
                 throw new RuntimeException("验签失败");
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
-        PhoneNumber phoneNumber = JSON.parseObject(alipayAesService.decrypt(content),
+        PhoneNumber phoneNumber = JSON.parseObject(aesService.decrypt(content),
             PhoneNumber.class);
 
         if (!"10000".equals(phoneNumber.getCode())) {

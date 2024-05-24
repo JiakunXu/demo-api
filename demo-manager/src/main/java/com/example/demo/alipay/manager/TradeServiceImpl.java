@@ -3,11 +3,11 @@ package com.example.demo.alipay.manager;
 import com.alipay.easysdk.factory.Factory;
 import com.alipay.easysdk.kernel.util.ResponseChecker;
 import com.alipay.easysdk.payment.common.models.*;
-import com.example.demo.alipay.api.AlipayTradeService;
+import com.example.demo.alipay.api.TradeService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AlipayTradeServiceImpl implements AlipayTradeService {
+public class TradeServiceImpl implements TradeService {
 
     @Override
     public String create(String appAuthToken, String subject, String outTradeNo, String totalAmount,

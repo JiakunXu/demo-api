@@ -1,6 +1,6 @@
 package com.example.demo.alipay.api;
 
-public interface AlipayTradeSettleService {
+public interface TradeSettleService {
 
     String confirm(String outRequestNo, String tradeNo);
 

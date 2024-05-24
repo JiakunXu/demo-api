@@ -4,7 +4,7 @@ import com.alipay.easysdk.factory.Factory;
 import com.alipay.easysdk.kernel.Client;
 import com.alipay.easysdk.kernel.util.Signer;
 
-public class AlipaySignature {
+public class Signature {
 
     /**
      *

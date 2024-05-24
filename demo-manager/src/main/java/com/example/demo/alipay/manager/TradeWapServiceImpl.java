@@ -2,21 +2,19 @@ package com.example.demo.alipay.manager;
 
 import com.alipay.easysdk.factory.Factory;
 import com.alipay.easysdk.kernel.util.ResponseChecker;
-import com.alipay.easysdk.payment.page.models.AlipayTradePagePayResponse;
-import com.example.demo.alipay.api.AlipayTradePageService;
+import com.alipay.easysdk.payment.wap.models.AlipayTradeWapPayResponse;
+import com.example.demo.alipay.api.TradeWapService;
 import org.springframework.stereotype.Service;
 
-import java.net.URLEncoder;
-
 @Service
-public class AlipayTradePageServiceImpl implements AlipayTradePageService {
+public class TradeWapServiceImpl implements TradeWapService {
 
     @Override
     public String pay(String appAuthToken, String subject, String outTradeNo, String totalAmount,
-                      String returnUrl) {
+                      String quitUrl, String returnUrl) {
         try {
-            AlipayTradePagePayResponse response = Factory.Payment.Page().agent(appAuthToken)
-                .pay(subject, outTradeNo, totalAmount, returnUrl);
+            AlipayTradeWapPayResponse response = Factory.Payment.Wap().agent(appAuthToken)
+                .pay(subject, outTradeNo, totalAmount, quitUrl, returnUrl);
             if (ResponseChecker.success(response)) {
                 return response.getBody();
             } else {

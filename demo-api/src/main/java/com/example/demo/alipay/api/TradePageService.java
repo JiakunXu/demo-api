@@ -1,8 +1,8 @@
 package com.example.demo.alipay.api;
 
-public interface AlipayTradeWapService {
+public interface TradePageService {
 
     String pay(String appAuthToken, String subject, String outTradeNo, String totalAmount,
-               String quitUrl, String returnUrl);
+               String returnUrl);
 
 }

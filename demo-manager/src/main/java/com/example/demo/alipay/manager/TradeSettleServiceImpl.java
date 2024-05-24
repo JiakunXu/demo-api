@@ -3,14 +3,14 @@ package com.example.demo.alipay.manager;
 import com.alipay.easysdk.factory.Factory;
 import com.alipay.easysdk.kernel.util.ResponseChecker;
 import com.alipay.easysdk.util.generic.models.AlipayOpenApiGenericResponse;
-import com.example.demo.alipay.api.AlipayTradeSettleService;
+import com.example.demo.alipay.api.TradeSettleService;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @Service
-public class AlipayTradeSettleServiceImpl implements AlipayTradeSettleService {
+public class TradeSettleServiceImpl implements TradeSettleService {
 
     @Override
     public String confirm(String outRequestNo, String tradeNo) {

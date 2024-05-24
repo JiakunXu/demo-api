@@ -5,7 +5,7 @@ import com.alibaba.fastjson2.JSONObject;
 import com.alipay.easysdk.factory.Factory;
 import com.alipay.easysdk.kernel.util.ResponseChecker;
 import com.alipay.easysdk.util.generic.models.AlipayOpenApiGenericResponse;
-import com.example.demo.alipay.api.AlipayTradeOrderService;
+import com.example.demo.alipay.api.TradeOrderService;
 import com.example.demo.alipay.api.bo.trade.AlipayTradeOrderPayResponse;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Service
-public class AlipayTradeOrderServiceImpl implements AlipayTradeOrderService {
+public class TradeOrderServiceImpl implements TradeOrderService {
 
     @Override
     public AlipayTradeOrderPayResponse pay(String tradeNo) {
