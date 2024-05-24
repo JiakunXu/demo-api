@@ -1,0 +1,138 @@
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.log.dao.mapper.OperLogMapper">
+
+	<select id="count" parameterType="operLogDO" resultType="java.lang.Integer">
+	<![CDATA[
+		SELECT COUNT(*)
+		  FROM `tb_oper_log` t
+		 WHERE t.`is_deleted` = 0
+	]]>
+		<if test="clazz != null and clazz != ''">
+		<![CDATA[ AND t.`clazz` LIKE #{clazz,typeHandler=com.example.demo.framework.mybatis.type.WildcardTypeHanlderCallback} ]]>
+		</if>
+		<if test="operator != null and operator != ''">
+		<![CDATA[ AND t.`operator` LIKE #{operator,typeHandler=com.example.demo.framework.mybatis.type.WildcardTypeHanlderCallback} ]]>
+		</if>
+		<if test="status != null and status != ''">
+		<![CDATA[ AND t.`status` = #{status} ]]>
+		</if>
+		<if test="start != null and start != ''">
+		<![CDATA[ AND t.`oper_time` >= DATE_FORMAT(#{start},'%Y-%m-%d') ]]>
+		</if>
+		<if test="end != null and end != ''">
+		<![CDATA[ AND t.`oper_time` < DATE_ADD(DATE_FORMAT(#{end},'%Y-%m-%d'),interval 1 DAY) ]]>
+		</if>
+		<if test="corpId != null">
+		<![CDATA[ AND (t.`corp_id` = #{corpId} OR t.`oper_corp_id` = #{corpId}) ]]>
+		</if>
+	</select>
+
+	<select id="list" parameterType="operLogDO" resultType="operLogDO">
+	<![CDATA[
+		SELECT t.`id`,
+			   t.`clazz`,
+			   t.`request_uri` AS requestUri,
+			   t.`request_method` AS requestMethod,
+			   t.`request_params` AS requestParams,
+			   t.`operator`,
+			   t.`ip`,
+			   t.`ip_addr` AS ipAddr,
+			   t.`oper_time` AS operTime,
+			   t.`oper_desc` AS operDesc,
+			   t.`status`,
+			   t.`err_msg` AS errMsg
+		  FROM `tb_oper_log` t
+		 WHERE t.`is_deleted` = 0
+  	]]>
+		<if test="clazz != null and clazz != ''">
+		<![CDATA[ AND t.`clazz` LIKE #{clazz,typeHandler=com.example.demo.framework.mybatis.type.WildcardTypeHanlderCallback} ]]>
+		</if>
+		<if test="operator != null and operator != ''">
+		<![CDATA[ AND t.`operator` LIKE #{operator,typeHandler=com.example.demo.framework.mybatis.type.WildcardTypeHanlderCallback} ]]>
+		</if>
+		<if test="status != null and status != ''">
+		<![CDATA[ AND t.`status` = #{status} ]]>
+		</if>
+		<if test="start != null and start != ''">
+		<![CDATA[ AND t.`oper_time` >= DATE_FORMAT(#{start},'%Y-%m-%d') ]]>
+		</if>
+		<if test="end != null and end != ''">
+		<![CDATA[ AND t.`oper_time` < DATE_ADD(DATE_FORMAT(#{end},'%Y-%m-%d'),interval 1 DAY) ]]>
+		</if>
+		<if test="corpId != null">
+		<![CDATA[ AND (t.`corp_id` = #{corpId} OR t.`oper_corp_id` = #{corpId}) ]]>
+		</if>
+	<![CDATA[
+		 ORDER BY ${sort} ${dir}, t.`id` DESC
+		 LIMIT #{offset}, #{pageSize}
+	]]>
+	</select>
+
+	<select id="get" parameterType="operLogDO" resultType="operLogDO">
+	<![CDATA[
+		SELECT t.`id`,
+			   t.`clazz`,
+			   t.`request_uri` AS requestUri,
+			   t.`request_method` AS requestMethod,
+			   t.`request_params` AS requestParams,
+			   t.`operator`,
+			   t.`ip`,
+			   t.`ip_addr` AS ipAddr,
+			   t.`oper_time` AS operTime,
+			   t.`oper_desc` AS operDesc,
+			   t.`status`,
+			   t.`err_msg` AS errMsg
+		  FROM `tb_oper_log` t
+		 WHERE t.`is_deleted` = 0
+		   AND t.`id` = #{id}
+	]]>
+	</select>
+
+	<insert id="insert" parameterType="operLogDO" useGeneratedKeys="true" keyProperty="id">
+	<![CDATA[
+		INSERT
+		INTO `tb_oper_log`
+		  (
+			`clazz`,
+			`request_uri`,
+			`request_method`,
+			`request_params`,
+			`operator`,
+			`ip`,
+			`ip_addr`,
+			`oper_time`,
+			`oper_desc`,
+			`status`,
+			`err_msg`,
+			`corp_id`,
+			`oper_corp_id`,
+			`is_deleted`,
+			`creator`,
+			`create_time`
+		  )
+		  VALUES
+		  (
+			#{clazz},
+			#{requestUri},
+			#{requestMethod},
+			#{requestParams},
+			#{operator},
+			#{ip},
+			#{ipAddr},
+			#{operTime},
+			#{operDesc},
+			#{status},
+			#{errMsg},
+			#{corpId},
+			#{operCorpId},
+			0,
+			#{creator},
+			NOW()
+		  )
+	]]>
+	</insert>
+
+</mapper>
