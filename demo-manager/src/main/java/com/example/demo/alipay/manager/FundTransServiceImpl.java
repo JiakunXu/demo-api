@@ -6,7 +6,7 @@ import com.alibaba.fastjson2.annotation.JSONField;
 import com.alipay.easysdk.factory.Factory;
 import com.alipay.easysdk.kernel.util.ResponseChecker;
 import com.alipay.easysdk.util.generic.models.AlipayOpenApiGenericResponse;
-import com.example.demo.alipay.api.AlipayFundTransService;
+import com.example.demo.alipay.api.FundTransService;
 import com.example.demo.alipay.api.bo.fund.AlipayFundTransUniTransferResponse;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Service
-public class AlipayFundTransServiceImpl implements AlipayFundTransService {
+public class FundTransServiceImpl implements FundTransService {
 
     @Override
     public AlipayFundTransUniTransferResponse transfer(String outBizNo, BigDecimal transAmount,

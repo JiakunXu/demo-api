@@ -2,7 +2,7 @@ package com.example.demo.alipay.api;
 
 import java.math.BigDecimal;
 
-public interface AlipayFundAuthOrderService {
+public interface FundAuthOrderService {
 
     String freeze(String outOrderNo, String outRequestNo, String orderTitle, BigDecimal amount,
                   String timeoutExpress);

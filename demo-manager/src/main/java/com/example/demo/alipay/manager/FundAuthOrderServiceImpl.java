@@ -3,7 +3,7 @@ package com.example.demo.alipay.manager;
 import com.alipay.easysdk.factory.Factory;
 import com.alipay.easysdk.kernel.util.ResponseChecker;
 import com.alipay.easysdk.util.generic.models.AlipayOpenApiGenericResponse;
-import com.example.demo.alipay.api.AlipayFundAuthOrderService;
+import com.example.demo.alipay.api.FundAuthOrderService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Service
-public class AlipayFundAuthOrderServiceImpl implements AlipayFundAuthOrderService {
+public class FundAuthOrderServiceImpl implements FundAuthOrderService {
 
     @Value("${alipay.fund.auth.notify.url}")
     private String notifyUrl;
