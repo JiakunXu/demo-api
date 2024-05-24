@@ -6,7 +6,7 @@ import com.alipay.easysdk.factory.Factory;
 import com.alipay.easysdk.kernel.util.ResponseChecker;
 import com.alipay.easysdk.util.generic.models.AlipayOpenApiGenericResponse;
 import com.example.demo.alipay.api.TradeOrderService;
-import com.example.demo.alipay.api.bo.trade.AlipayTradeOrderPayResponse;
+import com.example.demo.alipay.api.bo.trade.TradeOrderPayResponse;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -16,7 +16,7 @@ import java.util.Map;
 public class TradeOrderServiceImpl implements TradeOrderService {
 
     @Override
-    public AlipayTradeOrderPayResponse pay(String tradeNo) {
+    public TradeOrderPayResponse pay(String tradeNo) {
         Map<String, Object> bizParams = new HashMap<>();
         bizParams.put("trade_no", tradeNo);
 
@@ -26,7 +26,7 @@ public class TradeOrderServiceImpl implements TradeOrderService {
             if (ResponseChecker.success(response)) {
                 return JSON.parseObject(JSON.parseObject(response.getHttpBody(), JSONObject.class)
                     .getString("alipay_trade_order_pay_response"),
-                    AlipayTradeOrderPayResponse.class);
+                    TradeOrderPayResponse.class);
             } else {
                 throw new RuntimeException("调用失败，原因：" + response.msg + "，" + response.subMsg);
             }

@@ -11,7 +11,7 @@ import java.util.Date;
 
 @Getter
 @Setter
-public class AlipayTradeOrderPayResponse implements Serializable {
+public class TradeOrderPayResponse implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 2077049729053890967L;
