@@ -54,10 +54,12 @@ public class OperLog extends BaseBO {
      */
     private Date              operTime;
 
+    private String            module;
+
     /**
      * 操作描述
      */
-    private String            operDesc;
+    private String            desc;
 
     /**
      * 状态

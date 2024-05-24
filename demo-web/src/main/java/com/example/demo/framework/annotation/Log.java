@@ -14,4 +14,6 @@ public @interface Log {
 
     String module();
 
+    String desc() default "";
+
 }

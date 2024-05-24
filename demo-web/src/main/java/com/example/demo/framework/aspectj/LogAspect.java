@@ -29,17 +29,17 @@ public class LogAspect {
 
     @AfterReturning(pointcut = "@annotation(log)", returning = "object")
     public void doAfterReturning(JoinPoint joinPoint, Log log, Object object) {
-        handle(joinPoint.getTarget().getClass().getSimpleName(), log.desc(),
+        handle(joinPoint.getTarget().getClass().getSimpleName(), log.module(), log.desc(),
             OperLog.Status.SUCCESS.value, null);
     }
 
     @AfterThrowing(value = "@annotation(log)", throwing = "e")
     public void doAfterThrowing(JoinPoint joinPoint, Log log, Exception e) {
-        handle(joinPoint.getTarget().getClass().getSimpleName(), log.desc(),
+        handle(joinPoint.getTarget().getClass().getSimpleName(), log.module(), log.desc(),
             OperLog.Status.FAIL.value, e.getMessage());
     }
 
-    private void handle(String clazz, String desc, String status, String errMsg) {
+    private void handle(String clazz, String module, String desc, String status, String errMsg) {
         User user = (LoginUser) SecurityContextHolder.getContext().getAuthentication()
             .getPrincipal();
 
@@ -57,12 +57,13 @@ public class LogAspect {
         operLog.setIp(request == null ? null : getRemoteAddr(request));
         operLog.setIpAddr(null);
         operLog.setOperTime(new Date());
-        operLog.setOperDesc(desc);
+        operLog.setModule(module);
+        operLog.setDesc(desc);
         operLog.setStatus(status);
         operLog.setErrMsg(errMsg);
         operLog.setCorpId(user.getCorpId());
 
-        producerService.sendOneway(topic, "oper.log.save", JSON.toJSONBytes(operLog),
+        producerService.send("topic", "oper.log.save", JSON.toJSONBytes(operLog),
             user.getId().toString());
     }
 

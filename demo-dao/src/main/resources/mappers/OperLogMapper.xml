@@ -41,7 +41,8 @@
 			   t.`ip`,
 			   t.`ip_addr` AS ipAddr,
 			   t.`oper_time` AS operTime,
-			   t.`oper_desc` AS operDesc,
+			   t.`module`,
+			   t.`desc`,
 			   t.`status`,
 			   t.`err_msg` AS errMsg
 		  FROM `tb_oper_log` t
@@ -82,7 +83,8 @@
 			   t.`ip`,
 			   t.`ip_addr` AS ipAddr,
 			   t.`oper_time` AS operTime,
-			   t.`oper_desc` AS operDesc,
+			   t.`module`,
+			   t.`desc`,
 			   t.`status`,
 			   t.`err_msg` AS errMsg
 		  FROM `tb_oper_log` t
@@ -104,7 +106,8 @@
 			`ip`,
 			`ip_addr`,
 			`oper_time`,
-			`oper_desc`,
+			`module`,
+			`desc`,
 			`status`,
 			`err_msg`,
 			`corp_id`,
@@ -122,7 +125,8 @@
 			#{ip},
 			#{ipAddr},
 			#{operTime},
-			#{operDesc},
+			#{module},
+			#{desc},
 			#{status},
 			#{errMsg},
 			#{corpId},
