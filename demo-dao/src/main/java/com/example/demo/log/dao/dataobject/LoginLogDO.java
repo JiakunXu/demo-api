@@ -47,4 +47,11 @@ public class LoginLogDO extends BaseDO {
      */
     private String            errMsg;
 
+    public LoginLogDO() {
+    }
+
+    public LoginLogDO(BigInteger id) {
+        this.id = id;
+    }
+
 }

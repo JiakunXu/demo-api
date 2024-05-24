@@ -55,7 +55,16 @@ public class OperLogServiceImpl implements OperLogService {
             return null;
         }
 
-        return BeanUtil.copy(get(new OperLogDO(new BigInteger(id))), OperLog.class);
+        return getOperLog(new BigInteger(id));
+    }
+
+    @Override
+    public OperLog getOperLog(BigInteger id) {
+        if (id == null) {
+            return null;
+        }
+
+        return BeanUtil.copy(get(new OperLogDO(id)), OperLog.class);
     }
 
     @Override

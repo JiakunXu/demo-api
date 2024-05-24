@@ -50,10 +50,16 @@ public class LoginLogServiceImpl implements LoginLogService {
             return null;
         }
 
-        LoginLogDO loginLogDO = new LoginLogDO();
-        loginLogDO.setId(new BigInteger(id));
+        return getLoginLog(new BigInteger(id));
+    }
 
-        return BeanUtil.copy(get(loginLogDO), LoginLog.class);
+    @Override
+    public LoginLog getLoginLog(BigInteger id) {
+        if (id == null) {
+            return null;
+        }
+
+        return BeanUtil.copy(get(new LoginLogDO(id)), LoginLog.class);
     }
 
     @Override
