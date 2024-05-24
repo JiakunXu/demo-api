@@ -6,7 +6,7 @@ import com.alipay.easysdk.payment.common.models.*;
 import com.example.demo.alipay.api.TradeService;
 import org.springframework.stereotype.Service;
 
-@Service
+@Service("com.example.demo.alipay.manager.tradeService")
 public class TradeServiceImpl implements TradeService {
 
     @Override

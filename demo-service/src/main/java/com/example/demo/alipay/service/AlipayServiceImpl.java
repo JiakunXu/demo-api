@@ -14,8 +14,7 @@ public class AlipayServiceImpl implements AlipayService {
     @Override
     public String build(String appAuthToken, String subject, String outTradeNo,
                         String totalAmount) {
-        return tradeWapService.pay(appAuthToken, subject, outTradeNo, totalAmount, null,
-            null);
+        return tradeWapService.pay(appAuthToken, subject, outTradeNo, totalAmount, null, null);
     }
 
 }
