@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.io.Serial;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -13,6 +14,7 @@ import java.util.Date;
 @ToString
 public class AlipayNotifyDO extends BaseDO {
 
+    @Serial
     private static final long serialVersionUID = 1715441966296002388L;
 
     /**
