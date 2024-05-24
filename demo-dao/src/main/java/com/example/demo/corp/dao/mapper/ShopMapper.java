@@ -1,7 +1,7 @@
-package com.example.demo.shop.dao.mapper;
+package com.example.demo.corp.dao.mapper;
 
+import com.example.demo.corp.dao.dataobject.ShopDO;
 import com.example.demo.framework.mapper.BaseMapper;
-import com.example.demo.shop.dao.dataobject.ShopDO;
 
 /**
  * @author JiakunXu

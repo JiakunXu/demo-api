@@ -1,13 +1,13 @@
-package com.example.demo.shop.service;
+package com.example.demo.corp.service;
 
 import com.example.demo.framework.constant.Constants;
 import com.example.demo.framework.util.BeanUtil;
-import com.example.demo.shop.api.IShopService;
+import com.example.demo.corp.api.IShopService;
 import com.example.demo.framework.exception.ServiceException;
-import com.example.demo.shop.dao.dataobject.ShopDO;
-import com.example.demo.shop.dao.mapper.ShopMapper;
-import com.example.demo.shop.api.ShopService;
-import com.example.demo.shop.api.bo.Shop;
+import com.example.demo.corp.dao.dataobject.ShopDO;
+import com.example.demo.corp.dao.mapper.ShopMapper;
+import com.example.demo.corp.api.CorpService;
+import com.example.demo.corp.api.bo.Corp;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +21,9 @@ import java.util.List;
  * @author JiakunXu
  */
 @Service("com.example.demo.shop.service.shopService")
-public class ShopServiceImpl implements ShopService, IShopService {
+public class CorpServiceImpl implements CorpService, IShopService {
 
-    private static final Logger logger = LoggerFactory.getLogger(ShopServiceImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(CorpServiceImpl.class);
 
     @Autowired
     private ShopMapper          shopMapper;
@@ -36,23 +36,23 @@ public class ShopServiceImpl implements ShopService, IShopService {
     }
 
     @Override
-    public List<Shop> listShops() {
+    public List<Corp> listShops() {
         ShopDO shopDO = new ShopDO();
 
-        return BeanUtil.copy(list(shopDO), Shop.class);
+        return BeanUtil.copy(list(shopDO), Corp.class);
     }
 
     @Override
-    public Shop getShop() {
+    public Corp getShop() {
         ShopDO shopDO = new ShopDO();
         shopDO.setId(BigInteger.ONE);
 
-        return BeanUtil.copy(get(shopDO), Shop.class);
+        return BeanUtil.copy(get(shopDO), Corp.class);
     }
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
-    public Shop updateShop() {
+    public Corp updateShop() {
         ShopDO shopDO = new ShopDO();
         shopDO.setId(BigInteger.ONE);
         shopDO.setName("N");
@@ -64,7 +64,7 @@ public class ShopServiceImpl implements ShopService, IShopService {
             throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "message");
         }
 
-        return BeanUtil.copy(shopDO, Shop.class);
+        return BeanUtil.copy(shopDO, Corp.class);
     }
 
     private int count(ShopDO shopDO) {

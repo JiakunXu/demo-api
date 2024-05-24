@@ -2,7 +2,7 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.example.demo.shop.dao.mapper.ShopMapper">
+<mapper namespace="mapper.com.example.demo.corp.dao.ShopMapper">
 
 	<select id="count" parameterType="shopDO" resultType="java.lang.Integer">
 	<![CDATA[

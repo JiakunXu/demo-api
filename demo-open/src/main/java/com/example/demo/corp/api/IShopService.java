@@ -1,4 +1,4 @@
-package com.example.demo.shop.api;
+package com.example.demo.corp.api;
 
 /**
  * @author JiakunXu

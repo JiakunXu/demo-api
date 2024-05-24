@@ -1,4 +1,4 @@
-package com.example.demo.shop.dao.dataobject;
+package com.example.demo.corp.dao.dataobject;
 
 import com.example.demo.framework.dataobject.BaseDO;
 import lombok.Getter;

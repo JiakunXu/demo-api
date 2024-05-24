@@ -1,4 +1,4 @@
-package com.example.demo.shop.api.bo;
+package com.example.demo.corp.api.bo;
 
 import com.example.demo.framework.bo.BaseBO;
 import lombok.Getter;
@@ -11,7 +11,7 @@ import java.math.BigInteger;
  */
 @Getter
 @Setter
-public class Shop extends BaseBO {
+public class Corp extends BaseBO {
 
     private BigInteger id;
 

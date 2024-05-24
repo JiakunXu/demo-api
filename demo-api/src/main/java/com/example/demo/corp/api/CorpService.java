@@ -1,13 +1,13 @@
-package com.example.demo.shop.api;
+package com.example.demo.corp.api;
 
-import com.example.demo.shop.api.bo.Shop;
+import com.example.demo.corp.api.bo.Corp;
 
 import java.util.List;
 
 /**
  * @author JiakunXu
  */
-public interface ShopService {
+public interface CorpService {
 
     /**
      * 
@@ -19,18 +19,18 @@ public interface ShopService {
      * 
      * @return
      */
-    List<Shop> listShops();
+    List<Corp> listShops();
 
     /**
      * 
      * @return
      */
-    Shop getShop();
+    Corp getShop();
 
     /**
      * 
      * @return
      */
-    Shop updateShop();
+    Corp updateShop();
 
 }
