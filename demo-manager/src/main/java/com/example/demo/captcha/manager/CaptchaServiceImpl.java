@@ -41,7 +41,7 @@ public class CaptchaServiceImpl extends DefaultTextCreator implements CaptchaSer
         properties.setProperty(KAPTCHA_OBSCURIFICATOR_IMPL,
             "com.google.code.kaptcha.impl.ShadowGimpy");
         properties.setProperty(KAPTCHA_TEXTPRODUCER_IMPL,
-            "com.example.car.captcha.manager.CaptchaServiceImpl");
+            "com.example.demo.captcha.manager.CaptchaServiceImpl");
         properties.setProperty(KAPTCHA_TEXTPRODUCER_FONT_COLOR, "blue");
         properties.setProperty(KAPTCHA_TEXTPRODUCER_CHAR_SPACE, "6");
         properties.setProperty(KAPTCHA_IMAGE_WIDTH, "160");
