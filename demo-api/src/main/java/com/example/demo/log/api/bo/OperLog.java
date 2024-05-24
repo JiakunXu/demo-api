@@ -71,8 +71,6 @@ public class OperLog extends BaseBO {
 
     private BigInteger        corpId;
 
-    private BigInteger        operCorpId;
-
     public enum Status {
                         /**
                          * 成功/失败

@@ -71,8 +71,6 @@ public class OperLogDO extends BaseDO {
 
     private BigInteger        corpId;
 
-    private BigInteger        operCorpId;
-
     public OperLogDO() {
     }
 

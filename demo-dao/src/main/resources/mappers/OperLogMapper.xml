@@ -26,7 +26,7 @@
 		<![CDATA[ AND t.`oper_time` < DATE_ADD(DATE_FORMAT(#{end},'%Y-%m-%d'),interval 1 DAY) ]]>
 		</if>
 		<if test="corpId != null">
-		<![CDATA[ AND (t.`corp_id` = #{corpId} OR t.`oper_corp_id` = #{corpId}) ]]>
+		<![CDATA[ AND t.`corp_id` = #{corpId} ]]>
 		</if>
 	</select>
 
@@ -63,7 +63,7 @@
 		<![CDATA[ AND t.`oper_time` < DATE_ADD(DATE_FORMAT(#{end},'%Y-%m-%d'),interval 1 DAY) ]]>
 		</if>
 		<if test="corpId != null">
-		<![CDATA[ AND (t.`corp_id` = #{corpId} OR t.`oper_corp_id` = #{corpId}) ]]>
+		<![CDATA[ AND t.`corp_id` = #{corpId} ]]>
 		</if>
 	<![CDATA[
 		 ORDER BY ${sort} ${dir}, t.`id` DESC
@@ -108,7 +108,6 @@
 			`status`,
 			`err_msg`,
 			`corp_id`,
-			`oper_corp_id`,
 			`is_deleted`,
 			`creator`,
 			`create_time`
@@ -127,7 +126,6 @@
 			#{status},
 			#{errMsg},
 			#{corpId},
-			#{operCorpId},
 			0,
 			#{creator},
 			NOW()
