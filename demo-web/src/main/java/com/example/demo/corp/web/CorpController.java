@@ -2,7 +2,6 @@ package com.example.demo.corp.web;
 
 import com.example.demo.corp.api.CorpService;
 import com.example.demo.corp.api.bo.Corp;
-import com.example.demo.user.api.bo.User;
 import com.example.demo.framework.web.BaseController;
 import com.example.demo.framework.response.ListResponse;
 import com.example.demo.framework.response.ObjectResponse;
@@ -25,29 +24,28 @@ public class CorpController extends BaseController {
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public ListResponse<Corp> list(HttpServletRequest request, HttpServletResponse response) {
-        int count = corpService.countCorp();
+        Corp corp = this.getParameter(request, new Corp());
+
+        int count = corpService.countCorp(corp);
 
         if (count == 0) {
             return new ListResponse<>(0, null);
         }
 
-        return new ListResponse<>(count, corpService.listCorps());
+        return new ListResponse<>(count, corpService.listCorps(corp));
     }
 
     @RequestMapping(value = "/get", method = RequestMethod.GET)
     public ObjectResponse<Corp> get(HttpServletRequest request, HttpServletResponse response) {
-        String name = this.getParameter(request, "name");
-        User user = this.getParameter(request, User.class);
-
-        return new ObjectResponse<>(corpService.getCorp());
+        String id = this.getParameter(request, "id");
+        return new ObjectResponse<>(corpService.getCorp(id));
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public ObjectResponse<Corp> update(HttpServletRequest request, HttpServletResponse response) {
-        String name = this.getParameter(request, "name");
-        User user = this.getParameter(request, User.class);
-
-        return new ObjectResponse<>(corpService.updateCorp());
+        Corp corp = this.getParameter(request, Corp.class);
+        return new ObjectResponse<>(
+            corpService.updateCorp(corp.getId(), corp, this.getUser().getName()));
     }
 
 }

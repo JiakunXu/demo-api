@@ -23,4 +23,11 @@ public class CorpDO extends BaseDO {
 
     private String            name;
 
+    public CorpDO() {
+    }
+
+    public CorpDO(BigInteger id) {
+        this.id = id;
+    }
+
 }

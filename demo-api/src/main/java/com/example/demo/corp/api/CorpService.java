@@ -2,6 +2,7 @@ package com.example.demo.corp.api;
 
 import com.example.demo.corp.api.bo.Corp;
 
+import java.math.BigInteger;
 import java.util.List;
 
 /**
@@ -9,12 +10,14 @@ import java.util.List;
  */
 public interface CorpService {
 
-    int countCorp();
+    int countCorp(Corp corp);
 
-    List<Corp> listCorps();
+    List<Corp> listCorps(Corp corp);
 
-    Corp getCorp();
+    Corp getCorp(String id);
 
-    Corp updateCorp();
+    Corp getCorp(BigInteger id);
+
+    Corp updateCorp(BigInteger id, Corp corp, String modifier);
 
 }
