@@ -7,7 +7,7 @@ import com.alipay.easysdk.factory.Factory;
 import com.alipay.easysdk.kernel.util.ResponseChecker;
 import com.alipay.easysdk.util.generic.models.AlipayOpenApiGenericResponse;
 import com.example.demo.alipay.api.FundTransService;
-import com.example.demo.alipay.api.bo.fund.AlipayFundTransUniTransferResponse;
+import com.example.demo.alipay.api.bo.fund.FundTransUniTransferResponse;
 import org.springframework.stereotype.Service;
 
 import java.io.Serial;
@@ -20,8 +20,8 @@ import java.util.Map;
 public class FundTransServiceImpl implements FundTransService {
 
     @Override
-    public AlipayFundTransUniTransferResponse transfer(String outBizNo, BigDecimal transAmount,
-                                                       String orderTitle, String userId) {
+    public FundTransUniTransferResponse transfer(String outBizNo, BigDecimal transAmount,
+                                                 String orderTitle, String userId) {
         Map<String, Object> bizParams = new HashMap<>();
         bizParams.put("out_biz_no", outBizNo);
         bizParams.put("trans_amount", transAmount);
@@ -37,7 +37,7 @@ public class FundTransServiceImpl implements FundTransService {
                 return JSON.parseObject(
                     JSON.parseObject(response.getHttpBody(), JSONObject.class)
                         .getString("alipay_fund_trans_uni_transfer_response"),
-                    AlipayFundTransUniTransferResponse.class);
+                    FundTransUniTransferResponse.class);
             } else {
                 throw new RuntimeException("调用失败，原因：" + response.msg + "，" + response.subMsg);
             }

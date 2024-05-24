@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 @Getter
 @Setter
-public class AlipayFundTransUniTransferResponse implements Serializable {
+public class FundTransUniTransferResponse implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 5615278100081362183L;
