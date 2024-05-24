@@ -5,15 +5,15 @@ import com.alibaba.fastjson2.JSONObject;
 import com.alipay.easysdk.factory.Factory;
 import com.alipay.easysdk.kernel.util.ResponseChecker;
 import com.alipay.easysdk.util.generic.models.AlipayOpenApiGenericResponse;
-import com.example.demo.alipay.api.AlipayUserInfoService;
+import com.example.demo.alipay.api.UserInfoService;
 import com.example.demo.alipay.api.bo.user.UserInfo;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
 
-@Service
-public class AlipayUserInfoServiceImpl implements AlipayUserInfoService {
+@Service("com.example.demo.alipay.manager.userInfoService")
+public class UserInfoServiceImpl implements UserInfoService {
 
     @Override
     public UserInfo getUserInfo(String authToken) {
