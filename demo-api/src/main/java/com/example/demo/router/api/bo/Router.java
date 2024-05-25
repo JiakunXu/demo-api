@@ -1,15 +1,17 @@
 package com.example.demo.router.api.bo;
 
-import java.io.Serializable;
-import java.util.List;
-
 import lombok.Getter;
 import lombok.Setter;
+
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.List;
 
 @Getter
 @Setter
 public class Router implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 6817001402729000213L;
 
     private boolean           hidden;
