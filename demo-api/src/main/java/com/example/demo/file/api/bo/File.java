@@ -27,4 +27,6 @@ public class File extends BaseBO {
 
     private String            url;
 
+    private String            state;
+
 }

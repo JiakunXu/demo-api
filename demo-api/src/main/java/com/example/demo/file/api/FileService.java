@@ -2,21 +2,13 @@ package com.example.demo.file.api;
 
 import com.example.demo.file.api.bo.File;
 
-import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * @author JiakunXu
  */
 public interface FileService {
 
-    /**
-     *
-     * @param name
-     * @param content
-     * @param contentType
-     * @return
-     * @throws IOException
-     */
-    File insertFile(String name, byte[] content, String contentType) throws IOException;
+    File upload(String name, String contentType, InputStream content);
 
 }
