@@ -19,6 +19,7 @@ import org.springframework.util.FastByteArrayOutputStream;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.security.SecureRandom;
 import java.util.Base64;
 import java.util.Properties;
 import java.util.Random;
@@ -55,7 +56,7 @@ public class CaptchaServiceImpl extends DefaultTextCreator implements CaptchaSer
 
     @Override
     public String getText() {
-        Random random = new Random();
+        Random random = new SecureRandom();
 
         int x = random.nextInt(10);
         int y = random.nextInt(10);
