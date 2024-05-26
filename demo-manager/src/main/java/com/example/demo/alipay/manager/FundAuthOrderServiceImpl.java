@@ -14,7 +14,7 @@ import java.util.Map;
 @Service
 public class FundAuthOrderServiceImpl implements FundAuthOrderService {
 
-    @Value("${alipay.fund.auth.notify.url}")
+    @Value("${alipay.notify.fund.auth.url}")
     private String notifyUrl;
 
     @Override
