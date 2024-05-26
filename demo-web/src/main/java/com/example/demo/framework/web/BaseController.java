@@ -2,16 +2,16 @@ package com.example.demo.framework.web;
 
 import com.alibaba.fastjson2.JSON;
 import com.example.demo.framework.bo.BaseBO;
-import com.example.demo.user.api.bo.User;
-import com.example.demo.framework.util.ThreadLocalUtil;
+import com.example.demo.security.api.bo.LoginUser;
+import jakarta.servlet.http.HttpServletRequest;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RestController;
 
-import jakarta.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
@@ -24,8 +24,8 @@ public class BaseController {
 
     private static final Logger logger = LoggerFactory.getLogger(BaseController.class);
 
-    public User getUser() {
-        return (User) ThreadLocalUtil.getValue();
+    public LoginUser getUser() {
+        return (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 
     public String getParameter(HttpServletRequest request, String name) {
@@ -34,10 +34,18 @@ public class BaseController {
 
     public <T extends BaseBO> T getParameter(HttpServletRequest request, T parameter) {
         parameter.setSearch(request.getParameter("search"));
-        parameter.setStartDate(request.getParameter("startDate"));
-        parameter.setEndDate(request.getParameter("endDate"));
+        parameter.setStart(request.getParameter("startDate"));
+        parameter.setEnd(request.getParameter("endDate"));
         parameter.setSort(request.getParameter("sort"));
-        parameter.setDir(request.getParameter("dir"));
+
+        String dir = request.getParameter("dir");
+        if ("ascending".equals(dir)) {
+            parameter.setDir("ASC");
+        } else if ("descending".equals(dir)) {
+            parameter.setDir("DESC");
+        } else {
+            parameter.setDir(dir);
+        }
 
         String pageNo = request.getParameter("pageNo");
         if (StringUtils.isNotBlank(pageNo)) {

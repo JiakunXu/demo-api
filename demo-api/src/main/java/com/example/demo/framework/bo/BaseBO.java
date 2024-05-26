@@ -17,9 +17,9 @@ public class BaseBO implements Serializable {
 
     private String            search;
 
-    private String            startDate;
+    private String            start;
 
-    private String            endDate;
+    private String            end;
 
     /**
      * @see com.example.demo.framework.config.JsonConfigurer
