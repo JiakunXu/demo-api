@@ -1,21 +1,19 @@
 package com.example.demo.framework.filter;
 
-import java.io.IOException;
-
+import com.example.demo.security.api.TokenService;
+import com.example.demo.security.api.bo.LoginUser;
+import com.example.demo.security.authentication.AuthenticationToken;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.example.demo.security.api.TokenService;
-import com.example.demo.security.api.bo.LoginUser;
-import com.example.demo.security.authentication.AuthenticationToken;
+import java.io.IOException;
 
 @Component
 public class TokenAuthenticationFilter extends OncePerRequestFilter {
