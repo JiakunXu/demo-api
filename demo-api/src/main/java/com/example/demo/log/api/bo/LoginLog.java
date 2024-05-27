@@ -4,6 +4,7 @@ import com.example.demo.framework.bo.BaseBO;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serial;
 import java.math.BigInteger;
 import java.util.Date;
 
@@ -11,6 +12,7 @@ import java.util.Date;
 @Setter
 public class LoginLog extends BaseBO {
 
+    @Serial
     private static final long serialVersionUID = -614974035358386189L;
 
     private BigInteger        id;

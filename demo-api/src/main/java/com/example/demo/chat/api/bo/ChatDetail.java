@@ -4,6 +4,7 @@ import com.example.demo.framework.bo.BaseBO;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serial;
 import java.math.BigInteger;
 
 /**
@@ -13,6 +14,7 @@ import java.math.BigInteger;
 @Setter
 public class ChatDetail extends BaseBO {
 
+    @Serial
     private static final long serialVersionUID = 1355490942757094850L;
 
     private BigInteger        id;

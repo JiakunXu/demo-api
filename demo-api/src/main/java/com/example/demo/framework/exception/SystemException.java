@@ -1,5 +1,7 @@
 package com.example.demo.framework.exception;
 
+import java.io.Serial;
+
 /**
  * Exception.
  * 
@@ -8,6 +10,7 @@ package com.example.demo.framework.exception;
  */
 public class SystemException extends Exception {
 
+    @Serial
     private static final long serialVersionUID = 5259805918456538208L;
 
     private final Integer     code;
