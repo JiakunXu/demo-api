@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.io.Serial;
 import java.math.BigInteger;
 import java.util.Date;
 
@@ -13,6 +14,7 @@ import java.util.Date;
 @ToString
 public class OperLogDO extends BaseDO {
 
+    @Serial
     private static final long serialVersionUID = -5521798017790714164L;
 
     private BigInteger        id;

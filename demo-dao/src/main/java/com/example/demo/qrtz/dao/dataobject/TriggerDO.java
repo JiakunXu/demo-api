@@ -5,11 +5,14 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.io.Serial;
+
 @Getter
 @Setter
 @ToString
 public class TriggerDO extends BaseDO {
 
+    @Serial
     private static final long serialVersionUID = 3845811002495780733L;
 
     private String            schedName;

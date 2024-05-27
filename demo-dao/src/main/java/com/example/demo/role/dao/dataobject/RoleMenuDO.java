@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.io.Serial;
 import java.math.BigInteger;
 
 @Getter
@@ -12,6 +13,7 @@ import java.math.BigInteger;
 @ToString
 public class RoleMenuDO extends BaseDO {
 
+    @Serial
     private static final long serialVersionUID = -5876006806537431915L;
 
     private BigInteger        id;

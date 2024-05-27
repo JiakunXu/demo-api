@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.io.Serial;
 import java.math.BigInteger;
 
 /**
@@ -15,6 +16,7 @@ import java.math.BigInteger;
 @ToString
 public class AgentDO extends BaseDO {
 
+    @Serial
     private static final long serialVersionUID = -3085683708399250037L;
 
     private BigInteger        id;

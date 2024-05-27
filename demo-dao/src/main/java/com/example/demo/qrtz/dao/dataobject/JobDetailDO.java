@@ -5,11 +5,14 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.io.Serial;
+
 @Getter
 @Setter
 @ToString
 public class JobDetailDO extends BaseDO {
 
+    @Serial
     private static final long serialVersionUID = 4531504668767263732L;
 
     private String            schedName;

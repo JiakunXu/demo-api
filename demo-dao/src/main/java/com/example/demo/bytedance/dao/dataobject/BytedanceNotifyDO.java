@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.io.Serial;
 import java.math.BigInteger;
 
 /**
@@ -16,6 +17,7 @@ import java.math.BigInteger;
 @ToString
 public class BytedanceNotifyDO extends BaseDO {
 
+    @Serial
     private static final long serialVersionUID = 7889307835833273313L;
 
     private BigInteger        id;

@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 @Getter
@@ -11,6 +12,7 @@ import java.io.Serializable;
 @ToString
 public class WxpayRefundDO implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 3624836700192458218L;
 
     /**

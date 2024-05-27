@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.io.Serial;
 import java.math.BigInteger;
 import java.util.Date;
 
@@ -16,6 +17,7 @@ import java.util.Date;
 @ToString
 public class ChatDO extends BaseDO {
 
+    @Serial
     private static final long serialVersionUID = 8356420243427841172L;
 
     private BigInteger        id;

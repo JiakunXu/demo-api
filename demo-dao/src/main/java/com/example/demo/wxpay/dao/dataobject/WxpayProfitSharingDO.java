@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 @Getter
@@ -11,6 +12,7 @@ import java.io.Serializable;
 @ToString
 public class WxpayProfitSharingDO implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 2321748702649952690L;
 
     /**
