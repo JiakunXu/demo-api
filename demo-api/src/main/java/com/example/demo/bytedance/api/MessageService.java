@@ -1,6 +1,6 @@
 package com.example.demo.bytedance.api;
 
-import com.example.demo.bytedance.api.bo.message.SendResult;
+import com.example.demo.bytedance.api.bo.message.Result;
 import com.example.demo.bytedance.api.bo.message.Message;
 
 /**
@@ -41,6 +41,6 @@ public interface MessageService {
      * @param content
      * @throws RuntimeException
      */
-    SendResult send(String accessToken, String openId, String content) throws RuntimeException;
+    Result send(String accessToken, String openId, String content) throws RuntimeException;
 
 }

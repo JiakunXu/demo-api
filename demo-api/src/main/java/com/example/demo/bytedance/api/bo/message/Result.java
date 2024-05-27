@@ -12,7 +12,7 @@ import java.io.Serializable;
  */
 @Getter
 @Setter
-public class SendResult implements Serializable {
+public class Result implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 9129556361978461259L;

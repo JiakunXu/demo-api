@@ -3,7 +3,7 @@ package com.example.demo.bytedance.manager;
 import com.alibaba.fastjson2.JSON;
 import com.example.demo.bytedance.api.MessageService;
 import com.example.demo.bytedance.api.TokenService;
-import com.example.demo.bytedance.api.bo.message.SendResult;
+import com.example.demo.bytedance.api.bo.message.Result;
 import com.example.demo.bytedance.api.bo.message.Message;
 import com.example.demo.framework.util.EncryptUtil;
 import com.example.demo.framework.util.HttpUtil;
@@ -124,19 +124,18 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public SendResult send(String accessToken, String openId,
-                           String content) throws RuntimeException {
+    public Result send(String accessToken, String openId, String content) throws RuntimeException {
         Map<String, String> map = new HashMap<>(3);
         map.put("open_id", openId);
         map.put("msg_type", "text");
         map.put("content", content);
 
-        SendResult result;
+        Result result;
 
         try {
             result = JSON.parseObject(
                 HttpUtil.post(MessageService.HTTPS_POST_URL + accessToken, JSON.toJSONString(map)),
-                SendResult.class);
+                Result.class);
         } catch (Exception e) {
             logger.error(JSON.toJSONString(map), e);
             throw new RuntimeException(e.getMessage(), e);
