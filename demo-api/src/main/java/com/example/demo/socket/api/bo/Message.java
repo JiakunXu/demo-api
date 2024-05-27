@@ -3,6 +3,7 @@ package com.example.demo.socket.api.bo;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
@@ -15,6 +16,7 @@ import java.io.Serializable;
 @Setter
 public class Message implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 7729049438247636909L;
 
     /**

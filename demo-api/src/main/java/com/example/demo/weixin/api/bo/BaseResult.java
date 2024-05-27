@@ -1,11 +1,11 @@
 package com.example.demo.weixin.api.bo;
 
-import java.io.Serial;
-import java.io.Serializable;
-
 import com.alibaba.fastjson2.annotation.JSONField;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.io.Serial;
+import java.io.Serializable;
 
 /**
  * @author JiakunXu

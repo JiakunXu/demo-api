@@ -3,6 +3,7 @@ package com.example.demo.qrtz.api.bo;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -10,6 +11,7 @@ import java.util.Date;
 @Setter
 public class Job implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 3695851816029287371L;
 
     private String            name;
@@ -30,6 +32,7 @@ public class Job implements Serializable {
     @Setter
     public static class Trigger implements Serializable {
 
+        @Serial
         private static final long serialVersionUID = -848475443962692688L;
 
         private String            description;

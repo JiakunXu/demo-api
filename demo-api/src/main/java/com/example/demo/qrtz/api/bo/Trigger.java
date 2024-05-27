@@ -4,10 +4,13 @@ import com.example.demo.framework.bo.BaseBO;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serial;
+
 @Getter
 @Setter
 public class Trigger extends BaseBO {
 
+    @Serial
     private static final long serialVersionUID = -7793431375433710075L;
 
     private String            schedName;

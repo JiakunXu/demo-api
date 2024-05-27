@@ -1,5 +1,14 @@
 package com.example.demo.security.api.bo;
 
+import com.example.demo.user.api.bo.User;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.SpringSecurityCoreVersion;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.util.Assert;
+
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
@@ -8,19 +17,11 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.SpringSecurityCoreVersion;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.util.Assert;
-
-import com.example.demo.user.api.bo.User;
-import lombok.Getter;
-import lombok.Setter;
-
 @Getter
 @Setter
 public class LoginUser extends User implements UserDetails {
 
+    @Serial
     private static final long     serialVersionUID = -5836553302896843623L;
 
     private Set<GrantedAuthority> authorities;
