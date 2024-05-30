@@ -18,11 +18,6 @@ public class RoleDO extends BaseDO {
 
     private BigInteger        id;
 
-    /**
-     * 公司
-     */
-    private BigInteger        corpId;
-
     private String            code;
 
     /**
@@ -47,11 +42,6 @@ public class RoleDO extends BaseDO {
 
     public RoleDO(BigInteger id) {
         this.id = id;
-    }
-
-    public RoleDO(BigInteger id, BigInteger corpId) {
-        this.id = id;
-        this.corpId = corpId;
     }
 
 }

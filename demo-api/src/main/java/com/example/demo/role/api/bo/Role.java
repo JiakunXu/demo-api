@@ -19,11 +19,6 @@ public class Role extends BaseBO {
 
     private BigInteger        id;
 
-    /**
-     * 公司
-     */
-    private BigInteger        corpId;
-
     private String            code;
 
     /**
