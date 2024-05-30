@@ -1,13 +1,12 @@
 package com.example.demo.user.dao.dataobject;
 
-import java.io.Serial;
-import java.math.BigInteger;
-
-import com.alibaba.fastjson2.annotation.JSONField;
 import com.example.demo.framework.dataobject.BaseDO;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+
+import java.io.Serial;
+import java.math.BigInteger;
 
 @Getter
 @Setter
@@ -25,7 +24,6 @@ public class UserDO extends BaseDO {
 
     private String            username;
 
-    @JSONField(serialize = false)
     private String            password;
 
     private Boolean           expired;
