@@ -1,13 +1,13 @@
 package com.example.demo.coze.manager;
 
 import com.alibaba.fastjson2.JSONObject;
-import com.example.demo.coze.api.ChatService;
+import com.example.demo.coze.api.OpenApiService;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
-@Service("com.example.demo.coze.manager.chatService")
-public class ChatServiceImpl implements ChatService {
+@Service("com.example.demo.coze.manager.openApiService")
+public class OpenApiServiceImpl implements OpenApiService {
 
     @Override
     public void chat(String botId, String user, String query) {

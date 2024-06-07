@@ -1,6 +1,6 @@
 package com.example.demo.coze.api;
 
-public interface ChatService {
+public interface OpenApiService {
 
     void chat(String botId, String user, String query);
 
