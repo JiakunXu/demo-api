@@ -2,6 +2,8 @@ package com.example.demo.coze.manager;
 
 import com.alibaba.fastjson2.JSONObject;
 import com.example.demo.coze.api.OpenApiService;
+import com.example.demo.sse.api.SseService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -9,8 +11,11 @@ import org.springframework.web.reactive.function.client.WebClient;
 @Service("com.example.demo.coze.manager.openApiService")
 public class OpenApiServiceImpl implements OpenApiService {
 
+    @Autowired
+    private SseService sseService;
+
     @Override
-    public void chat(String botId, String user, String query) {
+    public void chat(String tunnelId, String botId, String user, String query) {
         JSONObject data = new JSONObject();
         data.put("bot_id", botId);
         data.put("conversation_id", "");
@@ -25,10 +30,10 @@ public class OpenApiServiceImpl implements OpenApiService {
                 "Bearer pat_UExbmB3Sbb0za1zqE8n8v8YojTtpkCBxpVesHMrvlfgPnDGMImGnhbDX0Z1zJF46")
             .bodyValue(data.toString()).accept(MediaType.TEXT_EVENT_STREAM).retrieve()
             .bodyToFlux(String.class).map(s -> {
-                System.out.println(s);
+                sseService.send(tunnelId, s);
                 return s;
             }).doFinally(s -> {
-
+                sseService.complete(tunnelId);
             }).blockLast();
     }
 
