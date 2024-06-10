@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface OpenaiService {
 
-    void chat(String tunnelId, List<Message> messageList, String model);
+    void chat(String tunnelId, List<Message> messages);
 
 }

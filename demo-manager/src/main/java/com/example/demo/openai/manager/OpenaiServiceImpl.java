@@ -18,10 +18,10 @@ public class OpenaiServiceImpl implements OpenaiService {
     private SseService sseService;
 
     @Override
-    public void chat(String tunnelId, List<Message> messages, String model) {
+    public void chat(String tunnelId, List<Message> messages) {
         JSONObject data = new JSONObject();
         data.put("messages", messages);
-        data.put("model", model);
+        data.put("model", "gpt-4");
         data.put("stream", true);
 
         WebClient client = WebClient.create("https://api.openai.com");
