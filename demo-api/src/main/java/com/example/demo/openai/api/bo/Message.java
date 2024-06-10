@@ -35,6 +35,17 @@ public class Message implements Serializable {
         this.name = name;
     }
 
+    public Message(List<Content> contents, String role) {
+        this.contents = contents;
+        this.role = role;
+    }
+
+    public Message(List<Content> contents, String role, String name) {
+        this.contents = contents;
+        this.role = role;
+        this.name = name;
+    }
+
     @Getter
     @Setter
     public static class Content implements Serializable {
@@ -48,6 +59,16 @@ public class Message implements Serializable {
 
         @JSONField(name = "image_url")
         private ImageUrl          imageUrl;
+
+        public Content(String type, String text) {
+            this.type = type;
+            this.text = text;
+        }
+
+        public Content(String type, ImageUrl imageUrl) {
+            this.type = type;
+            this.imageUrl = imageUrl;
+        }
 
         @Getter
         @Setter
