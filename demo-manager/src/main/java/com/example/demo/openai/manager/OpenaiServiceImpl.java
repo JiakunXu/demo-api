@@ -22,7 +22,24 @@ public class OpenaiServiceImpl implements OpenaiService {
         JSONObject data = new JSONObject();
         data.put("messages", messages);
         data.put("model", "gpt-4");
+        data.put("frequency_penalty", 0);
+        data.put("logit_bias", null);
+        data.put("logprobs", false);
+        data.put("top_logprobs", null);
+        data.put("max_tokens", null);
+        data.put("n", 1);
+        data.put("presence_penalty", 0);
+        data.put("response_format", null);
+        data.put("seed", null);
+        data.put("stop", null);
         data.put("stream", true);
+        data.put("stream_options", null);
+        data.put("temperature", 1);
+        data.put("top_p", 1);
+        data.put("tools", null);
+        data.put("tool_choice", null);
+        data.put("parallel_tool_calls", true);
+        data.put("user", null);
 
         WebClient client = WebClient.create("https://api.openai.com");
 
