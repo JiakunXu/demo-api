@@ -1,6 +1,7 @@
 package com.example.demo.openai.api.bo;
 
 import com.alibaba.fastjson2.annotation.JSONField;
+import io.micrometer.common.util.StringUtils;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,14 +16,20 @@ public class Message implements Serializable {
     @Serial
     private static final long serialVersionUID = -6474093301284154597L;
 
+    @JSONField(serialize = false)
     private String            content;
 
-    @JSONField(name = "content")
+    @JSONField(serialize = false)
     private List<Content>     contents;
 
-    private String            role;
+    @JSONField(name = "content")
+    public Object getData() {
+        return StringUtils.isBlank(content) ? contents : content;
+    }
 
-    private String            name;
+    private String role;
+
+    private String name;
 
     public Message(String content, String role) {
         this.content = content;
