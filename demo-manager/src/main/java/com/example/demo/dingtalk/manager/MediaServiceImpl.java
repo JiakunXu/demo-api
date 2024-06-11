@@ -8,7 +8,6 @@ import com.dingtalk.api.response.OapiMediaUploadResponse;
 import com.example.demo.dingtalk.api.MediaService;
 import com.taobao.api.ApiException;
 import com.taobao.api.FileItem;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
