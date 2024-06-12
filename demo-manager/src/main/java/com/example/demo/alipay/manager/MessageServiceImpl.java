@@ -16,7 +16,7 @@ import java.util.Map;
 public class MessageServiceImpl implements MessageService {
 
     @Override
-    public Message verify(Map<String, String> parameters) {
+    public Message notify(Map<String, String> parameters) {
         Message message = new Message();
         message.setNotifyId(parameters.get("notify_id"));
         message.setAppId(parameters.get("app_id"));

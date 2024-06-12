@@ -7,7 +7,7 @@ import java.util.Map;
 
 public interface MessageService {
 
-    Message verify(Map<String, String> parameters);
+    Message notify(Map<String, String> parameters);
 
     BaseResult send(String toUserId, String formId, String userTemplateId, String page,
                     String data);
