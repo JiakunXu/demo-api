@@ -75,7 +75,7 @@ public class AlipayFundAuthNotifyServiceImpl implements AlipayFundAuthNotifyServ
                 throw new RuntimeException("验签失败");
             }
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage(), e);
         }
 
         return alipayFundAuthNotify;

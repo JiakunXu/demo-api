@@ -33,7 +33,7 @@ public class MessageServiceImpl implements MessageService {
                 throw new RuntimeException("验签失败");
             }
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage(), e);
         }
 
         return message;

@@ -20,7 +20,7 @@ public class PhoneNumberServiceImpl implements PhoneNumberService {
                 throw new RuntimeException("验签失败");
             }
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage(), e);
         }
 
         PhoneNumber phoneNumber = JSON.parseObject(aesService.decrypt(content),
