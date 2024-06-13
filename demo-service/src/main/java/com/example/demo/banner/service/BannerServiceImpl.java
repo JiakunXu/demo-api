@@ -4,6 +4,12 @@ import com.example.demo.banner.api.BannerService;
 import com.example.demo.banner.api.bo.Banner;
 import com.example.demo.banner.dao.dataobject.BannerDO;
 import com.example.demo.banner.dao.mapper.BannerMapper;
+import com.example.demo.framework.annotation.NotBlank;
+import com.example.demo.framework.annotation.NotNull;
+import com.example.demo.framework.constant.Constants;
+import com.example.demo.framework.exception.ServiceException;
+import com.example.demo.framework.util.BeanUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +32,7 @@ public class BannerServiceImpl implements BannerService {
             return 0;
         }
 
-        return 0;
+        return count(BeanUtil.copy(banner, BannerDO.class));
     }
 
     @Override
@@ -35,32 +41,79 @@ public class BannerServiceImpl implements BannerService {
             return null;
         }
 
-        return List.of();
+        return BeanUtil.copy(list(BeanUtil.copy(banner, BannerDO.class)), Banner.class);
     }
 
     @Override
     public Banner getBanner(String id) {
-        return null;
+        if (StringUtils.isBlank(id)) {
+            return null;
+        }
+
+        return getBanner(new BigInteger(id));
     }
 
     @Override
     public Banner getBanner(BigInteger id) {
-        return null;
+        if (id == null) {
+            return null;
+        }
+
+        return BeanUtil.copy(get(new BannerDO(id)), Banner.class);
     }
 
     @Override
-    public Banner insertBanner(Banner banner, String creator) {
-        return null;
+    public Banner insertBanner(@NotNull Banner banner, @NotBlank String creator) {
+        BannerDO bannerDO = BeanUtil.copy(banner, BannerDO.class);
+        bannerDO.setCreator(creator);
+
+        try {
+            bannerMapper.insert(bannerDO);
+        } catch (Exception e) {
+            logger.error(bannerDO.toString(), e);
+            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息创建失败，请稍后再试");
+        }
+
+        banner.setId(bannerDO.getId());
+
+        return banner;
     }
 
     @Override
-    public Banner updateBanner(BigInteger id, Banner banner, String modifier) {
-        return null;
+    public Banner updateBanner(@NotNull BigInteger id, @NotNull Banner banner,
+                               @NotBlank String modifier) {
+        banner.setId(id);
+
+        BannerDO bannerDO = BeanUtil.copy(banner, BannerDO.class);
+        bannerDO.setModifier(modifier);
+
+        try {
+            if (bannerMapper.update(bannerDO) != 1) {
+                throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "暂无权限");
+            }
+        } catch (ServiceException e) {
+            throw e;
+        } catch (Exception e) {
+            logger.error(bannerDO.toString(), e);
+            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息更新失败，请稍后再试");
+        }
+        return banner;
     }
 
     @Override
-    public Banner deleteBanner(BigInteger id, String modifier) {
-        return null;
+    public Banner deleteBanner(@NotNull BigInteger id, @NotBlank String modifier) {
+        BannerDO bannerDO = new BannerDO();
+        bannerDO.setId(id);
+        bannerDO.setModifier(modifier);
+
+        try {
+            bannerMapper.delete(bannerDO);
+        } catch (Exception e) {
+            logger.error(bannerDO.toString(), e);
+            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息更新失败，请稍后再试");
+        }
+
+        return BeanUtil.copy(bannerDO, Banner.class);
     }
 
     private int count(BannerDO bannerDO) {

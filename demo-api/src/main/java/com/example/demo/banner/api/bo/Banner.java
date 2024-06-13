@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serial;
+import java.math.BigInteger;
 
 @Getter
 @Setter
@@ -12,5 +13,7 @@ public class Banner extends BaseBO {
 
     @Serial
     private static final long serialVersionUID = 4337737754426255634L;
+
+    private BigInteger        id;
 
 }
