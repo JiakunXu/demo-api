@@ -14,7 +14,8 @@ import com.example.demo.sse.api.SseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class DashscopeServiceImpl implements DashscopeService {
@@ -24,10 +25,10 @@ public class DashscopeServiceImpl implements DashscopeService {
 
     @Override
     public void call(String tunnelId, String model, String content) {
-        Message message = Message.builder().role(Role.USER.getValue()).content(content).build();
+        List<Message> messages = new ArrayList<>();
+        messages.add(Message.builder().role(Role.USER.getValue()).content(content).build());
 
-        GenerationParam param = GenerationParam.builder().apiKey("").model(model)
-            .messages(Collections.singletonList(message))
+        GenerationParam param = GenerationParam.builder().apiKey("").model(model).messages(messages)
             .resultFormat(GenerationParam.ResultFormat.MESSAGE).incrementalOutput(true).build();
 
         Generation gen = new Generation();
