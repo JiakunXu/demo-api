@@ -18,9 +18,9 @@ public class BaseQuery implements Serializable {
 
     private String            search;
 
-    private String            startDate;
+    private String            start;
 
-    private String            endDate;
+    private String            end;
 
     private String[]          codes;
 
