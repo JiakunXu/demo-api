@@ -30,6 +30,8 @@ public class DictDataDO extends BaseDO {
 
     private String            status;
 
+    private String[]          typeValues;
+
     public DictDataDO() {
     }
 
