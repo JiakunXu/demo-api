@@ -58,6 +58,11 @@
         </dependency>
 
         <dependency>
+            <groupId>com.google.maps</groupId>
+            <artifactId>google-maps-services</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>com.huaweicloud</groupId>
             <artifactId>esdk-obs-java</artifactId>
         </dependency>
