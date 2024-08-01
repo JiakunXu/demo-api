@@ -33,19 +33,6 @@ public class SseManager {
      * @return
      */
     public static SseEmitter put(String key, SseEmitter emitter) {
-        emitter.onTimeout(() -> {
-            remove(key);
-        });
-
-        emitter.onError((e) -> {
-            logger.error("onError", e);
-            remove(key);
-        });
-
-        emitter.onCompletion(() -> {
-            remove(key);
-        });
-
         return EMITTER.put(key, emitter);
     }
 
