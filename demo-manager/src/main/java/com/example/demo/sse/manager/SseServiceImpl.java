@@ -17,6 +17,28 @@ public class SseServiceImpl implements SseService {
     private static final Logger logger = LoggerFactory.getLogger(SseServiceImpl.class);
 
     @Override
+    public Object init(String tunnelId) {
+        SseEmitter emitter = new SseEmitter();
+
+        emitter.onTimeout(() -> {
+            SseManager.remove(tunnelId);
+            // TODO tunnel
+        });
+
+        emitter.onError((e) -> {
+            SseManager.remove(tunnelId);
+            // TODO tunnel
+        });
+
+        emitter.onCompletion(() -> {
+            SseManager.remove(tunnelId);
+            // TODO tunnel
+        });
+
+        return SseManager.put(tunnelId, emitter);
+    }
+
+    @Override
     public void send(String tunnelId, String message) {
         SseEmitter emitter = SseManager.get(tunnelId);
 

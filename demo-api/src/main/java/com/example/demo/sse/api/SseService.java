@@ -5,6 +5,8 @@ package com.example.demo.sse.api;
  */
 public interface SseService {
 
+    Object init(String tunnelId);
+
     void send(String tunnelId, String message);
 
     void complete(String tunnelId);
