@@ -83,6 +83,8 @@ public class WebSocketHandler extends TextWebSocketHandler {
             String tunnelId = (String) session.getAttributes().get("tunnelId");
 
             WebSocketManager.remove(tunnelId);
+
+            // TODO tunnel
         }
     }
 
