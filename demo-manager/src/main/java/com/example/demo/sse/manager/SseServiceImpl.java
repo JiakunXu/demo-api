@@ -40,7 +40,9 @@ public class SseServiceImpl implements SseService {
             // TODO tunnel
         });
 
-        return SseManager.put(tunnelId, emitter);
+        SseManager.put(tunnelId, emitter);
+
+        return emitter;
     }
 
     @Override
