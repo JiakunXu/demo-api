@@ -10,12 +10,13 @@ import java.math.BigInteger;
 public interface TunnelService {
 
     /**
-     *
+     * 
      * @param userId
      * @param host
+     * @param creator
      * @return
      */
-    Tunnel insertTunnel(BigInteger userId, String host);
+    Tunnel insertTunnel(BigInteger userId, String host, String creator);
 
     /**
      *

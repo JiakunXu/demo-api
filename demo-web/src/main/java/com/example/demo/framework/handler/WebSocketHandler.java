@@ -53,7 +53,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
             return;
         }
 
-        Tunnel tunnel = tunnelService.insertTunnel(user.getId(), address);
+        Tunnel tunnel = tunnelService.insertTunnel(user.getId(), address, user.getName());
 
         session.getAttributes().put("tunnelId", tunnel.getTunnelId());
 
