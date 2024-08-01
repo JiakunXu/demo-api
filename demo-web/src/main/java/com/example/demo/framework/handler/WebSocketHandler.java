@@ -1,21 +1,17 @@
 package com.example.demo.framework.handler;
 
-import com.example.demo.cache.api.RedisService;
+import com.example.demo.security.api.bo.LoginUser;
+import com.example.demo.security.authentication.AuthenticationToken;
 import com.example.demo.tunnel.api.TunnelService;
-import com.example.demo.tunnel.api.bo.Tunnel;
-import com.example.demo.user.api.bo.User;
 import com.example.demo.socket.manager.WebSocketManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
-
-import java.util.Map;
 
 /**
  * @author JiakunXu
@@ -23,41 +19,26 @@ import java.util.Map;
 @Component
 public class WebSocketHandler extends TextWebSocketHandler {
 
-    private static final Logger        logger = LoggerFactory.getLogger(WebSocketHandler.class);
+    private static final Logger logger = LoggerFactory.getLogger(WebSocketHandler.class);
 
     @Autowired
-    private RedisService<String, User> redisService;
-
-    @Autowired
-    private TunnelService              tunnelService;
-
-    @Value("${server.address}")
-    private String                     address;
+    private TunnelService       tunnelService;
 
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-        Map<String, Object> attributes = session.getAttributes();
-
-        Object token = attributes.get("token");
-        Object appId = attributes.get("appId");
-
-        if (token == null || appId == null) {
-            session.close(CloseStatus.BAD_DATA);
-            return;
-        }
-
-        User user = getUser((String) token);
+        LoginUser user = (LoginUser) ((AuthenticationToken) session.getPrincipal()).getPrincipal();
 
         if (user == null) {
             session.close(CloseStatus.BAD_DATA);
             return;
         }
 
-        Tunnel tunnel = tunnelService.insertTunnel(user.getId(), address, user.getName());
+        String tunnelId = tunnelService.insertTunnel(user.getId(), null, user.getName())
+            .getTunnelId();
 
-        session.getAttributes().put("tunnelId", tunnel.getTunnelId());
+        session.getAttributes().put("tunnelId", tunnelId);
 
-        WebSocketManager.put(tunnel.getTunnelId(), session);
+        WebSocketManager.put(tunnelId, session);
     }
 
     @Override
@@ -86,21 +67,6 @@ public class WebSocketHandler extends TextWebSocketHandler {
 
             // TODO tunnel
         }
-    }
-
-    /**
-     * 
-     * @param token
-     * @return
-     */
-    private User getUser(String token) {
-        try {
-            return redisService.get(token);
-        } catch (Exception e) {
-            logger.error("get", e);
-        }
-
-        return null;
     }
 
 }
