@@ -18,7 +18,12 @@ public class SseServiceImpl implements SseService {
 
     @Override
     public Object init(String tunnelId) {
-        SseEmitter emitter = new SseEmitter();
+        return init(tunnelId, null);
+    }
+
+    @Override
+    public Object init(String tunnelId, Long timeout) {
+        SseEmitter emitter = timeout == null ? new SseEmitter() : new SseEmitter(timeout);
 
         emitter.onTimeout(() -> {
             SseManager.remove(tunnelId);
