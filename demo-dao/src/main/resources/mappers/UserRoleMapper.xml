@@ -70,8 +70,8 @@
 		 WHERE t.`is_deleted` = 0
 		   AND t.`corp_id` = #{corpId}
 	]]>
-		<if test="status != null and status != ''">
-		<![CDATA[ AND t.`status` = #{status} ]]>
+		<if test="enabled != null">
+		<![CDATA[ AND t.`is_enabled` = #{enabled} ]]>
 		</if>
 		<if test="exists == true">
 		<![CDATA[
@@ -97,9 +97,6 @@
 		<if test="codes != null and codes.length > 0">
 		<![CDATA[ AND q.`code` IN ]]>
 			<foreach collection="codes" item="code" open="(" close=")" separator=",">#{code}</foreach>
-		</if>
-		<if test="status != null and status != ''">
-		<![CDATA[ AND q.`status` = #{status} ]]>
 		</if>
 		<![CDATA[ ) ]]>
 		<if test="name != null and name != ''">
@@ -123,8 +120,8 @@
 		 WHERE t.`is_deleted` = 0
 		   AND t.`corp_id` = #{corpId}
 	]]>
-		<if test="status != null and status != ''">
-		<![CDATA[ AND t.`status` = #{status} ]]>
+		<if test="enabled != null">
+		<![CDATA[ AND t.`is_enabled` = #{enabled} ]]>
 		</if>
 		<if test="exists == true">
 		<![CDATA[
@@ -150,9 +147,6 @@
 		<if test="codes != null and codes.length > 0">
 		<![CDATA[ AND q.`code` IN ]]>
 			<foreach collection="codes" item="code" open="(" close=")" separator=",">#{code}</foreach>
-		</if>
-		<if test="status != null and status != ''">
-		<![CDATA[ AND q.`status` = #{status} ]]>
 		</if>
 		<![CDATA[ ) ]]>
 		<if test="name != null and name != ''">
