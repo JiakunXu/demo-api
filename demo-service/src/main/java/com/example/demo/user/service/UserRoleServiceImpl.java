@@ -230,8 +230,8 @@ public class UserRoleServiceImpl implements UserRoleService {
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
-    public List<UserRole> updateUserRole(BigInteger corpId, BigInteger userId, String[] roleIds,
-                                         @NotBlank String modifier) {
+    public List<UserRole> updateUserRole(@NotNull BigInteger corpId, BigInteger userId,
+                                         String[] roleIds, @NotBlank String modifier) {
         userService.validate(corpId, userId);
 
         List<UserRole> userRoleList = new ArrayList<>();
@@ -294,7 +294,7 @@ public class UserRoleServiceImpl implements UserRoleService {
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
-    public List<UserRole> updateUserRole(BigInteger corpId, @NotNull String[] userIds,
+    public List<UserRole> updateUserRole(@NotNull BigInteger corpId, @NotNull String[] userIds,
                                          BigInteger roleId, @NotBlank String modifier) {
         // TODO roleService.validate(corpId, roleId);
 
@@ -325,7 +325,7 @@ public class UserRoleServiceImpl implements UserRoleService {
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
-    public UserRole deleteUserRole(BigInteger corpId, BigInteger userId, BigInteger roleId,
+    public UserRole deleteUserRole(@NotNull BigInteger corpId, BigInteger userId, BigInteger roleId,
                                    @NotBlank String modifier) {
         userService.validate(corpId, userId);
         // TODO roleService.validate(corpId, roleId);
@@ -348,8 +348,8 @@ public class UserRoleServiceImpl implements UserRoleService {
     }
 
     @Override
-    public UserRole deleteUserRole(BigInteger corpId, @NotNull String[] userIds, BigInteger roleId,
-                                   @NotBlank String modifier) {
+    public UserRole deleteUserRole(@NotNull BigInteger corpId, @NotNull String[] userIds,
+                                   BigInteger roleId, @NotBlank String modifier) {
         // TODO roleService.validate(corpId, roleId);
 
         List<BigInteger> list = new ArrayList<>();
