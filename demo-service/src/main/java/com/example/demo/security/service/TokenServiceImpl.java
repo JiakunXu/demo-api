@@ -53,9 +53,9 @@ public class TokenServiceImpl implements TokenService {
         }
 
         if (!refreshTokenService.validate(user)) {
-            user = (LoginUser) userDetailsService.loadUserByUsername(user.getUsername());
-
-            if (user == null) {
+            try {
+                user = (LoginUser) userDetailsService.loadUserByUsername(user.getUsername());
+            } catch (Exception e) {
                 remove(token);
                 return null;
             }
