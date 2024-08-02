@@ -13,12 +13,14 @@ import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.util.Date;
+import java.util.UUID;
 
 @Aspect
 @Component
@@ -40,8 +42,9 @@ public class LogAspect {
     }
 
     private void handle(String clazz, String module, String desc, String status, String errMsg) {
-        User user = (LoginUser) SecurityContextHolder.getContext().getAuthentication()
-            .getPrincipal();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = "anonymousUser".equals(authentication.getName()) ? new User("anonymous")
+            : (LoginUser) authentication.getPrincipal();
 
         OperLog operLog = new OperLog();
         operLog.setClazz(clazz);
@@ -64,7 +67,7 @@ public class LogAspect {
         operLog.setCorpId(user.getCorpId());
 
         producerService.send("topic", "oper.log.save", JSON.toJSONBytes(operLog),
-            user.getId().toString());
+            String.valueOf(UUID.randomUUID()));
     }
 
     private String getRemoteAddr(HttpServletRequest request) {
