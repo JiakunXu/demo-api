@@ -1,5 +1,6 @@
 package com.example.demo.framework.dataobject;
 
+import com.alibaba.fastjson2.annotation.JSONField;
 import com.example.demo.framework.query.BaseQuery;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,10 +18,13 @@ public class BaseDO extends BaseQuery {
     @Serial
     private static final long serialVersionUID = 8461456313695325022L;
 
+    @JSONField(serialize = false)
     private Boolean           deleted;
 
+    @JSONField(serialize = false)
     private String            creator;
 
+    @JSONField(serialize = false)
     private String            modifier;
 
     private Date              createTime;
