@@ -1,8 +1,10 @@
 package com.example.demo.sse.manager;
 
 import com.example.demo.sse.api.SseService;
+import com.example.demo.tunnel.api.TunnelService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
@@ -16,6 +18,9 @@ public class SseServiceImpl implements SseService {
 
     private static final Logger logger = LoggerFactory.getLogger(SseServiceImpl.class);
 
+    @Autowired
+    private TunnelService       tunnelService;
+
     @Override
     public Object init(String tunnelId) {
         return init(tunnelId, null);
@@ -27,17 +32,17 @@ public class SseServiceImpl implements SseService {
 
         emitter.onTimeout(() -> {
             SseManager.remove(tunnelId);
-            // TODO tunnel
+            tunnelService.deleteTunnel(tunnelId, "sys");
         });
 
         emitter.onError((e) -> {
             SseManager.remove(tunnelId);
-            // TODO tunnel
+            tunnelService.deleteTunnel(tunnelId, "sys");
         });
 
         emitter.onCompletion(() -> {
             SseManager.remove(tunnelId);
-            // TODO tunnel
+            tunnelService.deleteTunnel(tunnelId, "sys");
         });
 
         SseManager.put(tunnelId, emitter);
