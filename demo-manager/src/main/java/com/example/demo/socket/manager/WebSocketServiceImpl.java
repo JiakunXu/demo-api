@@ -38,7 +38,6 @@ public class WebSocketServiceImpl implements WebSocketService {
             } catch (IOException e) {
                 logger.error("sendMessage", e);
             }
-            return;
         }
     }
 
