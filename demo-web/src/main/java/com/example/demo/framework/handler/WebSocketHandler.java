@@ -65,7 +65,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
 
             WebSocketManager.remove(tunnelId);
 
-            // TODO tunnel
+            tunnelService.deleteTunnel(tunnelId, "sys");
         }
     }
 
