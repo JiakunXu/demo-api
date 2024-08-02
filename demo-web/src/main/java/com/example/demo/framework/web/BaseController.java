@@ -9,6 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,7 +26,9 @@ public class BaseController {
     private static final Logger logger = LoggerFactory.getLogger(BaseController.class);
 
     public LoginUser getUser() {
-        return (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return "anonymousUser".equals(authentication.getName()) ? new LoginUser()
+            : (LoginUser) authentication.getPrincipal();
     }
 
     public String getParameter(HttpServletRequest request, String name) {
