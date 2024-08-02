@@ -1,4 +1,4 @@
-package com.example.demo.aliyun.api;
+package com.example.demo.mq.api;
 
 /**
  * @author JiakunXu

@@ -1,6 +1,6 @@
-package com.example.demo.aliyun.manager;
+package com.example.demo.mq.manager;
 
-import com.example.demo.aliyun.api.ProducerService;
+import com.example.demo.mq.api.ProducerService;
 import org.apache.rocketmq.spring.core.RocketMQTemplate;
 import org.apache.rocketmq.spring.support.RocketMQHeaders;
 import org.slf4j.Logger;

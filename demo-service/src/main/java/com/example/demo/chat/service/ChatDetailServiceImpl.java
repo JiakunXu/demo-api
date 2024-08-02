@@ -1,7 +1,6 @@
 package com.example.demo.chat.service;
 
 import com.alibaba.fastjson2.JSON;
-import com.example.demo.aliyun.api.ProducerService;
 import com.example.demo.chat.api.ChatDetailService;
 import com.example.demo.chat.api.bo.Chat;
 import com.example.demo.chat.api.bo.ChatDetail;
@@ -10,11 +9,11 @@ import com.example.demo.chat.dao.mapper.ChatDetailMapper;
 import com.example.demo.framework.constant.Constants;
 import com.example.demo.framework.exception.ServiceException;
 import com.example.demo.framework.util.BeanUtil;
+import com.example.demo.mq.api.ProducerService;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -114,8 +113,7 @@ public class ChatDetailServiceImpl implements ChatDetailService {
             throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息创建失败，请稍后再试");
         }
 
-        producerService.send(
-            "topic", "chat.message", JSON.toJSONBytes(chatDetailDO1),
+        producerService.send("topic", "chat.message", JSON.toJSONBytes(chatDetailDO1),
             chatDetailDO1.getUserId().toString());
 
         Date chatTime = new Date();

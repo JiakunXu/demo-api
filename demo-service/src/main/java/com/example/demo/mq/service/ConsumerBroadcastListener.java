@@ -1,4 +1,4 @@
-package com.example.demo.aliyun.service;
+package com.example.demo.mq.service;
 
 import com.example.demo.socket.api.WebSocketService;
 import org.apache.rocketmq.common.message.MessageExt;

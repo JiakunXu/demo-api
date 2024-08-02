@@ -1,4 +1,4 @@
-package com.example.demo.aliyun.service;
+package com.example.demo.mq.service;
 
 import com.alibaba.fastjson2.JSON;
 import com.example.demo.chat.api.ChatService;

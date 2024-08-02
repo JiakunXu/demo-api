@@ -1,8 +1,8 @@
 package com.example.demo.subscribe.service;
 
 import com.alibaba.fastjson2.JSON;
-import com.example.demo.aliyun.api.ProducerService;
 import com.example.demo.framework.util.BeanUtil;
+import com.example.demo.mq.api.ProducerService;
 import com.example.demo.socket.api.bo.Message;
 import com.example.demo.subscribe.api.SubscribeService;
 import com.example.demo.subscribe.api.bo.Subscribe;
@@ -16,7 +16,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.math.BigInteger;
@@ -151,8 +150,7 @@ public class SubscribeServiceImpl implements SubscribeService {
             }
 
             for (Tunnel tunnel : list) {
-                producerService
-                    .send("topic", "web.socket", JSON.toJSONBytes(message),
+                producerService.send("topic", "web.socket", JSON.toJSONBytes(message),
                     tunnel.getTunnelId());
             }
 

@@ -1,9 +1,9 @@
 package com.example.demo.framework.aspectj;
 
 import com.alibaba.fastjson2.JSON;
-import com.example.demo.aliyun.api.ProducerService;
 import com.example.demo.framework.annotation.Log;
 import com.example.demo.log.api.bo.OperLog;
+import com.example.demo.mq.api.ProducerService;
 import com.example.demo.security.api.bo.LoginUser;
 import com.example.demo.user.api.bo.User;
 import jakarta.servlet.http.HttpServletRequest;
