@@ -24,17 +24,17 @@ public class DashscopeServiceImpl implements DashscopeService {
     private SseService sseService;
 
     @Override
-    public void call(String tunnelId, String model, String content) {
+    public void streamCall(String tunnelId, String model, String content) {
         List<Message> messages = new ArrayList<>();
         messages.add(Message.builder().role(Role.USER.getValue()).content(content).build());
 
         GenerationParam param = GenerationParam.builder().apiKey("").model(model).messages(messages)
             .resultFormat(GenerationParam.ResultFormat.MESSAGE).incrementalOutput(true).build();
 
-        Generation gen = new Generation();
+        Generation generation = new Generation();
 
         try {
-            gen.streamCall(param, new ResultCallback<>() {
+            generation.streamCall(param, new ResultCallback<>() {
                 @Override
                 public void onEvent(GenerationResult message) {
                     sseService.send(tunnelId, message.toString());

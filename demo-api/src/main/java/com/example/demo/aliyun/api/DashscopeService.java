@@ -2,6 +2,6 @@ package com.example.demo.aliyun.api;
 
 public interface DashscopeService {
 
-    void call(String tunnelId, String model, String content);
+    void streamCall(String tunnelId, String model, String content);
 
 }
