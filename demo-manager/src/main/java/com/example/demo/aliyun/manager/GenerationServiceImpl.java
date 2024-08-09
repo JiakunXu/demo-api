@@ -9,7 +9,7 @@ import com.alibaba.dashscope.common.Role;
 import com.alibaba.dashscope.exception.ApiException;
 import com.alibaba.dashscope.exception.InputRequiredException;
 import com.alibaba.dashscope.exception.NoApiKeyException;
-import com.example.demo.aliyun.api.DashscopeService;
+import com.example.demo.aliyun.api.GenerationService;
 import com.example.demo.sse.api.SseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class DashscopeServiceImpl implements DashscopeService {
+public class GenerationServiceImpl implements GenerationService {
 
     @Autowired
     private SseService sseService;
