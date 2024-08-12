@@ -42,7 +42,7 @@
         <commons-io.version>2.16.1</commons-io.version>
         <commons-lang3.version>3.15.0</commons-lang3.version>
         <commons-pool2.version>2.12.0</commons-pool2.version>
-        <dashscope-sdk-java.version>2.15.3</dashscope-sdk-java.version>
+        <dashscope-sdk-java.version>2.16.2</dashscope-sdk-java.version>
         <druid-spring-boot.version>1.2.23</druid-spring-boot.version>
         <dubbo-spring-boot.version>3.2.14</dubbo-spring-boot.version>
         <fastjson2.version>2.0.52</fastjson2.version>
