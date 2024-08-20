@@ -237,4 +237,12 @@ public class DateUtil {
         return new DateTime(date).secondOfMinute().addToCopy(seconds).toDate();
     }
 
+    public static boolean isAfterNow(Date date) {
+        return new DateTime(date).isAfterNow();
+    }
+
+    public static boolean isBeforeNow(Date date) {
+        return new DateTime(date).isBeforeNow();
+    }
+
 }
