@@ -56,7 +56,8 @@ public class LogAspect {
         operLog.setRequestUri(request == null ? null : request.getRequestURI());
         operLog.setRequestMethod(request == null ? null : request.getMethod());
         operLog.setRequestParams(null);
-        operLog.setOperator(user.getName());
+        operLog.setOperator(
+            user.getId() == null ? user.getName() : (user.getName() + "@" + user.getId()));
         operLog.setIp(request == null ? null : getRemoteAddr(request));
         operLog.setIpAddr(null);
         operLog.setOperTime(new Date());
