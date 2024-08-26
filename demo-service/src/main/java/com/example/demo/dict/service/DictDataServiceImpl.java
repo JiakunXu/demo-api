@@ -116,9 +116,18 @@ public class DictDataServiceImpl implements DictDataService {
     }
 
     @Override
+    public DictData getDictData(String typeValue, Object value) {
+        if (value == null) {
+            return new DictData();
+        }
+
+        return getDictData(typeValue, value.toString());
+    }
+
+    @Override
     public DictData getDictData(String typeValue, String value) {
-        if (StringUtils.isBlank(typeValue) || StringUtils.isBlank(value)) {
-            return null;
+        if (StringUtils.isAnyBlank(typeValue, value)) {
+            return new DictData();
         }
 
         String key = typeValue + "&" + value;
@@ -143,7 +152,7 @@ public class DictDataServiceImpl implements DictDataService {
         dictData = BeanUtil.copy(get(dictDataDO), DictData.class);
 
         if (dictData == null) {
-            return null;
+            return new DictData();
         }
 
         try {

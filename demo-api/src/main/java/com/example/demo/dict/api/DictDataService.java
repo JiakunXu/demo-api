@@ -24,6 +24,8 @@ public interface DictDataService {
 
     DictData getDictData(BigInteger id);
 
+    DictData getDictData(String typeValue, Object value);
+
     DictData getDictData(String typeValue, String value);
 
     DictData insertDictData(BigInteger typeId, DictData dictData, String creator);
