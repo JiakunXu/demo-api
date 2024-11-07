@@ -204,7 +204,7 @@ public class ExcelUtil {
     }
 
     private static Method findSetMethod(Object object, String name) {
-        Method[] methods = object.getClass().getDeclaredMethods();
+        Method[] methods = object.getClass().getMethods();
 
         for (Method method : methods) {
             if (method.getName().equals("set" + StringUtils.capitalize(name))
