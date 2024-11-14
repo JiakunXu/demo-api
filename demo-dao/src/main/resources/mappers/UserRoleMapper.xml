@@ -100,10 +100,10 @@
 		</if>
 		<![CDATA[ ) ]]>
 		<if test="name != null and name != ''">
-		<![CDATA[ AND t.`name` LIKE #{name,typeHandler=com.example.demo.framework.mybatis.type.WildcardTypeHanlderCallback} ]]>
+		<![CDATA[ AND t.`name` LIKE #{name,typeHandler=com.example.demo.framework.mybatis.type.WildcardTypeHandler} ]]>
 		</if>
 		<if test="mobile != null and mobile != ''">
-		<![CDATA[ AND t.`mobile` LIKE #{mobile,typeHandler=com.example.demo.framework.mybatis.type.WildcardTypeHanlderCallback} ]]>
+		<![CDATA[ AND t.`mobile` LIKE #{mobile,typeHandler=com.example.demo.framework.mybatis.type.WildcardTypeHandler} ]]>
 		</if>
 	</select>
 
@@ -150,10 +150,10 @@
 		</if>
 		<![CDATA[ ) ]]>
 		<if test="name != null and name != ''">
-		<![CDATA[ AND t.`name` LIKE #{name,typeHandler=com.example.demo.framework.mybatis.type.WildcardTypeHanlderCallback} ]]>
+		<![CDATA[ AND t.`name` LIKE #{name,typeHandler=com.example.demo.framework.mybatis.type.WildcardTypeHandler} ]]>
 		</if>
 		<if test="mobile != null and mobile != ''">
-		<![CDATA[ AND t.`mobile` LIKE #{mobile,typeHandler=com.example.demo.framework.mybatis.type.WildcardTypeHanlderCallback} ]]>
+		<![CDATA[ AND t.`mobile` LIKE #{mobile,typeHandler=com.example.demo.framework.mybatis.type.WildcardTypeHandler} ]]>
 		</if>
 	<![CDATA[
 		 ORDER BY t.`id` DESC

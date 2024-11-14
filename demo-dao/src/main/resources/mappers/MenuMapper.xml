@@ -48,7 +48,7 @@
 			<foreach collection="types" item="type" open="(" close=")" separator=",">#{type}</foreach>
 		</if>
 		<if test="name != null and name != ''">
-		<![CDATA[ AND t.`name` LIKE #{name,typeHandler=com.example.demo.framework.mybatis.type.WildcardTypeHanlderCallback} ]]>
+		<![CDATA[ AND t.`name` LIKE #{name,typeHandler=com.example.demo.framework.mybatis.type.WildcardTypeHandler} ]]>
 		</if>
 		<if test="status != null and status != ''">
 		<![CDATA[ AND t.`status` = #{status} ]]>

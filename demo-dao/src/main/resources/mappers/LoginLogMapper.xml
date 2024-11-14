@@ -11,7 +11,7 @@
 		 WHERE t.`is_deleted` = 0
 	]]>
 		<if test="username != null and username != ''">
-		<![CDATA[ AND t.`username` LIKE #{username,typeHandler=com.example.demo.framework.mybatis.type.WildcardTypeHanlderCallback} ]]>
+		<![CDATA[ AND t.`username` LIKE #{username,typeHandler=com.example.demo.framework.mybatis.type.WildcardTypeHandler} ]]>
 		</if>
 		<if test="ip != null and ip != ''">
 		<![CDATA[ AND t.`ip` = #{ip} ]]>
@@ -40,7 +40,7 @@
 		 WHERE t.`is_deleted` = 0
   	]]>
 		<if test="username != null and username != ''">
-		<![CDATA[ AND t.`username` LIKE #{username,typeHandler=com.example.demo.framework.mybatis.type.WildcardTypeHanlderCallback} ]]>
+		<![CDATA[ AND t.`username` LIKE #{username,typeHandler=com.example.demo.framework.mybatis.type.WildcardTypeHandler} ]]>
 		</if>
 		<if test="ip != null and ip != ''">
 		<![CDATA[ AND t.`ip` = #{ip} ]]>

@@ -11,7 +11,7 @@ import java.sql.SQLException;
 /**
  * @author JiakunXu
  */
-public class WildcardTypeHanlderCallback implements TypeHandler<String> {
+public class WildcardTypeHandler implements TypeHandler<String> {
 
     @Override
     public void setParameter(PreparedStatement ps, int i, String parameter,

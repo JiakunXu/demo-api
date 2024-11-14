@@ -14,10 +14,10 @@
 		<![CDATA[ AND t.`id` = #{id} ]]>
 		</if>
 		<if test="code != null and code != ''">
-		<![CDATA[ AND t.`code` LIKE #{code,typeHandler=com.example.demo.framework.mybatis.type.WildcardTypeHanlderCallback} ]]>
+		<![CDATA[ AND t.`code` LIKE #{code,typeHandler=com.example.demo.framework.mybatis.type.WildcardTypeHandler} ]]>
 		</if>
 		<if test="name != null and name != ''">
-		<![CDATA[ AND t.`name` LIKE #{name,typeHandler=com.example.demo.framework.mybatis.type.WildcardTypeHanlderCallback} ]]>
+		<![CDATA[ AND t.`name` LIKE #{name,typeHandler=com.example.demo.framework.mybatis.type.WildcardTypeHandler} ]]>
 		</if>
 		<if test="status != null and status != ''">
 		<![CDATA[ AND t.`status` = #{status} ]]>
@@ -43,10 +43,10 @@
 		 WHERE t.`is_deleted` = 0
   	]]>
 		<if test="code != null and code != ''">
-		<![CDATA[ AND t.`code` LIKE #{code,typeHandler=com.example.demo.framework.mybatis.type.WildcardTypeHanlderCallback} ]]>
+		<![CDATA[ AND t.`code` LIKE #{code,typeHandler=com.example.demo.framework.mybatis.type.WildcardTypeHandler} ]]>
 		</if>
 		<if test="name != null and name != ''">
-		<![CDATA[ AND t.`name` LIKE #{name,typeHandler=com.example.demo.framework.mybatis.type.WildcardTypeHanlderCallback} ]]>
+		<![CDATA[ AND t.`name` LIKE #{name,typeHandler=com.example.demo.framework.mybatis.type.WildcardTypeHandler} ]]>
 		</if>
 		<if test="status != null and status != ''">
 		<![CDATA[ AND t.`status` = #{status} ]]>
