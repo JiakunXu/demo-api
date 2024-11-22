@@ -68,31 +68,29 @@ public class BaseController {
             return null;
         }
 
-        String parameter = null;
-
         try {
-            parameter = IOUtils.toString(request.getInputStream(), StandardCharsets.UTF_8);
+            return JSON.parseObject(
+                IOUtils.toString(request.getInputStream(), StandardCharsets.UTF_8), clazz);
         } catch (IOException e) {
             logger.error("getParameter", e);
         }
 
-        return JSON.parseObject(parameter, clazz);
+        return JSON.parseObject("{}", clazz);
     }
 
-    public <T> List<T> getParameterList(HttpServletRequest request, Class<T> clazz) {
+    public <T> List<T> getParameters(HttpServletRequest request, Class<T> clazz) {
         if (!StringUtils.contains(request.getContentType(), MediaType.APPLICATION_JSON_VALUE)) {
             return null;
         }
 
-        String parameter = null;
-
         try {
-            parameter = IOUtils.toString(request.getInputStream(), StandardCharsets.UTF_8);
+            return JSON.parseArray(
+                IOUtils.toString(request.getInputStream(), StandardCharsets.UTF_8), clazz);
         } catch (IOException e) {
             logger.error("getParameter", e);
         }
 
-        return JSON.parseArray(parameter, clazz);
+        return JSON.parseArray("[]", clazz);
     }
 
     public String getParameter(HttpServletRequest request) {
