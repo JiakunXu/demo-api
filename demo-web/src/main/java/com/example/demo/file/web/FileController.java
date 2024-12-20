@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 @RestController
 @RequestMapping(value = "/file")
@@ -27,11 +28,12 @@ public class FileController extends BaseController {
                                        HttpServletResponse response) throws IOException {
         String state = this.getParameter(request, "state");
 
-        File f = fileService.upload(file.getOriginalFilename(), file.getContentType(),
-            file.getInputStream());
-        f.setState(state);
+        try (InputStream stream = file.getInputStream()) {
+            File f = fileService.upload(file.getOriginalFilename(), file.getContentType(), stream);
+            f.setState(state);
 
-        return new ObjectResponse<>(f);
+            return new ObjectResponse<>(f);
+        }
     }
 
 }
