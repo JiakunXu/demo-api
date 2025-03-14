@@ -16,15 +16,15 @@ import org.springframework.web.socket.server.HandshakeInterceptor;
 public class SocketConfigurer implements WebSocketConfigurer {
 
     @Autowired
-    private HandshakeInterceptor webSocketInterceptor;
+    private HandshakeInterceptor handshakeInterceptor;
 
     @Autowired
     private WebSocketHandler     webSocketHandler;
 
     @Override
-    public void registerWebSocketHandlers(WebSocketHandlerRegistry webSocketHandlerRegistry) {
-        webSocketHandlerRegistry.addHandler(webSocketHandler, "/ws")
-            .addInterceptors(webSocketInterceptor).setAllowedOrigins("*");
+    public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
+        registry.addHandler(webSocketHandler, "/ws").addInterceptors(handshakeInterceptor)
+            .setAllowedOrigins("*");
     }
 
 }
