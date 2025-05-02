@@ -33,8 +33,8 @@ public class WebSocketManager {
      * @param session
      * @return
      */
-    public static WebSocketSession put(String key, WebSocketSession session) {
-        return SESSION.put(key, session);
+    public static void put(String key, WebSocketSession session) {
+        SESSION.put(key, session);
     }
 
     /**
@@ -42,7 +42,7 @@ public class WebSocketManager {
      * @param key
      * @return
      */
-    public static WebSocketSession remove(String key) {
+    public static void remove(String key) {
         WebSocketSession session = SESSION.remove(key);
 
         if (session != null && session.isOpen()) {
@@ -52,8 +52,6 @@ public class WebSocketManager {
                 logger.error("remove", e);
             }
         }
-
-        return session;
     }
 
 }
