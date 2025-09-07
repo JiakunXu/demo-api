@@ -45,10 +45,10 @@ public class HttpUtil {
      */
     public static String get(String uri, Map<String, String> header) throws Exception {
         try (CloseableHttpClient httpclient = HttpClients.createDefault()) {
-            ClassicHttpRequest httpGet = ClassicRequestBuilder.get(uri)
+            ClassicHttpRequest request = ClassicRequestBuilder.get(uri)
                 .setHeaders(getHeaders(header)).build();
 
-            return httpclient.execute(httpGet, response -> {
+            return httpclient.execute(request, response -> {
                 int status = response.getCode();
                 final HttpEntity entity = response.getEntity();
                 try {
@@ -84,13 +84,13 @@ public class HttpUtil {
     public static String post(String uri, Map<String, String> parameter,
                               Map<String, String> header) throws Exception {
         try (CloseableHttpClient httpclient = HttpClients.createDefault()) {
-            ClassicHttpRequest httpPost = ClassicRequestBuilder.post(uri)
+            ClassicHttpRequest request = ClassicRequestBuilder.post(uri)
                 .setHeaders(getHeaders(header))
                 .setEntity(
                     new UrlEncodedFormEntity(getParameters(parameter), StandardCharsets.UTF_8))
                 .build();
 
-            return httpclient.execute(httpPost, response -> {
+            return httpclient.execute(request, response -> {
                 int status = response.getCode();
                 final HttpEntity entity = response.getEntity();
                 try {
@@ -125,11 +125,11 @@ public class HttpUtil {
     public static String post(String uri, String parameter,
                               Map<String, String> header) throws Exception {
         try (CloseableHttpClient httpclient = HttpClients.createDefault()) {
-            ClassicHttpRequest httpPost = ClassicRequestBuilder.post(uri)
+            ClassicHttpRequest request = ClassicRequestBuilder.post(uri)
                 .setHeaders(getHeaders(header))
                 .setEntity(new StringEntity(parameter, ContentType.APPLICATION_JSON)).build();
 
-            return httpclient.execute(httpPost, response -> {
+            return httpclient.execute(request, response -> {
                 int status = response.getCode();
                 final HttpEntity entity = response.getEntity();
                 try {
@@ -169,10 +169,10 @@ public class HttpUtil {
                     ContentType.MULTIPART_FORM_DATA, "");
             }
 
-            ClassicHttpRequest httpPost = ClassicRequestBuilder.post(uri)
+            ClassicHttpRequest request = ClassicRequestBuilder.post(uri)
                 .setEntity(multipartEntityBuilder.build()).build();
 
-            return httpclient.execute(httpPost, response -> {
+            return httpclient.execute(request, response -> {
                 int status = response.getCode();
                 final HttpEntity entity = response.getEntity();
                 try {
@@ -195,9 +195,9 @@ public class HttpUtil {
      */
     public static byte[] download(String uri) throws Exception {
         try (CloseableHttpClient httpclient = HttpClients.createDefault()) {
-            ClassicHttpRequest httpGet = ClassicRequestBuilder.get(uri).build();
+            ClassicHttpRequest request = ClassicRequestBuilder.get(uri).build();
 
-            return httpclient.execute(httpGet, response -> {
+            return httpclient.execute(request, response -> {
                 int status = response.getCode();
                 final HttpEntity entity = response.getEntity();
                 try {
@@ -215,10 +215,10 @@ public class HttpUtil {
 
     public static byte[] download(String uri, String parameter) throws Exception {
         try (CloseableHttpClient httpclient = HttpClients.createDefault()) {
-            ClassicHttpRequest httpPost = ClassicRequestBuilder.post(uri)
+            ClassicHttpRequest request = ClassicRequestBuilder.post(uri)
                 .setEntity(new StringEntity(parameter, ContentType.APPLICATION_JSON)).build();
 
-            return httpclient.execute(httpPost, response -> {
+            return httpclient.execute(request, response -> {
                 int status = response.getCode();
                 final HttpEntity entity = response.getEntity();
                 try {
