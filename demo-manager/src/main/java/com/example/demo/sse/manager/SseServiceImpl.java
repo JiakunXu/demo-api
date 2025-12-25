@@ -2,8 +2,7 @@ package com.example.demo.sse.manager;
 
 import com.example.demo.sse.api.SseService;
 import com.example.demo.tunnel.api.TunnelService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
@@ -13,13 +12,12 @@ import java.io.IOException;
 /**
  * @author JiakunXu
  */
+@Slf4j
 @Service
 public class SseServiceImpl implements SseService {
 
-    private static final Logger logger = LoggerFactory.getLogger(SseServiceImpl.class);
-
     @Autowired
-    private TunnelService       tunnelService;
+    private TunnelService tunnelService;
 
     @Override
     public Object init(String tunnelId) {

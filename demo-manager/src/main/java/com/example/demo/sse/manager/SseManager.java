@@ -1,7 +1,6 @@
 package com.example.demo.sse.manager;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import java.util.Map;
@@ -10,10 +9,8 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * @author JiakunXu
  */
+@Slf4j
 public class SseManager {
-
-    private static final Logger                  logger  = LoggerFactory
-        .getLogger(SseManager.class);
 
     private static final Map<String, SseEmitter> EMITTER = new ConcurrentHashMap<>();
 
