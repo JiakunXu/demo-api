@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>4.0.1</version>
+        <version>3.5.9</version>
         <relativePath/>
     </parent>
     <groupId>com.example</groupId>
@@ -45,7 +45,7 @@
         <dashscope-sdk-java.version>2.22.4</dashscope-sdk-java.version>
         <druid-spring-boot.version>1.2.27</druid-spring-boot.version>
         <dubbo-spring-boot.version>3.3.6</dubbo-spring-boot.version>
-        <fastjson2.version>2.0.60</fastjson2.version>
+        <fastjson2.version>2.0.59</fastjson2.version>
         <google-maps-services.version>2.2.0</google-maps-services.version>
         <httpclient.version>5.6</httpclient.version>
         <jjwt.version>0.13.0</jjwt.version>
