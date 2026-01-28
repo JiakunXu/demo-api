@@ -1,10 +1,11 @@
 package com.example.demo.aliyun.manager;
 
-import com.aliyun.oss.ClientException;
-import com.aliyun.oss.OSS;
-import com.aliyun.oss.OSSClientBuilder;
-import com.aliyun.oss.OSSException;
+import com.aliyun.oss.*;
+import com.aliyun.oss.common.auth.DefaultCredentialProvider;
+import com.aliyun.oss.common.comm.Protocol;
+import com.aliyun.oss.common.comm.SignVersion;
 import com.aliyun.oss.model.CopyObjectRequest;
+import com.aliyun.oss.model.GeneratePresignedUrlRequest;
 import com.aliyun.oss.model.ObjectMetadata;
 import com.aliyun.oss.model.PutObjectRequest;
 import com.example.demo.aliyun.api.OssService;
@@ -15,6 +16,8 @@ import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.net.URL;
+import java.util.Date;
 
 /**
  * @author JiakunXu
@@ -122,4 +125,88 @@ public class OssServiceImpl implements OssService {
 
         return destinationKey;
     }
+
+    @Override
+    public URL generatePresignedUrl(String bucketName, String key) {
+        ClientConfiguration clientConfiguration = new ClientBuilderConfiguration();
+        clientConfiguration.setProtocol(Protocol.HTTPS);
+        clientConfiguration.setSignatureVersion(SignVersion.V4);
+
+        OSS ossClient = OSSClientBuilder.create().endpoint(endpoint)
+            .credentialsProvider(new DefaultCredentialProvider(accessKeyId, secretAccessKey))
+            .clientConfiguration(clientConfiguration).region("cn-hangzhou").build();
+
+        GeneratePresignedUrlRequest request = new GeneratePresignedUrlRequest(bucketName, key,
+            HttpMethod.PUT);
+
+        try {
+            return ossClient.generatePresignedUrl(request);
+        } catch (OSSException oe) {
+            logger.error("Caught an OSSException, which means your request made it to OSS, "
+                         + "but was rejected with an error response for some reason.");
+            logger.error("Error Message:" + oe.getErrorMessage());
+            logger.error("Error Code:" + oe.getErrorCode());
+            logger.error("Request ID:" + oe.getRequestId());
+            logger.error("Host ID:" + oe.getHostId());
+
+            throw new RuntimeException(oe.getErrorMessage(), oe);
+        } catch (ClientException ce) {
+            logger.error("Caught an ClientException, which means the client encountered "
+                         + "a serious internal problem while trying to communicate with OSS, "
+                         + "such as not being able to access the network.");
+            logger.error("Error Message:" + ce.getMessage());
+
+            throw new RuntimeException(ce.getMessage(), ce);
+        } finally {
+            if (ossClient != null) {
+                ossClient.shutdown();
+            }
+        }
+    }
+
+    @Override
+    public URL generatePresignedUrl(String bucketName, String key, Date expiration) {
+        return generatePresignedUrl(bucketName, key, expiration, null);
+    }
+
+    @Override
+    public URL generatePresignedUrl(String bucketName, String key, Date expiration,
+                                    String process) {
+        ClientConfiguration clientConfiguration = new ClientBuilderConfiguration();
+        clientConfiguration.setProtocol(Protocol.HTTPS);
+        clientConfiguration.setSignatureVersion(SignVersion.V4);
+
+        OSS ossClient = OSSClientBuilder.create().endpoint(endpoint)
+            .credentialsProvider(new DefaultCredentialProvider(accessKeyId, secretAccessKey))
+            .clientConfiguration(clientConfiguration).region("cn-hangzhou").build();
+
+        GeneratePresignedUrlRequest request = new GeneratePresignedUrlRequest(bucketName, key);
+        request.setExpiration(expiration);
+        request.setProcess(process);
+
+        try {
+            return ossClient.generatePresignedUrl(request);
+        } catch (OSSException oe) {
+            logger.error("Caught an OSSException, which means your request made it to OSS, "
+                         + "but was rejected with an error response for some reason.");
+            logger.error("Error Message:" + oe.getErrorMessage());
+            logger.error("Error Code:" + oe.getErrorCode());
+            logger.error("Request ID:" + oe.getRequestId());
+            logger.error("Host ID:" + oe.getHostId());
+
+            throw new RuntimeException(oe.getErrorMessage(), oe);
+        } catch (ClientException ce) {
+            logger.error("Caught an ClientException, which means the client encountered "
+                         + "a serious internal problem while trying to communicate with OSS, "
+                         + "such as not being able to access the network.");
+            logger.error("Error Message:" + ce.getMessage());
+
+            throw new RuntimeException(ce.getMessage(), ce);
+        } finally {
+            if (ossClient != null) {
+                ossClient.shutdown();
+            }
+        }
+    }
+
 }

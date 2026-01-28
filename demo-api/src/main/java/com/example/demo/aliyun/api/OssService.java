@@ -1,6 +1,8 @@
 package com.example.demo.aliyun.api;
 
 import java.io.InputStream;
+import java.net.URL;
+import java.util.Date;
 
 /**
  * @author JiakunXu
@@ -38,5 +40,11 @@ public interface OssService {
      */
     String copyObject(String sourceBucketName, String sourceKey, String destinationBucketName,
                       String destinationKey, String contentType);
+
+    URL generatePresignedUrl(String bucketName, String key);
+
+    URL generatePresignedUrl(String bucketName, String key, Date expiration);
+
+    URL generatePresignedUrl(String bucketName, String key, Date expiration, String process);
 
 }
