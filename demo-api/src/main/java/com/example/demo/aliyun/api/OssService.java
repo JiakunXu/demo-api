@@ -41,7 +41,7 @@ public interface OssService {
     String copyObject(String sourceBucketName, String sourceKey, String destinationBucketName,
                       String destinationKey, String contentType);
 
-    URL generatePresignedUrl(String bucketName, String key);
+    URL generatePresignedUrl(String bucketName, String key, String contentType);
 
     URL generatePresignedUrl(String bucketName, String key, Date expiration);
 

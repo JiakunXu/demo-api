@@ -4,6 +4,7 @@ import com.aliyun.oss.*;
 import com.aliyun.oss.common.auth.DefaultCredentialProvider;
 import com.aliyun.oss.common.comm.Protocol;
 import com.aliyun.oss.common.comm.SignVersion;
+import com.aliyun.oss.internal.OSSHeaders;
 import com.aliyun.oss.model.CopyObjectRequest;
 import com.aliyun.oss.model.GeneratePresignedUrlRequest;
 import com.aliyun.oss.model.ObjectMetadata;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.Collections;
 import java.util.Date;
 
 /**
@@ -127,7 +129,7 @@ public class OssServiceImpl implements OssService {
     }
 
     @Override
-    public URL generatePresignedUrl(String bucketName, String key) {
+    public URL generatePresignedUrl(String bucketName, String key, String contentType) {
         ClientConfiguration clientConfiguration = new ClientBuilderConfiguration();
         clientConfiguration.setProtocol(Protocol.HTTPS);
         clientConfiguration.setSignatureVersion(SignVersion.V4);
@@ -138,6 +140,7 @@ public class OssServiceImpl implements OssService {
 
         GeneratePresignedUrlRequest request = new GeneratePresignedUrlRequest(bucketName, key,
             HttpMethod.PUT);
+        request.setHeaders(Collections.singletonMap(OSSHeaders.CONTENT_TYPE, contentType));
 
         try {
             return ossClient.generatePresignedUrl(request);
