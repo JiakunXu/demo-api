@@ -2,6 +2,7 @@ package com.example.demo.user.dao.dataobject;
 
 import com.example.demo.framework.dataobject.BaseDO;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -11,6 +12,7 @@ import java.math.BigInteger;
 @Getter
 @Setter
 @ToString
+@NoArgsConstructor
 public class UserDO extends BaseDO {
 
     @Serial
@@ -40,5 +42,13 @@ public class UserDO extends BaseDO {
     private BigInteger        roleId;
 
     private Boolean           exists;
+
+    public UserDO(BigInteger id) {
+        this.id = id;
+    }
+
+    public UserDO(String username) {
+        this.username = username;
+    }
 
 }

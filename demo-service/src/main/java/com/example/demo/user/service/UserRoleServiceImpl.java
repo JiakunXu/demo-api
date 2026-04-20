@@ -4,6 +4,7 @@ import com.example.demo.framework.annotation.NotBlank;
 import com.example.demo.framework.annotation.NotNull;
 import com.example.demo.framework.constant.Constants;
 import com.example.demo.framework.exception.ServiceException;
+import com.example.demo.framework.service.impl.ServiceImpl;
 import com.example.demo.framework.util.BeanUtil;
 import com.example.demo.role.api.RoleService;
 import com.example.demo.role.api.bo.Role;
@@ -14,6 +15,7 @@ import com.example.demo.user.api.bo.UserRole;
 import com.example.demo.user.dao.dataobject.UserDO;
 import com.example.demo.user.dao.dataobject.UserRoleDO;
 import com.example.demo.user.dao.mapper.UserRoleMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,19 +29,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 @Service
-public class UserRoleServiceImpl implements UserRoleService {
-
-    private static final Logger logger = LoggerFactory.getLogger(UserRoleServiceImpl.class);
-
-    @Autowired
-    private RoleService         roleService;
+public class UserRoleServiceImpl extends ServiceImpl<UserRoleMapper, UserRoleDO>
+                                 implements UserRoleService {
 
     @Autowired
-    private UserService         userService;
+    private RoleService roleService;
 
     @Autowired
-    private UserRoleMapper      userRoleMapper;
+    private UserService userService;
 
     @Override
     public int countUserRole(BigInteger roleId) {
@@ -50,7 +49,7 @@ public class UserRoleServiceImpl implements UserRoleService {
         UserRoleDO userRoleDO = new UserRoleDO();
         userRoleDO.setRoleId(roleId);
 
-        return count(userRoleDO);
+        return this.count(userRoleDO);
     }
 
     @Override
@@ -63,7 +62,7 @@ public class UserRoleServiceImpl implements UserRoleService {
         userRoleDO.setUserId(userId);
         userRoleDO.setCode(roleCode);
 
-        return count(userRoleDO);
+        return this.count(userRoleDO);
     }
 
     @Override
@@ -76,7 +75,7 @@ public class UserRoleServiceImpl implements UserRoleService {
         userRoleDO.setUserId(userId);
         userRoleDO.setCodes(roleCode);
 
-        return count(userRoleDO);
+        return this.count(userRoleDO);
     }
 
     @Override
@@ -97,7 +96,7 @@ public class UserRoleServiceImpl implements UserRoleService {
         UserRoleDO userRoleDO = new UserRoleDO();
         userRoleDO.setUserId(userId);
 
-        return BeanUtil.copy(list(userRoleDO), UserRole.class);
+        return BeanUtil.copy(this.list(userRoleDO), UserRole.class);
     }
 
     @Override
@@ -110,7 +109,7 @@ public class UserRoleServiceImpl implements UserRoleService {
         userRoleDO.setUserId(userId);
         userRoleDO.setStatus(status);
 
-        List<UserRole> userRoleList = BeanUtil.copy(list(userRoleDO), UserRole.class);
+        List<UserRole> userRoleList = BeanUtil.copy(this.list(userRoleDO), UserRole.class);
 
         if (userRoleList == null || userRoleList.isEmpty()) {
             return null;
@@ -192,7 +191,7 @@ public class UserRoleServiceImpl implements UserRoleService {
         userRoleDO.setCreator(creator);
 
         try {
-            userRoleMapper.insert(userRoleDO);
+            this.insert(userRoleDO);
         } catch (Exception e) {
             logger.error(userRoleDO.toString(), e);
             throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息创建失败，请稍后再试");
@@ -216,7 +215,7 @@ public class UserRoleServiceImpl implements UserRoleService {
             userRoleDO.setCreator(creator);
 
             try {
-                userRoleMapper.insert(userRoleDO);
+                this.insert(userRoleDO);
             } catch (Exception e) {
                 logger.error(userRoleDO.toString(), e);
                 throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息创建失败，请稍后再试");
@@ -280,7 +279,7 @@ public class UserRoleServiceImpl implements UserRoleService {
             userRoleDO.setModifier(modifier);
 
             try {
-                userRoleMapper.delete(userRoleDO);
+                this.delete(userRoleDO);
             } catch (Exception e) {
                 logger.error(userRoleDO.toString(), e);
                 throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息更新失败，请稍后再试");
@@ -309,7 +308,7 @@ public class UserRoleServiceImpl implements UserRoleService {
             userRoleDO.setCreator(modifier);
 
             try {
-                userRoleMapper.insert(userRoleDO);
+                this.insert(userRoleDO);
             } catch (Exception e) {
                 logger.error(userRoleDO.toString(), e);
                 throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息创建失败，请稍后再试");
@@ -336,7 +335,7 @@ public class UserRoleServiceImpl implements UserRoleService {
         userRoleDO.setModifier(modifier);
 
         try {
-            userRoleMapper.delete(userRoleDO);
+            this.delete(userRoleDO);
         } catch (Exception e) {
             logger.error(userRoleDO.toString(), e);
             throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息更新失败，请稍后再试");
@@ -366,7 +365,7 @@ public class UserRoleServiceImpl implements UserRoleService {
         userRoleDO.setModifier(modifier);
 
         try {
-            userRoleMapper.delete(userRoleDO);
+            this.delete(userRoleDO);
         } catch (Exception e) {
             logger.error(userRoleDO.toString(), e);
             throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息更新失败，请稍后再试");
@@ -377,29 +376,9 @@ public class UserRoleServiceImpl implements UserRoleService {
         return BeanUtil.copy(userRoleDO, UserRole.class);
     }
 
-    private int count(UserRoleDO userRoleDO) {
-        try {
-            return userRoleMapper.count(userRoleDO);
-        } catch (Exception e) {
-            logger.error(userRoleDO.toString(), e);
-        }
-
-        return 0;
-    }
-
-    private List<UserRoleDO> list(UserRoleDO userRoleDO) {
-        try {
-            return userRoleMapper.list(userRoleDO);
-        } catch (Exception e) {
-            logger.error(userRoleDO.toString(), e);
-        }
-
-        return null;
-    }
-
     private int count(UserDO userDO) {
         try {
-            return userRoleMapper.countUser(userDO);
+            return this.baseMapper.countUser(userDO);
         } catch (Exception e) {
             logger.error(userDO.toString(), e);
         }
@@ -409,7 +388,7 @@ public class UserRoleServiceImpl implements UserRoleService {
 
     private List<UserDO> list(UserDO userDO) {
         try {
-            return userRoleMapper.listUsers(userDO);
+            return this.baseMapper.listUsers(userDO);
         } catch (Exception e) {
             logger.error(userDO.toString(), e);
         }

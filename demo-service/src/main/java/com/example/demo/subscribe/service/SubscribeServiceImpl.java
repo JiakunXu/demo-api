@@ -1,6 +1,7 @@
 package com.example.demo.subscribe.service;
 
 import com.alibaba.fastjson2.JSON;
+import com.example.demo.framework.service.impl.ServiceImpl;
 import com.example.demo.framework.util.BeanUtil;
 import com.example.demo.mq.api.ProducerService;
 import com.example.demo.socket.api.bo.Message;
@@ -12,9 +13,8 @@ import com.example.demo.framework.constant.Constants;
 import com.example.demo.framework.exception.ServiceException;
 import com.example.demo.subscribe.dao.mapper.SubscribeMapper;
 import com.example.demo.tunnel.dao.dataobject.TunnelDO;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,16 +24,13 @@ import java.util.List;
 /**
  * @author JiakunXu
  */
+@Slf4j
 @Service
-public class SubscribeServiceImpl implements SubscribeService {
-
-    private static final Logger logger = LoggerFactory.getLogger(SubscribeServiceImpl.class);
-
-    @Autowired
-    private ProducerService     producerService;
+public class SubscribeServiceImpl extends ServiceImpl<SubscribeMapper, SubscribeDO>
+                                  implements SubscribeService {
 
     @Autowired
-    private SubscribeMapper     subscribeMapper;
+    private ProducerService producerService;
 
     @Override
     public int countSubscribe(BigInteger userId, String appId, String scene, String sceneId) {
@@ -90,7 +87,7 @@ public class SubscribeServiceImpl implements SubscribeService {
         subscribeDO.setScene(scene);
         subscribeDO.setSceneId(new BigInteger(sceneId));
 
-        return BeanUtil.copy(get(subscribeDO), Subscribe.class);
+        return BeanUtil.copy(this.get(subscribeDO), Subscribe.class);
     }
 
     @Override
@@ -123,7 +120,7 @@ public class SubscribeServiceImpl implements SubscribeService {
         }
 
         try {
-            subscribeMapper.insert(subscribeDO);
+            this.insert(subscribeDO);
         } catch (Exception e) {
             logger.error(subscribeDO.toString(), e);
             throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息创建失败，请稍后再试");
@@ -162,7 +159,7 @@ public class SubscribeServiceImpl implements SubscribeService {
 
     private int count0(SubscribeDO subscribeDO) {
         try {
-            return subscribeMapper.count0(subscribeDO);
+            return this.baseMapper.count0(subscribeDO);
         } catch (Exception e) {
             logger.error(subscribeDO.toString(), e);
         }
@@ -172,7 +169,7 @@ public class SubscribeServiceImpl implements SubscribeService {
 
     private int count1(SubscribeDO subscribeDO) {
         try {
-            return subscribeMapper.count1(subscribeDO);
+            return this.baseMapper.count1(subscribeDO);
         } catch (Exception e) {
             logger.error(subscribeDO.toString(), e);
         }
@@ -182,17 +179,7 @@ public class SubscribeServiceImpl implements SubscribeService {
 
     private List<TunnelDO> listSubscribes(SubscribeDO subscribeDO) {
         try {
-            return subscribeMapper.listSubscribes(subscribeDO);
-        } catch (Exception e) {
-            logger.error(subscribeDO.toString(), e);
-        }
-
-        return null;
-    }
-
-    private SubscribeDO get(SubscribeDO subscribeDO) {
-        try {
-            return subscribeMapper.get(subscribeDO);
+            return this.baseMapper.listSubscribes(subscribeDO);
         } catch (Exception e) {
             logger.error(subscribeDO.toString(), e);
         }
