@@ -14,18 +14,16 @@ import com.wechat.pay.java.core.RSAAutoCertificateConfig;
 import com.wechat.pay.java.core.notification.Notification;
 import com.wechat.pay.java.core.notification.NotificationParser;
 import com.wechat.pay.java.core.notification.RequestParam;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
+@Slf4j
 @Service
 public class WxpayTradeServiceImpl implements WxpayTradeService {
-
-    private static final Logger      logger = LoggerFactory.getLogger(WxpayTradeServiceImpl.class);
 
     @Autowired(required = false)
     private RSAAutoCertificateConfig merchantConfig;
@@ -187,7 +185,7 @@ public class WxpayTradeServiceImpl implements WxpayTradeService {
         try {
             wxpayNotifyMapper.insert(wxpayNotifyDO);
         } catch (Exception e) {
-            logger.error(wxpayNotifyDO.toString(), e);
+            log.error("{}", wxpayNotifyDO, e);
             throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息创建失败，请稍后再试");
         }
 

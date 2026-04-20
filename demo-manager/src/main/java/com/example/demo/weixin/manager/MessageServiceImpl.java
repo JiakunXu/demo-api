@@ -9,8 +9,7 @@ import com.example.demo.weixin.api.bo.message.Result;
 import com.example.demo.weixin.api.bo.message.Subscribe;
 import com.example.demo.weixin.api.bo.message.Template;
 import com.example.demo.weixin.api.bo.message.Uniform;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -20,10 +19,9 @@ import java.text.MessageFormat;
 /**
  * @author JiakunXu
  */
+@Slf4j
 @Service
 public class MessageServiceImpl implements MessageService {
-
-    private static final Logger logger = LoggerFactory.getLogger(MessageServiceImpl.class);
 
     @Autowired
     private MessageCryptService messageCryptService;
@@ -63,7 +61,7 @@ public class MessageServiceImpl implements MessageService {
                 .parseObject(HttpUtil.post(MessageFormat.format(HTTPS_TEMPLATE_URL, accessToken),
                     JSON.toJSONString(template)), Result.class);
         } catch (Exception e) {
-            logger.error(template.toString(), e);
+            log.error("{}", template, e);
             throw new RuntimeException(e.getMessage(), e);
         }
 
@@ -90,7 +88,7 @@ public class MessageServiceImpl implements MessageService {
                 .parseObject(HttpUtil.post(MessageFormat.format(HTTPS_SUBSCRIBE_URL, accessToken),
                     JSON.toJSONString(subscribe)), BaseResult.class);
         } catch (Exception e) {
-            logger.error(subscribe.toString(), e);
+            log.error("{}", subscribe, e);
             throw new RuntimeException(e.getMessage(), e);
         }
 
@@ -117,7 +115,7 @@ public class MessageServiceImpl implements MessageService {
                 .parseObject(HttpUtil.post(MessageFormat.format(HTTPS_UNIFORM_URL, accessToken),
                     JSON.toJSONString(uniform)), BaseResult.class);
         } catch (Exception e) {
-            logger.error(uniform.toString(), e);
+            log.error("{}", uniform, e);
             throw new RuntimeException(e.getMessage(), e);
         }
 

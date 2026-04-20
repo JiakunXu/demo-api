@@ -14,17 +14,15 @@ import com.wechat.pay.java.core.notification.NotificationParser;
 import com.wechat.pay.java.core.notification.RequestParam;
 import com.wechat.pay.java.service.refund.model.Refund;
 import com.wechat.pay.java.service.refund.model.RefundNotification;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 public class WxpayRefundServiceImpl implements WxpayRefundService {
-
-    private static final Logger      logger = LoggerFactory.getLogger(WxpayRefundServiceImpl.class);
 
     @Autowired(required = false)
     private RSAAutoCertificateConfig merchantConfig;
@@ -161,7 +159,7 @@ public class WxpayRefundServiceImpl implements WxpayRefundService {
         try {
             wxpayRefundMapper.insert(wxpayRefundDO);
         } catch (Exception e) {
-            logger.error(wxpayRefundDO.toString(), e);
+            log.error("{}", wxpayRefundDO, e);
             throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息创建失败，请稍后再试");
         }
 
@@ -183,7 +181,7 @@ public class WxpayRefundServiceImpl implements WxpayRefundService {
                 wxpayRefundMapper.insert(wxpayRefundDO);
             }
         } catch (Exception e) {
-            logger.error(wxpayRefundDO.toString(), e);
+            log.error("{}", wxpayRefundDO, e);
             throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息创建失败，请稍后再试");
         }
 

@@ -1,36 +1,33 @@
 package com.example.demo.weixin.service;
 
-import java.io.IOException;
-import java.util.UUID;
-
+import com.example.demo.framework.util.EncryptUtil;
+import com.example.demo.weixin.api.JsapiService;
+import com.example.demo.weixin.api.TicketService;
+import com.example.demo.weixin.api.bo.js.Jsapi;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.weixin.api.JsapiService;
-import com.example.demo.weixin.api.TicketService;
-import com.example.demo.weixin.api.bo.js.Jsapi;
-import com.example.demo.framework.util.EncryptUtil;
+import java.io.IOException;
+import java.util.UUID;
 
 /**
  * @author JiakunXu
  */
+@Slf4j
 @Service
 public class JsapiServiceImpl implements JsapiService {
 
-    private static final Logger logger = LoggerFactory.getLogger(JsapiServiceImpl.class);
-
     @Autowired
-    private TicketService       ticketService;
+    private TicketService ticketService;
 
     @Value("${weixin.app.id}")
-    private String              appId;
+    private String        appId;
 
     @Value("${weixin.app.secret}")
-    private String              appSecret;
+    private String        appSecret;
 
     @Override
     public Jsapi getJsapi(String url) {
@@ -50,7 +47,7 @@ public class JsapiServiceImpl implements JsapiService {
         try {
             signature = EncryptUtil.encryptSha(sb.toString());
         } catch (IOException e) {
-            logger.error("encryptSHA", e);
+            log.error("{}", sb, e);
             throw new RuntimeException(e.getMessage());
         }
 

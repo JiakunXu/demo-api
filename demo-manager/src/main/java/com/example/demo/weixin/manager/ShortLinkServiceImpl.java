@@ -5,8 +5,7 @@ import com.example.demo.framework.util.HttpUtil;
 import com.example.demo.weixin.api.ShortLinkService;
 import com.example.demo.weixin.api.bo.wxa.Link;
 import com.example.demo.weixin.api.bo.wxa.Page;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.text.MessageFormat;
@@ -14,10 +13,9 @@ import java.text.MessageFormat;
 /**
  * @author JiakunXu
  */
+@Slf4j
 @Service
 public class ShortLinkServiceImpl implements ShortLinkService {
-
-    private static final Logger logger = LoggerFactory.getLogger(ShortLinkServiceImpl.class);
 
     @Override
     public Link generateShortLink(String accessToken, Page page) throws RuntimeException {
@@ -27,7 +25,7 @@ public class ShortLinkServiceImpl implements ShortLinkService {
             link = JSON.parseObject(HttpUtil.post(MessageFormat.format(HTTPS_POST_URL, accessToken),
                 JSON.toJSONString(page)), Link.class);
         } catch (Exception e) {
-            logger.error(page.toString(), e);
+            log.error("{}", page, e);
             throw new RuntimeException(e.getMessage(), e);
         }
 

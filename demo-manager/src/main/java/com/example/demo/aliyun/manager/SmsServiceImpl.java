@@ -1,6 +1,5 @@
 package com.example.demo.aliyun.manager;
 
-import com.alibaba.fastjson2.JSON;
 import com.aliyun.dysmsapi20170525.Client;
 import com.aliyun.dysmsapi20170525.models.SendSmsRequest;
 import com.aliyun.dysmsapi20170525.models.SendSmsResponse;
@@ -8,24 +7,22 @@ import com.aliyun.tea.TeaException;
 import com.aliyun.teaopenapi.models.Config;
 import com.aliyun.teautil.Common;
 import com.example.demo.aliyun.api.SmsService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 /**
  * @author JiakunXu
  */
+@Slf4j
 @Service
 public class SmsServiceImpl implements SmsService {
 
-    private static final Logger logger = LoggerFactory.getLogger(SmsServiceImpl.class);
-
     @Value("${aliyun.accessKey.id}")
-    private String              accessKeyId;
+    private String accessKeyId;
 
     @Value("${aliyun.accessKey.secret}")
-    private String              accessKeySecret;
+    private String accessKeySecret;
 
     @Override
     public String send(String signName, String templateCode, String templateParam,
@@ -48,7 +45,7 @@ public class SmsServiceImpl implements SmsService {
         try {
             response = client.sendSms(request);
         } catch (Exception e) {
-            logger.error(JSON.toJSONString(request), e);
+            log.error("{}", request, e);
 
             TeaException err = e instanceof TeaException ? (TeaException) e
                 : new TeaException(e.getMessage(), e);
