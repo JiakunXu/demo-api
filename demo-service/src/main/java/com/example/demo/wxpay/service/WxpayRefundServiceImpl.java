@@ -45,7 +45,7 @@ public class WxpayRefundServiceImpl implements WxpayRefundService {
     private String                   partnerSerialNumber;
 
     @Override
-    public WxpayRefund getWxpayRefund(String outRefundNo) {
+    public WxpayRefund getRefund(String outRefundNo) {
         if (StringUtils.isBlank(outRefundNo)) {
             return null;
         }
@@ -71,7 +71,7 @@ public class WxpayRefundServiceImpl implements WxpayRefundService {
     }
 
     @Override
-    public WxpayRefund getWxpayRefund(String subMchid, String outRefundNo) {
+    public WxpayRefund getRefund(String subMchid, String outRefundNo) {
         if (StringUtils.isAnyBlank(subMchid, outRefundNo)) {
             return null;
         }
@@ -97,8 +97,8 @@ public class WxpayRefundServiceImpl implements WxpayRefundService {
     }
 
     @Override
-    public WxpayRefund getWxpayRefundV1(String serialNumber, String nonce, String timestamp,
-                                        String signature, String body) {
+    public WxpayRefund getRefundV1(String serialNumber, String nonce, String timestamp,
+                                   String signature, String body) {
         RequestParam requestParam = new RequestParam.Builder().serialNumber(serialNumber)
             .nonce(nonce).signature(signature).timestamp(timestamp).body(body).build();
 
@@ -124,8 +124,8 @@ public class WxpayRefundServiceImpl implements WxpayRefundService {
     }
 
     @Override
-    public WxpayRefund getWxpayRefundV2(String serialNumber, String nonce, String timestamp,
-                                        String signature, String body) {
+    public WxpayRefund getRefundV2(String serialNumber, String nonce, String timestamp,
+                                   String signature, String body) {
         RequestParam requestParam = new RequestParam.Builder().serialNumber(serialNumber)
             .nonce(nonce).signature(signature).timestamp(timestamp).body(body).build();
 
@@ -151,7 +151,7 @@ public class WxpayRefundServiceImpl implements WxpayRefundService {
     }
 
     @Override
-    public WxpayRefund insertWxpayRefund(WxpayRefund wxpayRefund) {
+    public WxpayRefund insertRefund(WxpayRefund wxpayRefund) {
         if (wxpayRefund == null) {
             throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "参数信息不能为空");
         }
@@ -169,7 +169,7 @@ public class WxpayRefundServiceImpl implements WxpayRefundService {
     }
 
     @Override
-    public WxpayRefund updateWxpayRefund(String refundId, WxpayRefund wxpayRefund) {
+    public WxpayRefund updateRefund(String refundId, WxpayRefund wxpayRefund) {
         if (StringUtils.isBlank(refundId) || wxpayRefund == null) {
             throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "参数信息不能为空");
         }

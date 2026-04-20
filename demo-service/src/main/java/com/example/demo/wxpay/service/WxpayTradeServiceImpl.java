@@ -6,7 +6,7 @@ import com.example.demo.framework.exception.ServiceException;
 import com.example.demo.framework.util.BeanUtil;
 import com.example.demo.wxpay.api.JsapiService;
 import com.example.demo.wxpay.api.PartnerJsapiService;
-import com.example.demo.wxpay.api.WxpayNotifyService;
+import com.example.demo.wxpay.api.WxpayTradeService;
 import com.example.demo.wxpay.api.bo.WxpayNotify;
 import com.example.demo.wxpay.dao.dataobject.WxpayNotifyDO;
 import com.example.demo.wxpay.dao.mapper.WxpayNotifyMapper;
@@ -23,9 +23,9 @@ import org.springframework.stereotype.Service;
 import java.util.UUID;
 
 @Service
-public class WxpayNotifyServiceImpl implements WxpayNotifyService {
+public class WxpayTradeServiceImpl implements WxpayTradeService {
 
-    private static final Logger      logger = LoggerFactory.getLogger(WxpayNotifyServiceImpl.class);
+    private static final Logger      logger = LoggerFactory.getLogger(WxpayTradeServiceImpl.class);
 
     @Autowired(required = false)
     private RSAAutoCertificateConfig merchantConfig;
@@ -49,7 +49,7 @@ public class WxpayNotifyServiceImpl implements WxpayNotifyService {
     private String                   partnerSerialNumber;
 
     @Override
-    public WxpayNotify getWxpayNotify(String mchid, String outTradeNo) {
+    public WxpayNotify getTrade(String mchid, String outTradeNo) {
         com.wechat.pay.java.service.payments.model.Transaction transaction = jsapiService
             .queryOrderByOutTradeNo(mchid, outTradeNo);
 
@@ -75,7 +75,7 @@ public class WxpayNotifyServiceImpl implements WxpayNotifyService {
     }
 
     @Override
-    public WxpayNotify getWxpayNotify(String spMchid, String subMchid, String outTradeNo) {
+    public WxpayNotify getTrade(String spMchid, String subMchid, String outTradeNo) {
         com.wechat.pay.java.service.partnerpayments.jsapi.model.Transaction transaction = partnerJsapiService
             .queryOrderByOutTradeNo(spMchid, subMchid, outTradeNo);
 
@@ -103,8 +103,8 @@ public class WxpayNotifyServiceImpl implements WxpayNotifyService {
     }
 
     @Override
-    public WxpayNotify getWxpayNotifyV1(String serialNumber, String nonce, String timestamp,
-                                        String signature, String body) {
+    public WxpayNotify getTradeV1(String serialNumber, String nonce, String timestamp,
+                                  String signature, String body) {
         RequestParam requestParam = new RequestParam.Builder().serialNumber(serialNumber)
             .nonce(nonce).signature(signature).timestamp(timestamp).body(body).build();
 
@@ -139,8 +139,8 @@ public class WxpayNotifyServiceImpl implements WxpayNotifyService {
     }
 
     @Override
-    public WxpayNotify getWxpayNotifyV2(String serialNumber, String nonce, String timestamp,
-                                        String signature, String body) {
+    public WxpayNotify getTradeV2(String serialNumber, String nonce, String timestamp,
+                                  String signature, String body) {
         RequestParam requestParam = new RequestParam.Builder().serialNumber(serialNumber)
             .nonce(nonce).signature(signature).timestamp(timestamp).body(body).build();
 
@@ -177,7 +177,7 @@ public class WxpayNotifyServiceImpl implements WxpayNotifyService {
     }
 
     @Override
-    public WxpayNotify insertWxpayNotify(WxpayNotify wxpayNotify) {
+    public WxpayNotify insertTrade(WxpayNotify wxpayNotify) {
         if (wxpayNotify == null) {
             throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "参数信息不能为空");
         }

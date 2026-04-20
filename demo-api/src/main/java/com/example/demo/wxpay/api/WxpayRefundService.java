@@ -4,18 +4,18 @@ import com.example.demo.wxpay.api.bo.WxpayRefund;
 
 public interface WxpayRefundService {
 
-    WxpayRefund getWxpayRefund(String outRefundNo);
+    WxpayRefund getRefund(String outRefundNo);
 
-    WxpayRefund getWxpayRefund(String subMchid, String outRefundNo);
+    WxpayRefund getRefund(String subMchid, String outRefundNo);
 
-    WxpayRefund getWxpayRefundV1(String serialNumber, String nonce, String timestamp,
-                                 String signature, String body);
+    WxpayRefund getRefundV1(String serialNumber, String nonce, String timestamp, String signature,
+                            String body);
 
-    WxpayRefund getWxpayRefundV2(String serialNumber, String nonce, String timestamp,
-                                 String signature, String body);
+    WxpayRefund getRefundV2(String serialNumber, String nonce, String timestamp, String signature,
+                            String body);
 
-    WxpayRefund insertWxpayRefund(WxpayRefund wxpayRefund);
+    WxpayRefund insertRefund(WxpayRefund wxpayRefund);
 
-    WxpayRefund updateWxpayRefund(String refundId, WxpayRefund wxpayRefund);
+    WxpayRefund updateRefund(String refundId, WxpayRefund wxpayRefund);
 
 }
