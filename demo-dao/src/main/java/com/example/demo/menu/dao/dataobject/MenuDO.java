@@ -2,6 +2,7 @@ package com.example.demo.menu.dao.dataobject;
 
 import com.example.demo.framework.dataobject.BaseDO;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -12,6 +13,7 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
+@NoArgsConstructor
 public class MenuDO extends BaseDO {
 
     @Serial
@@ -92,5 +94,11 @@ public class MenuDO extends BaseDO {
      * user user_role role_menu menu.
      */
     private BigInteger        userId;
+
+    private String[]          roleCodes;
+
+    public MenuDO(BigInteger id) {
+        this.id = id;
+    }
 
 }
