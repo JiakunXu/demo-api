@@ -1,19 +1,22 @@
 package com.example.demo.role.service;
 
+import com.example.demo.framework.annotation.NotBlank;
+import com.example.demo.framework.annotation.NotNull;
 import com.example.demo.framework.constant.Constants;
 import com.example.demo.framework.exception.ServiceException;
+import com.example.demo.framework.service.impl.ServiceImpl;
 import com.example.demo.framework.util.BeanUtil;
 import com.example.demo.role.api.RoleMenuService;
 import com.example.demo.role.api.RoleService;
 import com.example.demo.role.api.bo.RoleMenu;
 import com.example.demo.role.dao.dataobject.RoleMenuDO;
 import com.example.demo.role.dao.mapper.RoleMenuMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -21,16 +24,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 @Service
-public class RoleMenuServiceImpl implements RoleMenuService {
-
-    private static final Logger logger = LoggerFactory.getLogger(RoleMenuServiceImpl.class);
-
-    @Autowired
-    private RoleService         roleService;
+public class RoleMenuServiceImpl extends ServiceImpl<RoleMenuMapper, RoleMenuDO>
+                                 implements RoleMenuService {
 
     @Autowired
-    private RoleMenuMapper      roleMenuMapper;
+    private RoleService roleService;
 
     @Override
     public int countRoleMenu(BigInteger menuId) {
@@ -41,7 +41,7 @@ public class RoleMenuServiceImpl implements RoleMenuService {
         RoleMenuDO roleMenuDO = new RoleMenuDO();
         roleMenuDO.setMenuId(menuId);
 
-        return count(roleMenuDO);
+        return this.count(roleMenuDO);
     }
 
     @Override
@@ -53,7 +53,7 @@ public class RoleMenuServiceImpl implements RoleMenuService {
         RoleMenuDO roleMenuDO = new RoleMenuDO();
         roleMenuDO.setRoleId(roleId);
 
-        return BeanUtil.copy(list(roleMenuDO), RoleMenu.class);
+        return BeanUtil.copy(this.list(roleMenuDO), RoleMenu.class);
     }
 
     @Override
@@ -62,56 +62,55 @@ public class RoleMenuServiceImpl implements RoleMenuService {
             return null;
         }
 
-        List<RoleMenu> roleMenuList = listRoleMenus(new BigInteger(roleId));
+        List<RoleMenu> roleMenus = listRoleMenus(new BigInteger(roleId));
 
-        if (roleMenuList == null || roleMenuList.isEmpty()) {
+        if (CollectionUtils.isEmpty(roleMenus)) {
             return null;
         }
 
         List<BigInteger> list = new ArrayList<>();
 
-        for (RoleMenu roleMenu : roleMenuList) {
+        for (RoleMenu roleMenu : roleMenus) {
             list.add(roleMenu.getMenuId());
         }
 
         return list;
     }
 
-    private List<RoleMenu> insertRoleMenu(BigInteger roleId, List<RoleMenu> roleMenuList,
-                                          String creator) {
-        if (roleMenuList == null || roleMenuList.isEmpty()) {
+    private List<RoleMenu> insertRoleMenus(BigInteger roleId, List<RoleMenu> roleMenus,
+                                           String creator) {
+        if (CollectionUtils.isEmpty(roleMenus)) {
             return null;
         }
 
-        for (RoleMenu roleMenu : roleMenuList) {
+        List<RoleMenuDO> roleMenuDOs = new ArrayList<>();
+
+        for (RoleMenu roleMenu : roleMenus) {
             roleMenu.setRoleId(roleId);
 
             RoleMenuDO roleMenuDO = BeanUtil.copy(roleMenu, RoleMenuDO.class);
             roleMenuDO.setCreator(creator);
 
-            try {
-                roleMenuMapper.insert(roleMenuDO);
-            } catch (Exception e) {
-                logger.error(roleMenuDO.toString(), e);
-                throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息创建失败，请稍后再试");
-            }
-
-            roleMenu.setId(roleMenuDO.getId());
+            roleMenuDOs.add(roleMenuDO);
         }
 
-        return roleMenuList;
+        try {
+            this.insertBatch(roleMenuDOs);
+        } catch (Exception e) {
+            log.error("{}", roleMenuDOs, e);
+            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息创建失败，请稍后再试");
+        }
+
+        return BeanUtil.copy(roleMenuDOs, RoleMenu.class);
     }
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
-    public List<RoleMenu> updateRoleMenu(BigInteger roleId, BigInteger[] menuIds, String modifier) {
-        if (roleId == null || StringUtils.isBlank(modifier)) {
-            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "参数信息不能为空");
-        }
-
+    public List<RoleMenu> updateRoleMenus(@NotNull BigInteger roleId, BigInteger[] menuIds,
+                                          @NotBlank String modifier) {
         List<RoleMenu> roleMenuList = new ArrayList<>();
 
-        if (menuIds != null && menuIds.length > 0) {
+        if (menuIds != null) {
             for (BigInteger menuId : menuIds) {
                 RoleMenu roleMenu = new RoleMenu();
                 roleMenu.setMenuId(menuId);
@@ -122,8 +121,8 @@ public class RoleMenuServiceImpl implements RoleMenuService {
 
         List<RoleMenu> list0 = listRoleMenus(roleId);
 
-        if (list0 == null || list0.isEmpty()) {
-            return insertRoleMenu(roleId, roleMenuList, modifier);
+        if (CollectionUtils.isEmpty(list0)) {
+            return insertRoleMenus(roleId, roleMenuList, modifier);
         }
 
         Map<BigInteger, RoleMenu> map = new HashMap<>(list0.size());
@@ -142,16 +141,17 @@ public class RoleMenuServiceImpl implements RoleMenuService {
             }
         }
 
-        insertRoleMenu(roleId, list1, modifier);
+        insertRoleMenus(roleId, list1, modifier);
 
-        for (Map.Entry<BigInteger, RoleMenu> m : map.entrySet()) {
-            RoleMenuDO roleMenuDO = BeanUtil.copy(m.getValue(), RoleMenuDO.class);
+        if (!map.isEmpty()) {
+            RoleMenuDO roleMenuDO = new RoleMenuDO();
+            roleMenuDO.setIds(map.values().stream().map(RoleMenu::getId).toList());
             roleMenuDO.setModifier(modifier);
 
             try {
-                roleMenuMapper.delete(roleMenuDO);
+                this.delete(roleMenuDO);
             } catch (Exception e) {
-                logger.error(roleMenuDO.toString(), e);
+                log.error("{}", roleMenuDO, e);
                 throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息更新失败，请稍后再试");
             }
         }
@@ -160,8 +160,9 @@ public class RoleMenuServiceImpl implements RoleMenuService {
     }
 
     @Override
-    public RoleMenu deleteRoleMenu(BigInteger roleId, BigInteger menuId, String modifier) {
-        if ((roleId == null && menuId == null) || StringUtils.isBlank(modifier)) {
+    public RoleMenu deleteRoleMenu(BigInteger roleId, BigInteger menuId,
+                                   @NotBlank String modifier) {
+        if (roleId == null && menuId == null) {
             throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "参数信息不能为空");
         }
 
@@ -171,33 +172,13 @@ public class RoleMenuServiceImpl implements RoleMenuService {
         roleMenuDO.setModifier(modifier);
 
         try {
-            roleMenuMapper.delete(roleMenuDO);
+            this.delete(roleMenuDO);
         } catch (Exception e) {
-            logger.error(roleMenuDO.toString(), e);
+            log.error("{}", roleMenuDO, e);
             throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息更新失败，请稍后再试");
         }
 
         return BeanUtil.copy(roleMenuDO, RoleMenu.class);
-    }
-
-    private int count(RoleMenuDO roleMenuDO) {
-        try {
-            return roleMenuMapper.count(roleMenuDO);
-        } catch (Exception e) {
-            logger.error(roleMenuDO.toString(), e);
-        }
-
-        return 0;
-    }
-
-    private List<RoleMenuDO> list(RoleMenuDO roleMenuDO) {
-        try {
-            return roleMenuMapper.list(roleMenuDO);
-        } catch (Exception e) {
-            logger.error(roleMenuDO.toString(), e);
-        }
-
-        return null;
     }
 
 }

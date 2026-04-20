@@ -28,6 +28,8 @@ public interface RedisService<K, V> extends CacheService<K, V> {
 
     long   CACHE_KEY_REFRESH_TOKEN_DEFAULT_EXP = 8 * 60 * 60;
 
+    String CACHE_KEY_ROLE                      = "key_role@";
+
     String CACHE_KEY_ROLE_ID                   = "key_role_id@";
 
     String CACHE_KEY_TT_TOKEN                  = "key_tt_token@";

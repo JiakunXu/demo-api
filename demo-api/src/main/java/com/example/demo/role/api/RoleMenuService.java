@@ -13,7 +13,7 @@ public interface RoleMenuService {
 
     List<BigInteger> listRoleMenus(String roleId);
 
-    List<RoleMenu> updateRoleMenu(BigInteger roleId, BigInteger[] menuIds, String modifier);
+    List<RoleMenu> updateRoleMenus(BigInteger roleId, BigInteger[] menuIds, String modifier);
 
     RoleMenu deleteRoleMenu(BigInteger roleId, BigInteger menuId, String modifier);
 

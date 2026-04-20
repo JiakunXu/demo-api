@@ -7,6 +7,7 @@ import lombok.ToString;
 
 import java.io.Serial;
 import java.math.BigInteger;
+import java.util.List;
 
 @Getter
 @Setter
@@ -27,5 +28,7 @@ public class RoleMenuDO extends BaseDO {
      * 菜单
      */
     private BigInteger        menuId;
+
+    private List<BigInteger>  ids;
 
 }
