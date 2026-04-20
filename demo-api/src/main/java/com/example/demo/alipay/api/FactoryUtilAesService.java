@@ -1,6 +1,6 @@
 package com.example.demo.alipay.api;
 
-public interface AesService {
+public interface FactoryUtilAesService {
 
     String decrypt(String cipherText);
 

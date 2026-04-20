@@ -6,8 +6,8 @@ import com.alipay.easysdk.factory.Factory;
 import com.example.demo.alipay.api.AlipayTradeService;
 import com.example.demo.alipay.api.TradeService;
 import com.example.demo.alipay.api.bo.AlipayTrade;
-import com.example.demo.alipay.dao.dataobject.AlipayNotifyDO;
-import com.example.demo.alipay.dao.mapper.AlipayNotifyMapper;
+import com.example.demo.alipay.dao.dataobject.AlipayTradeDO;
+import com.example.demo.alipay.dao.mapper.AlipayTradeMapper;
 import com.example.demo.framework.constant.Constants;
 import com.example.demo.framework.exception.ServiceException;
 import com.example.demo.framework.util.BeanUtil;
@@ -32,7 +32,7 @@ public class AlipayTradeServiceImpl implements AlipayTradeService {
     private TradeService        tradeService;
 
     @Autowired
-    private AlipayNotifyMapper  alipayNotifyMapper;
+    private AlipayTradeMapper alipayTradeMapper;
 
     @Override
     public AlipayTrade getTrade(Map<String, String> parameters) {
@@ -111,12 +111,12 @@ public class AlipayTradeServiceImpl implements AlipayTradeService {
             throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "参数信息不能为空");
         }
 
-        AlipayNotifyDO alipayNotifyDO = BeanUtil.copy(trade, AlipayNotifyDO.class);
+        AlipayTradeDO alipayTradeDO = BeanUtil.copy(trade, AlipayTradeDO.class);
 
         try {
-            alipayNotifyMapper.insert(alipayNotifyDO);
+            alipayTradeMapper.insert(alipayTradeDO);
         } catch (Exception e) {
-            logger.error(alipayNotifyDO.toString(), e);
+            logger.error(alipayTradeDO.toString(), e);
             throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息创建失败，请稍后再试");
         }
 

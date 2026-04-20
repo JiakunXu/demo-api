@@ -2,9 +2,9 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.example.demo.alipay.dao.mapper.AlipayNotifyMapper">
+<mapper namespace="com.example.demo.alipay.dao.mapper.AlipayTradeMapper">
 
-	<insert id="insert" parameterType="alipayNotifyDO">
+	<insert id="insert" parameterType="alipayTradeDO">
 	<![CDATA[
 		INSERT
 		INTO `tb_alipay_notify`

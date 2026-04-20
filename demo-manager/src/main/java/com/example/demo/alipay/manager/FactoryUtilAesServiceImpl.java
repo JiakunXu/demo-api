@@ -1,11 +1,11 @@
 package com.example.demo.alipay.manager;
 
 import com.alipay.easysdk.factory.Factory;
-import com.example.demo.alipay.api.AesService;
+import com.example.demo.alipay.api.FactoryUtilAesService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AesServiceImpl implements AesService {
+public class FactoryUtilAesServiceImpl implements FactoryUtilAesService {
 
     @Override
     public String decrypt(String cipherText) {

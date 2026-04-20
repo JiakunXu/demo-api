@@ -1,7 +1,7 @@
 package com.example.demo.alipay.manager;
 
 import com.alibaba.fastjson2.JSON;
-import com.example.demo.alipay.api.AesService;
+import com.example.demo.alipay.api.FactoryUtilAesService;
 import com.example.demo.alipay.api.PhoneNumberService;
 import com.example.demo.alipay.api.bo.user.PhoneNumber;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 public class PhoneNumberServiceImpl implements PhoneNumberService {
 
     @Autowired
-    private AesService aesService;
+    private FactoryUtilAesService factoryUtilAesService;
 
     @Override
     public PhoneNumber getPhoneNumber(String content, String sign) {
@@ -23,7 +23,7 @@ public class PhoneNumberServiceImpl implements PhoneNumberService {
             throw new RuntimeException(e.getMessage(), e);
         }
 
-        PhoneNumber phoneNumber = JSON.parseObject(aesService.decrypt(content),
+        PhoneNumber phoneNumber = JSON.parseObject(factoryUtilAesService.decrypt(content),
             PhoneNumber.class);
 
         if (!"10000".equals(phoneNumber.getCode())) {
