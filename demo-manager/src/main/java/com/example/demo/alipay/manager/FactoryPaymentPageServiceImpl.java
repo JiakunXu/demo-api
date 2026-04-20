@@ -10,13 +10,13 @@ import org.springframework.stereotype.Service;
 public class FactoryPaymentPageServiceImpl implements FactoryPaymentPageService {
 
     @Override
-    public String pay(String appAuthToken, String subject, String outTradeNo, String totalAmount,
-                      String returnUrl) {
+    public AlipayTradePagePayResponse pay(String appAuthToken, String subject, String outTradeNo,
+                                          String totalAmount, String returnUrl) {
         try {
             AlipayTradePagePayResponse response = Factory.Payment.Page().agent(appAuthToken)
                 .pay(subject, outTradeNo, totalAmount, returnUrl);
             if (ResponseChecker.success(response)) {
-                return response.getBody();
+                return response;
             } else {
                 throw new RuntimeException("调用失败");
             }

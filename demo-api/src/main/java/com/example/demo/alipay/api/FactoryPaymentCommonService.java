@@ -1,16 +1,18 @@
 package com.example.demo.alipay.api;
 
+import com.alipay.easysdk.payment.common.models.*;
+
 public interface FactoryPaymentCommonService {
 
-    String create(String appAuthToken, String subject, String outTradeNo, String totalAmount,
-                  String buyerId);
+    AlipayTradeCreateResponse create(String appAuthToken, String subject, String outTradeNo,
+                                     String totalAmount, String buyerId);
 
-    String query(String appAuthToken, String outTradeNo);
+    AlipayTradeQueryResponse query(String appAuthToken, String outTradeNo);
 
-    String refund(String appAuthToken, String outTradeNo, String refundAmount);
+    AlipayTradeRefundResponse refund(String appAuthToken, String outTradeNo, String refundAmount);
 
-    String close(String appAuthToken, String outTradeNo);
+    AlipayTradeCloseResponse close(String appAuthToken, String outTradeNo);
 
-    String cancel(String appAuthToken, String outTradeNo);
+    AlipayTradeCancelResponse cancel(String appAuthToken, String outTradeNo);
 
 }
