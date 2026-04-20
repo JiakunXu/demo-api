@@ -1,4 +1,4 @@
-package com.example.demo.log.dao.dataobject;
+package com.example.demo.login.dao.dataobject;
 
 import com.example.demo.framework.dataobject.BaseDO;
 import lombok.Getter;

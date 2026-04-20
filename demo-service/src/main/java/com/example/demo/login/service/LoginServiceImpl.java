@@ -3,7 +3,7 @@ package com.example.demo.login.service;
 import com.alibaba.fastjson2.JSON;
 import com.example.demo.framework.constant.Constants;
 import com.example.demo.framework.exception.ServiceException;
-import com.example.demo.log.api.bo.LoginLog;
+import com.example.demo.login.api.bo.LoginLog;
 import com.example.demo.login.api.LoginService;
 import com.example.demo.mq.api.ProducerService;
 import com.example.demo.security.api.TokenService;

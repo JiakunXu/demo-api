@@ -1,6 +1,6 @@
-package com.example.demo.log.api;
+package com.example.demo.login.api;
 
-import com.example.demo.log.api.bo.LoginLog;
+import com.example.demo.login.api.bo.LoginLog;
 
 import java.math.BigInteger;
 import java.util.List;

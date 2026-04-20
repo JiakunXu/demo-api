@@ -1,7 +1,8 @@
-package com.example.demo.log.api.bo;
+package com.example.demo.operate.api.bo;
 
 import com.example.demo.framework.bo.BaseBO;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serial;
@@ -10,12 +11,43 @@ import java.util.Date;
 
 @Getter
 @Setter
-public class OperLog extends BaseBO {
+@NoArgsConstructor
+public class OperateLog extends BaseBO {
 
     @Serial
     private static final long serialVersionUID = -4732081383657654965L;
 
     private BigInteger        id;
+
+    /**
+     * 操作人
+     */
+    private String            operator;
+
+    /**
+     * 操作模块
+     */
+    private String            module;
+
+    /**
+     * 操作类型
+     */
+    private String            operateType;
+
+    /**
+     * 单据编号
+     */
+    private String            orderNo;
+
+    /**
+     * 操作内容
+     */
+    private String            content;
+
+    /**
+     * 操作时间
+     */
+    private Date              operateTime;
 
     private String            clazz;
 
@@ -35,11 +67,6 @@ public class OperLog extends BaseBO {
     private String            requestParams;
 
     /**
-     * 操作人员
-     */
-    private String            operator;
-
-    /**
      * 主机地址
      */
     private String            ip;
@@ -48,18 +75,6 @@ public class OperLog extends BaseBO {
      * ip_addr
      */
     private String            ipAddr;
-
-    /**
-     * 操作时间
-     */
-    private Date              operTime;
-
-    private String            module;
-
-    /**
-     * 操作描述
-     */
-    private String            desc;
 
     /**
      * 状态
@@ -71,7 +86,16 @@ public class OperLog extends BaseBO {
      */
     private String            errMsg;
 
-    private BigInteger        corpId;
+    public OperateLog(String module, String operateType) {
+        this.module = module;
+        this.operateType = operateType;
+    }
+
+    public OperateLog(String module, String operateType, String orderNo) {
+        this.module = module;
+        this.operateType = operateType;
+        this.orderNo = orderNo;
+    }
 
     public enum Status {
                         /**

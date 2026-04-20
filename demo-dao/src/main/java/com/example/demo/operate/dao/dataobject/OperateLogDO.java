@@ -1,7 +1,8 @@
-package com.example.demo.log.dao.dataobject;
+package com.example.demo.operate.dao.dataobject;
 
 import com.example.demo.framework.dataobject.BaseDO;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -12,12 +13,43 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
-public class OperLogDO extends BaseDO {
+@NoArgsConstructor
+public class OperateLogDO extends BaseDO {
 
     @Serial
     private static final long serialVersionUID = -5521798017790714164L;
 
     private BigInteger        id;
+
+    /**
+     * 操作人
+     */
+    private String            operator;
+
+    /**
+     * 操作模块
+     */
+    private String            module;
+
+    /**
+     * 操作类型
+     */
+    private String            operateType;
+
+    /**
+     * 单据编号
+     */
+    private String            orderNo;
+
+    /**
+     * 操作内容
+     */
+    private String            content;
+
+    /**
+     * 操作时间
+     */
+    private Date              operateTime;
 
     private String            clazz;
 
@@ -37,11 +69,6 @@ public class OperLogDO extends BaseDO {
     private String            requestParams;
 
     /**
-     * 操作人员
-     */
-    private String            operator;
-
-    /**
      * 主机地址
      */
     private String            ip;
@@ -50,18 +77,6 @@ public class OperLogDO extends BaseDO {
      * ip_addr
      */
     private String            ipAddr;
-
-    /**
-     * 操作时间
-     */
-    private Date              operTime;
-
-    private String            module;
-
-    /**
-     * 操作描述
-     */
-    private String            desc;
 
     /**
      * 状态
@@ -73,12 +88,7 @@ public class OperLogDO extends BaseDO {
      */
     private String            errMsg;
 
-    private BigInteger        corpId;
-
-    public OperLogDO() {
-    }
-
-    public OperLogDO(BigInteger id) {
+    public OperateLogDO(BigInteger id) {
         this.id = id;
     }
 

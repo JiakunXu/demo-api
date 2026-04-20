@@ -1,14 +1,14 @@
-package com.example.demo.log.service;
+package com.example.demo.login.service;
 
 import com.example.demo.framework.annotation.NotBlank;
 import com.example.demo.framework.annotation.NotNull;
 import com.example.demo.framework.constant.Constants;
 import com.example.demo.framework.exception.ServiceException;
 import com.example.demo.framework.util.BeanUtil;
-import com.example.demo.log.api.LoginLogService;
-import com.example.demo.log.api.bo.LoginLog;
-import com.example.demo.log.dao.dataobject.LoginLogDO;
-import com.example.demo.log.dao.mapper.LoginLogMapper;
+import com.example.demo.login.api.LoginLogService;
+import com.example.demo.login.api.bo.LoginLog;
+import com.example.demo.login.dao.dataobject.LoginLogDO;
+import com.example.demo.login.dao.mapper.LoginLogMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

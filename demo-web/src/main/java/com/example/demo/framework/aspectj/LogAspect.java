@@ -2,7 +2,7 @@ package com.example.demo.framework.aspectj;
 
 import com.alibaba.fastjson2.JSON;
 import com.example.demo.framework.annotation.Log;
-import com.example.demo.log.api.bo.OperLog;
+import com.example.demo.operate.api.bo.OperateLog;
 import com.example.demo.mq.api.ProducerService;
 import com.example.demo.security.api.bo.LoginUser;
 import com.example.demo.user.api.bo.User;
@@ -32,13 +32,13 @@ public class LogAspect {
     @AfterReturning(pointcut = "@annotation(log)", returning = "object")
     public void doAfterReturning(JoinPoint joinPoint, Log log, Object object) {
         handle(joinPoint.getTarget().getClass().getSimpleName(), log.module(), log.desc(),
-            OperLog.Status.SUCCESS.value, null);
+            OperateLog.Status.SUCCESS.value, null);
     }
 
     @AfterThrowing(value = "@annotation(log)", throwing = "e")
     public void doAfterThrowing(JoinPoint joinPoint, Log log, Exception e) {
         handle(joinPoint.getTarget().getClass().getSimpleName(), log.module(), log.desc(),
-            OperLog.Status.FAIL.value, e.getMessage());
+            OperateLog.Status.FAIL.value, e.getMessage());
     }
 
     private void handle(String clazz, String module, String desc, String status, String errMsg) {
@@ -46,28 +46,28 @@ public class LogAspect {
         User user = "anonymousUser".equals(authentication.getName()) ? new User("anonymous")
             : (LoginUser) authentication.getPrincipal();
 
-        OperLog operLog = new OperLog();
-        operLog.setClazz(clazz);
+        OperateLog operateLog = new OperateLog();
+        operateLog.setClazz(clazz);
 
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder
             .getRequestAttributes();
         HttpServletRequest request = attributes == null ? null : attributes.getRequest();
 
-        operLog.setRequestUri(request == null ? null : request.getRequestURI());
-        operLog.setRequestMethod(request == null ? null : request.getMethod());
-        operLog.setRequestParams(null);
-        operLog.setOperator(
+        operateLog.setRequestUri(request == null ? null : request.getRequestURI());
+        operateLog.setRequestMethod(request == null ? null : request.getMethod());
+        operateLog.setRequestParams(null);
+        operateLog.setOperator(
             user.getId() == null ? user.getName() : (user.getName() + "@" + user.getId()));
-        operLog.setIp(request == null ? null : getRemoteAddr(request));
-        operLog.setIpAddr(null);
-        operLog.setOperTime(new Date());
-        operLog.setModule(module);
-        operLog.setDesc(desc);
-        operLog.setStatus(status);
-        operLog.setErrMsg(errMsg);
-        operLog.setCorpId(user.getCorpId());
+        operateLog.setIp(request == null ? null : getRemoteAddr(request));
+        operateLog.setIpAddr(null);
+        operateLog.setOperTime(new Date());
+        operateLog.setModule(module);
+        operateLog.setDesc(desc);
+        operateLog.setStatus(status);
+        operateLog.setErrMsg(errMsg);
+        operateLog.setCorpId(user.getCorpId());
 
-        producerService.send("topic", "oper.log.save", JSON.toJSONBytes(operLog),
+        producerService.send("topic", "oper.log.save", JSON.toJSONBytes(operateLog),
             String.valueOf(UUID.randomUUID()));
     }
 

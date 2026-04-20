@@ -2,7 +2,7 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.example.demo.log.dao.mapper.LoginLogMapper">
+<mapper namespace="com.example.demo.login.dao.mapper.LoginLogMapper">
 
 	<select id="count" parameterType="loginLogDO" resultType="java.lang.Integer">
 	<![CDATA[

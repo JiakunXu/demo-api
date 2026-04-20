@@ -1,4 +1,4 @@
-package com.example.demo.log.api.bo;
+package com.example.demo.login.api.bo;
 
 import com.example.demo.framework.bo.BaseBO;
 import lombok.Getter;
