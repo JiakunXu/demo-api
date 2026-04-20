@@ -18,8 +18,9 @@ public class FundAuthOrderServiceImpl implements FundAuthOrderService {
     private String notifyUrl;
 
     @Override
-    public String freeze(String outOrderNo, String outRequestNo, String orderTitle,
-                         BigDecimal amount, String timeoutExpress) {
+    public AlipayOpenApiGenericResponse freeze(String outOrderNo, String outRequestNo,
+                                               String orderTitle, BigDecimal amount,
+                                               String timeoutExpress) {
         Map<String, Object> bizParams = new HashMap<>();
         bizParams.put("out_order_no", outOrderNo);
         bizParams.put("out_request_no", outRequestNo);
@@ -32,7 +33,7 @@ public class FundAuthOrderServiceImpl implements FundAuthOrderService {
             AlipayOpenApiGenericResponse response = Factory.Util.Generic().asyncNotify(notifyUrl)
                 .execute("alipay.fund.auth.order.app.freeze", null, bizParams);
             if (ResponseChecker.success(response)) {
-                return response.getHttpBody();
+                return response;
             } else {
                 throw new RuntimeException("调用失败，原因：" + response.msg + "，" + response.subMsg);
             }
@@ -43,8 +44,9 @@ public class FundAuthOrderServiceImpl implements FundAuthOrderService {
     }
 
     @Override
-    public String unfreeze(String authNo, String outRequestNo, BigDecimal amount, String remark,
-                           String extraParam) {
+    public AlipayOpenApiGenericResponse unfreeze(String authNo, String outRequestNo,
+                                                 BigDecimal amount, String remark,
+                                                 String extraParam) {
         Map<String, Object> bizParams = new HashMap<>();
         bizParams.put("auth_no", authNo);
         bizParams.put("out_request_no", outRequestNo);
@@ -56,7 +58,7 @@ public class FundAuthOrderServiceImpl implements FundAuthOrderService {
             AlipayOpenApiGenericResponse response = Factory.Util.Generic().asyncNotify(notifyUrl)
                 .execute("alipay.fund.auth.order.unfreeze", null, bizParams);
             if (ResponseChecker.success(response)) {
-                return response.getHttpBody();
+                return response;
             } else {
                 throw new RuntimeException("调用失败，原因：" + response.msg + "，" + response.subMsg);
             }
@@ -67,8 +69,8 @@ public class FundAuthOrderServiceImpl implements FundAuthOrderService {
     }
 
     @Override
-    public String query(String authNo, String outOrderNo, String operationId, String outRequestNo,
-                        String operationType) {
+    public AlipayOpenApiGenericResponse query(String authNo, String outOrderNo, String operationId,
+                                              String outRequestNo, String operationType) {
         Map<String, Object> bizParams = new HashMap<>();
         bizParams.put("auth_no", authNo);
         bizParams.put("out_order_no", outOrderNo);
@@ -80,7 +82,7 @@ public class FundAuthOrderServiceImpl implements FundAuthOrderService {
             AlipayOpenApiGenericResponse response = Factory.Util.Generic()
                 .execute("alipay.fund.auth.operation.detail.query", null, bizParams);
             if (ResponseChecker.success(response)) {
-                return response.getHttpBody();
+                return response;
             } else {
                 throw new RuntimeException("调用失败，原因：" + response.msg + "，" + response.subMsg);
             }
@@ -91,8 +93,8 @@ public class FundAuthOrderServiceImpl implements FundAuthOrderService {
     }
 
     @Override
-    public String cancel(String authNo, String outOrderNo, String operationId, String outRequestNo,
-                         String remark) {
+    public AlipayOpenApiGenericResponse cancel(String authNo, String outOrderNo, String operationId,
+                                               String outRequestNo, String remark) {
         Map<String, Object> bizParams = new HashMap<>();
         bizParams.put("auth_no", authNo);
         bizParams.put("out_order_no", outOrderNo);
@@ -104,7 +106,7 @@ public class FundAuthOrderServiceImpl implements FundAuthOrderService {
             AlipayOpenApiGenericResponse response = Factory.Util.Generic().asyncNotify(notifyUrl)
                 .execute("alipay.fund.auth.operation.detail.query", null, bizParams);
             if (ResponseChecker.success(response)) {
-                return response.getHttpBody();
+                return response;
             } else {
                 throw new RuntimeException("调用失败，原因：" + response.msg + "，" + response.subMsg);
             }

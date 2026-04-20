@@ -1,5 +1,8 @@
 package com.example.demo.alipay.api;
 
+import com.alipay.easysdk.util.generic.models.AlipayOpenApiGenericResponse;
+import com.alipay.easysdk.util.generic.models.AlipayOpenApiGenericSDKResponse;
+
 public interface ZhimaCreditPayAfterUseCreditAgreementService {
 
     /**
@@ -9,7 +12,8 @@ public interface ZhimaCreditPayAfterUseCreditAgreementService {
      * @param categoryId 芝麻外部类目
      * @return
      */
-    String sign(String outAgreementNo, String zmServiceId, String categoryId);
+    AlipayOpenApiGenericSDKResponse sign(String outAgreementNo, String zmServiceId,
+                                         String categoryId);
 
     /**
      *
@@ -17,6 +21,6 @@ public interface ZhimaCreditPayAfterUseCreditAgreementService {
      * @param creditAgreementId 芝麻开通/授权协议号
      * @return
      */
-    String query(String outAgreementNo, String creditAgreementId);
+    AlipayOpenApiGenericResponse query(String outAgreementNo, String creditAgreementId);
 
 }

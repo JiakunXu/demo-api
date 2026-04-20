@@ -16,8 +16,9 @@ public class ZhimaCreditPayAfterUseCreditBizOrderServiceImpl implements
                                                              ZhimaCreditPayAfterUseCreditBizOrderService {
 
     @Override
-    public String order(String outOrderNo, String creditAgreementId, String categoryId,
-                        BigDecimal orderAmount, String subject) {
+    public AlipayOpenApiGenericResponse order(String outOrderNo, String creditAgreementId,
+                                              String categoryId, BigDecimal orderAmount,
+                                              String subject) {
         Map<String, Object> bizParams = new HashMap<>();
         bizParams.put("out_order_no", outOrderNo);
         bizParams.put("credit_agreement_id", creditAgreementId);
@@ -31,7 +32,7 @@ public class ZhimaCreditPayAfterUseCreditBizOrderServiceImpl implements
             AlipayOpenApiGenericResponse response = Factory.Util.Generic()
                 .execute("zhima.credit.payafteruse.creditbizorder.order", null, bizParams);
             if (ResponseChecker.success(response)) {
-                return response.getHttpBody();
+                return response;
             } else {
                 throw new RuntimeException("调用失败，原因：" + response.msg + "，" + response.subMsg);
             }
@@ -42,8 +43,9 @@ public class ZhimaCreditPayAfterUseCreditBizOrderServiceImpl implements
     }
 
     @Override
-    public String create(String outOrderNo, BigDecimal orderAmount, String zmServiceId,
-                         String categoryId, String subject) {
+    public AlipayOpenApiGenericSDKResponse create(String outOrderNo, BigDecimal orderAmount,
+                                                  String zmServiceId, String categoryId,
+                                                  String subject) {
         Map<String, Object> bizParams = new HashMap<>();
         bizParams.put("out_order_no", outOrderNo);
         bizParams.put("order_amount", orderAmount);
@@ -56,7 +58,7 @@ public class ZhimaCreditPayAfterUseCreditBizOrderServiceImpl implements
         try {
             AlipayOpenApiGenericSDKResponse response = Factory.Util.Generic()
                 .sdkExecute("zhima.credit.payafteruse.creditbizorder.create", null, bizParams);
-            return response.getBody();
+            return response;
         } catch (Exception e) {
             System.err.println("调用遭遇异常，原因：" + e.getMessage());
             throw new RuntimeException(e.getMessage(), e);
@@ -64,7 +66,7 @@ public class ZhimaCreditPayAfterUseCreditBizOrderServiceImpl implements
     }
 
     @Override
-    public String query(String creditBizOrderId, String outOrderNo) {
+    public AlipayOpenApiGenericResponse query(String creditBizOrderId, String outOrderNo) {
         Map<String, Object> bizParams = new HashMap<>();
         bizParams.put("credit_biz_order_id", creditBizOrderId);
         bizParams.put("out_order_no", outOrderNo);
@@ -73,7 +75,7 @@ public class ZhimaCreditPayAfterUseCreditBizOrderServiceImpl implements
             AlipayOpenApiGenericResponse response = Factory.Util.Generic()
                 .execute("zhima.credit.payafteruse.creditbizorder.query", null, bizParams);
             if (ResponseChecker.success(response)) {
-                return response.getHttpBody();
+                return response;
             } else {
                 throw new RuntimeException("调用失败，原因：" + response.msg + "，" + response.subMsg);
             }
@@ -84,8 +86,8 @@ public class ZhimaCreditPayAfterUseCreditBizOrderServiceImpl implements
     }
 
     @Override
-    public String finish(String outRequestNo, String creditBizOrderId, String isFulfilled,
-                         String remark) {
+    public AlipayOpenApiGenericResponse finish(String outRequestNo, String creditBizOrderId,
+                                               String isFulfilled, String remark) {
         Map<String, Object> bizParams = new HashMap<>();
         bizParams.put("out_request_no", outRequestNo);
         bizParams.put("credit_biz_order_id", creditBizOrderId);
@@ -96,7 +98,7 @@ public class ZhimaCreditPayAfterUseCreditBizOrderServiceImpl implements
             AlipayOpenApiGenericResponse response = Factory.Util.Generic()
                 .execute("zhima.credit.payafteruse.creditbizorder.finish", null, bizParams);
             if (ResponseChecker.success(response)) {
-                return response.getHttpBody();
+                return response;
             } else {
                 throw new RuntimeException("调用失败，原因：" + response.msg + "，" + response.subMsg);
             }

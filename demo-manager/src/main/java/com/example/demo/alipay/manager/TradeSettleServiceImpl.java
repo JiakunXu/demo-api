@@ -13,7 +13,7 @@ import java.util.Map;
 public class TradeSettleServiceImpl implements TradeSettleService {
 
     @Override
-    public String confirm(String outRequestNo, String tradeNo) {
+    public AlipayOpenApiGenericResponse confirm(String outRequestNo, String tradeNo) {
         Map<String, Object> bizParams = new HashMap<>();
         bizParams.put("out_request_no", outRequestNo);
         bizParams.put("trade_no", tradeNo);
@@ -22,7 +22,7 @@ public class TradeSettleServiceImpl implements TradeSettleService {
             AlipayOpenApiGenericResponse response = Factory.Util.Generic()
                 .execute("alipay.trade.create", null, bizParams);
             if (ResponseChecker.success(response)) {
-                return response.getHttpBody();
+                return response;
             } else {
                 throw new RuntimeException("调用失败，原因：" + response.msg + "，" + response.subMsg);
             }
