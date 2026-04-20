@@ -4,8 +4,7 @@ import com.example.demo.security.api.bo.LoginUser;
 import com.example.demo.security.authentication.AuthenticationToken;
 import com.example.demo.tunnel.api.TunnelService;
 import com.example.demo.socket.manager.WebSocketManager;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
@@ -16,13 +15,12 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 /**
  * @author JiakunXu
  */
+@Slf4j
 @Component
 public class WebSocketHandler extends TextWebSocketHandler {
 
-    private static final Logger logger = LoggerFactory.getLogger(WebSocketHandler.class);
-
     @Autowired
-    private TunnelService       tunnelService;
+    private TunnelService tunnelService;
 
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {

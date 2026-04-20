@@ -30,7 +30,7 @@ public interface OssService {
     String putObject(String bucketName, String key, InputStream content, String contentType);
 
     /**
-     * 
+     *
      * @param sourceBucketName
      * @param sourceKey
      * @param destinationBucketName

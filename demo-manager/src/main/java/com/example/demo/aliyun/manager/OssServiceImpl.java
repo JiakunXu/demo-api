@@ -10,8 +10,8 @@ import com.aliyun.oss.model.GeneratePresignedUrlRequest;
 import com.aliyun.oss.model.ObjectMetadata;
 import com.aliyun.oss.model.PutObjectRequest;
 import com.example.demo.aliyun.api.OssService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.example.demo.framework.util.DateUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -24,19 +24,18 @@ import java.util.Date;
 /**
  * @author JiakunXu
  */
+@Slf4j
 @Service
 public class OssServiceImpl implements OssService {
 
-    private static final Logger logger = LoggerFactory.getLogger(OssServiceImpl.class);
-
     @Value("${aliyun.oss.endpoint}")
-    private String              endpoint;
+    private String endpoint;
 
     @Value("${aliyun.accessKey.id}")
-    private String              accessKeyId;
+    private String accessKeyId;
 
     @Value("${aliyun.accessKey.secret}")
-    private String              secretAccessKey;
+    private String secretAccessKey;
 
     @Override
     public String putObject(String bucketName, String key, byte[] content, String contentType) {
@@ -61,19 +60,19 @@ public class OssServiceImpl implements OssService {
             // 上传文件。
             ossClient.putObject(putObjectRequest);
         } catch (OSSException oe) {
-            logger.error("Caught an OSSException, which means your request made it to OSS, "
-                         + "but was rejected with an error response for some reason.");
-            logger.error("Error Message: " + oe.getErrorMessage());
-            logger.error("Error Code: " + oe.getErrorCode());
-            logger.error("Request ID: " + oe.getRequestId());
-            logger.error("Host ID: " + oe.getHostId());
+            log.error("Caught an OSSException, which means your request made it to OSS, "
+                      + "but was rejected with an error response for some reason.");
+            log.error("Error Message: " + oe.getErrorMessage());
+            log.error("Error Code: " + oe.getErrorCode());
+            log.error("Request ID: " + oe.getRequestId());
+            log.error("Host ID: " + oe.getHostId());
 
             throw new RuntimeException(oe.getErrorMessage(), oe);
         } catch (ClientException ce) {
-            logger.error("Caught an ClientException, which means the client encountered "
-                         + "a serious internal problem while trying to communicate with OSS, "
-                         + "such as not being able to access the network.");
-            logger.error("Error Message: " + ce.getMessage());
+            log.error("Caught an ClientException, which means the client encountered "
+                      + "a serious internal problem while trying to communicate with OSS, "
+                      + "such as not being able to access the network.");
+            log.error("Error Message: " + ce.getMessage());
 
             throw new RuntimeException(ce.getMessage(), ce);
         } finally {
@@ -104,19 +103,19 @@ public class OssServiceImpl implements OssService {
             // 复制文件。
             ossClient.copyObject(copyObjectRequest);
         } catch (OSSException oe) {
-            logger.error("Caught an OSSException, which means your request made it to OSS, "
-                         + "but was rejected with an error response for some reason.");
-            logger.error("Error Message:" + oe.getErrorMessage());
-            logger.error("Error Code:" + oe.getErrorCode());
-            logger.error("Request ID:" + oe.getRequestId());
-            logger.error("Host ID:" + oe.getHostId());
+            log.error("Caught an OSSException, which means your request made it to OSS, "
+                      + "but was rejected with an error response for some reason.");
+            log.error("Error Message:" + oe.getErrorMessage());
+            log.error("Error Code:" + oe.getErrorCode());
+            log.error("Request ID:" + oe.getRequestId());
+            log.error("Host ID:" + oe.getHostId());
 
             throw new RuntimeException(oe.getErrorMessage(), oe);
         } catch (ClientException ce) {
-            logger.error("Caught an ClientException, which means the client encountered "
-                         + "a serious internal problem while trying to communicate with OSS, "
-                         + "such as not being able to access the network.");
-            logger.error("Error Message:" + ce.getMessage());
+            log.error("Caught an ClientException, which means the client encountered "
+                      + "a serious internal problem while trying to communicate with OSS, "
+                      + "such as not being able to access the network.");
+            log.error("Error Message:" + ce.getMessage());
 
             throw new RuntimeException(ce.getMessage(), ce);
         } finally {
@@ -140,24 +139,25 @@ public class OssServiceImpl implements OssService {
 
         GeneratePresignedUrlRequest request = new GeneratePresignedUrlRequest(bucketName, key,
             HttpMethod.PUT);
+        request.setExpiration(DateUtil.addMinutes(new Date(), 10));
         request.setHeaders(Collections.singletonMap(OSSHeaders.CONTENT_TYPE, contentType));
 
         try {
             return ossClient.generatePresignedUrl(request);
         } catch (OSSException oe) {
-            logger.error("Caught an OSSException, which means your request made it to OSS, "
-                         + "but was rejected with an error response for some reason.");
-            logger.error("Error Message:" + oe.getErrorMessage());
-            logger.error("Error Code:" + oe.getErrorCode());
-            logger.error("Request ID:" + oe.getRequestId());
-            logger.error("Host ID:" + oe.getHostId());
+            log.error("Caught an OSSException, which means your request made it to OSS, "
+                      + "but was rejected with an error response for some reason.");
+            log.error("Error Message:" + oe.getErrorMessage());
+            log.error("Error Code:" + oe.getErrorCode());
+            log.error("Request ID:" + oe.getRequestId());
+            log.error("Host ID:" + oe.getHostId());
 
             throw new RuntimeException(oe.getErrorMessage(), oe);
         } catch (ClientException ce) {
-            logger.error("Caught an ClientException, which means the client encountered "
-                         + "a serious internal problem while trying to communicate with OSS, "
-                         + "such as not being able to access the network.");
-            logger.error("Error Message:" + ce.getMessage());
+            log.error("Caught an ClientException, which means the client encountered "
+                      + "a serious internal problem while trying to communicate with OSS, "
+                      + "such as not being able to access the network.");
+            log.error("Error Message:" + ce.getMessage());
 
             throw new RuntimeException(ce.getMessage(), ce);
         } finally {
@@ -190,19 +190,19 @@ public class OssServiceImpl implements OssService {
         try {
             return ossClient.generatePresignedUrl(request);
         } catch (OSSException oe) {
-            logger.error("Caught an OSSException, which means your request made it to OSS, "
-                         + "but was rejected with an error response for some reason.");
-            logger.error("Error Message:" + oe.getErrorMessage());
-            logger.error("Error Code:" + oe.getErrorCode());
-            logger.error("Request ID:" + oe.getRequestId());
-            logger.error("Host ID:" + oe.getHostId());
+            log.error("Caught an OSSException, which means your request made it to OSS, "
+                      + "but was rejected with an error response for some reason.");
+            log.error("Error Message:" + oe.getErrorMessage());
+            log.error("Error Code:" + oe.getErrorCode());
+            log.error("Request ID:" + oe.getRequestId());
+            log.error("Host ID:" + oe.getHostId());
 
             throw new RuntimeException(oe.getErrorMessage(), oe);
         } catch (ClientException ce) {
-            logger.error("Caught an ClientException, which means the client encountered "
-                         + "a serious internal problem while trying to communicate with OSS, "
-                         + "such as not being able to access the network.");
-            logger.error("Error Message:" + ce.getMessage());
+            log.error("Caught an ClientException, which means the client encountered "
+                      + "a serious internal problem while trying to communicate with OSS, "
+                      + "such as not being able to access the network.");
+            log.error("Error Message:" + ce.getMessage());
 
             throw new RuntimeException(ce.getMessage(), ce);
         } finally {
