@@ -1,14 +1,14 @@
 package com.example.demo.security.api;
 
-import com.example.demo.security.api.bo.LoginUser;
+import org.springframework.security.core.userdetails.UserDetails;
 
 public interface TokenService {
 
     String TOKEN_PREFIX = "Bearer ";
 
-    LoginUser getUser(String token);
+    UserDetails getUser(String token);
 
-    String setUser(LoginUser user);
+    String setUser(UserDetails user);
 
     void refresh(String token);
 

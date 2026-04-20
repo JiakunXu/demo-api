@@ -1,12 +1,13 @@
 package com.example.demo.security.api;
 
 import com.example.demo.user.api.bo.User;
+import org.springframework.security.core.userdetails.UserDetails;
 
 public interface RefreshTokenService {
 
-    boolean validate(User user);
+    boolean validate(UserDetails user);
 
-    void set(User user);
+    void set(UserDetails user);
 
     void remove(User user);
 

@@ -3,11 +3,13 @@ package com.example.demo.security.service;
 import com.example.demo.cache.api.RedisService;
 import com.example.demo.security.api.RefreshTokenService;
 import com.example.demo.security.api.TokenService;
-import com.example.demo.security.api.bo.LoginUser;
+import com.example.demo.security.api.UserDetailsService;
+import com.example.demo.user.api.bo.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AccountExpiredException;
@@ -15,7 +17,6 @@ import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.LockedException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsChecker;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
@@ -27,26 +28,26 @@ import java.util.UUID;
 public class TokenServiceImpl implements TokenService {
 
     @Autowired
-    private RedisService<String, LoginUser> redisService;
+    private RedisService<String, UserDetails> redisService;
 
     @Autowired
-    private RefreshTokenService             refreshTokenService;
+    private RefreshTokenService               refreshTokenService;
 
     @Autowired
-    private UserDetailsService              userDetailsService;
+    private UserDetailsService                userDetailsService;
 
     @Value("${secret.key}")
-    private String                          secretKey;
+    private String                            secretKey;
 
-    private final UserDetailsChecker        preAuthenticationChecks = new DefaultPreAuthenticationChecks();
+    private final UserDetailsChecker          preAuthenticationChecks = new DefaultPreAuthenticationChecks();
 
     @Override
-    public LoginUser getUser(String token) {
+    public UserDetails getUser(String token) {
         if (StringUtils.isBlank(token)) {
             return null;
         }
 
-        LoginUser user = redisService.get(getKey(token));
+        UserDetails user = redisService.get(getKey(token));
 
         if (user == null) {
             return null;
@@ -54,7 +55,11 @@ public class TokenServiceImpl implements TokenService {
 
         if (!refreshTokenService.validate(user)) {
             try {
-                user = (LoginUser) userDetailsService.loadUserByUsername(user.getUsername());
+                if (user instanceof User) {
+                    user = userDetailsService.loadUserById(((User) user).getId());
+                } else {
+                    return null;
+                }
             } catch (Exception e) {
                 remove(token);
                 return null;
@@ -76,8 +81,8 @@ public class TokenServiceImpl implements TokenService {
     }
 
     @Override
-    public String setUser(LoginUser user) {
-        String token = UUID.randomUUID().toString();
+    public String setUser(UserDetails user) {
+        String token = String.valueOf(UUID.randomUUID());
 
         redisService.add(token, user);
 
@@ -109,7 +114,7 @@ public class TokenServiceImpl implements TokenService {
 
     private String getKey(String token) {
         Claims claims = Jwts.parser().verifyWith(getSecretKey()).build()
-            .parseSignedClaims(StringUtils.removeStart(token, TOKEN_PREFIX)).getPayload();
+            .parseSignedClaims(Strings.CS.removeStart(token, TOKEN_PREFIX)).getPayload();
 
         return claims.getId();
     }

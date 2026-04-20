@@ -12,6 +12,7 @@ import com.example.demo.role.api.RoleService;
 import com.example.demo.role.api.bo.Role;
 import com.example.demo.role.dao.dataobject.RoleDO;
 import com.example.demo.role.dao.mapper.RoleMapper;
+import com.example.demo.user.api.UserRoleService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,9 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, RoleDO> implements 
 
     @Autowired
     private RoleMenuService            roleMenuService;
+
+    @Autowired
+    private UserRoleService            userRoleService;
 
     @Override
     public int countRole(Role role) {
@@ -193,6 +197,10 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, RoleDO> implements 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
     public Role deleteRole(@NotNull BigInteger id, @NotBlank String modifier) {
+        if (userRoleService.countUserRole(id) > 0) {
+            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "已关联用户，请先调整用户角色");
+        }
+
         RoleDO roleDO = new RoleDO();
         roleDO.setId(id);
         roleDO.setModifier(modifier);

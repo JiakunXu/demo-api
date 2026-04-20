@@ -3,22 +3,20 @@ package com.example.demo.security.service;
 import com.example.demo.cache.api.RedisService;
 import com.example.demo.security.api.RefreshTokenService;
 import com.example.demo.user.api.bo.User;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 public class RefreshTokenServiceImpl implements RefreshTokenService {
-
-    private static final Logger           logger = LoggerFactory
-        .getLogger(RefreshTokenServiceImpl.class);
 
     @Autowired
     private RedisService<String, Boolean> redisService;
 
     @Override
-    public boolean validate(User user) {
+    public boolean validate(UserDetails user) {
         if (user == null) {
             return false;
         }
@@ -27,7 +25,7 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
     }
 
     @Override
-    public void set(User user) {
+    public void set(UserDetails user) {
         if (user == null) {
             return;
         }
@@ -36,7 +34,7 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
             redisService.set(getKey(user), Boolean.TRUE,
                 RedisService.CACHE_KEY_REFRESH_TOKEN_DEFAULT_EXP);
         } catch (Exception e) {
-            logger.error("set", e);
+            log.error("set", e);
         }
     }
 
@@ -49,8 +47,16 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
         try {
             redisService.remove(getKey(user));
         } catch (Exception e) {
-            logger.error("remove", e);
+            log.error("remove", e);
         }
+    }
+
+    private String getKey(UserDetails user) {
+        if (user instanceof User) {
+            return getKey((User) user);
+        }
+
+        return null;
     }
 
     private String getKey(User user) {
