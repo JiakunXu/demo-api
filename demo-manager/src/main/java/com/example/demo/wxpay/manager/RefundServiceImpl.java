@@ -9,21 +9,19 @@ import com.wechat.pay.java.service.refund.model.AmountReq;
 import com.wechat.pay.java.service.refund.model.CreateRequest;
 import com.wechat.pay.java.service.refund.model.QueryByOutRefundNoRequest;
 import com.wechat.pay.java.service.refund.model.Refund;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 public class RefundServiceImpl implements RefundService {
 
-    private static final Logger logger = LoggerFactory.getLogger(RefundServiceImpl.class);
+    @Autowired(required = false)
+    private Config merchantConfig;
 
     @Autowired(required = false)
-    private Config              merchantConfig;
-
-    @Autowired(required = false)
-    private Config              partnerConfig;
+    private Config partnerConfig;
 
     @Override
     public Refund create(String outTradeNo, String outRefundNo, String reason, String notifyUrl,
@@ -47,13 +45,13 @@ public class RefundServiceImpl implements RefundService {
         try {
             return service.create(request);
         } catch (HttpException e) {
-            logger.error(request.toString(), e);
+            log.error("{}", request, e);
             throw new RuntimeException("发送HTTP请求失败");
         } catch (ServiceException e) {
-            logger.error(request.toString(), e);
+            log.error("{}", request, e);
             throw new RuntimeException(e.getErrorMessage());
         } catch (MalformedMessageException e) {
-            logger.error(request.toString(), e);
+            log.error("{}", request, e);
             throw new RuntimeException(e.getMessage());
         }
     }
@@ -81,13 +79,13 @@ public class RefundServiceImpl implements RefundService {
         try {
             return service.create(request);
         } catch (HttpException e) {
-            logger.error(request.toString(), e);
+            log.error("{}", request, e);
             throw new RuntimeException("发送HTTP请求失败");
         } catch (ServiceException e) {
-            logger.error(request.toString(), e);
+            log.error("{}", request, e);
             throw new RuntimeException(e.getErrorMessage());
         } catch (MalformedMessageException e) {
-            logger.error(request.toString(), e);
+            log.error("{}", request, e);
             throw new RuntimeException(e.getMessage());
         }
     }
@@ -103,13 +101,13 @@ public class RefundServiceImpl implements RefundService {
         try {
             return service.queryByOutRefundNo(request);
         } catch (HttpException e) {
-            logger.error(request.toString(), e);
+            log.error("{}", request, e);
             throw new RuntimeException("发送HTTP请求失败");
         } catch (ServiceException e) {
-            logger.error(request.toString(), e);
+            log.error("{}", request, e);
             throw new RuntimeException(e.getErrorMessage());
         } catch (MalformedMessageException e) {
-            logger.error(request.toString(), e);
+            log.error("{}", request, e);
             throw new RuntimeException(e.getMessage());
         }
     }
@@ -126,13 +124,13 @@ public class RefundServiceImpl implements RefundService {
         try {
             return service.queryByOutRefundNo(request);
         } catch (HttpException e) {
-            logger.error(request.toString(), e);
+            log.error("{}", request, e);
             throw new RuntimeException("发送HTTP请求失败");
         } catch (ServiceException e) {
-            logger.error(request.toString(), e);
+            log.error("{}", request, e);
             throw new RuntimeException(e.getErrorMessage());
         } catch (MalformedMessageException e) {
-            logger.error(request.toString(), e);
+            log.error("{}", request, e);
             throw new RuntimeException(e.getMessage());
         }
     }

@@ -4,10 +4,9 @@ import com.alibaba.fastjson2.JSON;
 import com.example.demo.framework.bo.BaseBO;
 import com.example.demo.security.api.bo.LoginUser;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,10 +19,9 @@ import java.util.List;
 /**
  * @author JiakunXu
  */
+@Slf4j
 @RestController
 public class BaseController {
-
-    private static final Logger logger = LoggerFactory.getLogger(BaseController.class);
 
     public LoginUser getUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -72,7 +70,7 @@ public class BaseController {
             return JSON.parseObject(
                 IOUtils.toString(request.getInputStream(), StandardCharsets.UTF_8), clazz);
         } catch (IOException e) {
-            logger.error("getParameter", e);
+            log.error("getParameter", e);
         }
 
         return JSON.parseObject("{}", clazz);
@@ -87,7 +85,7 @@ public class BaseController {
             return JSON.parseArray(
                 IOUtils.toString(request.getInputStream(), StandardCharsets.UTF_8), clazz);
         } catch (IOException e) {
-            logger.error("getParameter", e);
+            log.error("getParameter", e);
         }
 
         return JSON.parseArray("[]", clazz);
@@ -97,7 +95,7 @@ public class BaseController {
         try {
             return IOUtils.toString(request.getInputStream(), StandardCharsets.UTF_8);
         } catch (IOException e) {
-            logger.error("getParameter", e);
+            log.error("getParameter", e);
         }
 
         return null;

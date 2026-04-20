@@ -8,18 +8,16 @@ import com.wechat.pay.java.core.exception.ServiceException;
 import com.wechat.pay.java.service.payments.jsapi.JsapiServiceExtension;
 import com.wechat.pay.java.service.payments.jsapi.model.*;
 import com.wechat.pay.java.service.payments.model.Transaction;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service("com.example.demo.wxpay.manager.jsapiService")
 public class JsapiServiceImpl implements JsapiService {
 
-    private static final Logger logger = LoggerFactory.getLogger(JsapiServiceImpl.class);
-
     @Autowired(required = false)
-    private Config              merchantConfig;
+    private Config merchantConfig;
 
     @Override
     public PrepayWithRequestPaymentResponse prepayWithRequestPayment(String appid, String mchid,
@@ -57,13 +55,13 @@ public class JsapiServiceImpl implements JsapiService {
         try {
             return service.prepayWithRequestPayment(request);
         } catch (HttpException e) {
-            logger.error(request.toString(), e);
+            log.error("{}", request, e);
             throw new RuntimeException("发送HTTP请求失败");
         } catch (ServiceException e) {
-            logger.error(request.toString(), e);
+            log.error("{}", request, e);
             throw new RuntimeException(e.getErrorMessage());
         } catch (MalformedMessageException e) {
-            logger.error(request.toString(), e);
+            log.error("{}", request, e);
             throw new RuntimeException(e.getMessage());
         }
     }
@@ -80,13 +78,13 @@ public class JsapiServiceImpl implements JsapiService {
         try {
             service.closeOrder(request);
         } catch (HttpException e) {
-            logger.error(request.toString(), e);
+            log.error("{}", request, e);
             throw new RuntimeException("发送HTTP请求失败");
         } catch (ServiceException e) {
-            logger.error(request.toString(), e);
+            log.error("{}", request, e);
             throw new RuntimeException(e.getErrorMessage());
         } catch (MalformedMessageException e) {
-            logger.error(request.toString(), e);
+            log.error("{}", request, e);
             throw new RuntimeException(e.getMessage());
         }
     }
@@ -103,13 +101,13 @@ public class JsapiServiceImpl implements JsapiService {
         try {
             return service.queryOrderByOutTradeNo(request);
         } catch (HttpException e) {
-            logger.error(request.toString(), e);
+            log.error("{}", request, e);
             throw new RuntimeException("发送HTTP请求失败");
         } catch (ServiceException e) {
-            logger.error(request.toString(), e);
+            log.error("{}", request, e);
             throw new RuntimeException(e.getErrorMessage());
         } catch (MalformedMessageException e) {
-            logger.error(request.toString(), e);
+            log.error("{}", request, e);
             throw new RuntimeException(e.getMessage());
         }
     }

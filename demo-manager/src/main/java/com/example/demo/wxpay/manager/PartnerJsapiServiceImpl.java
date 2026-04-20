@@ -7,18 +7,16 @@ import com.wechat.pay.java.core.exception.MalformedMessageException;
 import com.wechat.pay.java.core.exception.ServiceException;
 import com.wechat.pay.java.service.partnerpayments.jsapi.JsapiServiceExtension;
 import com.wechat.pay.java.service.partnerpayments.jsapi.model.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 public class PartnerJsapiServiceImpl implements PartnerJsapiService {
 
-    private static final Logger logger = LoggerFactory.getLogger(PartnerJsapiServiceImpl.class);
-
     @Autowired(required = false)
-    private Config              partnerConfig;
+    private Config partnerConfig;
 
     @Override
     public PrepayWithRequestPaymentResponse prepayWithRequestPayment(String spAppid, String spMchid,
@@ -59,13 +57,13 @@ public class PartnerJsapiServiceImpl implements PartnerJsapiService {
         try {
             return service.prepayWithRequestPayment(request, spAppid);
         } catch (HttpException e) {
-            logger.error(request.toString(), e);
+            log.error("{}", request, e);
             throw new RuntimeException("发送HTTP请求失败");
         } catch (ServiceException e) {
-            logger.error(request.toString(), e);
+            log.error("{}", request, e);
             throw new RuntimeException(e.getErrorMessage());
         } catch (MalformedMessageException e) {
-            logger.error(request.toString(), e);
+            log.error("{}", request, e);
             throw new RuntimeException(e.getMessage());
         }
     }
@@ -83,13 +81,13 @@ public class PartnerJsapiServiceImpl implements PartnerJsapiService {
         try {
             service.closeOrder(request);
         } catch (HttpException e) {
-            logger.error(request.toString(), e);
+            log.error("{}", request, e);
             throw new RuntimeException("发送HTTP请求失败");
         } catch (ServiceException e) {
-            logger.error(request.toString(), e);
+            log.error("{}", request, e);
             throw new RuntimeException(e.getErrorMessage());
         } catch (MalformedMessageException e) {
-            logger.error(request.toString(), e);
+            log.error("{}", request, e);
             throw new RuntimeException(e.getMessage());
         }
     }
@@ -107,13 +105,13 @@ public class PartnerJsapiServiceImpl implements PartnerJsapiService {
         try {
             return service.queryOrderByOutTradeNo(request);
         } catch (HttpException e) {
-            logger.error(request.toString(), e);
+            log.error("{}", request, e);
             throw new RuntimeException("发送HTTP请求失败");
         } catch (ServiceException e) {
-            logger.error(request.toString(), e);
+            log.error("{}", request, e);
             throw new RuntimeException(e.getErrorMessage());
         } catch (MalformedMessageException e) {
-            logger.error(request.toString(), e);
+            log.error("{}", request, e);
             throw new RuntimeException(e.getMessage());
         }
     }

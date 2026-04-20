@@ -6,20 +6,18 @@ import com.wechat.pay.java.core.exception.HttpException;
 import com.wechat.pay.java.core.exception.MalformedMessageException;
 import com.wechat.pay.java.core.exception.ServiceException;
 import com.wechat.pay.java.service.transferbatch.model.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Slf4j
 @Service
 public class TransferBatchServiceImpl implements TransferBatchService {
 
-    private static final Logger logger = LoggerFactory.getLogger(TransferBatchServiceImpl.class);
-
     @Autowired(required = false)
-    private Config              partnerConfig;
+    private Config partnerConfig;
 
     @Override
     public TransferBatchEntity getTransferBatchByOutNo(String outBatchNo) {
@@ -33,13 +31,13 @@ public class TransferBatchServiceImpl implements TransferBatchService {
         try {
             return service.getTransferBatchByOutNo(request);
         } catch (HttpException e) {
-            logger.error(request.toString(), e);
+            log.error("{}", request, e);
             throw new RuntimeException("发送HTTP请求失败");
         } catch (ServiceException e) {
-            logger.error(request.toString(), e);
+            log.error("{}", request, e);
             throw new RuntimeException(e.getErrorMessage());
         } catch (MalformedMessageException e) {
-            logger.error(request.toString(), e);
+            log.error("{}", request, e);
             throw new RuntimeException(e.getMessage());
         }
     }
@@ -66,13 +64,13 @@ public class TransferBatchServiceImpl implements TransferBatchService {
         try {
             return service.initiateBatchTransfer(request);
         } catch (HttpException e) {
-            logger.error(request.toString(), e);
+            log.error("{}", request, e);
             throw new RuntimeException("发送HTTP请求失败");
         } catch (ServiceException e) {
-            logger.error(request.toString(), e);
+            log.error("{}", request, e);
             throw new RuntimeException(e.getErrorMessage());
         } catch (MalformedMessageException e) {
-            logger.error(request.toString(), e);
+            log.error("{}", request, e);
             throw new RuntimeException(e.getMessage());
         }
     }
@@ -89,13 +87,13 @@ public class TransferBatchServiceImpl implements TransferBatchService {
         try {
             return service.getTransferDetailByOutNo(request);
         } catch (HttpException e) {
-            logger.error(request.toString(), e);
+            log.error("{}", request, e);
             throw new RuntimeException("发送HTTP请求失败");
         } catch (ServiceException e) {
-            logger.error(request.toString(), e);
+            log.error("{}", request, e);
             throw new RuntimeException(e.getErrorMessage());
         } catch (MalformedMessageException e) {
-            logger.error(request.toString(), e);
+            log.error("{}", request, e);
             throw new RuntimeException(e.getMessage());
         }
     }
