@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(value = "/monitor/log/login")
 public class LoginLogController extends BaseController {
@@ -23,22 +25,22 @@ public class LoginLogController extends BaseController {
     @PreAuthorize("hasAuthority('monitor:log:crud')")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public ListResponse<LoginLog> list(HttpServletRequest request, HttpServletResponse response) {
-        LoginLog loginLog = this.getParameter(request, new LoginLog());
+        LoginLog log = this.getParameter(request, new LoginLog());
 
-        int count = loginLogService.countLoginLog(loginLog);
+        int count = loginLogService.countLog(log);
 
         if (count == 0) {
-            return new ListResponse<>(0, null);
+            return new ListResponse<>(0, List.of());
         }
 
-        return new ListResponse<>(count, loginLogService.listLoginLogs(loginLog));
+        return new ListResponse<>(count, loginLogService.listLogs(log));
     }
 
     @PreAuthorize("hasAuthority('monitor:log:crud')")
     @RequestMapping(value = "/get", method = RequestMethod.GET)
     public ObjectResponse<LoginLog> get(HttpServletRequest request, HttpServletResponse response) {
         String id = this.getParameter(request, "id");
-        return new ObjectResponse<>(loginLogService.getLoginLog(id));
+        return new ObjectResponse<>(loginLogService.getLog(id));
     }
 
 }

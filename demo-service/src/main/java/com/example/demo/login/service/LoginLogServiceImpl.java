@@ -4,109 +4,83 @@ import com.example.demo.framework.annotation.NotBlank;
 import com.example.demo.framework.annotation.NotNull;
 import com.example.demo.framework.constant.Constants;
 import com.example.demo.framework.exception.ServiceException;
+import com.example.demo.framework.service.impl.ServiceImpl;
 import com.example.demo.framework.util.BeanUtil;
 import com.example.demo.login.api.LoginLogService;
 import com.example.demo.login.api.bo.LoginLog;
 import com.example.demo.login.dao.dataobject.LoginLogDO;
 import com.example.demo.login.dao.mapper.LoginLogMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.math.BigInteger;
 import java.util.List;
 
+@Slf4j
 @Service
-public class LoginLogServiceImpl implements LoginLogService {
-
-    private static final Logger logger = LoggerFactory.getLogger(LoginLogServiceImpl.class);
-
-    @Autowired
-    private LoginLogMapper      loginLogMapper;
+public class LoginLogServiceImpl extends ServiceImpl<LoginLogMapper, LoginLogDO>
+                                 implements LoginLogService {
 
     @Override
-    public int countLoginLog(LoginLog loginLog) {
-        if (loginLog == null) {
+    public int countLog(LoginLog log) {
+        if (log == null) {
             return 0;
         }
 
-        return count(BeanUtil.copy(loginLog, LoginLogDO.class));
+        return this.count(BeanUtil.copy(log, LoginLogDO.class));
     }
 
     @Override
-    public List<LoginLog> listLoginLogs(LoginLog loginLog) {
-        if (loginLog == null) {
-            return null;
+    public List<LoginLog> listLogs(LoginLog log) {
+        if (log == null) {
+            return List.of();
         }
 
-        return BeanUtil.copy(list(BeanUtil.copy(loginLog, LoginLogDO.class)), LoginLog.class);
+        List<LoginLog> list = BeanUtil.copy(this.list(BeanUtil.copy(log, LoginLogDO.class)),
+            LoginLog.class);
+
+        if (CollectionUtils.isEmpty(list)) {
+            return List.of();
+        }
+
+        return list;
     }
 
     @Override
-    public LoginLog getLoginLog(String id) {
+    public LoginLog getLog(String id) {
         if (StringUtils.isBlank(id)) {
             return null;
         }
 
-        return getLoginLog(new BigInteger(id));
+        return getLog(new BigInteger(id));
     }
 
     @Override
-    public LoginLog getLoginLog(BigInteger id) {
+    public LoginLog getLog(BigInteger id) {
         if (id == null) {
             return null;
         }
 
-        return BeanUtil.copy(get(new LoginLogDO(id)), LoginLog.class);
+        return BeanUtil.copy(this.get(new LoginLogDO(id)), LoginLog.class);
     }
 
     @Override
-    public LoginLog insertLoginLog(@NotNull LoginLog loginLog, @NotBlank String creator) {
-        LoginLogDO loginLogDO = BeanUtil.copy(loginLog, LoginLogDO.class);
-        loginLogDO.setCreator(creator);
+    public LoginLog insertLog(@NotNull LoginLog log, @NotBlank String creator) {
+        LoginLogDO logDO = BeanUtil.copy(log, LoginLogDO.class);
+        logDO.setCreator(creator);
 
         try {
-            loginLogMapper.insert(loginLogDO);
+            this.insert(logDO);
         } catch (Exception e) {
-            logger.error(loginLogDO.toString(), e);
+            LoginLogServiceImpl.log.error("{}", logDO, e);
             throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息创建失败，请稍后再试");
         }
 
-        loginLog.setId(loginLogDO.getId());
+        log.setId(logDO.getId());
 
-        return loginLog;
-    }
-
-    private int count(LoginLogDO loginLogDO) {
-        try {
-            return loginLogMapper.count(loginLogDO);
-        } catch (Exception e) {
-            logger.error(loginLogDO.toString(), e);
-        }
-
-        return 0;
-    }
-
-    private List<LoginLogDO> list(LoginLogDO loginLogDO) {
-        try {
-            return loginLogMapper.list(loginLogDO);
-        } catch (Exception e) {
-            logger.error(loginLogDO.toString(), e);
-        }
-
-        return null;
-    }
-
-    private LoginLogDO get(LoginLogDO loginLogDO) {
-        try {
-            return loginLogMapper.get(loginLogDO);
-        } catch (Exception e) {
-            logger.error(loginLogDO.toString(), e);
-        }
-
-        return null;
+        return log;
     }
 
 }

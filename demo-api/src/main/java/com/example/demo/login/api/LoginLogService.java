@@ -7,14 +7,14 @@ import java.util.List;
 
 public interface LoginLogService {
 
-    int countLoginLog(LoginLog loginLog);
+    int countLog(LoginLog loginLog);
 
-    List<LoginLog> listLoginLogs(LoginLog loginLog);
+    List<LoginLog> listLogs(LoginLog loginLog);
 
-    LoginLog getLoginLog(String id);
+    LoginLog getLog(String id);
 
-    LoginLog getLoginLog(BigInteger id);
+    LoginLog getLog(BigInteger id);
 
-    LoginLog insertLoginLog(LoginLog loginLog, String creator);
+    LoginLog insertLog(LoginLog loginLog, String creator);
 
 }
