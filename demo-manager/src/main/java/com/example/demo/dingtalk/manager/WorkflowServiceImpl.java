@@ -1,6 +1,5 @@
 package com.example.demo.dingtalk.manager;
 
-import com.alibaba.fastjson2.JSON;
 import com.aliyun.dingtalkworkflow_1_0.Client;
 import com.aliyun.dingtalkworkflow_1_0.models.*;
 import com.aliyun.tea.TeaException;
@@ -9,18 +8,16 @@ import com.aliyun.teautil.Common;
 import com.aliyun.teautil.models.RuntimeOptions;
 import com.example.demo.dingtalk.api.WorkflowService;
 import com.example.demo.dingtalk.api.bo.FormValue;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @Service
 public class WorkflowServiceImpl implements WorkflowService {
-
-    private static final Logger logger = LoggerFactory.getLogger(WorkflowServiceImpl.class);
 
     @Override
     public Long getAttachmentSpace(String accessToken, String userId) throws RuntimeException {
@@ -42,7 +39,7 @@ public class WorkflowServiceImpl implements WorkflowService {
         try {
             response = client.getAttachmentSpaceWithOptions(request, headers, new RuntimeOptions());
         } catch (Exception e) {
-            logger.error(JSON.toJSONString(request), e);
+            log.error("{}", request, e);
 
             TeaException err = e instanceof TeaException ? (TeaException) e
                 : new TeaException(e.getMessage(), e);
@@ -96,7 +93,7 @@ public class WorkflowServiceImpl implements WorkflowService {
             response = client.startProcessInstanceWithOptions(request, headers,
                 new RuntimeOptions());
         } catch (Exception e) {
-            logger.error(JSON.toJSONString(request), e);
+            log.error("{}", request, e);
 
             TeaException err = e instanceof TeaException ? (TeaException) e
                 : new TeaException(e.getMessage(), e);
@@ -133,7 +130,7 @@ public class WorkflowServiceImpl implements WorkflowService {
             response = client.terminateProcessInstanceWithOptions(request, headers,
                 new RuntimeOptions());
         } catch (Exception e) {
-            logger.error(JSON.toJSONString(request), e);
+            log.error("{}", request, e);
 
             TeaException err = e instanceof TeaException ? (TeaException) e
                 : new TeaException(e.getMessage(), e);

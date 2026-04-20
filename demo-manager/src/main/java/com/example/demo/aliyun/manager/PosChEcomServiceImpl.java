@@ -8,24 +8,22 @@ import com.aliyuncs.exceptions.ClientException;
 import com.aliyuncs.exceptions.ServerException;
 import com.aliyuncs.profile.DefaultProfile;
 import com.example.demo.aliyun.api.PosChEcomService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 public class PosChEcomServiceImpl implements PosChEcomService {
 
-    private static final Logger logger = LoggerFactory.getLogger(PosChEcomServiceImpl.class);
-
     @Value("${aliyun.region.id}")
-    private String              regionId;
+    private String regionId;
 
     @Value("${aliyun.accessKey.id}")
-    private String              accessKeyId;
+    private String accessKeyId;
 
     @Value("${aliyun.accessKey.secret}")
-    private String              secret;
+    private String secret;
 
     @Override
     public String getPosChEcom(String text) {
@@ -43,10 +41,10 @@ public class PosChEcomServiceImpl implements PosChEcomService {
         try {
             response = client.getAcsResponse(request);
         } catch (ServerException e) {
-            logger.error("ServerException", e);
+            log.error("{}", request, e);
             throw new RuntimeException(e.getMessage(), e);
         } catch (ClientException e) {
-            logger.error("ClientException", e);
+            log.error("{}", request, e);
             throw new RuntimeException(e.getMessage(), e);
         }
 

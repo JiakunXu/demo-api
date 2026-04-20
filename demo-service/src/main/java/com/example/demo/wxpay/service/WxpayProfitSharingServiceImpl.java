@@ -13,6 +13,7 @@ import com.wechat.pay.java.core.RSAAutoCertificateConfig;
 import com.wechat.pay.java.core.notification.NotificationParser;
 import com.wechat.pay.java.core.notification.RequestParam;
 import com.wechat.pay.java.service.profitsharing.model.OrdersEntity;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,11 +22,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.Map;
 
+@Slf4j
 @Service
 public class WxpayProfitSharingServiceImpl implements WxpayProfitSharingService {
-
-    private static final Logger      logger = LoggerFactory
-        .getLogger(WxpayProfitSharingServiceImpl.class);
 
     @Autowired(required = false)
     private RSAAutoCertificateConfig partnerConfig;
@@ -111,7 +110,7 @@ public class WxpayProfitSharingServiceImpl implements WxpayProfitSharingService 
         try {
             wxpayProfitSharingMapper.insert(wxpayProfitSharingDO);
         } catch (Exception e) {
-            logger.error(wxpayProfitSharingDO.toString(), e);
+            log.error("{}", wxpayProfitSharingDO, e);
             throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息创建失败，请稍后再试");
         }
 
@@ -135,7 +134,7 @@ public class WxpayProfitSharingServiceImpl implements WxpayProfitSharingService 
                 wxpayProfitSharingMapper.insert(wxpayProfitSharingDO);
             }
         } catch (Exception e) {
-            logger.error(wxpayProfitSharingDO.toString(), e);
+            log.error("{}", wxpayProfitSharingDO, e);
             throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息创建失败，请稍后再试");
         }
 

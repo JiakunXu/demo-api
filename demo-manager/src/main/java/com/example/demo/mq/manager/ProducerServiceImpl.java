@@ -1,10 +1,9 @@
 package com.example.demo.mq.manager;
 
 import com.example.demo.mq.api.ProducerService;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.spring.core.RocketMQTemplate;
 import org.apache.rocketmq.spring.support.RocketMQHeaders;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Service;
@@ -12,13 +11,12 @@ import org.springframework.stereotype.Service;
 /**
  * @author JiakunXu
  */
+@Slf4j
 @Service
 public class ProducerServiceImpl implements ProducerService {
 
-    private static final Logger logger = LoggerFactory.getLogger(ProducerServiceImpl.class);
-
     @Autowired
-    private RocketMQTemplate    rocketMQTemplate;
+    private RocketMQTemplate rocketMQTemplate;
 
     @Override
     public String syncSend(String topic, String tags, byte[] body, String keys) {
@@ -49,7 +47,7 @@ public class ProducerServiceImpl implements ProducerService {
             rocketMQTemplate.send(topic + ":" + tags,
                 MessageBuilder.withPayload(body).setHeader(RocketMQHeaders.KEYS, keys).build());
         } catch (Exception e) {
-            logger.error("send", e);
+            log.error("{},{},{},{}", topic, tags, body, keys, e);
         }
     }
 

@@ -193,7 +193,7 @@ public class UserRoleServiceImpl extends ServiceImpl<UserRoleMapper, UserRoleDO>
         try {
             this.insert(userRoleDO);
         } catch (Exception e) {
-            logger.error(userRoleDO.toString(), e);
+            log.error("{}", userRoleDO, e);
             throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息创建失败，请稍后再试");
         }
 
@@ -217,7 +217,7 @@ public class UserRoleServiceImpl extends ServiceImpl<UserRoleMapper, UserRoleDO>
             try {
                 this.insert(userRoleDO);
             } catch (Exception e) {
-                logger.error(userRoleDO.toString(), e);
+                log.error("{}", userRoleDO, e);
                 throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息创建失败，请稍后再试");
             }
 
@@ -281,7 +281,7 @@ public class UserRoleServiceImpl extends ServiceImpl<UserRoleMapper, UserRoleDO>
             try {
                 this.delete(userRoleDO);
             } catch (Exception e) {
-                logger.error(userRoleDO.toString(), e);
+                log.error("{}", userRoleDO, e);
                 throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息更新失败，请稍后再试");
             }
         }
@@ -310,7 +310,7 @@ public class UserRoleServiceImpl extends ServiceImpl<UserRoleMapper, UserRoleDO>
             try {
                 this.insert(userRoleDO);
             } catch (Exception e) {
-                logger.error(userRoleDO.toString(), e);
+                log.error("{}", userRoleDO, e);
                 throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息创建失败，请稍后再试");
             }
 
@@ -337,7 +337,7 @@ public class UserRoleServiceImpl extends ServiceImpl<UserRoleMapper, UserRoleDO>
         try {
             this.delete(userRoleDO);
         } catch (Exception e) {
-            logger.error(userRoleDO.toString(), e);
+            log.error("{}", userRoleDO, e);
             throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息更新失败，请稍后再试");
         }
 
@@ -367,7 +367,7 @@ public class UserRoleServiceImpl extends ServiceImpl<UserRoleMapper, UserRoleDO>
         try {
             this.delete(userRoleDO);
         } catch (Exception e) {
-            logger.error(userRoleDO.toString(), e);
+            log.error("{}", userRoleDO, e);
             throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息更新失败，请稍后再试");
         }
 
@@ -380,7 +380,7 @@ public class UserRoleServiceImpl extends ServiceImpl<UserRoleMapper, UserRoleDO>
         try {
             return this.baseMapper.countUser(userDO);
         } catch (Exception e) {
-            logger.error(userDO.toString(), e);
+            log.error("{}", userDO, e);
         }
 
         return 0;
@@ -390,7 +390,7 @@ public class UserRoleServiceImpl extends ServiceImpl<UserRoleMapper, UserRoleDO>
         try {
             return this.baseMapper.listUsers(userDO);
         } catch (Exception e) {
-            logger.error(userDO.toString(), e);
+            log.error("{}", userDO, e);
         }
 
         return null;

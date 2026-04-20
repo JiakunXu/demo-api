@@ -4,10 +4,9 @@ import com.example.demo.cache.api.RedisService;
 import com.example.demo.framework.constant.Constants;
 import com.example.demo.framework.exception.ServiceException;
 import jakarta.annotation.Resource;
+import lombok.extern.slf4j.Slf4j;
 import org.joda.time.DateTime;
 import org.joda.time.Seconds;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
@@ -17,10 +16,9 @@ import java.util.concurrent.TimeUnit;
 /**
  * @author JiakunXu
  */
+@Slf4j
 @Service
 public class RedisServiceImpl<K, V> implements RedisService<K, V> {
-
-    private static final Logger logger = LoggerFactory.getLogger(RedisServiceImpl.class);
 
     @Resource
     private RedisTemplate<K, V> redisTemplate;
@@ -49,7 +47,7 @@ public class RedisServiceImpl<K, V> implements RedisService<K, V> {
                 return value;
             }
         } catch (Exception e) {
-            logger.error("add", e);
+            log.error("add", e);
         }
 
         throw new ServiceException(Constants.SERVICE_UNAVAILABLE, "redis add.");
@@ -76,7 +74,7 @@ public class RedisServiceImpl<K, V> implements RedisService<K, V> {
             redisTemplate.opsForValue().set(key, value, timeout, TimeUnit.SECONDS);
             return value;
         } catch (Exception e) {
-            logger.error("set", e);
+            log.error("set", e);
         }
 
         throw new ServiceException(Constants.SERVICE_UNAVAILABLE, "redis set.");
@@ -102,7 +100,7 @@ public class RedisServiceImpl<K, V> implements RedisService<K, V> {
         try {
             return redisTemplate.opsForValue().get(key);
         } catch (Exception e) {
-            logger.error("get", e);
+            log.error("get", e);
         }
 
         throw new ServiceException(Constants.SERVICE_UNAVAILABLE, "redis get.");
@@ -114,7 +112,7 @@ public class RedisServiceImpl<K, V> implements RedisService<K, V> {
             redisTemplate.delete(key);
             return;
         } catch (Exception e) {
-            logger.error("remove", e);
+            log.error("remove", e);
         }
 
         throw new ServiceException(Constants.SERVICE_UNAVAILABLE, "redis remove.");
@@ -128,7 +126,7 @@ public class RedisServiceImpl<K, V> implements RedisService<K, V> {
                 return true;
             }
         } catch (Exception e) {
-            logger.error("hasKey", e);
+            log.error("hasKey", e);
         }
 
         return false;
@@ -142,7 +140,7 @@ public class RedisServiceImpl<K, V> implements RedisService<K, V> {
                 return;
             }
         } catch (Exception e) {
-            logger.error("expire", e);
+            log.error("expire", e);
         }
 
         throw new ServiceException(Constants.SERVICE_UNAVAILABLE, "redis expire.");

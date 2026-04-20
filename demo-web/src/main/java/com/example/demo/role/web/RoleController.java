@@ -8,8 +8,6 @@ import com.example.demo.role.api.RoleService;
 import com.example.demo.role.api.bo.Role;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,10 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/system/role")
 public class RoleController extends BaseController {
 
-    private static final Logger logger = LoggerFactory.getLogger(RoleController.class);
-
     @Autowired
-    private RoleService         roleService;
+    private RoleService roleService;
 
     @PreAuthorize("hasAuthority('role:crud')")
     @RequestMapping(value = "/list", method = RequestMethod.GET)

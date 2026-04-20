@@ -1,35 +1,30 @@
 package com.example.demo.huawei.manager;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
-
+import com.example.demo.huawei.api.ObsService;
 import com.obs.services.ObsClient;
 import com.obs.services.exception.ObsException;
 import com.obs.services.model.ObjectMetadata;
 import com.obs.services.model.PutObjectRequest;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
-import com.example.demo.framework.exception.ServiceException;
-import com.example.demo.huawei.api.ObsService;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
+@Slf4j
 @Service
 public class ObsServiceImpl implements ObsService {
 
-    private static final Logger logger = LoggerFactory.getLogger(ObsServiceImpl.class);
-
     @Value("${huawei.accessKey.id}")
-    private String              accessKey;
+    private String accessKey;
 
     @Value("${huawei.accessKey.secret}")
-    private String              secretKey;
+    private String secretKey;
 
     @Value("${huawei.obs.endpoint}")
-    private String              endPoint;
+    private String endPoint;
 
     @Override
     public String putObject(String bucketName, String key, byte[] content, String contentType) {
@@ -50,18 +45,18 @@ public class ObsServiceImpl implements ObsService {
 
             obsClient.putObject(putObjectRequest);
         } catch (ObsException oe) {
-            logger.error("Response Code: " + oe.getResponseCode());
-            logger.error("Error Message: " + oe.getErrorMessage());
-            logger.error("Error Code: " + oe.getErrorCode());
-            logger.error("Request ID: " + oe.getErrorRequestId());
-            logger.error("Host ID: " + oe.getErrorHostId());
+            log.error("Response Code: " + oe.getResponseCode());
+            log.error("Error Message: " + oe.getErrorMessage());
+            log.error("Error Code: " + oe.getErrorCode());
+            log.error("Request ID: " + oe.getErrorRequestId());
+            log.error("Host ID: " + oe.getErrorHostId());
 
             throw new RuntimeException(oe.getErrorMessage(), oe);
         } finally {
             try {
                 obsClient.close();
             } catch (IOException e) {
-                logger.error("close", e);
+                log.error("close", e);
             }
         }
 

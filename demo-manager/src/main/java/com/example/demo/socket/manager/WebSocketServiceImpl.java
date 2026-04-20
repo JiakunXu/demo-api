@@ -1,8 +1,7 @@
 package com.example.demo.socket.manager;
 
 import com.example.demo.socket.api.WebSocketService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
@@ -12,10 +11,9 @@ import java.io.IOException;
 /**
  * @author JiakunXu
  */
+@Slf4j
 @Service
 public class WebSocketServiceImpl implements WebSocketService {
-
-    private static final Logger logger = LoggerFactory.getLogger(WebSocketServiceImpl.class);
 
     @Override
     public void sendMessage(String tunnelId, String message) {
@@ -29,7 +27,7 @@ public class WebSocketServiceImpl implements WebSocketService {
             try {
                 session.sendMessage(new TextMessage("message:" + message));
             } catch (IOException e) {
-                logger.error("sendMessage", e);
+                log.error("{},{}", tunnelId, message, e);
             }
         }
     }
