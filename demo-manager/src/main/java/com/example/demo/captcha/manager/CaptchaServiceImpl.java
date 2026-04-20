@@ -9,9 +9,8 @@ import com.google.code.kaptcha.Producer;
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 import com.google.code.kaptcha.text.impl.DefaultTextCreator;
 import com.google.code.kaptcha.util.Config;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FastByteArrayOutputStream;
@@ -27,10 +26,9 @@ import java.util.UUID;
 
 import static com.google.code.kaptcha.Constants.*;
 
+@Slf4j
 @Service
 public class CaptchaServiceImpl extends DefaultTextCreator implements CaptchaService {
-
-    private static final Logger          logger = LoggerFactory.getLogger(CaptchaServiceImpl.class);
 
     @Autowired
     private RedisService<String, String> redisService;
@@ -104,7 +102,7 @@ public class CaptchaServiceImpl extends DefaultTextCreator implements CaptchaSer
             redisService.add(RedisService.CACHE_KEY_CAPTCHA + uuid, text[1],
                 RedisService.CACHE_KEY_CAPTCHA_DEFAULT_EXP);
         } catch (ServiceException e) {
-            logger.error("add", e);
+            log.error("{},{}", uuid, text, e);
             throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "系统正忙，请稍后再试");
         }
 
@@ -113,7 +111,7 @@ public class CaptchaServiceImpl extends DefaultTextCreator implements CaptchaSer
         try {
             ImageIO.write(image, "jpg", stream);
         } catch (IOException e) {
-            logger.error("write", e);
+            log.error("{},{}", uuid, text, e);
             throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "系统正忙，请稍后再试");
         }
 
@@ -145,7 +143,7 @@ public class CaptchaServiceImpl extends DefaultTextCreator implements CaptchaSer
         try {
             redisService.remove(RedisService.CACHE_KEY_CAPTCHA + key);
         } catch (Exception e) {
-            logger.error(RedisService.CACHE_KEY_CAPTCHA + key, e);
+            log.error("{}", RedisService.CACHE_KEY_CAPTCHA + key, e);
         }
     }
 

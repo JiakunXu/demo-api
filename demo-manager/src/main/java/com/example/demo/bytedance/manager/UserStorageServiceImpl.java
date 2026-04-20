@@ -6,8 +6,7 @@ import com.example.demo.bytedance.api.bo.user.Result;
 import com.example.demo.bytedance.api.bo.user.UserStorage;
 import com.example.demo.framework.util.EncryptUtil;
 import com.example.demo.framework.util.HttpUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -16,10 +15,9 @@ import java.util.List;
 /**
  * @author JiakunXu
  */
+@Slf4j
 @Service
 public class UserStorageServiceImpl implements UserStorageService {
-
-    private static final Logger logger = LoggerFactory.getLogger(UserStorageServiceImpl.class);
 
     @Override
     public Result set(String accessToken, String openid,
@@ -34,7 +32,7 @@ public class UserStorageServiceImpl implements UserStorageService {
             userStorage.setSignature(
                 EncryptUtil.encryptHmac(JSON.toJSONString(userStorage), "session_key"));
         } catch (IOException e) {
-            logger.error(userStorage.toString(), e);
+            log.error("{}", userStorage, e);
             throw new RuntimeException(e.getMessage(), e);
         }
 
@@ -45,7 +43,7 @@ public class UserStorageServiceImpl implements UserStorageService {
                 HttpUtil.download(UserStorageService.HTTPS_SET_URL, JSON.toJSONString(userStorage)),
                 Result.class);
         } catch (Exception e) {
-            logger.error(userStorage.toString(), e);
+            log.error("{}", userStorage, e);
             throw new RuntimeException(e.getMessage(), e);
         }
 
@@ -65,7 +63,7 @@ public class UserStorageServiceImpl implements UserStorageService {
             userStorage.setSignature(
                 EncryptUtil.encryptHmac(JSON.toJSONString(userStorage), "session_key"));
         } catch (IOException e) {
-            logger.error(userStorage.toString(), e);
+            log.error("{}", userStorage, e);
             throw new RuntimeException(e.getMessage(), e);
         }
 
@@ -75,7 +73,7 @@ public class UserStorageServiceImpl implements UserStorageService {
             result = JSON.parseObject(HttpUtil.download(UserStorageService.HTTPS_REMOVE_URL,
                 JSON.toJSONString(userStorage)), Result.class);
         } catch (Exception e) {
-            logger.error(userStorage.toString(), e);
+            log.error("{}", userStorage, e);
             throw new RuntimeException(e.getMessage(), e);
         }
 

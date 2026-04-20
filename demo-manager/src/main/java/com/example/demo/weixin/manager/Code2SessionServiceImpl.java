@@ -4,8 +4,7 @@ import com.alibaba.fastjson2.JSON;
 import com.example.demo.weixin.api.Code2SessionService;
 import com.example.demo.weixin.api.bo.sns.Session;
 import com.example.demo.framework.util.HttpUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.text.MessageFormat;
@@ -13,10 +12,9 @@ import java.text.MessageFormat;
 /**
  * @author JiakunXu
  */
+@Slf4j
 @Service
 public class Code2SessionServiceImpl implements Code2SessionService {
-
-    private static final Logger logger = LoggerFactory.getLogger(Code2SessionServiceImpl.class);
 
     @Override
     public Session getSession(String appid, String secret, String jsCode) throws RuntimeException {
@@ -27,7 +25,7 @@ public class Code2SessionServiceImpl implements Code2SessionService {
                 HttpUtil.get(MessageFormat.format(HTTPS_GET_URL, appid, secret, jsCode)),
                 Session.class);
         } catch (Exception e) {
-            logger.error(appid + "&" + secret + "&" + jsCode, e);
+            log.error("{},{},{}", appid, secret, jsCode, e);
             throw new RuntimeException(e.getMessage(), e);
         }
 
@@ -36,7 +34,7 @@ public class Code2SessionServiceImpl implements Code2SessionService {
         }
 
         if (session.getErrCode() != 0) {
-            logger.error(session.toString());
+            log.error("{}", session);
 
             throw new RuntimeException(session.getErrMsg());
         }

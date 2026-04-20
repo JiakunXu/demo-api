@@ -4,8 +4,7 @@ import com.alibaba.fastjson2.JSON;
 import com.example.demo.weixin.api.SecurityCheckService;
 import com.example.demo.weixin.api.bo.BaseResult;
 import com.example.demo.framework.util.HttpUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.text.MessageFormat;
@@ -13,10 +12,9 @@ import java.text.MessageFormat;
 /**
  * @author JiakunXu
  */
+@Slf4j
 @Service
 public class SecurityCheckServiceImpl implements SecurityCheckService {
-
-    private static final Logger logger = LoggerFactory.getLogger(SecurityCheckServiceImpl.class);
 
     @Override
     public BaseResult msgSecCheck(String accessToken, String content) throws RuntimeException {
@@ -27,7 +25,7 @@ public class SecurityCheckServiceImpl implements SecurityCheckService {
                 HttpUtil.post(MessageFormat.format(HTTPS_POST_URL, accessToken), content),
                 BaseResult.class);
         } catch (Exception e) {
-            logger.error(accessToken, e);
+            log.error("{}", accessToken, e);
             throw new RuntimeException(e.getMessage(), e);
         }
 

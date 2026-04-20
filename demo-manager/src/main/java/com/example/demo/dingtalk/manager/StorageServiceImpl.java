@@ -1,6 +1,5 @@
 package com.example.demo.dingtalk.manager;
 
-import com.alibaba.fastjson2.JSON;
 import com.aliyun.dingtalkstorage_1_0.Client;
 import com.aliyun.dingtalkstorage_1_0.models.*;
 import com.aliyun.tea.TeaException;
@@ -11,14 +10,12 @@ import com.example.demo.dingtalk.api.StorageService;
 import com.example.demo.dingtalk.api.bo.FileInfo;
 import com.example.demo.dingtalk.api.bo.FileUploadInfo;
 import com.example.demo.framework.util.BeanUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 public class StorageServiceImpl implements StorageService {
-
-    private static final Logger logger = LoggerFactory.getLogger(StorageServiceImpl.class);
 
     @Override
     public FileUploadInfo getFileUploadInfo(String accessToken, String spaceId,
@@ -43,7 +40,7 @@ public class StorageServiceImpl implements StorageService {
             response = client.getFileUploadInfoWithOptions(spaceId, request, headers,
                 new RuntimeOptions());
         } catch (Exception e) {
-            logger.error(JSON.toJSONString(request), e);
+            log.error("{}", request, e);
 
             TeaException err = e instanceof TeaException ? (TeaException) e
                 : new TeaException(e.getMessage(), e);
@@ -80,7 +77,7 @@ public class StorageServiceImpl implements StorageService {
             response = client.commitFileWithOptions(spaceId, request, commitFileHeaders,
                 new RuntimeOptions());
         } catch (Exception e) {
-            logger.error(JSON.toJSONString(request), e);
+            log.error("{}", request, e);
 
             TeaException err = e instanceof TeaException ? (TeaException) e
                 : new TeaException(e.getMessage(), e);

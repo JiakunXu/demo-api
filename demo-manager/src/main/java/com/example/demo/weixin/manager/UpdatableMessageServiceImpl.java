@@ -5,8 +5,7 @@ import com.example.demo.framework.util.HttpUtil;
 import com.example.demo.weixin.api.UpdatableMessageService;
 import com.example.demo.weixin.api.bo.BaseResult;
 import com.example.demo.weixin.api.bo.message.Activity;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.text.MessageFormat;
@@ -14,10 +13,9 @@ import java.text.MessageFormat;
 /**
  * @author JiakunXu
  */
+@Slf4j
 @Service
 public class UpdatableMessageServiceImpl implements UpdatableMessageService {
-
-    private static final Logger logger = LoggerFactory.getLogger(UpdatableMessageServiceImpl.class);
 
     @Override
     public Activity createActivityId(String accessToken, String unionid,
@@ -29,7 +27,7 @@ public class UpdatableMessageServiceImpl implements UpdatableMessageService {
                 HttpUtil.get(MessageFormat.format(HTTPS_CREATE_URL, accessToken, unionid, openid)),
                 Activity.class);
         } catch (Exception e) {
-            logger.error(accessToken + "&" + unionid + "&" + openid, e);
+            log.error("{},{},{}", accessToken, unionid, openid, e);
             throw new RuntimeException(e.getMessage(), e);
         }
 
@@ -60,7 +58,7 @@ public class UpdatableMessageServiceImpl implements UpdatableMessageService {
                 .parseObject(HttpUtil.post(MessageFormat.format(HTTPS_SEND_URL, accessToken),
                     JSON.toJSONString(activity)), BaseResult.class);
         } catch (Exception e) {
-            logger.error(activity.toString(), e);
+            log.error("{}", activity, e);
             throw new RuntimeException(e.getMessage(), e);
         }
 

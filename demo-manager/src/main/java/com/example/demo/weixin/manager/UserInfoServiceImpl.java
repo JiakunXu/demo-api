@@ -5,11 +5,10 @@ import com.example.demo.weixin.api.UserInfoService;
 import com.example.demo.weixin.api.bo.user.MiniUserInfo;
 import com.example.demo.weixin.api.bo.user.UserInfo;
 import com.example.demo.framework.util.HttpUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.util.encoders.Base64;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.Cipher;
@@ -23,10 +22,9 @@ import java.util.Arrays;
 /**
  * @author JiakunXu
  */
+@Slf4j
 @Service
 public class UserInfoServiceImpl implements UserInfoService {
-
-    private static final Logger logger = LoggerFactory.getLogger(UserInfoServiceImpl.class);
 
     @Override
     public UserInfo getUserInfo(String accessToken, String openid,
@@ -37,7 +35,7 @@ public class UserInfoServiceImpl implements UserInfoService {
             userInfo = JSON.parseObject(HttpUtil.get(MessageFormat.format(HTTPS_GET_URL,
                 accessToken, openid, StringUtils.isBlank(lang) ? "zh_CN" : lang)), UserInfo.class);
         } catch (Exception e) {
-            logger.error(accessToken + "&" + openid, e);
+            log.error("{},{}", accessToken, openid, e);
             throw new RuntimeException(e.getMessage(), e);
         }
 
