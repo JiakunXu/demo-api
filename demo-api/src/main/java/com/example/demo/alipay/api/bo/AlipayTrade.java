@@ -10,7 +10,7 @@ import java.util.Date;
 
 @Getter
 @Setter
-public class AlipayNotify implements Serializable {
+public class AlipayTrade implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 7535712257940638603L;
@@ -31,21 +31,6 @@ public class AlipayNotify implements Serializable {
     private String            notifyType;
 
     /**
-     * 支付宝分配给开发者的应用 id
-     */
-    private String            appId;
-
-    /**
-     * 编码格式，如 utf-8、gbk、gb2312 等
-     */
-    private String            charset;
-
-    /**
-     * 调用的接口版本，固定为：1.0
-     */
-    private String            version;
-
-    /**
      * 商家生成签名字符串所使用的签名算法类型，目前支持 rsa2 和 rsa，推荐使用 rsa2
      */
     private String            signType;
@@ -59,6 +44,11 @@ public class AlipayNotify implements Serializable {
      * 支付宝交易凭证号
      */
     private String            tradeNo;
+
+    /**
+     * 支付宝分配给开发者的应用 id
+     */
+    private String            appId;
 
     /**
      * 原支付请求的商户订单号
@@ -126,6 +116,11 @@ public class AlipayNotify implements Serializable {
     private BigDecimal        refundFee;
 
     /**
+     * 实际退款金额。商家实际退款给用户的金额，单位为元，支持小数点后两位。
+     */
+    private BigDecimal        sendBackFee;
+
+    /**
      * n商品的标题/交易标题/订单标题/订单关键字等，是请求时对应的参数，原样通知回来
      */
     private String            subject;
@@ -161,13 +156,23 @@ public class AlipayNotify implements Serializable {
     private String            fundBillList;
 
     /**
+     * 本交易支付时所有优惠券信息，详情可查看 优惠券信息说明
+     */
+    private String            voucherDetailList;
+
+    /**
+     * 编码格式，如 utf-8、gbk、gb2312 等
+     */
+    private String            charset;
+
+    /**
      * 公共回传参数，如果请求时传递了该参数，则返回给商家时会在异步通知时将该参数原样返回。本参数必须进行 urlencode 之后才可以发送给支付宝
      */
     private String            passbackParams;
 
     /**
-     * 本交易支付时所有优惠券信息，详情可查看 优惠券信息说明
+     * 调用的接口版本，固定为：1.0
      */
-    private String            voucherDetailList;
+    private String            version;
 
 }
