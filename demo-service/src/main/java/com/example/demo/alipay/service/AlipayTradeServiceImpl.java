@@ -4,7 +4,7 @@ import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
 import com.alipay.easysdk.factory.Factory;
 import com.example.demo.alipay.api.AlipayTradeService;
-import com.example.demo.alipay.api.TradeService;
+import com.example.demo.alipay.api.FactoryPaymentCommonService;
 import com.example.demo.alipay.api.bo.AlipayTrade;
 import com.example.demo.alipay.dao.dataobject.AlipayTradeDO;
 import com.example.demo.alipay.dao.mapper.AlipayTradeMapper;
@@ -29,7 +29,7 @@ public class AlipayTradeServiceImpl implements AlipayTradeService {
     private static final Logger logger = LoggerFactory.getLogger(AlipayTradeServiceImpl.class);
 
     @Autowired
-    private TradeService        tradeService;
+    private FactoryPaymentCommonService factoryPaymentCommonService;
 
     @Autowired
     private AlipayTradeMapper alipayTradeMapper;
@@ -82,7 +82,7 @@ public class AlipayTradeServiceImpl implements AlipayTradeService {
 
     @Override
     public AlipayTrade getTrade(String appAuthToken, String outTradeNo) {
-        JSONObject data = JSON.parseObject(tradeService.query(appAuthToken, outTradeNo));
+        JSONObject data = JSON.parseObject(factoryPaymentCommonService.query(appAuthToken, outTradeNo));
 
         AlipayTrade alipayTrade = new AlipayTrade();
         alipayTrade.setNotifyId(UUID.randomUUID().toString());

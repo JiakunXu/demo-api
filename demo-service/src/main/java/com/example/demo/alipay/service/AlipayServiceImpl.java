@@ -5,7 +5,7 @@ import com.alipay.easysdk.payment.common.models.AlipayTradeFastpayRefundQueryRes
 import com.alipay.easysdk.payment.common.models.AlipayTradeQueryResponse;
 import com.alipay.easysdk.payment.common.models.AlipayTradeRefundResponse;
 import com.example.demo.alipay.api.AlipayService;
-import com.example.demo.alipay.api.TradeWapService;
+import com.example.demo.alipay.api.FactoryPaymentWapService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,11 +13,11 @@ import org.springframework.stereotype.Service;
 public class AlipayServiceImpl implements AlipayService {
 
     @Autowired
-    private TradeWapService tradeWapService;
+    private FactoryPaymentWapService factoryPaymentWapService;
 
     @Override
     public String pay(String appAuthToken, String subject, String outTradeNo, String totalAmount) {
-        return tradeWapService.pay(appAuthToken, subject, outTradeNo, totalAmount, null, null);
+        return factoryPaymentWapService.pay(appAuthToken, subject, outTradeNo, totalAmount, null, null);
     }
 
     @Override

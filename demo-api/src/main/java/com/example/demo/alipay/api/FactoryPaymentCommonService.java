@@ -1,6 +1,6 @@
 package com.example.demo.alipay.api;
 
-public interface TradeService {
+public interface FactoryPaymentCommonService {
 
     String create(String appAuthToken, String subject, String outTradeNo, String totalAmount,
                   String buyerId);
