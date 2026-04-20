@@ -5,8 +5,7 @@ import com.example.demo.framework.util.HttpUtil;
 import com.example.demo.weixin.api.MenuService;
 import com.example.demo.weixin.api.bo.BaseResult;
 import com.example.demo.weixin.api.bo.menu.Menu;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.text.MessageFormat;
@@ -14,10 +13,9 @@ import java.text.MessageFormat;
 /**
  * @author JiakunXu
  */
+@Slf4j
 @Service("com.example.demo.weixin.manager.menuServiceImpl")
 public class MenuServiceImpl implements MenuService {
-
-    private static final Logger logger = LoggerFactory.getLogger(MenuServiceImpl.class);
 
     @Override
     public BaseResult create(String accessToken, Menu menu) throws RuntimeException {
@@ -28,7 +26,7 @@ public class MenuServiceImpl implements MenuService {
                 .post(MessageFormat.format(HTTPS_POST_URL, accessToken), JSON.toJSONString(menu)),
                 BaseResult.class);
         } catch (Exception e) {
-            logger.error(menu.toString(), e);
+            log.error("{}", menu, e);
             throw new RuntimeException(e.getMessage(), e);
         }
 

@@ -1,6 +1,5 @@
 package com.example.demo.dingtalk.manager;
 
-import com.alibaba.fastjson2.JSON;
 import com.dingtalk.api.DefaultDingTalkClient;
 import com.dingtalk.api.DingTalkClient;
 import com.dingtalk.api.request.OapiV2UserGetRequest;
@@ -11,14 +10,12 @@ import com.example.demo.dingtalk.api.UserInfoService;
 import com.example.demo.dingtalk.api.bo.UserInfo;
 import com.example.demo.framework.util.BeanUtil;
 import com.taobao.api.ApiException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service("com.example.demo.dingtalk.manager.userInfoService")
 public class UserInfoServiceImpl implements UserInfoService {
-
-    private static final Logger logger = LoggerFactory.getLogger(UserInfoServiceImpl.class);
 
     @Override
     public UserInfo getUserInfo(String accessToken, String userid) throws RuntimeException {
@@ -32,7 +29,7 @@ public class UserInfoServiceImpl implements UserInfoService {
         try {
             response = client.execute(request, accessToken);
         } catch (ApiException e) {
-            logger.error(JSON.toJSONString(request), e);
+            log.error("{}", request, e);
             throw new RuntimeException(e.getMessage(), e);
         }
 
@@ -62,7 +59,7 @@ public class UserInfoServiceImpl implements UserInfoService {
         try {
             response = client.execute(request, accessToken);
         } catch (ApiException e) {
-            logger.error(JSON.toJSONString(request), e);
+            log.error("{}", request, e);
             throw new RuntimeException(e.getMessage(), e);
         }
 

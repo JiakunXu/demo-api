@@ -11,8 +11,6 @@ import com.dingtalk.api.response.OapiMessageCorpconversationRecallResponse;
 import com.example.demo.dingtalk.api.MessageService;
 import com.taobao.api.ApiException;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 

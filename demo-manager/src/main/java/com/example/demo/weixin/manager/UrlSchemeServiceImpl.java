@@ -5,8 +5,7 @@ import com.example.demo.framework.util.HttpUtil;
 import com.example.demo.weixin.api.UrlSchemeService;
 import com.example.demo.weixin.api.bo.wxa.OpenLink;
 import com.example.demo.weixin.api.bo.wxa.UrlScheme;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.text.MessageFormat;
@@ -14,10 +13,9 @@ import java.text.MessageFormat;
 /**
  * @author JiakunXu
  */
+@Slf4j
 @Service
 public class UrlSchemeServiceImpl implements UrlSchemeService {
-
-    private static final Logger logger = LoggerFactory.getLogger(UrlSchemeServiceImpl.class);
 
     @Override
     public OpenLink generateScheme(String accessToken,
@@ -29,7 +27,7 @@ public class UrlSchemeServiceImpl implements UrlSchemeService {
                 .parseObject(HttpUtil.post(MessageFormat.format(HTTPS_POST_URL, accessToken),
                     JSON.toJSONString(urlScheme)), OpenLink.class);
         } catch (Exception e) {
-            logger.error(urlScheme.toString(), e);
+            log.error("{}", urlScheme, e);
             throw new RuntimeException(e.getMessage(), e);
         }
 
