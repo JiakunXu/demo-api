@@ -1,7 +1,6 @@
 package com.example.demo.socket.manager;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.socket.WebSocketSession;
 
 import java.io.IOException;
@@ -11,10 +10,8 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * @author JiakunXu
  */
+@Slf4j
 public class WebSocketManager {
-
-    private static final Logger                        logger  = LoggerFactory
-        .getLogger(WebSocketManager.class);
 
     private static final Map<String, WebSocketSession> SESSION = new ConcurrentHashMap<>();
 
@@ -49,7 +46,7 @@ public class WebSocketManager {
             try {
                 session.close();
             } catch (IOException e) {
-                logger.error("remove", e);
+                log.error("{}", key, e);
             }
         }
     }

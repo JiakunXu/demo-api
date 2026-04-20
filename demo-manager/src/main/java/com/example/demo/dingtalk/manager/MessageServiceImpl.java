@@ -10,6 +10,7 @@ import com.dingtalk.api.response.OapiMessageCorpconversationAsyncsendV2Response;
 import com.dingtalk.api.response.OapiMessageCorpconversationRecallResponse;
 import com.example.demo.dingtalk.api.MessageService;
 import com.taobao.api.ApiException;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,19 +18,18 @@ import org.springframework.stereotype.Service;
 
 import java.util.Map;
 
+@Slf4j
 @Service("com.example.demo.dingtalk.manager.messageService")
 public class MessageServiceImpl implements MessageService {
 
-    private static final Logger logger = LoggerFactory.getLogger(MessageServiceImpl.class);
-
     @Value("${dingtalk.app.key}")
-    private String              appKey;
+    private String appKey;
 
     @Value("${dingtalk.token}")
-    private String              token;
+    private String token;
 
     @Value("${dingtalk.encodingAesKey}")
-    private String              encodingAesKey;
+    private String encodingAesKey;
 
     @Override
     public Map<String, String> notify(String signature, String timeStamp, String nonce,
@@ -50,7 +50,7 @@ public class MessageServiceImpl implements MessageService {
 
             return callbackCrypto.getEncryptedMap("success");
         } catch (DingCallbackCrypto.DingTalkEncryptException e) {
-            logger.error("handle", e);
+            log.error("{},{},{},{}", signature, timeStamp, nonce, encrypt, e);
         }
 
         return null;
@@ -99,7 +99,7 @@ public class MessageServiceImpl implements MessageService {
         try {
             response = client.execute(request, accessToken);
         } catch (ApiException e) {
-            logger.error(JSON.toJSONString(request), e);
+            log.error("{}", request, e);
             throw new RuntimeException(e.getMessage(), e);
         }
 
@@ -137,7 +137,7 @@ public class MessageServiceImpl implements MessageService {
         try {
             response = client.execute(request, accessToken);
         } catch (ApiException e) {
-            logger.error(JSON.toJSONString(request), e);
+            log.error("{}", request, e);
             throw new RuntimeException(e.getMessage(), e);
         }
 
@@ -167,7 +167,7 @@ public class MessageServiceImpl implements MessageService {
         try {
             response = client.execute(request, accessToken);
         } catch (ApiException e) {
-            logger.error(JSON.toJSONString(request), e);
+            log.error("{}", request, e);
             throw new RuntimeException(e.getMessage(), e);
         }
 
