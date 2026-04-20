@@ -8,25 +8,21 @@ import com.example.demo.alipay.dao.mapper.AlipayFundAuthNotifyMapper;
 import com.example.demo.framework.annotation.NotNull;
 import com.example.demo.framework.constant.Constants;
 import com.example.demo.framework.exception.ServiceException;
+import com.example.demo.framework.service.impl.ServiceImpl;
 import com.example.demo.framework.util.BeanUtil;
 import com.example.demo.framework.util.DateUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.Map;
 
+@Slf4j
 @Service
-public class AlipayFundAuthNotifyServiceImpl implements AlipayFundAuthNotifyService {
-
-    private static final Logger        logger = LoggerFactory
-        .getLogger(AlipayFundAuthNotifyServiceImpl.class);
-
-    @Autowired
-    private AlipayFundAuthNotifyMapper alipayFundAuthNotifyMapper;
+public class AlipayFundAuthNotifyServiceImpl extends
+                                             ServiceImpl<AlipayFundAuthNotifyMapper, AlipayFundAuthNotifyDO>
+                                             implements AlipayFundAuthNotifyService {
 
     @Override
     public AlipayFundAuthNotify getAlipayFundAuthNotify(Map<String, String> parameters) {
@@ -87,9 +83,9 @@ public class AlipayFundAuthNotifyServiceImpl implements AlipayFundAuthNotifyServ
             AlipayFundAuthNotifyDO.class);
 
         try {
-            alipayFundAuthNotifyMapper.insert(alipayFundAuthNotifyDO);
+            this.insert(alipayFundAuthNotifyDO);
         } catch (Exception e) {
-            logger.error(alipayFundAuthNotifyDO.toString(), e);
+            log.error("{}", alipayFundAuthNotifyDO, e);
             throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息创建失败，请稍后再试");
         }
 

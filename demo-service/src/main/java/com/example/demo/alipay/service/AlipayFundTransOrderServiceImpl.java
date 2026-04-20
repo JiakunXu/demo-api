@@ -7,20 +7,16 @@ import com.example.demo.alipay.dao.mapper.AlipayFundTransOrderMapper;
 import com.example.demo.framework.annotation.NotNull;
 import com.example.demo.framework.constant.Constants;
 import com.example.demo.framework.exception.ServiceException;
+import com.example.demo.framework.service.impl.ServiceImpl;
 import com.example.demo.framework.util.BeanUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
-public class AlipayFundTransOrderServiceImpl implements AlipayFundTransOrderService {
-
-    private static final Logger        logger = LoggerFactory
-        .getLogger(AlipayFundTransOrderServiceImpl.class);
-
-    @Autowired
-    private AlipayFundTransOrderMapper alipayFundTransOrderMapper;
+public class AlipayFundTransOrderServiceImpl extends
+                                             ServiceImpl<AlipayFundTransOrderMapper, AlipayFundTransOrderDO>
+                                             implements AlipayFundTransOrderService {
 
     @Override
     public AlipayFundTransOrder changed(@NotNull AlipayFundTransOrder alipayFundTransOrder) {
@@ -28,9 +24,9 @@ public class AlipayFundTransOrderServiceImpl implements AlipayFundTransOrderServ
             AlipayFundTransOrderDO::new);
 
         try {
-            alipayFundTransOrderMapper.insert(alipayFundTransOrderDO);
+            this.insert(alipayFundTransOrderDO);
         } catch (Exception e) {
-            logger.error(alipayFundTransOrderDO.toString(), e);
+            log.error("{}", alipayFundTransOrderDO, e);
             throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息创建失败，请稍后再试");
         }
 

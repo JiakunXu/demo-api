@@ -9,11 +9,11 @@ import com.example.demo.alipay.dao.dataobject.AlipayTradeDO;
 import com.example.demo.alipay.dao.mapper.AlipayTradeMapper;
 import com.example.demo.framework.constant.Constants;
 import com.example.demo.framework.exception.ServiceException;
+import com.example.demo.framework.service.impl.ServiceImpl;
 import com.example.demo.framework.util.BeanUtil;
 import com.example.demo.framework.util.DateUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,17 +22,13 @@ import java.util.Date;
 import java.util.Map;
 import java.util.UUID;
 
+@Slf4j
 @Service
-public class AlipayTradeServiceImpl implements AlipayTradeService {
-
-    private static final Logger         logger = LoggerFactory
-        .getLogger(AlipayTradeServiceImpl.class);
+public class AlipayTradeServiceImpl extends ServiceImpl<AlipayTradeMapper, AlipayTradeDO>
+                                    implements AlipayTradeService {
 
     @Autowired
     private FactoryPaymentCommonService factoryPaymentCommonService;
-
-    @Autowired
-    private AlipayTradeMapper           alipayTradeMapper;
 
     @Override
     public AlipayTrade getTrade(Map<String, String> parameters) {
@@ -108,9 +104,9 @@ public class AlipayTradeServiceImpl implements AlipayTradeService {
         AlipayTradeDO alipayTradeDO = BeanUtil.copy(trade, AlipayTradeDO.class);
 
         try {
-            alipayTradeMapper.insert(alipayTradeDO);
+            this.insert(alipayTradeDO);
         } catch (Exception e) {
-            logger.error(alipayTradeDO.toString(), e);
+            log.error("{}", alipayTradeDO, e);
             throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息创建失败，请稍后再试");
         }
 
