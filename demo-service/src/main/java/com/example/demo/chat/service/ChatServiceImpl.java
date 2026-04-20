@@ -60,7 +60,7 @@ public class ChatServiceImpl extends ServiceImpl<ChatMapper, ChatDO> implements 
 
         List<Chat> list = BeanUtil.copy(this.list(chatDO), Chat.class);
 
-        if (list == null || list.size() == 0) {
+        if (list == null || list.isEmpty()) {
             return null;
         }
 

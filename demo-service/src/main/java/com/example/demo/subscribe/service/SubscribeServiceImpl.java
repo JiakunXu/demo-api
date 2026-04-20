@@ -142,7 +142,7 @@ public class SubscribeServiceImpl extends ServiceImpl<SubscribeMapper, Subscribe
 
             List<Tunnel> list = listSubscribes(scene, sceneId, subscribe);
 
-            if (list == null || list.size() == 0) {
+            if (list == null || list.isEmpty()) {
                 return;
             }
 
