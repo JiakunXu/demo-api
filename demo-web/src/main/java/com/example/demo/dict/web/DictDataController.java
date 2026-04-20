@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(value = "/system/dict")
 public class DictDataController extends BaseController {
@@ -34,23 +36,21 @@ public class DictDataController extends BaseController {
 
         if (dict.getPageNo() == null || dict.getPageSize() == null) {
             if (StringUtils.isNotBlank(typeValue)) {
-                return new ListResponse<>(
-                    dictDataService.listDictDatas(null, typeValue.split(",")));
+                return new ListResponse<>(dictDataService.listDatas(null, typeValue.split(",")));
             }
 
-            return new ListResponse<>(dictDataService.listDictDatas(null, (String) null));
+            return new ListResponse<>(dictDataService.listDatas(null, (String) null));
         }
 
         dict.setName(this.getParameter(request, "name"));
         dict.setStatus(this.getParameter(request, "status"));
 
-        int count = dictDataService.countDictData(null, typeValue, dict);
+        int count = dictDataService.countData(null, typeValue, dict);
 
         if (count == 0) {
-            return new ListResponse<>(0, null);
+            return new ListResponse<>(0, List.of());
         }
-
-        return new ListResponse<>(count, dictDataService.listDictDatas(null, typeValue, dict));
+        return new ListResponse<>(count, dictDataService.listDatas(null, typeValue, dict));
     }
 
     @PreAuthorize("hasAuthority('dict:crud')")
@@ -59,43 +59,43 @@ public class DictDataController extends BaseController {
         String id = this.getParameter(request, "id");
         String typeValue = this.getParameter(request, "type");
         String value = this.getParameter(request, "value");
-        return new ObjectResponse<>(StringUtils.isNotBlank(id) ? dictDataService.getDictData(id)
-            : dictDataService.getDictData(typeValue, value));
+        return new ObjectResponse<>(StringUtils.isNotBlank(id) ? dictDataService.getData(id)
+            : dictDataService.getData(typeValue, value));
     }
 
-    @Log(module = "")
+    @Log(module = "", desc = "")
     @PreAuthorize("hasAuthority('dict:crud')")
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public ObjectResponse<DictData> save(HttpServletRequest request, HttpServletResponse response) {
         DictData dict = this.getParameter(request, DictData.class);
 
-        DictType dictType = dictTypeService.getDictType(dict.getTypeId(), dict.getTypeValue());
+        DictType dictType = dictTypeService.getType(dict.getTypeId(), dict.getTypeValue());
         if (dictType != null) {
             dict.setTypeValue(dictType.getValue());
         }
 
-        return new ObjectResponse<>(dictDataService.insertDictData(
+        return new ObjectResponse<>(dictDataService.insertData(
             dictType == null ? null : dictType.getId(), dict, this.getUser().getName()));
     }
 
-    @Log(module = "")
+    @Log(module = "", desc = "")
     @PreAuthorize("hasAuthority('dict:crud')")
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public ObjectResponse<DictData> update(HttpServletRequest request,
                                            HttpServletResponse response) {
         DictData dict = this.getParameter(request, DictData.class);
         return new ObjectResponse<>(
-            dictDataService.updateDictData(dict.getId(), dict, this.getUser().getName()));
+            dictDataService.updateData(dict.getId(), dict, this.getUser().getName()));
     }
 
-    @Log(module = "")
+    @Log(module = "", desc = "")
     @PreAuthorize("hasAuthority('dict:crud')")
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public ObjectResponse<DictData> delete(HttpServletRequest request,
                                            HttpServletResponse response) {
         DictData dict = this.getParameter(request, DictData.class);
         return new ObjectResponse<>(
-            dictDataService.deleteDictData(null, dict.getId(), this.getUser().getName()));
+            dictDataService.deleteData(null, dict.getId(), this.getUser().getName()));
     }
 
 }

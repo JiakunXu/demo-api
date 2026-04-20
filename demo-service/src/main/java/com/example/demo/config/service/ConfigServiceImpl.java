@@ -9,7 +9,9 @@ import com.example.demo.framework.annotation.NotBlank;
 import com.example.demo.framework.annotation.NotNull;
 import com.example.demo.framework.constant.Constants;
 import com.example.demo.framework.exception.ServiceException;
+import com.example.demo.framework.service.impl.ServiceImpl;
 import com.example.demo.framework.util.BeanUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,16 +21,13 @@ import org.springframework.stereotype.Service;
 import java.math.BigInteger;
 import java.util.List;
 
+@Slf4j
 @Service
-public class ConfigServiceImpl implements ConfigService {
-
-    private static final Logger          logger = LoggerFactory.getLogger(ConfigServiceImpl.class);
+public class ConfigServiceImpl extends ServiceImpl<ConfigMapper, ConfigDO>
+                               implements ConfigService {
 
     @Autowired
     private RedisService<String, Config> redisService;
-
-    @Autowired
-    private ConfigMapper                 configMapper;
 
     @Override
     public int countConfig(Config config) {
@@ -36,7 +35,7 @@ public class ConfigServiceImpl implements ConfigService {
             return 0;
         }
 
-        return count(BeanUtil.copy(config, ConfigDO.class));
+        return this.count(BeanUtil.copy(config, ConfigDO.class));
     }
 
     @Override
@@ -45,7 +44,7 @@ public class ConfigServiceImpl implements ConfigService {
             return null;
         }
 
-        return BeanUtil.copy(list(BeanUtil.copy(config, ConfigDO.class)), Config.class);
+        return BeanUtil.copy(this.list(BeanUtil.copy(config, ConfigDO.class)), Config.class);
     }
 
     @Override
@@ -62,7 +61,7 @@ public class ConfigServiceImpl implements ConfigService {
 
         configDO.setKey(key);
 
-        return BeanUtil.copy(get(configDO), Config.class);
+        return BeanUtil.copy(this.get(configDO), Config.class);
     }
 
     @Override
@@ -71,9 +70,9 @@ public class ConfigServiceImpl implements ConfigService {
         configDO.setCreator(creator);
 
         try {
-            configMapper.insert(configDO);
+            this.insert(configDO);
         } catch (Exception e) {
-            logger.error(configDO.toString(), e);
+            log.error("{}", configDO, e);
             throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息创建失败，请稍后再试");
         }
 
@@ -91,13 +90,13 @@ public class ConfigServiceImpl implements ConfigService {
         configDO.setModifier(modifier);
 
         try {
-            if (configMapper.update(configDO) != 1) {
+            if (this.update(configDO) != 1) {
                 throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "暂无权限");
             }
         } catch (ServiceException e) {
             throw e;
         } catch (Exception e) {
-            logger.error(configDO.toString(), e);
+            log.error("{}", configDO, e);
             throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息更新失败，请稍后再试");
         }
 
@@ -111,43 +110,13 @@ public class ConfigServiceImpl implements ConfigService {
         configDO.setModifier(modifier);
 
         try {
-            configMapper.delete(configDO);
+            this.delete(configDO);
         } catch (Exception e) {
-            logger.error(configDO.toString(), e);
+            log.error("{}", configDO, e);
             throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息更新失败，请稍后再试");
         }
 
         return BeanUtil.copy(configDO, Config.class);
-    }
-
-    private int count(ConfigDO configDO) {
-        try {
-            return configMapper.count(configDO);
-        } catch (Exception e) {
-            logger.error(configDO.toString(), e);
-        }
-
-        return 0;
-    }
-
-    private List<ConfigDO> list(ConfigDO configDO) {
-        try {
-            return configMapper.list(configDO);
-        } catch (Exception e) {
-            logger.error(configDO.toString(), e);
-        }
-
-        return null;
-    }
-
-    private ConfigDO get(ConfigDO configDO) {
-        try {
-            return configMapper.get(configDO);
-        } catch (Exception e) {
-            logger.error(configDO.toString(), e);
-        }
-
-        return null;
     }
 
 }

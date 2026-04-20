@@ -10,30 +10,28 @@ import java.util.List;
  */
 public interface DictDataService {
 
-    int countDictData(String typeId, String typeValue, DictData dictData);
+    int countData(String typeId, String typeValue, DictData data);
 
-    List<DictData> listDictDatas(String typeId, String typeValue);
+    List<DictData> listDatas(String typeId, String typeValue);
 
-    List<DictData> listDictDatas(String typeId, String[] typeValue);
+    List<DictData> listDatas(String typeId, String[] typeValue);
 
-    List<DictData> listDictDatas(String typeId, String typeValue, DictData dictData);
+    List<DictData> listDatas(String typeId, String typeValue, DictData data);
 
-    List<DictData> listDictDatas(String typeId, String[] typeValue, DictData dictData);
+    List<DictData> listDatas(String typeId, String[] typeValue, DictData data);
 
-    DictData getDictData(String id);
+    DictData getData(String id);
 
-    DictData getDictData(BigInteger id);
+    DictData getData(BigInteger id);
 
-    DictData getDictData(String typeValue, Object value);
+    DictData getData(String typeValue, String value);
 
-    DictData getDictData(String typeValue, String value);
+    DictData insertData(BigInteger typeId, DictData data, String creator);
 
-    DictData insertDictData(BigInteger typeId, DictData dictData, String creator);
+    DictData updateData(BigInteger id, DictData data, String modifier);
 
-    DictData updateDictData(BigInteger id, DictData dictData, String modifier);
+    DictData updateData(BigInteger typeId, String typeValue, String modifier);
 
-    DictData updateDictData(BigInteger typeId, String typeValue, String modifier);
-
-    DictData deleteDictData(BigInteger typeId, BigInteger id, String modifier);
+    DictData deleteData(BigInteger typeId, BigInteger id, String modifier);
 
 }

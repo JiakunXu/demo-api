@@ -10,18 +10,18 @@ import java.util.List;
  */
 public interface DictTypeService {
 
-    int countDictType(DictType dictType);
+    int countType(DictType type);
 
-    List<DictType> listDictTypes(DictType dictType);
+    List<DictType> listTypes(DictType type);
 
-    DictType getDictType(String id, String value);
+    DictType getType(String id, String value);
 
-    DictType getDictType(BigInteger id, String value);
+    DictType getType(BigInteger id, String value);
 
-    DictType insertDictType(DictType dictType, String creator);
+    DictType insertType(DictType type, String creator);
 
-    DictType updateDictType(BigInteger id, DictType dictType, String modifier);
+    DictType updateType(BigInteger id, DictType type, String modifier);
 
-    DictType deleteDictType(BigInteger id, String modifier);
+    DictType deleteType(BigInteger id, String modifier);
 
 }

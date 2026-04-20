@@ -9,310 +9,275 @@ import com.example.demo.framework.annotation.NotBlank;
 import com.example.demo.framework.annotation.NotNull;
 import com.example.demo.framework.constant.Constants;
 import com.example.demo.framework.exception.ServiceException;
+import com.example.demo.framework.service.impl.ServiceImpl;
 import com.example.demo.framework.util.BeanUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.math.BigInteger;
 import java.util.List;
 
+@Slf4j
 @Service
-public class DictDataServiceImpl implements DictDataService {
-
-    private static final Logger            logger = LoggerFactory
-        .getLogger(DictDataServiceImpl.class);
+public class DictDataServiceImpl extends ServiceImpl<DictDataMapper, DictDataDO>
+                                 implements DictDataService {
 
     @Autowired
     private RedisService<String, DictData> redisService;
 
-    @Autowired
-    private DictDataMapper                 dictDataMapper;
-
     @Override
-    public int countDictData(String typeId, String typeValue, DictData dictData) {
-        if (StringUtils.isAllBlank(typeId, typeValue) || dictData == null) {
+    public int countData(String typeId, String typeValue, DictData data) {
+        if (StringUtils.isAllBlank(typeId, typeValue) || data == null) {
             return 0;
         }
 
         if (StringUtils.isNotBlank(typeId)) {
-            dictData.setTypeId(new BigInteger(typeId));
+            data.setTypeId(new BigInteger(typeId));
         }
 
-        dictData.setTypeValue(typeValue);
+        data.setTypeValue(typeValue);
 
-        return count(BeanUtil.copy(dictData, DictDataDO.class));
+        return this.count(BeanUtil.copy(data, DictDataDO.class));
     }
 
     @Override
-    public List<DictData> listDictDatas(String typeId, String typeValue) {
-        DictData dictData = new DictData();
-        dictData.setStatus(DictData.Status.ENABLE.value);
-        dictData.setPageNo(1);
-        dictData.setPageSize(99);
+    public List<DictData> listDatas(String typeId, String typeValue) {
+        DictData data = new DictData();
+        data.setStatus(DictData.Status.ENABLE.value);
+        data.setPageNo(1);
+        data.setPageSize(99);
 
-        return listDictDatas(typeId, typeValue, dictData);
+        return listDatas(typeId, typeValue, data);
     }
 
     @Override
-    public List<DictData> listDictDatas(String typeId, String[] typeValue) {
-        DictData dictData = new DictData();
-        dictData.setStatus(DictData.Status.ENABLE.value);
-        dictData.setPageNo(1);
-        dictData.setPageSize(999);
+    public List<DictData> listDatas(String typeId, String[] typeValue) {
+        DictData data = new DictData();
+        data.setStatus(DictData.Status.ENABLE.value);
+        data.setPageNo(1);
+        data.setPageSize(999);
 
-        return listDictDatas(typeId, typeValue, dictData);
+        return listDatas(typeId, typeValue, data);
     }
 
     @Override
-    public List<DictData> listDictDatas(String typeId, String typeValue, DictData dictData) {
-        if (StringUtils.isAllBlank(typeId, typeValue) || dictData == null) {
-            return null;
+    public List<DictData> listDatas(String typeId, String typeValue, DictData data) {
+        if (StringUtils.isAllBlank(typeId, typeValue) || data == null) {
+            return List.of();
         }
 
         if (StringUtils.isNotBlank(typeId)) {
-            dictData.setTypeId(new BigInteger(typeId));
+            data.setTypeId(new BigInteger(typeId));
         }
 
-        dictData.setTypeValue(typeValue);
+        data.setTypeValue(typeValue);
 
-        return BeanUtil.copy(list(BeanUtil.copy(dictData, DictDataDO.class)), DictData.class);
+        List<DictData> list = BeanUtil.copy(this.list(BeanUtil.copy(data, DictDataDO.class)),
+            DictData.class);
+
+        if (CollectionUtils.isEmpty(list)) {
+            return List.of();
+        }
+
+        return list;
     }
 
     @Override
-    public List<DictData> listDictDatas(String typeId, String[] typeValue, DictData dictData) {
+    public List<DictData> listDatas(String typeId, String[] typeValue, DictData data) {
         if ((StringUtils.isBlank(typeId) && (typeValue == null || typeValue.length == 0))
-            || dictData == null) {
+            || data == null) {
             return null;
         }
 
         if (StringUtils.isNotBlank(typeId)) {
-            dictData.setTypeId(new BigInteger(typeId));
+            data.setTypeId(new BigInteger(typeId));
         }
 
-        dictData.setTypeValues(typeValue);
+        data.setTypeValues(typeValue);
 
-        return BeanUtil.copy(list(BeanUtil.copy(dictData, DictDataDO.class)), DictData.class);
+        return BeanUtil.copy(this.list(BeanUtil.copy(data, DictDataDO.class)), DictData.class);
     }
 
     @Override
-    public DictData getDictData(String id) {
+    public DictData getData(String id) {
         if (StringUtils.isBlank(id)) {
             return null;
         }
 
-        return getDictData(new BigInteger(id));
+        return getData(new BigInteger(id));
     }
 
     @Override
-    public DictData getDictData(BigInteger id) {
+    public DictData getData(BigInteger id) {
         if (id == null) {
             return null;
         }
 
-        return BeanUtil.copy(get(new DictDataDO(id)), DictData.class);
+        return BeanUtil.copy(this.get(new DictDataDO(id)), DictData.class);
     }
 
     @Override
-    public DictData getDictData(String typeValue, Object value) {
-        if (value == null) {
-            return new DictData();
-        }
-
-        return getDictData(typeValue, value.toString());
-    }
-
-    @Override
-    public DictData getDictData(String typeValue, String value) {
+    public DictData getData(String typeValue, String value) {
         if (StringUtils.isAnyBlank(typeValue, value)) {
             return new DictData();
         }
 
         String key = typeValue + "&" + value;
 
-        DictData dictData = null;
+        DictData data = null;
 
         try {
-            dictData = redisService.get(RedisService.CACHE_KEY_DICT_TYPE + key);
+            data = redisService.get(RedisService.CACHE_KEY_DICT_TYPE + key);
         } catch (ServiceException e) {
-            logger.error(RedisService.CACHE_KEY_DICT_TYPE + key, e);
+            log.error(RedisService.CACHE_KEY_DICT_TYPE + "{}", key, e);
         }
 
-        if (dictData != null) {
-            return dictData;
+        if (data != null) {
+            return data;
         }
 
-        DictDataDO dictDataDO = new DictDataDO();
-        dictDataDO.setTypeValue(typeValue);
-        dictDataDO.setValue(value);
-        dictDataDO.setStatus(DictData.Status.ENABLE.value);
+        DictDataDO dataDO = new DictDataDO();
+        dataDO.setTypeValue(typeValue);
+        dataDO.setValue(value);
+        dataDO.setStatus(DictData.Status.ENABLE.value);
 
-        dictData = BeanUtil.copy(get(dictDataDO), DictData.class);
+        data = BeanUtil.copy(this.get(dataDO), DictData.class);
 
-        if (dictData == null) {
+        if (data == null) {
             return new DictData();
         }
 
         try {
-            redisService.set(RedisService.CACHE_KEY_DICT_TYPE + key, dictData);
+            redisService.set(RedisService.CACHE_KEY_DICT_TYPE + key, data);
         } catch (ServiceException e) {
-            logger.error(RedisService.CACHE_KEY_DICT_TYPE + key, e);
+            log.error(RedisService.CACHE_KEY_DICT_TYPE + "{}", key, e);
         }
 
-        return dictData;
+        return data;
     }
 
     @Override
-    public DictData insertDictData(@NotNull BigInteger typeId, @NotNull DictData dictData,
-                                   @NotBlank String creator) {
-        dictData.setTypeId(typeId);
+    public DictData insertData(@NotNull BigInteger typeId, @NotNull DictData data,
+                               @NotBlank String creator) {
+        data.setTypeId(typeId);
 
-        DictDataDO dictDataDO = BeanUtil.copy(dictData, DictDataDO.class);
-        dictDataDO.setCreator(creator);
+        DictDataDO dataDO = BeanUtil.copy(data, DictDataDO.class);
+        dataDO.setCreator(creator);
 
         try {
-            dictDataMapper.insert(dictDataDO);
+            this.insert(dataDO);
         } catch (Exception e) {
-            logger.error(dictDataDO.toString(), e);
+            log.error("{}", dataDO, e);
             throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息创建失败，请稍后再试");
         }
 
-        dictData.setId(dictDataDO.getId());
+        data.setId(dataDO.getId());
 
-        return dictData;
+        return data;
     }
 
     @Override
-    public DictData updateDictData(@NotNull BigInteger id, @NotNull DictData dictData,
-                                   @NotBlank String modifier) {
-        DictData before = getDictData(id);
+    public DictData updateData(@NotNull BigInteger id, @NotNull DictData data,
+                               @NotBlank String modifier) {
+        DictData before = getData(id);
 
         if (before == null) {
             throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "暂无权限");
         }
 
-        dictData.setId(id);
+        data.setId(id);
 
-        DictDataDO dictDataDO = BeanUtil.copy(dictData, DictDataDO.class);
-        dictDataDO.setModifier(modifier);
+        DictDataDO dataDO = BeanUtil.copy(data, DictDataDO.class);
+        dataDO.setModifier(modifier);
 
         try {
-            if (dictDataMapper.update0(dictDataDO) != 1) {
+            if (this.baseMapper.update0(dataDO) != 1) {
                 throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "暂无权限");
             }
         } catch (ServiceException e) {
             throw e;
         } catch (Exception e) {
-            logger.error(dictDataDO.toString(), e);
+            log.error("{}", dataDO, e);
             throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息更新失败，请稍后再试");
         }
 
         remove(before.getTypeValue() + "&" + before.getValue());
 
-        return dictData;
+        return data;
     }
 
     @Override
-    public DictData updateDictData(@NotNull BigInteger typeId, @NotBlank String typeValue,
-                                   @NotBlank String modifier) {
-        List<DictData> list = listDictDatas(typeId.toString(), (String) null);
+    public DictData updateData(@NotNull BigInteger typeId, @NotBlank String typeValue,
+                               @NotBlank String modifier) {
+        List<DictData> list = listDatas(typeId.toString(), (String) null);
 
-        if (list != null && !list.isEmpty()) {
+        if (!CollectionUtils.isEmpty(list)) {
             for (DictData item : list) {
                 remove(item.getTypeValue() + "&" + item.getValue());
             }
         }
 
-        DictDataDO dictDataDO = new DictDataDO();
-        dictDataDO.setTypeId(typeId);
-        dictDataDO.setTypeValue(typeValue);
-        dictDataDO.setModifier(modifier);
+        DictDataDO dataDO = new DictDataDO();
+        dataDO.setTypeId(typeId);
+        dataDO.setTypeValue(typeValue);
+        dataDO.setModifier(modifier);
 
         try {
-            dictDataMapper.update1(dictDataDO);
+            this.baseMapper.update1(dataDO);
         } catch (Exception e) {
-            logger.error(dictDataDO.toString(), e);
+            log.error("{}", dataDO, e);
             throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息更新失败，请稍后再试");
         }
 
-        return BeanUtil.copy(dictDataDO, DictData.class);
+        return BeanUtil.copy(dataDO, DictData.class);
     }
 
     @Override
-    public DictData deleteDictData(BigInteger typeId, BigInteger id, @NotBlank String modifier) {
+    public DictData deleteData(BigInteger typeId, BigInteger id, @NotBlank String modifier) {
         if (typeId == null && id == null) {
             throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "参数信息不能为空");
         }
 
         if (id != null) {
-            DictData dictData = getDictData(id);
+            DictData dictData = getData(id);
             if (dictData != null) {
                 remove(dictData.getTypeValue() + "&" + dictData.getValue());
             }
         }
 
         if (typeId != null) {
-            List<DictData> list = listDictDatas(typeId.toString(), (String) null);
-            if (list != null && !list.isEmpty()) {
+            List<DictData> list = listDatas(typeId.toString(), (String) null);
+            if (!CollectionUtils.isEmpty(list)) {
                 for (DictData item : list) {
                     remove(item.getTypeValue() + "&" + item.getValue());
                 }
             }
         }
 
-        DictDataDO dictDataDO = new DictDataDO();
-        dictDataDO.setId(id);
-        dictDataDO.setTypeId(typeId);
-        dictDataDO.setModifier(modifier);
+        DictDataDO dataDO = new DictDataDO();
+        dataDO.setId(id);
+        dataDO.setTypeId(typeId);
+        dataDO.setModifier(modifier);
 
         try {
-            dictDataMapper.delete(dictDataDO);
+            this.delete(dataDO);
         } catch (Exception e) {
-            logger.error(dictDataDO.toString(), e);
+            log.error("{}", dataDO, e);
             throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息更新失败，请稍后再试");
         }
 
-        return BeanUtil.copy(dictDataDO, DictData.class);
+        return BeanUtil.copy(dataDO, DictData.class);
     }
 
     private void remove(String key) {
         try {
             redisService.remove(RedisService.CACHE_KEY_DICT_TYPE + key);
         } catch (Exception e) {
-            logger.error(RedisService.CACHE_KEY_DICT_TYPE + key, e);
+            log.error(RedisService.CACHE_KEY_DICT_TYPE + "{}", key, e);
         }
-    }
-
-    private int count(DictDataDO dictDataDO) {
-        try {
-            return dictDataMapper.count(dictDataDO);
-        } catch (Exception e) {
-            logger.error(dictDataDO.toString(), e);
-        }
-
-        return 0;
-    }
-
-    private List<DictDataDO> list(DictDataDO dictDataDO) {
-        try {
-            return dictDataMapper.list(dictDataDO);
-        } catch (Exception e) {
-            logger.error(dictDataDO.toString(), e);
-        }
-
-        return null;
-    }
-
-    private DictDataDO get(DictDataDO dictDataDO) {
-        try {
-            return dictDataMapper.get(dictDataDO);
-        } catch (Exception e) {
-            logger.error(dictDataDO.toString(), e);
-        }
-
-        return null;
     }
 
 }

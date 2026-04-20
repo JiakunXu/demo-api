@@ -10,10 +10,10 @@ import com.example.demo.framework.annotation.NotBlank;
 import com.example.demo.framework.annotation.NotNull;
 import com.example.demo.framework.constant.Constants;
 import com.example.demo.framework.exception.ServiceException;
+import com.example.demo.framework.service.impl.ServiceImpl;
 import com.example.demo.framework.util.BeanUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,11 +21,10 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigInteger;
 import java.util.List;
 
+@Slf4j
 @Service
-public class DictTypeServiceImpl implements DictTypeService {
-
-    private static final Logger            logger = LoggerFactory
-        .getLogger(DictTypeServiceImpl.class);
+public class DictTypeServiceImpl extends ServiceImpl<DictTypeMapper, DictTypeDO>
+                                 implements DictTypeService {
 
     @Autowired
     private DictDataService                dictDataService;
@@ -33,200 +32,167 @@ public class DictTypeServiceImpl implements DictTypeService {
     @Autowired
     private RedisService<String, DictType> redisService;
 
-    @Autowired
-    private DictTypeMapper                 dictTypeMapper;
-
     @Override
-    public int countDictType(DictType dictType) {
-        if (dictType == null) {
+    public int countType(DictType type) {
+        if (type == null) {
             return 0;
         }
 
-        return count(BeanUtil.copy(dictType, DictTypeDO.class));
+        return this.count(BeanUtil.copy(type, DictTypeDO.class));
     }
 
     @Override
-    public List<DictType> listDictTypes(DictType dictType) {
-        if (dictType == null) {
+    public List<DictType> listTypes(DictType type) {
+        if (type == null) {
             return null;
         }
 
-        return BeanUtil.copy(list(BeanUtil.copy(dictType, DictTypeDO.class)), DictType.class);
+        return BeanUtil.copy(this.list(BeanUtil.copy(type, DictTypeDO.class)), DictType.class);
     }
 
     @Override
-    public DictType getDictType(String id, String value) {
+    public DictType getType(String id, String value) {
         if (StringUtils.isBlank(id) && StringUtils.isBlank(value)) {
             return null;
         }
 
         String key = id + "@" + value;
 
-        DictType dictType = null;
+        DictType type = null;
 
         try {
-            dictType = redisService.get(RedisService.CACHE_KEY_DICT_TYPE + key);
+            type = redisService.get(RedisService.CACHE_KEY_DICT_TYPE + key);
         } catch (ServiceException e) {
-            logger.error(RedisService.CACHE_KEY_DICT_TYPE + key, e);
+            log.error(RedisService.CACHE_KEY_DICT_TYPE + "{}", key, e);
         }
 
-        if (dictType != null) {
-            return dictType;
+        if (type != null) {
+            return type;
         }
 
-        DictTypeDO dictTypeDO = new DictTypeDO();
+        DictTypeDO typeDO = new DictTypeDO();
 
         if (StringUtils.isNotBlank(id)) {
-            dictTypeDO.setId(new BigInteger(id));
+            typeDO.setId(new BigInteger(id));
         }
 
-        dictTypeDO.setValue(value);
+        typeDO.setValue(value);
 
-        dictType = BeanUtil.copy(get(dictTypeDO), DictType.class);
+        type = BeanUtil.copy(this.get(typeDO), DictType.class);
 
-        if (dictType == null) {
+        if (type == null) {
             return null;
         }
 
         try {
-            redisService.set(RedisService.CACHE_KEY_DICT_TYPE + key, dictType);
+            redisService.set(RedisService.CACHE_KEY_DICT_TYPE + key, type);
         } catch (ServiceException e) {
-            logger.error(RedisService.CACHE_KEY_DICT_TYPE + key, e);
+            log.error(RedisService.CACHE_KEY_DICT_TYPE + key, e);
         }
 
-        return dictType;
+        return type;
     }
 
     @Override
-    public DictType getDictType(BigInteger id, String value) {
+    public DictType getType(BigInteger id, String value) {
         if (id == null && StringUtils.isBlank(value)) {
             return null;
         }
 
-        DictTypeDO dictTypeDO = new DictTypeDO();
-        dictTypeDO.setId(id);
-        dictTypeDO.setValue(value);
+        DictTypeDO typeDO = new DictTypeDO();
+        typeDO.setId(id);
+        typeDO.setValue(value);
 
-        return BeanUtil.copy(get(dictTypeDO), DictType.class);
+        return BeanUtil.copy(this.get(typeDO), DictType.class);
     }
 
     @Override
-    public DictType insertDictType(@NotNull DictType dictType, @NotBlank String creator) {
-        DictTypeDO dictTypeDO = BeanUtil.copy(dictType, DictTypeDO.class);
-        dictTypeDO.setCreator(creator);
+    public DictType insertType(@NotNull DictType type, @NotBlank String creator) {
+        DictTypeDO typeDO = BeanUtil.copy(type, DictTypeDO.class);
+        typeDO.setCreator(creator);
 
         try {
-            dictTypeMapper.insert(dictTypeDO);
+            this.insert(typeDO);
         } catch (Exception e) {
-            logger.error(dictTypeDO.toString(), e);
+            log.error("{}", typeDO, e);
             throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息创建失败，请稍后再试");
         }
 
-        dictType.setId(dictTypeDO.getId());
+        type.setId(typeDO.getId());
 
-        return dictType;
+        return type;
     }
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
-    public DictType updateDictType(@NotNull BigInteger id, @NotNull DictType dictType,
-                                   @NotBlank String modifier) {
-        DictType before = getDictType(id, null);
+    public DictType updateType(@NotNull BigInteger id, @NotNull DictType type,
+                               @NotBlank String modifier) {
+        DictType before = getType(id, null);
 
         if (before == null) {
             throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "暂无权限");
         }
 
-        dictType.setId(id);
+        type.setId(id);
 
-        DictTypeDO dictTypeDO = BeanUtil.copy(dictType, DictTypeDO.class);
-        dictTypeDO.setModifier(modifier);
+        DictTypeDO typeDO = BeanUtil.copy(type, DictTypeDO.class);
+        typeDO.setModifier(modifier);
 
         try {
-            if (dictTypeMapper.update(dictTypeDO) != 1) {
+            if (this.update(typeDO) != 1) {
                 throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "暂无权限");
             }
         } catch (ServiceException e) {
             throw e;
         } catch (Exception e) {
-            logger.error(dictTypeDO.toString(), e);
+            log.error("{}", typeDO, e);
             throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息更新失败，请稍后再试");
         }
 
-        dictDataService.updateDictData(id, dictType.getValue(), modifier);
+        dictDataService.updateData(id, type.getValue(), modifier);
 
         remove(id + "@" + before.getValue());
         remove(id + "@null");
         remove("null@" + before.getValue());
 
-        return dictType;
+        return type;
     }
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
-    public DictType deleteDictType(@NotNull BigInteger id, @NotBlank String modifier) {
-        DictType before = getDictType(id, null);
+    public DictType deleteType(@NotNull BigInteger id, @NotBlank String modifier) {
+        DictType before = getType(id, null);
 
         if (before == null) {
             throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "暂无权限");
         }
 
-        DictTypeDO dictTypeDO = new DictTypeDO();
-        dictTypeDO.setId(id);
-        dictTypeDO.setModifier(modifier);
+        DictTypeDO typeDO = new DictTypeDO();
+        typeDO.setId(id);
+        typeDO.setModifier(modifier);
 
         try {
-            dictTypeMapper.delete(dictTypeDO);
+            this.delete(typeDO);
         } catch (Exception e) {
-            logger.error(dictTypeDO.toString(), e);
+            log.error("{}", typeDO, e);
             throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息更新失败，请稍后再试");
         }
 
-        dictDataService.deleteDictData(id, null, modifier);
+        dictDataService.deleteData(id, null, modifier);
 
         remove(id + "@" + before.getValue());
         remove(id + "@null");
         remove("null@" + before.getValue());
 
-        return BeanUtil.copy(dictTypeDO, DictType.class);
+        return BeanUtil.copy(typeDO, DictType.class);
     }
 
     private void remove(String key) {
         try {
             redisService.remove(RedisService.CACHE_KEY_DICT_TYPE + key);
         } catch (Exception e) {
-            logger.error(RedisService.CACHE_KEY_DICT_TYPE + key, e);
+            log.error(RedisService.CACHE_KEY_DICT_TYPE + "{}", key, e);
         }
-    }
-
-    private int count(DictTypeDO dictTypeDO) {
-        try {
-            return dictTypeMapper.count(dictTypeDO);
-        } catch (Exception e) {
-            logger.error(dictTypeDO.toString(), e);
-        }
-
-        return 0;
-    }
-
-    private List<DictTypeDO> list(DictTypeDO dictTypeDO) {
-        try {
-            return dictTypeMapper.list(dictTypeDO);
-        } catch (Exception e) {
-            logger.error(dictTypeDO.toString(), e);
-        }
-
-        return null;
-    }
-
-    private DictTypeDO get(DictTypeDO dictTypeDO) {
-        try {
-            return dictTypeMapper.get(dictTypeDO);
-        } catch (Exception e) {
-            logger.error(dictTypeDO.toString(), e);
-        }
-
-        return null;
     }
 
 }

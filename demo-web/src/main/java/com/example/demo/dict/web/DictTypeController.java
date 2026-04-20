@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(value = "/system/dict/type")
 public class DictTypeController extends BaseController {
@@ -30,13 +32,13 @@ public class DictTypeController extends BaseController {
         dictType.setValue(this.getParameter(request, "value"));
         dictType.setStatus(this.getParameter(request, "status"));
 
-        int count = dictTypeService.countDictType(dictType);
+        int count = dictTypeService.countType(dictType);
 
         if (count == 0) {
-            return new ListResponse<>(0, null);
+            return new ListResponse<>(0, List.of());
         }
 
-        return new ListResponse<>(count, dictTypeService.listDictTypes(dictType));
+        return new ListResponse<>(count, dictTypeService.listTypes(dictType));
     }
 
     @PreAuthorize("hasAuthority('dict:crud')")
@@ -44,36 +46,35 @@ public class DictTypeController extends BaseController {
     public ObjectResponse<DictType> get(HttpServletRequest request, HttpServletResponse response) {
         String id = this.getParameter(request, "id");
         String value = this.getParameter(request, "type");
-        return new ObjectResponse<>(dictTypeService.getDictType(id, value));
+        return new ObjectResponse<>(dictTypeService.getType(id, value));
     }
 
-    @Log(module = "")
+    @Log(module = "", desc = "")
     @PreAuthorize("hasAuthority('dict:crud')")
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public ObjectResponse<DictType> save(HttpServletRequest request, HttpServletResponse response) {
         DictType dictType = this.getParameter(request, DictType.class);
-        return new ObjectResponse<>(
-            dictTypeService.insertDictType(dictType, this.getUser().getName()));
+        return new ObjectResponse<>(dictTypeService.insertType(dictType, this.getUser().getName()));
     }
 
-    @Log(module = "")
+    @Log(module = "", desc = "")
     @PreAuthorize("hasAuthority('dict:crud')")
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public ObjectResponse<DictType> update(HttpServletRequest request,
                                            HttpServletResponse response) {
         DictType dictType = this.getParameter(request, DictType.class);
         return new ObjectResponse<>(
-            dictTypeService.updateDictType(dictType.getId(), dictType, this.getUser().getName()));
+            dictTypeService.updateType(dictType.getId(), dictType, this.getUser().getName()));
     }
 
-    @Log(module = "")
+    @Log(module = "", desc = "")
     @PreAuthorize("hasAuthority('dict:crud')")
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public ObjectResponse<DictType> delete(HttpServletRequest request,
                                            HttpServletResponse response) {
         DictType dictType = this.getParameter(request, DictType.class);
         return new ObjectResponse<>(
-            dictTypeService.deleteDictType(dictType.getId(), this.getUser().getName()));
+            dictTypeService.deleteType(dictType.getId(), this.getUser().getName()));
     }
 
 }
