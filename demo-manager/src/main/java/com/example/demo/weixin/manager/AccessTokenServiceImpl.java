@@ -4,9 +4,8 @@ import com.alibaba.fastjson2.JSON;
 import com.example.demo.weixin.api.AccessTokenService;
 import com.example.demo.weixin.api.bo.token.AccessToken;
 import com.example.demo.framework.util.HttpUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.text.MessageFormat;
@@ -14,10 +13,9 @@ import java.text.MessageFormat;
 /**
  * @author JiakunXu
  */
+@Slf4j
 @Service
 public class AccessTokenServiceImpl implements AccessTokenService {
-
-    private static final Logger logger = LoggerFactory.getLogger(AccessTokenServiceImpl.class);
 
     @Override
     public AccessToken getAccessToken(String grantType, String appid,
@@ -29,7 +27,7 @@ public class AccessTokenServiceImpl implements AccessTokenService {
                 HttpUtil.get(MessageFormat.format(HTTPS_GET_URL, grantType, appid, secret)),
                 AccessToken.class);
         } catch (Exception e) {
-            logger.error(grantType + "&" + appid + "&" + secret, e);
+            log.error("{},{},{}", grantType, appid, secret, e);
             throw new RuntimeException(e.getMessage(), e);
         }
 

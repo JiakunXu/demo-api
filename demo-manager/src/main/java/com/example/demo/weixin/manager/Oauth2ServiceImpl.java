@@ -5,9 +5,8 @@ import com.example.demo.weixin.api.Oauth2Service;
 import com.example.demo.weixin.api.bo.sns.AccessToken;
 import com.example.demo.weixin.api.bo.sns.UserInfo;
 import com.example.demo.framework.util.HttpUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.text.MessageFormat;
@@ -15,10 +14,9 @@ import java.text.MessageFormat;
 /**
  * @author JiakunXu
  */
+@Slf4j
 @Service
 public class Oauth2ServiceImpl implements Oauth2Service {
-
-    private static final Logger logger = LoggerFactory.getLogger(Oauth2ServiceImpl.class);
 
     @Override
     public String authorize(String appid, String redirectUrl, String scope,
@@ -44,7 +42,7 @@ public class Oauth2ServiceImpl implements Oauth2Service {
                 HttpUtil.get(MessageFormat.format(HTTPS_ACCESS_TOKEN_URL, appid, secret, code)),
                 AccessToken.class);
         } catch (Exception e) {
-            logger.error(appid + "&" + secret + "&" + code, e);
+            log.error("{},{},{}", appid, secret, code, e);
             throw new RuntimeException(e.getMessage(), e);
         }
 
@@ -53,7 +51,7 @@ public class Oauth2ServiceImpl implements Oauth2Service {
         }
 
         if (accessToken.getErrCode() != 0) {
-            logger.error(accessToken.toString());
+            log.error("{}", accessToken);
             throw new RuntimeException(accessToken.getErrMsg());
         }
 
@@ -69,7 +67,7 @@ public class Oauth2ServiceImpl implements Oauth2Service {
             userInfo = JSON.parseObject(HttpUtil.get(MessageFormat.format(HTTPS_USER_INFO_URL,
                 accessToken, openid, StringUtils.isBlank(lang) ? "zh_CN" : lang)), UserInfo.class);
         } catch (Exception e) {
-            logger.error(accessToken + "&" + openid, e);
+            log.error("{},{},{}", accessToken, openid, lang, e);
             throw new RuntimeException(e.getMessage(), e);
         }
 

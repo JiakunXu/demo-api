@@ -7,6 +7,7 @@ import com.example.demo.weixin.api.bo.BaseResult;
 import com.example.demo.weixin.api.bo.message.Custom;
 import com.example.demo.weixin.api.bo.message.Result;
 import com.example.demo.weixin.api.bo.message.Typing;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -16,11 +17,9 @@ import java.text.MessageFormat;
 /**
  * @author JiakunXu
  */
+@Slf4j
 @Service
 public class CustomerServiceMessageServiceImpl implements CustomerServiceMessageService {
-
-    private static final Logger logger = LoggerFactory
-        .getLogger(CustomerServiceMessageServiceImpl.class);
 
     /**
      *
@@ -37,7 +36,7 @@ public class CustomerServiceMessageServiceImpl implements CustomerServiceMessage
                 .post(MessageFormat.format(HTTPS_SEND_URL, accessToken), JSON.toJSONString(custom)),
                 Result.class);
         } catch (Exception e) {
-            logger.error(custom.toString(), e);
+            log.error("{}", custom, e);
             throw new RuntimeException(e.getMessage(), e);
         }
 
@@ -189,7 +188,7 @@ public class CustomerServiceMessageServiceImpl implements CustomerServiceMessage
                 .parseObject(HttpUtil.post(MessageFormat.format(HTTPS_TYPING_URL, accessToken),
                     JSON.toJSONString(typing)), BaseResult.class);
         } catch (Exception e) {
-            logger.error(typing.toString(), e);
+            log.error("{}", typing, e);
             throw new RuntimeException(e.getMessage(), e);
         }
 

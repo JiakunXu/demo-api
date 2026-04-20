@@ -7,8 +7,6 @@ import com.example.demo.framework.constant.Constants;
 import com.example.demo.framework.exception.ServiceException;
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -22,16 +20,14 @@ import java.util.UUID;
 @Service
 public class FileServiceImpl implements FileService {
 
-    private static final Logger logger = LoggerFactory.getLogger(FileServiceImpl.class);
-
     @Autowired
-    private OssService          ossService;
+    private OssService ossService;
 
     @Value("${aliyun.oss.bucketName}")
-    private String              bucketName;
+    private String     bucketName;
 
     @Value("${aliyun.oss.url}")
-    private String              url;
+    private String     url;
 
     private String getKey(String name) {
         return DateTime.now().toString("yyyy/MM/dd/") + UUID.randomUUID() + StringUtils

@@ -122,7 +122,7 @@ public class SubscribeServiceImpl extends ServiceImpl<SubscribeMapper, Subscribe
         try {
             this.insert(subscribeDO);
         } catch (Exception e) {
-            logger.error(subscribeDO.toString(), e);
+            log.error("{}", subscribeDO, e);
             throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息创建失败，请稍后再试");
         }
 
@@ -161,7 +161,7 @@ public class SubscribeServiceImpl extends ServiceImpl<SubscribeMapper, Subscribe
         try {
             return this.baseMapper.count0(subscribeDO);
         } catch (Exception e) {
-            logger.error(subscribeDO.toString(), e);
+            log.error("{}", subscribeDO, e);
         }
 
         return 0;
@@ -171,7 +171,7 @@ public class SubscribeServiceImpl extends ServiceImpl<SubscribeMapper, Subscribe
         try {
             return this.baseMapper.count1(subscribeDO);
         } catch (Exception e) {
-            logger.error(subscribeDO.toString(), e);
+            log.error("{}", subscribeDO, e);
         }
 
         return 0;
@@ -181,7 +181,7 @@ public class SubscribeServiceImpl extends ServiceImpl<SubscribeMapper, Subscribe
         try {
             return this.baseMapper.listSubscribes(subscribeDO);
         } catch (Exception e) {
-            logger.error(subscribeDO.toString(), e);
+            log.error("{}", subscribeDO, e);
         }
 
         return null;

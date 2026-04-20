@@ -5,6 +5,7 @@ import com.example.demo.bytedance.api.ImageService;
 import com.example.demo.bytedance.api.bo.text.Body;
 import com.example.demo.bytedance.api.bo.text.Log;
 import com.example.demo.framework.util.HttpUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,10 +17,9 @@ import java.util.Map;
 /**
  * @author JiakunXu
  */
+@Slf4j
 @Service
 public class ImageServiceImpl implements ImageService {
-
-    private static final Logger logger = LoggerFactory.getLogger(ImageServiceImpl.class);
 
     @Override
     public Log detect(String accessToken, Body body) throws RuntimeException {
@@ -33,7 +33,7 @@ public class ImageServiceImpl implements ImageService {
                 HttpUtil.post(ImageService.HTTPS_POST_URL, JSON.toJSONString(body), header),
                 Log.class);
         } catch (Exception e) {
-            logger.error(body.toString(), e);
+            ImageServiceImpl.log.error("{}", body, e);
             throw new RuntimeException(e.getMessage(), e);
         }
 

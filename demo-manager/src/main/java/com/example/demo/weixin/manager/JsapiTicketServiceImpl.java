@@ -4,9 +4,8 @@ import com.alibaba.fastjson2.JSON;
 import com.example.demo.weixin.api.JsapiTicketService;
 import com.example.demo.weixin.api.bo.js.JsapiTicket;
 import com.example.demo.framework.util.HttpUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.text.MessageFormat;
@@ -14,10 +13,9 @@ import java.text.MessageFormat;
 /**
  * @author JiakunXu
  */
+@Slf4j
 @Service
 public class JsapiTicketServiceImpl implements JsapiTicketService {
-
-    private static final Logger logger = LoggerFactory.getLogger(JsapiTicketServiceImpl.class);
 
     @Override
     public JsapiTicket getJsapiTicket(String accessToken) throws RuntimeException {
@@ -25,10 +23,9 @@ public class JsapiTicketServiceImpl implements JsapiTicketService {
 
         try {
             jsapiTicket = JSON.parseObject(
-                HttpUtil.get(MessageFormat.format(HTTPS_GET_URL, accessToken)),
-                JsapiTicket.class);
+                HttpUtil.get(MessageFormat.format(HTTPS_GET_URL, accessToken)), JsapiTicket.class);
         } catch (Exception e) {
-            logger.error(accessToken, e);
+            log.error("{}", accessToken, e);
             throw new RuntimeException(e.getMessage(), e);
         }
 

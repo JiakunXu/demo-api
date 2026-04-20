@@ -5,17 +5,15 @@ import com.example.demo.bytedance.api.QrCodeService;
 import com.example.demo.bytedance.api.bo.BaseResult;
 import com.example.demo.bytedance.api.bo.qrcode.Body;
 import com.example.demo.framework.util.HttpUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 /**
  * @author JiakunXu
  */
+@Slf4j
 @Service("com.example.demo.bytedance.manager.qrCodeService")
 public class QrCodeServiceImpl implements QrCodeService {
-
-    private static final Logger logger = LoggerFactory.getLogger(QrCodeServiceImpl.class);
 
     @Override
     public byte[] create(String accessToken, Body body) throws RuntimeException {
@@ -30,7 +28,7 @@ public class QrCodeServiceImpl implements QrCodeService {
         try {
             qrCode = HttpUtil.download(QrCodeService.HTTPS_POST_URL, JSON.toJSONString(body));
         } catch (Exception e) {
-            logger.error(body.toString(), e);
+            log.error("{}", body, e);
             throw new RuntimeException(e.getMessage(), e);
         }
 

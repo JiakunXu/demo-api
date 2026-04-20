@@ -6,18 +6,16 @@ import com.example.demo.bytedance.api.AccessTokenService;
 import com.example.demo.bytedance.api.bo.token.AccessToken;
 import com.example.demo.bytedance.api.bo.token.Result;
 import com.example.demo.framework.util.HttpUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 /**
  * @author JiakunXu
  */
+@Slf4j
 @Service("com.example.demo.bytedance.manager.accessTokenService")
 public class AccessTokenServiceImpl implements AccessTokenService {
-
-    private static final Logger logger = LoggerFactory.getLogger(AccessTokenServiceImpl.class);
 
     @Override
     public AccessToken getAccessToken(String appId, String appSecret,
@@ -34,7 +32,7 @@ public class AccessTokenServiceImpl implements AccessTokenService {
                 HttpUtil.post(AccessTokenService.HTTPS_POST_URL, JSON.toJSONString(data)),
                 Result.class);
         } catch (Exception e) {
-            logger.error(appId + "&" + appSecret + "&" + grantType, e);
+            log.error("{},{},{}", appId, appSecret, grantType, e);
             throw new RuntimeException(e.getMessage(), e);
         }
 

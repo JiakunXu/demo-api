@@ -7,9 +7,7 @@ import com.example.demo.weixin.api.bo.BaseResult;
 import com.example.demo.weixin.api.bo.device.Device;
 import com.example.demo.weixin.api.bo.device.SnTicket;
 import com.example.demo.weixin.api.bo.device.Message;
-import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.text.MessageFormat;
@@ -17,10 +15,9 @@ import java.text.MessageFormat;
 /**
  * @author JiakunXu
  */
+@Slf4j
 @Service
 public class HardwareDeviceServiceImpl implements HardwareDeviceService {
-
-    private static final Logger logger = LoggerFactory.getLogger(HardwareDeviceServiceImpl.class);
 
     @Override
     public SnTicket getSnTicket(String accessToken, Device device) throws RuntimeException {
@@ -31,7 +28,7 @@ public class HardwareDeviceServiceImpl implements HardwareDeviceService {
                 .post(MessageFormat.format(HTTPS_GET_URL, accessToken), JSON.toJSONString(device)),
                 SnTicket.class);
         } catch (Exception e) {
-            logger.error(device.toString(), e);
+            log.error("{}", device, e);
             throw new RuntimeException(e.getMessage(), e);
         }
 
@@ -55,7 +52,7 @@ public class HardwareDeviceServiceImpl implements HardwareDeviceService {
                 .parseObject(HttpUtil.post(MessageFormat.format(HTTPS_SEND_URL, accessToken),
                     JSON.toJSONString(message)), BaseResult.class);
         } catch (Exception e) {
-            logger.error(message.toString(), e);
+            log.error("{}", message, e);
             throw new RuntimeException(e.getMessage(), e);
         }
 

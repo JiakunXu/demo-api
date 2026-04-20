@@ -7,9 +7,8 @@ import com.example.demo.bytedance.api.bo.message.Result;
 import com.example.demo.bytedance.api.bo.message.Message;
 import com.example.demo.framework.util.EncryptUtil;
 import com.example.demo.framework.util.HttpUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -23,22 +22,21 @@ import java.util.Map;
 /**
  * @author JiakunXu
  */
+@Slf4j
 @Service("com.example.demo.bytedance.manager.messageService")
 public class MessageServiceImpl implements MessageService {
 
-    private static final Logger logger = LoggerFactory.getLogger(MessageServiceImpl.class);
-
     @Autowired
-    private TokenService        tokenService;
+    private TokenService tokenService;
 
     @Value("${bytedance.token}")
-    private String              token;
+    private String       token;
 
     @Value("${bytedance.app.id}")
-    private String              appId;
+    private String       appId;
 
     @Value("${bytedance.app.secret}")
-    private String              appSecret;
+    private String       appSecret;
 
     private void validate(String signature, String timestamp, String nonce) {
         if (StringUtils.isBlank(signature)) {
@@ -117,7 +115,7 @@ public class MessageServiceImpl implements MessageService {
             send(tokenService.getToken(appId, appSecret, "client_credential"),
                 message.getFromUserName(), "感谢您的留言。");
         } catch (RuntimeException e) {
-            logger.error("send", e);
+            log.error("{}", data, e);
         }
 
         return message;
@@ -137,7 +135,7 @@ public class MessageServiceImpl implements MessageService {
                 HttpUtil.post(MessageService.HTTPS_POST_URL + accessToken, JSON.toJSONString(map)),
                 Result.class);
         } catch (Exception e) {
-            logger.error(JSON.toJSONString(map), e);
+            log.error("{}", map, e);
             throw new RuntimeException(e.getMessage(), e);
         }
 

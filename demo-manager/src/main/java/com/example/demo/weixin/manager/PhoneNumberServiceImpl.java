@@ -6,11 +6,10 @@ import com.example.demo.framework.util.HttpUtil;
 import com.example.demo.weixin.api.PhoneNumberService;
 import com.example.demo.weixin.api.bo.wxa.PhoneNumber;
 import com.example.demo.weixin.api.bo.wxa.Result;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.util.encoders.Base64;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.Cipher;
@@ -24,10 +23,9 @@ import java.util.Arrays;
 /**
  * @author JiakunXu
  */
+@Slf4j
 @Service
 public class PhoneNumberServiceImpl implements PhoneNumberService {
-
-    private static final Logger logger = LoggerFactory.getLogger(PhoneNumberServiceImpl.class);
 
     @Override
     public PhoneNumber getPhoneNumber(String appid, String accessToken,
@@ -46,7 +44,7 @@ public class PhoneNumberServiceImpl implements PhoneNumberService {
                 .post(MessageFormat.format(HTTPS_POST_URL, accessToken), data.toJSONString()),
                 Result.class);
         } catch (Exception e) {
-            logger.error(code, e);
+            log.error("{}", code, e);
             throw new RuntimeException(e.getMessage(), e);
         }
 
