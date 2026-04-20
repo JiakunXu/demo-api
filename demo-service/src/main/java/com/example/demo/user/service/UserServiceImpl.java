@@ -4,6 +4,7 @@ import com.example.demo.framework.annotation.NotBlank;
 import com.example.demo.framework.annotation.NotNull;
 import com.example.demo.framework.constant.Constants;
 import com.example.demo.framework.exception.ServiceException;
+import com.example.demo.framework.service.impl.ServiceImpl;
 import com.example.demo.framework.util.BeanUtil;
 import com.example.demo.security.api.RefreshTokenService;
 import com.example.demo.security.api.bo.LoginUser;
@@ -11,6 +12,7 @@ import com.example.demo.user.api.UserService;
 import com.example.demo.user.api.bo.User;
 import com.example.demo.user.dao.dataobject.UserDO;
 import com.example.demo.user.dao.mapper.UserMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,16 +27,12 @@ import java.util.List;
 /**
  * @author JiakunXu
  */
+@Slf4j
 @Service
-public class UserServiceImpl implements UserService {
-
-    private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
+public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements UserService {
 
     @Autowired
     private RefreshTokenService refreshTokenService;
-
-    @Autowired
-    private UserMapper          userMapper;
 
     @Override
     public void validate(BigInteger corpId, String id) {
@@ -81,13 +79,13 @@ public class UserServiceImpl implements UserService {
         userDO.setModifier(modifier);
 
         try {
-            if (userMapper.refreshToken(userDO) != 1) {
+            if (this.baseMapper.refreshToken(userDO) != 1) {
                 throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "暂无权限");
             }
         } catch (ServiceException e) {
             throw e;
         } catch (Exception e) {
-            logger.error(userDO.toString(), e);
+            log.error("{}", userDO, e);
             throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息更新失败，请稍后再试");
         }
 
@@ -107,36 +105,6 @@ public class UserServiceImpl implements UserService {
         }
 
         return list;
-    }
-
-    private int count(UserDO userDO) {
-        try {
-            return userMapper.count(userDO);
-        } catch (Exception e) {
-            logger.error(userDO.toString(), e);
-        }
-
-        return 0;
-    }
-
-    private List<UserDO> list(UserDO userDO) {
-        try {
-            return userMapper.list(userDO);
-        } catch (Exception e) {
-            logger.error(userDO.toString(), e);
-        }
-
-        return null;
-    }
-
-    private UserDO get(UserDO userDO) {
-        try {
-            return userMapper.get(userDO);
-        } catch (Exception e) {
-            logger.error(userDO.toString(), e);
-        }
-
-        return null;
     }
 
 }
