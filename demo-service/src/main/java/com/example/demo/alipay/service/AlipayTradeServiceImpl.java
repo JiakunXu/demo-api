@@ -1,8 +1,7 @@
 package com.example.demo.alipay.service;
 
-import com.alibaba.fastjson2.JSON;
-import com.alibaba.fastjson2.JSONObject;
 import com.alipay.easysdk.factory.Factory;
+import com.alipay.easysdk.payment.common.models.AlipayTradeQueryResponse;
 import com.example.demo.alipay.api.AlipayTradeService;
 import com.example.demo.alipay.api.FactoryPaymentCommonService;
 import com.example.demo.alipay.api.bo.AlipayTrade;
@@ -26,13 +25,14 @@ import java.util.UUID;
 @Service
 public class AlipayTradeServiceImpl implements AlipayTradeService {
 
-    private static final Logger logger = LoggerFactory.getLogger(AlipayTradeServiceImpl.class);
+    private static final Logger         logger = LoggerFactory
+        .getLogger(AlipayTradeServiceImpl.class);
 
     @Autowired
     private FactoryPaymentCommonService factoryPaymentCommonService;
 
     @Autowired
-    private AlipayTradeMapper alipayTradeMapper;
+    private AlipayTradeMapper           alipayTradeMapper;
 
     @Override
     public AlipayTrade getTrade(Map<String, String> parameters) {
@@ -82,25 +82,19 @@ public class AlipayTradeServiceImpl implements AlipayTradeService {
 
     @Override
     public AlipayTrade getTrade(String appAuthToken, String outTradeNo) {
-        JSONObject data = JSON.parseObject(factoryPaymentCommonService.query(appAuthToken, outTradeNo));
+        AlipayTradeQueryResponse response = factoryPaymentCommonService.query(appAuthToken,
+            outTradeNo);
 
         AlipayTrade alipayTrade = new AlipayTrade();
         alipayTrade.setNotifyId(UUID.randomUUID().toString());
-        alipayTrade.setSign(data.getString("sign"));
-        alipayTrade
-            .setTradeNo(data.getJSONObject("alipay_trade_query_response").getString("trade_no"));
-        alipayTrade.setOutTradeNo(
-            data.getJSONObject("alipay_trade_query_response").getString("out_trade_no"));
-        alipayTrade.setBuyerId(
-            data.getJSONObject("alipay_trade_query_response").getString("buyer_user_id"));
-        alipayTrade.setBuyerLogonId(
-            data.getJSONObject("alipay_trade_query_response").getString("buyer_logon_id"));
-        alipayTrade.setTradeStatus(
-            data.getJSONObject("alipay_trade_query_response").getString("trade_status"));
-        alipayTrade.setTotalAmount(getBigDecimal(
-            data.getJSONObject("alipay_trade_query_response").getString("total_amount")));
-        alipayTrade.setGmtPayment(
-            getDate(data.getJSONObject("alipay_trade_query_response").getString("send_pay_date"))); // TODO
+        // alipayTrade.setSign(data.getString("sign"));
+        alipayTrade.setTradeNo(response.getTradeNo());
+        alipayTrade.setOutTradeNo(response.getOutTradeNo());
+        alipayTrade.setBuyerId(response.getBuyerUserId());
+        alipayTrade.setBuyerLogonId(response.getBuyerLogonId());
+        alipayTrade.setTradeStatus(response.getTradeStatus());
+        alipayTrade.setTotalAmount(getBigDecimal(response.getTotalAmount()));
+        alipayTrade.setGmtPayment(getDate(response.getSendPayDate())); // TODO
 
         return alipayTrade;
     }
