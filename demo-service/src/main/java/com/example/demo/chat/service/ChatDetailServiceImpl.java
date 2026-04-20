@@ -8,11 +8,11 @@ import com.example.demo.chat.dao.dataobject.ChatDetailDO;
 import com.example.demo.chat.dao.mapper.ChatDetailMapper;
 import com.example.demo.framework.constant.Constants;
 import com.example.demo.framework.exception.ServiceException;
+import com.example.demo.framework.service.impl.ServiceImpl;
 import com.example.demo.framework.util.BeanUtil;
 import com.example.demo.mq.api.ProducerService;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,16 +25,13 @@ import java.util.UUID;
 /**
  * @author JiakunXu
  */
+@Slf4j
 @Service
-public class ChatDetailServiceImpl implements ChatDetailService {
-
-    private static final Logger logger = LoggerFactory.getLogger(ChatDetailServiceImpl.class);
-
-    @Autowired
-    private ProducerService     producerService;
+public class ChatDetailServiceImpl extends ServiceImpl<ChatDetailMapper, ChatDetailDO>
+                                   implements ChatDetailService {
 
     @Autowired
-    private ChatDetailMapper    chatDetailMapper;
+    private ProducerService producerService;
 
     @Override
     public List<ChatDetail> listChatDetails(BigInteger userId, String id, String friendId,
@@ -55,7 +52,7 @@ public class ChatDetailServiceImpl implements ChatDetailService {
         chatDetailDO.setPageNo(Integer.parseInt(pageNo));
         chatDetailDO.setPageSize(Integer.parseInt(pageSize));
 
-        return BeanUtil.copy(list(chatDetailDO), ChatDetail.class);
+        return BeanUtil.copy(this.list(chatDetailDO), ChatDetail.class);
     }
 
     @Override
@@ -68,7 +65,7 @@ public class ChatDetailServiceImpl implements ChatDetailService {
         chatDetailDO.setId(id);
         chatDetailDO.setUserId(userId);
 
-        return BeanUtil.copy(get(chatDetailDO), ChatDetail.class);
+        return BeanUtil.copy(this.get(chatDetailDO), ChatDetail.class);
     }
 
     @Override
@@ -91,9 +88,9 @@ public class ChatDetailServiceImpl implements ChatDetailService {
         chatDetailDO0.setCreator(userId.toString());
 
         try {
-            chatDetailMapper.insert(chatDetailDO0);
+            this.insert(chatDetailDO0);
         } catch (Exception e) {
-            logger.error(chatDetailDO0.toString(), e);
+            log.error("{}", chatDetailDO0, e);
             throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息创建失败，请稍后再试");
         }
 
@@ -107,9 +104,9 @@ public class ChatDetailServiceImpl implements ChatDetailService {
         chatDetailDO1.setCreator(userId.toString());
 
         try {
-            chatDetailMapper.insert(chatDetailDO1);
+            this.insert(chatDetailDO1);
         } catch (Exception e) {
-            logger.error(chatDetailDO1.toString(), e);
+            log.error("{}", chatDetailDO1, e);
             throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息创建失败，请稍后再试");
         }
 
@@ -135,26 +132,6 @@ public class ChatDetailServiceImpl implements ChatDetailService {
         producerService.send("topic", "chat.update", JSON.toJSONBytes(chat1), chatId);
 
         return BeanUtil.copy(chatDetailDO0, ChatDetail.class);
-    }
-
-    private List<ChatDetailDO> list(ChatDetailDO chatDetailDO) {
-        try {
-            return chatDetailMapper.list(chatDetailDO);
-        } catch (Exception e) {
-            logger.error(chatDetailDO.toString(), e);
-        }
-
-        return null;
-    }
-
-    private ChatDetailDO get(ChatDetailDO chatDetailDO) {
-        try {
-            return chatDetailMapper.get(chatDetailDO);
-        } catch (Exception e) {
-            logger.error(chatDetailDO.toString(), e);
-        }
-
-        return null;
     }
 
 }

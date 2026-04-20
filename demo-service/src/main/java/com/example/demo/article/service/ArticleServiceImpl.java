@@ -8,23 +8,19 @@ import com.example.demo.framework.annotation.NotBlank;
 import com.example.demo.framework.annotation.NotNull;
 import com.example.demo.framework.constant.Constants;
 import com.example.demo.framework.exception.ServiceException;
+import com.example.demo.framework.service.impl.ServiceImpl;
 import com.example.demo.framework.util.BeanUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigInteger;
 import java.util.List;
 
+@Slf4j
 @Service
-public class ArticleServiceImpl implements ArticleService {
-
-    private static final Logger logger = LoggerFactory.getLogger(ArticleServiceImpl.class);
-
-    @Autowired
-    private ArticleMapper       articleMapper;
+public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, ArticleDO>
+                                implements ArticleService {
 
     @Override
     public int countArticle(Article article) {
@@ -32,7 +28,7 @@ public class ArticleServiceImpl implements ArticleService {
             return 0;
         }
 
-        return count(BeanUtil.copy(article, ArticleDO.class));
+        return this.count(BeanUtil.copy(article, ArticleDO.class));
     }
 
     @Override
@@ -41,7 +37,7 @@ public class ArticleServiceImpl implements ArticleService {
             return null;
         }
 
-        return BeanUtil.copy(list(BeanUtil.copy(article, ArticleDO.class)), Article.class);
+        return BeanUtil.copy(this.list(BeanUtil.copy(article, ArticleDO.class)), Article.class);
     }
 
     @Override
@@ -59,7 +55,7 @@ public class ArticleServiceImpl implements ArticleService {
             return null;
         }
 
-        return BeanUtil.copy(get(new ArticleDO(id)), Article.class);
+        return BeanUtil.copy(this.get(new ArticleDO(id)), Article.class);
     }
 
     @Override
@@ -68,9 +64,9 @@ public class ArticleServiceImpl implements ArticleService {
         articleDO.setCreator(creator);
 
         try {
-            articleMapper.insert(articleDO);
+            this.insert(articleDO);
         } catch (Exception e) {
-            logger.error(articleDO.toString(), e);
+            log.error("{}", articleDO, e);
             throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息创建失败，请稍后再试");
         }
 
@@ -88,13 +84,13 @@ public class ArticleServiceImpl implements ArticleService {
         articleDO.setModifier(modifier);
 
         try {
-            if (articleMapper.update(articleDO) != 1) {
+            if (this.update(articleDO) != 1) {
                 throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "暂无权限");
             }
         } catch (ServiceException e) {
             throw e;
         } catch (Exception e) {
-            logger.error(articleDO.toString(), e);
+            log.error("{}", articleDO, e);
             throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息更新失败，请稍后再试");
         }
 
@@ -108,43 +104,13 @@ public class ArticleServiceImpl implements ArticleService {
         articleDO.setModifier(modifier);
 
         try {
-            articleMapper.delete(articleDO);
+            this.delete(articleDO);
         } catch (Exception e) {
-            logger.error(articleDO.toString(), e);
+            log.error("{}", articleDO, e);
             throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息更新失败，请稍后再试");
         }
 
         return BeanUtil.copy(articleDO, Article.class);
-    }
-
-    private int count(ArticleDO articleDO) {
-        try {
-            return articleMapper.count(articleDO);
-        } catch (Exception e) {
-            logger.error(articleDO.toString(), e);
-        }
-
-        return 0;
-    }
-
-    private List<ArticleDO> list(ArticleDO articleDO) {
-        try {
-            return articleMapper.list(articleDO);
-        } catch (Exception e) {
-            logger.error(articleDO.toString(), e);
-        }
-
-        return null;
-    }
-
-    private ArticleDO get(ArticleDO articleDO) {
-        try {
-            return articleMapper.get(articleDO);
-        } catch (Exception e) {
-            logger.error(articleDO.toString(), e);
-        }
-
-        return null;
     }
 
 }

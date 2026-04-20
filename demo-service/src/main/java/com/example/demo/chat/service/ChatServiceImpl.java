@@ -5,11 +5,13 @@ import com.example.demo.chat.api.ChatService;
 import com.example.demo.chat.api.ChatStatusService;
 import com.example.demo.chat.api.bo.Chat;
 import com.example.demo.chat.dao.dataobject.ChatDO;
+import com.example.demo.framework.service.impl.ServiceImpl;
 import com.example.demo.framework.util.BeanUtil;
 import com.example.demo.user.api.UserService;
 import com.example.demo.chat.dao.mapper.ChatMapper;
 import com.example.demo.framework.constant.Constants;
 import com.example.demo.framework.exception.ServiceException;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,22 +24,18 @@ import java.util.List;
 /**
  * @author JiakunXu
  */
+@Slf4j
 @Service
-public class ChatServiceImpl implements ChatService {
-
-    private static final Logger logger = LoggerFactory.getLogger(ChatServiceImpl.class);
+public class ChatServiceImpl extends ServiceImpl<ChatMapper, ChatDO> implements ChatService {
 
     @Autowired
-    private ChatDetailService   chatDetailService;
+    private ChatDetailService chatDetailService;
 
     @Autowired
-    private ChatStatusService   chatStatusService;
+    private ChatStatusService chatStatusService;
 
     @Autowired
-    private UserService         userService;
-
-    @Autowired
-    private ChatMapper          chatMapper;
+    private UserService       userService;
 
     @Override
     public int countChat(BigInteger userId) {
@@ -48,7 +46,7 @@ public class ChatServiceImpl implements ChatService {
         ChatDO chatDO = new ChatDO();
         chatDO.setUserId(userId);
 
-        return count(chatDO);
+        return this.count(chatDO);
     }
 
     @Override
@@ -62,7 +60,7 @@ public class ChatServiceImpl implements ChatService {
         chatDO.setPageNo(Integer.parseInt(pageNo));
         chatDO.setPageSize(Integer.parseInt(pageSize));
 
-        List<Chat> list = BeanUtil.copy(list(chatDO), Chat.class);
+        List<Chat> list = BeanUtil.copy(this.list(chatDO), Chat.class);
 
         if (list == null || list.size() == 0) {
             return null;
@@ -100,7 +98,7 @@ public class ChatServiceImpl implements ChatService {
         chatDO.setUserId(userId);
         chatDO.setFriendId(friendId);
 
-        return BeanUtil.copy(get(chatDO), Chat.class);
+        return BeanUtil.copy(this.get(chatDO), Chat.class);
     }
 
     @Override
@@ -117,11 +115,11 @@ public class ChatServiceImpl implements ChatService {
         chatDO.setModifier(userId.toString());
 
         try {
-            if (chatMapper.updateChat(chatDO) != 1) {
-                chatMapper.insert(chatDO);
+            if (this.baseMapper.updateChat(chatDO) != 1) {
+                this.insert(chatDO);
             }
         } catch (Exception e) {
-            logger.error(chatDO.toString(), e);
+            log.error("{}", chatDO, e);
             throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息更新失败，请稍后再试");
         }
 
@@ -143,47 +141,17 @@ public class ChatServiceImpl implements ChatService {
         chatDO.setModifier(userId.toString());
 
         try {
-            if (chatMapper.updateUnread(chatDO) != 1) {
+            if (this.baseMapper.updateUnread(chatDO) != 1) {
                 throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息不存在");
             }
         } catch (ServiceException e) {
             throw e;
         } catch (Exception e) {
-            logger.error(chatDO.toString(), e);
+            log.error("{}", chatDO, e);
             throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息更新失败，请稍后再试");
         }
 
         return chat;
-    }
-
-    private int count(ChatDO chatDO) {
-        try {
-            return chatMapper.count(chatDO);
-        } catch (Exception e) {
-            logger.error(chatDO.toString(), e);
-        }
-
-        return 0;
-    }
-
-    private List<ChatDO> list(ChatDO chatDO) {
-        try {
-            return chatMapper.list(chatDO);
-        } catch (Exception e) {
-            logger.error(chatDO.toString(), e);
-        }
-
-        return null;
-    }
-
-    private ChatDO get(ChatDO chatDO) {
-        try {
-            return chatMapper.get(chatDO);
-        } catch (Exception e) {
-            logger.error(chatDO.toString(), e);
-        }
-
-        return null;
     }
 
 }
