@@ -1,32 +1,28 @@
 package com.example.demo.qrtz.service;
 
+import com.example.demo.framework.service.impl.ServiceImpl;
 import com.example.demo.framework.util.BeanUtil;
 import com.example.demo.qrtz.api.CronTriggerService;
 import com.example.demo.qrtz.api.TriggerService;
 import com.example.demo.qrtz.api.bo.Trigger;
 import com.example.demo.qrtz.dao.dataobject.TriggerDO;
 import com.example.demo.qrtz.dao.mapper.TriggerMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
-public class TriggerServiceImpl implements TriggerService {
-
-    private static final Logger logger = LoggerFactory.getLogger(TriggerServiceImpl.class);
-
-    @Autowired
-    private CronTriggerService  cronTriggerService;
+public class TriggerServiceImpl extends ServiceImpl<TriggerMapper, TriggerDO>
+                                implements TriggerService {
 
     @Autowired
-    private TriggerMapper       triggerMapper;
+    private CronTriggerService cronTriggerService;
 
     @Override
     public Trigger getTrigger(String schedName, String jobName, String jobGroup) {
-        if (StringUtils.isBlank(schedName) || StringUtils.isBlank(jobName)
-            || StringUtils.isBlank(jobGroup)) {
+        if (StringUtils.isAnyBlank(schedName, jobName, jobGroup)) {
             return null;
         }
 
@@ -35,7 +31,7 @@ public class TriggerServiceImpl implements TriggerService {
         triggerDO.setJobName(jobName);
         triggerDO.setJobGroup(jobGroup);
 
-        Trigger trigger = BeanUtil.copy(get(triggerDO), Trigger.class);
+        Trigger trigger = BeanUtil.copy(this.get(triggerDO), Trigger.class);
 
         if (trigger == null) {
             return null;
@@ -45,16 +41,6 @@ public class TriggerServiceImpl implements TriggerService {
             trigger.getTriggerName(), trigger.getTriggerGroup()));
 
         return trigger;
-    }
-
-    private TriggerDO get(TriggerDO triggerDO) {
-        try {
-            return triggerMapper.get(triggerDO);
-        } catch (Exception e) {
-            logger.error(triggerDO.toString(), e);
-        }
-
-        return null;
     }
 
 }

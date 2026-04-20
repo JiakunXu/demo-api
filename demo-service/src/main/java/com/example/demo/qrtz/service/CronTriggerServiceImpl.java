@@ -1,23 +1,19 @@
 package com.example.demo.qrtz.service;
 
+import com.example.demo.framework.service.impl.ServiceImpl;
 import com.example.demo.framework.util.BeanUtil;
 import com.example.demo.qrtz.api.CronTriggerService;
 import com.example.demo.qrtz.api.bo.CronTrigger;
 import com.example.demo.qrtz.dao.dataobject.CronTriggerDO;
 import com.example.demo.qrtz.dao.mapper.CronTriggerMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
-public class CronTriggerServiceImpl implements CronTriggerService {
-
-    private static final Logger logger = LoggerFactory.getLogger(CronTriggerServiceImpl.class);
-
-    @Autowired
-    private CronTriggerMapper   cronTriggerMapper;
+public class CronTriggerServiceImpl extends ServiceImpl<CronTriggerMapper, CronTriggerDO>
+                                    implements CronTriggerService {
 
     @Override
     public CronTrigger getCronTrigger(String schedName, String triggerName, String triggerGroup) {
@@ -31,17 +27,7 @@ public class CronTriggerServiceImpl implements CronTriggerService {
         cronTriggerDO.setTriggerName(triggerName);
         cronTriggerDO.setTriggerGroup(triggerGroup);
 
-        return BeanUtil.copy(get(cronTriggerDO), CronTrigger.class);
-    }
-
-    private CronTriggerDO get(CronTriggerDO cronTriggerDO) {
-        try {
-            return cronTriggerMapper.get(cronTriggerDO);
-        } catch (Exception e) {
-            logger.error(cronTriggerDO.toString(), e);
-        }
-
-        return null;
+        return BeanUtil.copy(this.get(cronTriggerDO), CronTrigger.class);
     }
 
 }

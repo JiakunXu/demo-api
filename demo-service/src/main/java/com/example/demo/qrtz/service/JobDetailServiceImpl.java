@@ -1,29 +1,27 @@
 package com.example.demo.qrtz.service;
 
+import com.example.demo.framework.service.impl.ServiceImpl;
 import com.example.demo.framework.util.BeanUtil;
 import com.example.demo.qrtz.api.JobDetailService;
 import com.example.demo.qrtz.api.TriggerService;
 import com.example.demo.qrtz.api.bo.JobDetail;
 import com.example.demo.qrtz.dao.dataobject.JobDetailDO;
 import com.example.demo.qrtz.dao.mapper.JobDetailMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 
+@Slf4j
 @Service
-public class JobDetailServiceImpl implements JobDetailService {
-
-    private static final Logger logger = LoggerFactory.getLogger(JobDetailServiceImpl.class);
-
-    @Autowired
-    private TriggerService      triggerService;
+public class JobDetailServiceImpl extends ServiceImpl<JobDetailMapper, JobDetailDO>
+                                  implements JobDetailService {
 
     @Autowired
-    private JobDetailMapper     jobDetailMapper;
+    private TriggerService triggerService;
 
     @Override
     public int countJobDetail(JobDetail jobDetail) {
@@ -31,7 +29,7 @@ public class JobDetailServiceImpl implements JobDetailService {
             return 0;
         }
 
-        return count(BeanUtil.copy(jobDetail, JobDetailDO.class));
+        return this.count(BeanUtil.copy(jobDetail, JobDetailDO.class));
     }
 
     @Override
@@ -40,10 +38,10 @@ public class JobDetailServiceImpl implements JobDetailService {
             return null;
         }
 
-        List<JobDetail> list = BeanUtil.copy(list(BeanUtil.copy(jobDetail, JobDetailDO.class)),
+        List<JobDetail> list = BeanUtil.copy(this.list(BeanUtil.copy(jobDetail, JobDetailDO.class)),
             JobDetail.class);
 
-        if (list == null || list.size() == 0) {
+        if (CollectionUtils.isEmpty(list)) {
             return null;
         }
 
@@ -67,7 +65,7 @@ public class JobDetailServiceImpl implements JobDetailService {
         jobDetailDO.setJobName(jobName);
         jobDetailDO.setJobGroup(jobGroup);
 
-        JobDetail jobDetail = BeanUtil.copy(get(jobDetailDO), JobDetail.class);
+        JobDetail jobDetail = BeanUtil.copy(this.get(jobDetailDO), JobDetail.class);
 
         if (jobDetail == null) {
             return null;
@@ -77,36 +75,6 @@ public class JobDetailServiceImpl implements JobDetailService {
             jobDetail.getJobName(), jobDetail.getJobGroup()));
 
         return jobDetail;
-    }
-
-    private int count(JobDetailDO jobDetailDO) {
-        try {
-            return jobDetailMapper.count(jobDetailDO);
-        } catch (Exception e) {
-            logger.error(jobDetailDO.toString(), e);
-        }
-
-        return 0;
-    }
-
-    private List<JobDetailDO> list(JobDetailDO jobDetailDO) {
-        try {
-            return jobDetailMapper.list(jobDetailDO);
-        } catch (Exception e) {
-            logger.error(jobDetailDO.toString(), e);
-        }
-
-        return null;
-    }
-
-    private JobDetailDO get(JobDetailDO jobDetailDO) {
-        try {
-            return jobDetailMapper.get(jobDetailDO);
-        } catch (Exception e) {
-            logger.error(jobDetailDO.toString(), e);
-        }
-
-        return null;
     }
 
 }
