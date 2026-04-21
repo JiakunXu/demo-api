@@ -2,23 +2,39 @@
     <include resource="org/springframework/boot/logging/logback/defaults.xml" />
     <include resource="org/springframework/boot/logging/logback/console-appender.xml" />
 
-    <shutdownHook class="ch.qos.logback.core.hook.DelayingShutdownHook"/>
+    <shutdownHook class="ch.qos.logback.core.hook.DefaultShutdownHook"/>
+
+    <springProperty name="endpoint" source="aliyun.sls.endpoint"/>
+    <springProperty name="accessKeyId" source="aliyun.accessKey.id"/>
+    <springProperty name="accessKeySecret" source="aliyun.accessKey.secret"/>
+    <springProperty name="project" source="aliyun.sls.project"/>
+    <springProperty name="logStore" source="aliyun.sls.logStore"/>
+    <springProperty name="topic" source="aliyun.sls.topic"/>
 
     <appender name="LOGHUB" class="com.aliyun.openservices.log.logback.LoghubAppender">
-        <endpoint>.log.aliyuncs.com</endpoint>
-        <accessKeyId>id</accessKeyId>
-        <accessKeySecret>secret</accessKeySecret>
+        <endpoint>${endpoint}</endpoint>
+        <accessKeyId>${accessKeyId}</accessKeyId>
+        <accessKeySecret>${accessKeySecret}</accessKeySecret>
 
-        <project>project</project>
-        <logStore></logStore>
+        <project>${project}</project>
+        <logStore>${logStore}</logStore>
 
-        <topic>demo</topic>
+        <topic>${topic}</topic>
+
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ERROR</level>
+        </filter>
 
         <mdcFields>THREAD_ID,MDC_KEY</mdcFields>
     </appender>
 
-    <root level="ERROR">
+    <statusListener class="ch.qos.logback.core.status.OnConsoleStatusListener"/>
+
+    <logger name="org.apache.http.impl.conn.Wire" level="WARN" />
+
+    <root level="INFO">
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="LOGHUB"/>
     </root>
+
 </configuration>
