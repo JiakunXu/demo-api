@@ -17,7 +17,7 @@ public class AuthenticationToken extends AbstractAuthenticationToken {
     private final Object      principal;
 
     public AuthenticationToken(Object principal) {
-        super(null);
+        super((Collection<? extends GrantedAuthority>) null);
         this.principal = principal;
         setAuthenticated(false);
     }
