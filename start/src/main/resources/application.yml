@@ -3,12 +3,43 @@ server:
   port: 8080
 
 spring:
+  # Core Properties
   main:
     allow-circular-references: true
-  servlet:
-    multipart:
-      max-file-size: 99MB
-      max-request-size: 99MB
+  messages:
+    basename: i18n/messages
+    encoding: UTF-8
+  quartz:
+    job-store-type: jdbc
+    properties:
+      org:
+        quartz:
+          scheduler:
+            instanceId: AUTO
+          threadPool:
+            class: org.quartz.simpl.SimpleThreadPool
+            threadCount: 5
+          jobStore:
+            isClustered: true
+    scheduler-name: scheduler
+    startup-delay: 1
+  threads:
+    virtual:
+      enabled: true
+  # Data Properties
+  data:
+    redis:
+      host: ''
+      port: 6379
+      password: ''
+      database: 0
+      timeout: 1000
+      lettuce:
+        pool:
+          max-active: 8
+          max-idle: 8
+          max-wait: -1
+          min-idle: 0
   datasource:
     url: jdbc:mysql://?useSSL=false&serverTimezone=GMT%2B8&rewriteBatchedStatements=true
     username: ''
@@ -28,39 +59,18 @@ spring:
       keep-alive: true
       phy-max-use-count: 1000
       async-init: true
-  data:
-    redis:
-      host: ''
-      port: 6379
-      password: ''
-      database: 0
-      timeout: 1000
-      lettuce:
-        pool:
-          max-active: 8
-          max-idle: 8
-          max-wait: -1
-          min-idle: 0
-  quartz:
-    job-store-type: jdbc
-    properties:
-      org:
-        quartz:
-          scheduler:
-            instanceId: AUTO
-          threadPool:
-            class: org.quartz.simpl.SimpleThreadPool
-            threadCount: 5
-          jobStore:
-            isClustered: true
-    scheduler-name: scheduler
-    startup-delay: 1
-  http:
-    encoding:
-      charset: UTF-8
-      enabled: true
-      force: true
-      force-request: true
+  elasticsearch:
+    uris: ''
+    username: ''
+    password: ''
+  # Web Properties
+  mvc:
+    async:
+      request-timeout: 3600000
+  servlet:
+    multipart:
+      max-file-size: 99MB
+      max-request-size: 99MB
 
 mybatis:
   config-location: classpath:mybatis-config.xml
