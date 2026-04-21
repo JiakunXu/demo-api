@@ -23,6 +23,8 @@ public class BaseBO implements Serializable {
 
     private String            end;
 
+    private String[]          dateRange;
+
     /**
      * @see com.example.demo.framework.config.JsonConfigurer
      */

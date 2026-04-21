@@ -29,6 +29,16 @@ public class BaseController {
             : (LoginUser) authentication.getPrincipal();
     }
 
+    public String getParameter(HttpServletRequest request) {
+        try {
+            return IOUtils.toString(request.getInputStream(), StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            log.error("", e);
+        }
+
+        return null;
+    }
+
     public String getParameter(HttpServletRequest request, String name) {
         return request.getParameter(name);
     }
@@ -62,43 +72,53 @@ public class BaseController {
     }
 
     public <T> T getParameter(HttpServletRequest request, Class<T> clazz) {
-        if (!StringUtils.contains(request.getContentType(), MediaType.APPLICATION_JSON_VALUE)) {
-            return null;
+        if (StringUtils.isBlank(request.getContentType()) || !MediaType.APPLICATION_JSON
+            .includes(MediaType.parseMediaType(request.getContentType()))) {
+            return JSON.parseObject("{}", clazz);
         }
 
         try {
-            return JSON.parseObject(
+            T parameter = JSON.parseObject(
                 IOUtils.toString(request.getInputStream(), StandardCharsets.UTF_8), clazz);
+
+            if (parameter instanceof BaseBO baseBO) {
+                if (baseBO.getDateRange() != null && baseBO.getDateRange().length == 2) {
+                    baseBO.setStart(baseBO.getDateRange()[0]);
+                    baseBO.setEnd(baseBO.getDateRange()[1]);
+                }
+
+                String dir = baseBO.getDir();
+                if ("ascending".equals(dir)) {
+                    baseBO.setDir("ASC");
+                } else if ("descending".equals(dir)) {
+                    baseBO.setDir("DESC");
+                } else {
+                    baseBO.setDir(dir);
+                }
+            }
+
+            return parameter;
         } catch (IOException e) {
-            log.error("getParameter", e);
+            log.error("", e);
         }
 
         return JSON.parseObject("{}", clazz);
     }
 
     public <T> List<T> getParameters(HttpServletRequest request, Class<T> clazz) {
-        if (!StringUtils.contains(request.getContentType(), MediaType.APPLICATION_JSON_VALUE)) {
-            return null;
+        if (StringUtils.isBlank(request.getContentType()) || !MediaType.APPLICATION_JSON
+            .includes(MediaType.parseMediaType(request.getContentType()))) {
+            return JSON.parseArray("[]", clazz);
         }
 
         try {
             return JSON.parseArray(
                 IOUtils.toString(request.getInputStream(), StandardCharsets.UTF_8), clazz);
         } catch (IOException e) {
-            log.error("getParameter", e);
+            log.error("", e);
         }
 
         return JSON.parseArray("[]", clazz);
-    }
-
-    public String getParameter(HttpServletRequest request) {
-        try {
-            return IOUtils.toString(request.getInputStream(), StandardCharsets.UTF_8);
-        } catch (IOException e) {
-            log.error("getParameter", e);
-        }
-
-        return null;
     }
 
     public String getRemoteAddr(HttpServletRequest request) {
