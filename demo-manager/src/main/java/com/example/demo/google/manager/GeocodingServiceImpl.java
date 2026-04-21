@@ -8,8 +8,6 @@ import com.google.maps.GeocodingApiRequest;
 import com.google.maps.errors.ApiException;
 import com.google.maps.model.GeocodingResult;
 import com.google.maps.model.LatLng;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -18,13 +16,11 @@ import java.io.IOException;
 @Service
 public class GeocodingServiceImpl implements GeocodingService {
 
-    private static final Logger logger = LoggerFactory.getLogger(GeocodingServiceImpl.class);
+    @Value("${google.maps.base.url:}")
+    private String baseUrl;
 
-    @Value("${google.maps.base.url}")
-    private String              baseUrl;
-
-    @Value("${google.maps.api.key}")
-    private String              apiKey;
+    @Value("${google.maps.api.key:}")
+    private String apiKey;
 
     @Override
     public String geocode(String address) {
