@@ -35,11 +35,6 @@ public class OperateLog extends BaseBO {
     private String            operateType;
 
     /**
-     * 单据编号
-     */
-    private String            orderNo;
-
-    /**
      * 操作内容
      */
     private String            content;
@@ -89,12 +84,6 @@ public class OperateLog extends BaseBO {
     public OperateLog(String module, String operateType) {
         this.module = module;
         this.operateType = operateType;
-    }
-
-    public OperateLog(String module, String operateType, String orderNo) {
-        this.module = module;
-        this.operateType = operateType;
-        this.orderNo = orderNo;
     }
 
     public enum Status {

@@ -1,6 +1,5 @@
 package com.example.demo.framework.aspectj;
 
-import com.alibaba.fastjson2.JSON;
 import com.example.demo.framework.annotation.Log;
 import com.example.demo.operate.api.bo.OperateLog;
 import com.example.demo.mq.api.ProducerService;
@@ -13,6 +12,7 @@ import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -20,7 +20,6 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.util.Date;
-import java.util.UUID;
 
 @Aspect
 @Component
@@ -29,46 +28,46 @@ public class LogAspect {
     @Autowired
     private ProducerService producerService;
 
+    @Value("${aliyun.ons.topic}")
+    private String          topic;
+
     @AfterReturning(pointcut = "@annotation(log)", returning = "object")
     public void doAfterReturning(JoinPoint joinPoint, Log log, Object object) {
-        handle(joinPoint.getTarget().getClass().getSimpleName(), log.module(), log.desc(),
-            OperateLog.Status.SUCCESS.value, null);
+        handle(joinPoint.getTarget().getClass().getSimpleName(),
+            new OperateLog(log.module(), log.desc()), OperateLog.Status.SUCCESS.value, null);
     }
 
     @AfterThrowing(value = "@annotation(log)", throwing = "e")
     public void doAfterThrowing(JoinPoint joinPoint, Log log, Exception e) {
-        handle(joinPoint.getTarget().getClass().getSimpleName(), log.module(), log.desc(),
-            OperateLog.Status.FAIL.value, e.getMessage());
+        handle(joinPoint.getTarget().getClass().getSimpleName(),
+            new OperateLog(log.module(), log.desc()), OperateLog.Status.FAIL.value, e.getMessage());
     }
 
-    private void handle(String clazz, String module, String desc, String status, String errMsg) {
+    private void handle(String clazz, OperateLog log, String status, String errMsg) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = "anonymousUser".equals(authentication.getName()) ? new User("anonymous")
             : (LoginUser) authentication.getPrincipal();
 
-        OperateLog operateLog = new OperateLog();
-        operateLog.setClazz(clazz);
+        log.setOperator(user.getId() == null ? user.getName() : user.getId().toString());
+        log.setContent(null);
+        log.setOperateTime(new Date());
+        log.setClazz(clazz);
 
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder
             .getRequestAttributes();
         HttpServletRequest request = attributes == null ? null : attributes.getRequest();
 
-        operateLog.setRequestUri(request == null ? null : request.getRequestURI());
-        operateLog.setRequestMethod(request == null ? null : request.getMethod());
-        operateLog.setRequestParams(null);
-        operateLog.setOperator(
-            user.getId() == null ? user.getName() : (user.getName() + "@" + user.getId()));
-        operateLog.setIp(request == null ? null : getRemoteAddr(request));
-        operateLog.setIpAddr(null);
-        operateLog.setOperTime(new Date());
-        operateLog.setModule(module);
-        operateLog.setDesc(desc);
-        operateLog.setStatus(status);
-        operateLog.setErrMsg(errMsg);
-        operateLog.setCorpId(user.getCorpId());
+        log.setRequestUri(request == null ? null : request.getRequestURI());
+        log.setRequestMethod(request == null ? null : request.getMethod());
+        log.setRequestParams(null);
+        log.setIp(request == null ? null : getRemoteAddr(request));
+        log.setIpAddr(null);
+        log.setStatus(status);
+        log.setErrMsg(errMsg);
 
-        producerService.send("topic", "oper.log.save", JSON.toJSONBytes(operateLog),
-            String.valueOf(UUID.randomUUID()));
+        if (OperateLog.Status.FAIL.value.equals(status)) {
+            // producerService.sendOneway(topic, "operate.log.save", JSON.toJSONBytes(log), null);
+        }
     }
 
     private String getRemoteAddr(HttpServletRequest request) {
