@@ -98,7 +98,7 @@ public class BaseController {
             }
 
             return parameter;
-        } catch (IOException e) {
+        } catch (Exception e) {
             log.error("", e);
         }
 
