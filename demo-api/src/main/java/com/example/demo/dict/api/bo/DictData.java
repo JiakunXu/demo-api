@@ -2,6 +2,7 @@ package com.example.demo.dict.api.bo;
 
 import com.example.demo.framework.bo.BaseBO;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serial;
@@ -12,6 +13,7 @@ import java.math.BigInteger;
  */
 @Getter
 @Setter
+@NoArgsConstructor
 public class DictData extends BaseBO {
 
     @Serial
@@ -32,10 +34,6 @@ public class DictData extends BaseBO {
     private String            status;
 
     private String[]          typeValues;
-
-    public DictData() {
-
-    }
 
     public DictData(String name, String value) {
         this.name = name;

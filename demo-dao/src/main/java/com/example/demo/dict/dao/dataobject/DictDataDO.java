@@ -2,6 +2,7 @@ package com.example.demo.dict.dao.dataobject;
 
 import com.example.demo.framework.dataobject.BaseDO;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -11,6 +12,7 @@ import java.math.BigInteger;
 @Getter
 @Setter
 @ToString
+@NoArgsConstructor
 public class DictDataDO extends BaseDO {
 
     @Serial
@@ -31,9 +33,6 @@ public class DictDataDO extends BaseDO {
     private String            status;
 
     private String[]          typeValues;
-
-    public DictDataDO() {
-    }
 
     public DictDataDO(BigInteger id) {
         this.id = id;

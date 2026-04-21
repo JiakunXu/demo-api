@@ -2,6 +2,7 @@ package com.example.demo.corp.dao.dataobject;
 
 import com.example.demo.framework.dataobject.BaseDO;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -14,6 +15,7 @@ import java.math.BigInteger;
 @Getter
 @Setter
 @ToString
+@NoArgsConstructor
 public class CorpDO extends BaseDO {
 
     @Serial
@@ -22,9 +24,6 @@ public class CorpDO extends BaseDO {
     private BigInteger        id;
 
     private String            name;
-
-    public CorpDO() {
-    }
 
     public CorpDO(BigInteger id) {
         this.id = id;

@@ -2,6 +2,7 @@ package com.example.demo.tree.api.bo;
 
 import com.alibaba.fastjson2.annotation.JSONField;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serial;
@@ -11,6 +12,7 @@ import java.util.List;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class Tree implements Serializable {
 
     @Serial
@@ -44,10 +46,6 @@ public class Tree implements Serializable {
      */
     @JSONField(name = "class")
     private String            className;
-
-    public Tree() {
-
-    }
 
     public Tree(BigInteger id, String label) {
         this.id = id;
