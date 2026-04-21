@@ -10,7 +10,7 @@ spring:
       max-file-size: 99MB
       max-request-size: 99MB
   datasource:
-    url: jdbc:mysql://?useSSL=false&serverTimezone=GMT%2B8
+    url: jdbc:mysql://?useSSL=false&serverTimezone=GMT%2B8&rewriteBatchedStatements=true
     username: ''
     password: ''
     druid:
@@ -55,6 +55,12 @@ spring:
             isClustered: true
     scheduler-name: scheduler
     startup-delay: 1
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+      force-request: true
 
 mybatis:
   config-location: classpath:mybatis-config.xml
@@ -65,6 +71,9 @@ rocketmq:
   name-server: ''
   producer:
     group: producer-group
+  consumer:
+    access-key: ''
+    secret-key: ''
 
 dubbo:
   application:
@@ -109,6 +118,9 @@ alipay:
     path: ''
   notify:
     url: ''
+    fund:
+      auth:
+        url: ''
   encrypt:
     key: ''
 
