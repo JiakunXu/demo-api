@@ -31,7 +31,7 @@ public class ConsumerBean {
     @Value("${aliyun.mqtt.topic:}")
     private String topic;
 
-    @Bean(initMethod = "start", destroyMethod = "stop")
+    @Bean(destroyMethod = "stop")
     public ServerConsumer consumer(ConsumerListener consumerListener) throws IOException,
                                                                       TimeoutException {
         ChannelConfig channelConfig = new ChannelConfig();
@@ -42,6 +42,7 @@ public class ConsumerBean {
         channelConfig.setSecretKey(secretKey);
 
         ServerConsumer serverConsumer = new ServerConsumer(channelConfig, new ConsumerConfig());
+        serverConsumer.start();
         serverConsumer.subscribeTopic(topic, consumerListener);
 
         return serverConsumer;

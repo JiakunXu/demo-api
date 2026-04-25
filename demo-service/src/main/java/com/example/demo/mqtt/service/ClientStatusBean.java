@@ -31,7 +31,7 @@ public class ClientStatusBean {
     @Value("${aliyun.mqtt.groupId:}")
     private String groupId;
 
-    @Bean(initMethod = "start", destroyMethod = "stop")
+    @Bean(destroyMethod = "stop")
     public ServerConsumer clientStatus(ClientStatusListener clientStatusListener) throws IOException,
                                                                                   TimeoutException {
         ChannelConfig channelConfig = new ChannelConfig();
@@ -42,6 +42,7 @@ public class ClientStatusBean {
         channelConfig.setSecretKey(secretKey);
 
         ServerConsumer serverConsumer = new ServerConsumer(channelConfig, new ConsumerConfig());
+        serverConsumer.start();
         serverConsumer.subscribeStatus(groupId, clientStatusListener);
 
         return serverConsumer;
