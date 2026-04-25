@@ -10,6 +10,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
@@ -44,6 +45,9 @@ public class BaseController {
     }
 
     public <T extends BaseBO> T getParameter(HttpServletRequest request, T parameter) {
+        ServletRequestDataBinder binder = new ServletRequestDataBinder(parameter);
+        binder.bind(request);
+
         parameter.setSearch(request.getParameter("search"));
         parameter.setStart(request.getParameter("startDate"));
         parameter.setEnd(request.getParameter("endDate"));
@@ -59,12 +63,12 @@ public class BaseController {
         }
 
         String pageNo = request.getParameter("pageNo");
-        if (StringUtils.isNotBlank(pageNo)) {
+        if (StringUtils.isNumeric(pageNo)) {
             parameter.setPageNo(Integer.parseInt(pageNo.trim()));
         }
 
         String pageSize = request.getParameter("pageSize");
-        if (StringUtils.isNotBlank(pageSize)) {
+        if (StringUtils.isNumeric(pageSize)) {
             parameter.setPageSize(Integer.parseInt(pageSize.trim()));
         }
 
