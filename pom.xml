@@ -53,6 +53,7 @@
         <nacos-client.version>3.2.0</nacos-client.version>
         <poi.version>5.5.1</poi.version>
         <rocketmq-spring-boot.version>2.3.5</rocketmq-spring-boot.version>
+        <server-sdk.version>1.0.9.Final</server-sdk.version>
         <wechatpay-java.version>0.2.17</wechatpay-java.version>
     </properties>
 
@@ -92,6 +93,12 @@
                 <groupId>com.alibaba.fastjson2</groupId>
                 <artifactId>fastjson2-extension-spring6</artifactId>
                 <version>${fastjson2.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba.mqtt</groupId>
+                <artifactId>server-sdk</artifactId>
+                <version>${server-sdk.version}</version>
             </dependency>
 
             <dependency>

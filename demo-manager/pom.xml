@@ -18,6 +18,11 @@
         </dependency>
 
         <dependency>
+            <groupId>com.alibaba.mqtt</groupId>
+            <artifactId>server-sdk</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>com.alipay.sdk</groupId>
             <artifactId>alipay-easysdk</artifactId>
         </dependency>
