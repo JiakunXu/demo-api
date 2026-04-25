@@ -3,6 +3,7 @@ package com.example.demo.security.api.bo;
 import com.example.demo.user.api.bo.User;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.SpringSecurityCoreVersion;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,6 +20,7 @@ import java.util.TreeSet;
 
 @Getter
 @Setter
+@ToString
 public class LoginUser extends User implements UserDetails {
 
     @Serial
