@@ -35,7 +35,6 @@ public class Code2SessionServiceImpl implements Code2SessionService {
 
         if (session.getErrCode() != 0) {
             log.error("{}", session);
-
             throw new RuntimeException(session.getErrMsg());
         }
 
