@@ -1,5 +1,6 @@
 package com.example.demo.framework.aspectj;
 
+import com.alibaba.fastjson2.JSON;
 import com.example.demo.framework.annotation.Log;
 import com.example.demo.operate.api.bo.OperateLog;
 import com.example.demo.mq.api.ProducerService;
@@ -18,7 +19,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.util.ContentCachingRequestWrapper;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 
 @Aspect
@@ -59,7 +62,22 @@ public class LogAspect {
 
         log.setRequestUri(request == null ? null : request.getRequestURI());
         log.setRequestMethod(request == null ? null : request.getMethod());
-        log.setRequestParams(null);
+
+        if (request != null) {
+            if (request instanceof ContentCachingRequestWrapper wrapper) {
+                try {
+                    log.setRequestParams(
+                        new String(wrapper.getContentAsByteArray(), StandardCharsets.UTF_8));
+                } catch (Exception ignored) {
+                }
+            }
+            if (StringUtils.isBlank(log.getRequestParams())) {
+                var params = request.getParameterMap();
+                log.setRequestParams(
+                    params.isEmpty() ? request.getQueryString() : JSON.toJSONString(params));
+            }
+        }
+
         log.setIp(request == null ? null : getRemoteAddr(request));
         log.setIpAddr(null);
         log.setStatus(status);
