@@ -50,15 +50,15 @@ public class OssServiceImpl implements OssService {
 
         try {
             // 创建PutObjectRequest对象。
-            PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, key, content);
+            PutObjectRequest request = new PutObjectRequest(bucketName, key, content);
 
             // 如果需要上传时设置存储类型与访问权限，请参考以下示例代码。
             ObjectMetadata metadata = new ObjectMetadata();
             metadata.setContentType(contentType);
-            putObjectRequest.setMetadata(metadata);
+            request.setMetadata(metadata);
 
             // 上传文件。
-            ossClient.putObject(putObjectRequest);
+            ossClient.putObject(request);
         } catch (OSSException oe) {
             log.error("Caught an OSSException, which means your request made it to OSS, "
                       + "but was rejected with an error response for some reason.");
@@ -92,16 +92,16 @@ public class OssServiceImpl implements OssService {
 
         try {
             // 创建CopyObjectRequest对象。
-            CopyObjectRequest copyObjectRequest = new CopyObjectRequest(sourceBucketName, sourceKey,
+            CopyObjectRequest request = new CopyObjectRequest(sourceBucketName, sourceKey,
                 destinationBucketName, destinationKey);
 
             // 设置新的文件元信息。
             ObjectMetadata metadata = new ObjectMetadata();
             metadata.setContentType(contentType);
-            copyObjectRequest.setNewObjectMetadata(metadata);
+            request.setNewObjectMetadata(metadata);
 
             // 复制文件。
-            ossClient.copyObject(copyObjectRequest);
+            ossClient.copyObject(request);
         } catch (OSSException oe) {
             log.error("Caught an OSSException, which means your request made it to OSS, "
                       + "but was rejected with an error response for some reason.");
