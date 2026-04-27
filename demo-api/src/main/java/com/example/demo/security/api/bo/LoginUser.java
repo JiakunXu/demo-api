@@ -11,12 +11,7 @@ import org.springframework.util.Assert;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeSet;
+import java.util.*;
 
 @Getter
 @Setter
@@ -37,6 +32,7 @@ public class LoginUser extends User implements UserDetails {
     private boolean               enabled;
 
     public LoginUser() {
+        this.authorities = Collections.unmodifiableSet(sortAuthorities(List.of()));
         this.accountNonExpired = true;
         this.accountNonLocked = true;
         this.credentialsNonExpired = true;
