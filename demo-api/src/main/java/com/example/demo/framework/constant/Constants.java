@@ -15,6 +15,8 @@ public class Constants {
 
     public static final int REQUEST_TIMEOUT               = 408;
 
+    public static final int TOO_MANY_REQUESTS             = 429;
+
     public static final int INTERNAL_SERVER_ERROR         = 500;
 
     public static final int NOT_IMPLEMENTED               = 501;
