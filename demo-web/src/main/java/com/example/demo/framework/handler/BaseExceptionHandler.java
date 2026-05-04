@@ -1,5 +1,6 @@
 package com.example.demo.framework.handler;
 
+import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.example.demo.framework.constant.Constants;
 import com.example.demo.framework.exception.ServiceException;
 import com.example.demo.framework.exception.SystemException;
@@ -16,19 +17,25 @@ import org.springframework.web.context.request.async.AsyncRequestTimeoutExceptio
 @RestControllerAdvice
 public class BaseExceptionHandler {
 
+    @ExceptionHandler(value = AuthenticationException.class)
+    public ExceptionResponse exceptionHandler(AuthenticationException e) {
+        return new ExceptionResponse(Constants.UNAUTHORIZED, e.getMessage());
+    }
+
     @ExceptionHandler(value = AccessDeniedException.class)
     public ExceptionResponse exceptionHandler(AccessDeniedException e) {
         return new ExceptionResponse(Constants.FORBIDDEN, "没有权限，请联系管理员授权");
     }
 
-    @ExceptionHandler(value = AuthenticationException.class)
-    public ExceptionResponse exceptionHandler(AuthenticationException e) {
-        return new ExceptionResponse(Constants.INTERNAL_SERVER_ERROR, e.getMessage());
-    }
-
     @ExceptionHandler(value = AsyncRequestTimeoutException.class)
     public ExceptionResponse exceptionHandler(AsyncRequestTimeoutException e) {
         return new ExceptionResponse(Constants.REQUEST_TIMEOUT, e.getMessage());
+    }
+
+    @ExceptionHandler(value = BlockException.class)
+    public ExceptionResponse exceptionHandler(BlockException e) {
+        return new ExceptionResponse(Constants.TOO_MANY_REQUESTS,
+            "Blocked by Sentinel (flow limiting)");
     }
 
     @ExceptionHandler(value = ServiceException.class)
