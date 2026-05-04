@@ -4,6 +4,8 @@ server:
 
 spring:
   # Core Properties
+  application:
+    name:
   main:
     allow-circular-references: true
   messages:
@@ -71,6 +73,30 @@ spring:
     multipart:
       max-file-size: 99MB
       max-request-size: 99MB
+  #
+  cloud:
+    sentinel:
+      datasource:
+        flow:
+          nacos:
+            server-addr:
+            namespace:
+            username:
+            password:
+            data-id: ${spring.application.name}-flow-rules
+            group-id: SENTINEL_GROUP
+            data-type: json
+            rule-type: flow
+        param-flow:
+          nacos:
+            server-addr:
+            namespace:
+            username:
+            password:
+            data-id: ${spring.application.name}-param-rules
+            group-id: SENTINEL_GROUP
+            data-type: json
+            rule-type: param-flow
 
 mybatis:
   config-location: classpath:mybatis-config.xml
