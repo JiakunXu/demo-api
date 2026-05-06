@@ -171,6 +171,16 @@
                 <groupId>com.aliyun.openservices</groupId>
                 <artifactId>aliyun-log-logback-appender</artifactId>
                 <version>0.1.31</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.google.protobuf</groupId>
+                        <artifactId>protobuf-java</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>commons-logging</groupId>
+                        <artifactId>commons-logging</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
 
             <dependency>
@@ -262,7 +272,7 @@
             <dependency>
                 <groupId>org.apache.dubbo</groupId>
                 <artifactId>dubbo-nacos-spring-boot-starter</artifactId>
-                <version>3.3.6</version>
+                <version>${dubbo-spring-boot.version}</version>
             </dependency>
 
             <dependency>
