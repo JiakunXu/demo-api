@@ -1,7 +1,7 @@
 package com.example.demo.framework.handler;
 
 import com.alibaba.csp.sentinel.slots.block.BlockException;
-import com.example.demo.framework.constant.Constants;
+import com.example.demo.framework.constant.HttpStatus;
 import com.example.demo.framework.exception.ServiceException;
 import com.example.demo.framework.exception.SystemException;
 import com.example.demo.framework.response.ExceptionResponse;
@@ -19,22 +19,22 @@ public class BaseExceptionHandler {
 
     @ExceptionHandler(value = AuthenticationException.class)
     public ExceptionResponse exceptionHandler(AuthenticationException e) {
-        return new ExceptionResponse(Constants.UNAUTHORIZED, e.getMessage());
+        return new ExceptionResponse(HttpStatus.UNAUTHORIZED, e.getMessage());
     }
 
     @ExceptionHandler(value = AccessDeniedException.class)
     public ExceptionResponse exceptionHandler(AccessDeniedException e) {
-        return new ExceptionResponse(Constants.FORBIDDEN, "没有权限，请联系管理员授权");
+        return new ExceptionResponse(HttpStatus.FORBIDDEN, "没有权限，请联系管理员授权");
     }
 
     @ExceptionHandler(value = AsyncRequestTimeoutException.class)
     public ExceptionResponse exceptionHandler(AsyncRequestTimeoutException e) {
-        return new ExceptionResponse(Constants.REQUEST_TIMEOUT, e.getMessage());
+        return new ExceptionResponse(HttpStatus.REQUEST_TIMEOUT, e.getMessage());
     }
 
     @ExceptionHandler(value = BlockException.class)
     public ExceptionResponse exceptionHandler(BlockException e) {
-        return new ExceptionResponse(Constants.TOO_MANY_REQUESTS,
+        return new ExceptionResponse(HttpStatus.TOO_MANY_REQUESTS,
             "Blocked by Sentinel (flow limiting)");
     }
 
@@ -50,7 +50,7 @@ public class BaseExceptionHandler {
 
     @ExceptionHandler(value = RuntimeException.class)
     public ExceptionResponse exceptionHandler(RuntimeException e) {
-        return new ExceptionResponse(Constants.INTERNAL_SERVER_ERROR,
+        return new ExceptionResponse(HttpStatus.INTERNAL_SERVER_ERROR,
             e == null ? "INTERNAL_SERVER_ERROR"
                 : (e.getMessage() != null || e.getCause() == null ? e.getMessage()
                     : e.getCause().getMessage()));
@@ -58,7 +58,7 @@ public class BaseExceptionHandler {
 
     @ExceptionHandler(value = Exception.class)
     public ExceptionResponse exceptionHandler(Exception e) {
-        return new ExceptionResponse(Constants.SERVICE_UNAVAILABLE,
+        return new ExceptionResponse(HttpStatus.SERVICE_UNAVAILABLE,
             e == null ? "SERVICE_UNAVAILABLE"
                 : (e.getMessage() != null || e.getCause() == null ? e.getMessage()
                     : e.getCause().getMessage()));

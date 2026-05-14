@@ -1,6 +1,6 @@
 package com.example.demo.framework.response;
 
-import com.example.demo.framework.constant.Constants;
+import com.example.demo.framework.constant.HttpStatus;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,7 +16,7 @@ public class ObjectResponse<T> extends AbstractResponse {
     private T                 data;
 
     public ObjectResponse(T data) {
-        this.setCode(Constants.SUCCESS);
+        this.setCode(HttpStatus.SUCCESS);
         this.setData(data);
     }
 

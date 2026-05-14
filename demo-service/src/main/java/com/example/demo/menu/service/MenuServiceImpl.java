@@ -2,7 +2,7 @@ package com.example.demo.menu.service;
 
 import com.example.demo.framework.annotation.NotBlank;
 import com.example.demo.framework.annotation.NotNull;
-import com.example.demo.framework.constant.Constants;
+import com.example.demo.framework.constant.HttpStatus;
 import com.example.demo.framework.exception.ServiceException;
 import com.example.demo.framework.service.impl.ServiceImpl;
 import com.example.demo.framework.util.BeanUtil;
@@ -167,7 +167,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, MenuDO> implements 
             this.insert(menuDO);
         } catch (Exception e) {
             log.error("{}", menuDO, e);
-            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息创建失败，请稍后再试");
+            throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "信息创建失败，请稍后再试");
         }
 
         menu.setId(menuDO.getId());
@@ -184,13 +184,13 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, MenuDO> implements 
 
         try {
             if (this.update(menuDO) != 1) {
-                throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "暂无权限");
+                throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "暂无权限");
             }
         } catch (ServiceException e) {
             throw e;
         } catch (Exception e) {
             log.error("{}", menuDO, e);
-            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息更新失败，请稍后再试");
+            throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "信息更新失败，请稍后再试");
         }
 
         return menu;
@@ -199,11 +199,11 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, MenuDO> implements 
     @Override
     public Menu deleteMenu(@NotNull BigInteger id, @NotBlank String modifier) {
         if (countMenu(id) > 0) {
-            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "已包含菜单，请先删除下级菜单");
+            throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "已包含菜单，请先删除下级菜单");
         }
 
         if (roleMenuService.countRoleMenu(id) > 0) {
-            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "已关联角色，请先调整角色菜单");
+            throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "已关联角色，请先调整角色菜单");
         }
 
         MenuDO menuDO = new MenuDO();
@@ -214,7 +214,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, MenuDO> implements 
             this.delete(menuDO);
         } catch (Exception e) {
             log.error("{}", menuDO, e);
-            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息更新失败，请稍后再试");
+            throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "信息更新失败，请稍后再试");
         }
 
         return BeanUtil.copy(menuDO, Menu.class);

@@ -3,7 +3,7 @@ package com.example.demo.corp.service;
 import com.example.demo.corp.dao.dataobject.CorpDO;
 import com.example.demo.framework.annotation.NotBlank;
 import com.example.demo.framework.annotation.NotNull;
-import com.example.demo.framework.constant.Constants;
+import com.example.demo.framework.constant.HttpStatus;
 import com.example.demo.framework.service.impl.ServiceImpl;
 import com.example.demo.framework.util.BeanUtil;
 import com.example.demo.corp.api.ICorpService;
@@ -73,13 +73,13 @@ public class CorpServiceImpl extends ServiceImpl<CorpMapper, CorpDO>
 
         try {
             if (this.update(corpDO) != 1) {
-                throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "暂无权限");
+                throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "暂无权限");
             }
         } catch (ServiceException e) {
             throw e;
         } catch (Exception e) {
             log.error("{}", corpDO, e);
-            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息更新失败，请稍后再试");
+            throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "信息更新失败，请稍后再试");
         }
 
         return corp;

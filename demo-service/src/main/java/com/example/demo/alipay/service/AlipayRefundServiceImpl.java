@@ -9,7 +9,7 @@ import com.example.demo.alipay.api.AlipayService;
 import com.example.demo.alipay.api.bo.AlipayRefund;
 import com.example.demo.alipay.dao.dataobject.AlipayRefundDO;
 import com.example.demo.alipay.dao.mapper.AlipayRefundMapper;
-import com.example.demo.framework.constant.Constants;
+import com.example.demo.framework.constant.HttpStatus;
 import com.example.demo.framework.exception.ServiceException;
 import com.example.demo.framework.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
@@ -93,7 +93,7 @@ public class AlipayRefundServiceImpl extends ServiceImpl<AlipayRefundMapper, Ali
             this.insert(refundDO);
         } catch (Exception e) {
             log.error("{}", refundDO, e);
-            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息创建失败，请稍后再试");
+            throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "信息创建失败，请稍后再试");
         }
 
         return refund;

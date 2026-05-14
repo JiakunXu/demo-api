@@ -7,7 +7,7 @@ import com.example.demo.alipay.api.FactoryPaymentCommonService;
 import com.example.demo.alipay.api.bo.AlipayTrade;
 import com.example.demo.alipay.dao.dataobject.AlipayTradeDO;
 import com.example.demo.alipay.dao.mapper.AlipayTradeMapper;
-import com.example.demo.framework.constant.Constants;
+import com.example.demo.framework.constant.HttpStatus;
 import com.example.demo.framework.exception.ServiceException;
 import com.example.demo.framework.service.impl.ServiceImpl;
 import com.example.demo.framework.util.BeanUtil;
@@ -98,7 +98,7 @@ public class AlipayTradeServiceImpl extends ServiceImpl<AlipayTradeMapper, Alipa
     @Override
     public AlipayTrade insertTrade(AlipayTrade trade) {
         if (trade == null) {
-            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "参数信息不能为空");
+            throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "参数信息不能为空");
         }
 
         AlipayTradeDO alipayTradeDO = BeanUtil.copy(trade, AlipayTradeDO.class);
@@ -107,7 +107,7 @@ public class AlipayTradeServiceImpl extends ServiceImpl<AlipayTradeMapper, Alipa
             this.insert(alipayTradeDO);
         } catch (Exception e) {
             log.error("{}", alipayTradeDO, e);
-            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息创建失败，请稍后再试");
+            throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "信息创建失败，请稍后再试");
         }
 
         return trade;

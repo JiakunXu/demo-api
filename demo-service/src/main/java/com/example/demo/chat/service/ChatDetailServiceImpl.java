@@ -6,7 +6,7 @@ import com.example.demo.chat.api.bo.Chat;
 import com.example.demo.chat.api.bo.ChatDetail;
 import com.example.demo.chat.dao.dataobject.ChatDetailDO;
 import com.example.demo.chat.dao.mapper.ChatDetailMapper;
-import com.example.demo.framework.constant.Constants;
+import com.example.demo.framework.constant.HttpStatus;
 import com.example.demo.framework.exception.ServiceException;
 import com.example.demo.framework.service.impl.ServiceImpl;
 import com.example.demo.framework.util.BeanUtil;
@@ -73,7 +73,7 @@ public class ChatDetailServiceImpl extends ServiceImpl<ChatDetailMapper, ChatDet
     public ChatDetail insertChatDetail(BigInteger userId, BigInteger friendId, String type,
                                        String content) {
         if (userId == null || friendId == null || StringUtils.isBlank(content)) {
-            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "参数信息不能为空");
+            throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "参数信息不能为空");
         }
 
         String chatId = UUID.randomUUID().toString();
@@ -91,7 +91,7 @@ public class ChatDetailServiceImpl extends ServiceImpl<ChatDetailMapper, ChatDet
             this.insert(chatDetailDO0);
         } catch (Exception e) {
             log.error("{}", chatDetailDO0, e);
-            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息创建失败，请稍后再试");
+            throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "信息创建失败，请稍后再试");
         }
 
         ChatDetailDO chatDetailDO1 = new ChatDetailDO();
@@ -107,7 +107,7 @@ public class ChatDetailServiceImpl extends ServiceImpl<ChatDetailMapper, ChatDet
             this.insert(chatDetailDO1);
         } catch (Exception e) {
             log.error("{}", chatDetailDO1, e);
-            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息创建失败，请稍后再试");
+            throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "信息创建失败，请稍后再试");
         }
 
         producerService.send("topic", "chat.message", JSON.toJSONBytes(chatDetailDO1),

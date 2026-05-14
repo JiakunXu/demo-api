@@ -6,7 +6,7 @@ import com.example.demo.article.dao.dataobject.ArticleDO;
 import com.example.demo.article.dao.mapper.ArticleMapper;
 import com.example.demo.framework.annotation.NotBlank;
 import com.example.demo.framework.annotation.NotNull;
-import com.example.demo.framework.constant.Constants;
+import com.example.demo.framework.constant.HttpStatus;
 import com.example.demo.framework.exception.ServiceException;
 import com.example.demo.framework.service.impl.ServiceImpl;
 import com.example.demo.framework.util.BeanUtil;
@@ -67,7 +67,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, ArticleDO>
             this.insert(articleDO);
         } catch (Exception e) {
             log.error("{}", articleDO, e);
-            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息创建失败，请稍后再试");
+            throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "信息创建失败，请稍后再试");
         }
 
         article.setId(articleDO.getId());
@@ -85,13 +85,13 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, ArticleDO>
 
         try {
             if (this.update(articleDO) != 1) {
-                throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "暂无权限");
+                throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "暂无权限");
             }
         } catch (ServiceException e) {
             throw e;
         } catch (Exception e) {
             log.error("{}", articleDO, e);
-            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息更新失败，请稍后再试");
+            throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "信息更新失败，请稍后再试");
         }
 
         return article;
@@ -107,7 +107,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, ArticleDO>
             this.delete(articleDO);
         } catch (Exception e) {
             log.error("{}", articleDO, e);
-            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息更新失败，请稍后再试");
+            throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "信息更新失败，请稍后再试");
         }
 
         return BeanUtil.copy(articleDO, Article.class);

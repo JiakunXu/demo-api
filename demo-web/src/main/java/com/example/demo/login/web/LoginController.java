@@ -1,7 +1,7 @@
 package com.example.demo.login.web;
 
 import com.alibaba.fastjson2.JSONObject;
-import com.example.demo.framework.constant.Constants;
+import com.example.demo.framework.constant.HttpStatus;
 import com.example.demo.framework.exception.ServiceException;
 import com.example.demo.framework.response.TokenResponse;
 import com.example.demo.framework.web.BaseController;
@@ -25,7 +25,7 @@ public class LoginController extends BaseController {
         JSONObject data = this.getParameter(request, JSONObject.class);
 
         if (data == null) {
-            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "账号或密码不能为空");
+            throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "账号或密码不能为空");
         }
 
         return new TokenResponse<>(

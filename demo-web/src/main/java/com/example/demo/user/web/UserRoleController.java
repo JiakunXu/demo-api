@@ -2,7 +2,7 @@ package com.example.demo.user.web;
 
 import com.alibaba.fastjson2.JSONObject;
 import com.example.demo.framework.annotation.Log;
-import com.example.demo.framework.constant.Constants;
+import com.example.demo.framework.constant.HttpStatus;
 import com.example.demo.framework.exception.ServiceException;
 import com.example.demo.framework.response.ListResponse;
 import com.example.demo.framework.response.ObjectResponse;
@@ -110,7 +110,7 @@ public class UserRoleController extends BaseController {
         JSONObject data = this.getParameter(request, JSONObject.class);
 
         if (data == null) {
-            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "参数信息不能为空");
+            throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "参数信息不能为空");
         }
 
         BigInteger userId = data.getBigInteger("userId");
@@ -137,7 +137,7 @@ public class UserRoleController extends BaseController {
         JSONObject data = this.getParameter(request, JSONObject.class);
 
         if (data == null) {
-            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "参数信息不能为空");
+            throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "参数信息不能为空");
         }
 
         BigInteger userId = data.getBigInteger("userId");

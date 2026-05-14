@@ -1,6 +1,6 @@
 package com.example.demo.framework.response;
 
-import com.example.demo.framework.constant.Constants;
+import com.example.demo.framework.constant.HttpStatus;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,13 +20,13 @@ public class ListResponse<T> extends AbstractResponse {
     private List<T>           rows;
 
     public ListResponse(int total, List<T> rows) {
-        this.setCode(Constants.SUCCESS);
+        this.setCode(HttpStatus.SUCCESS);
         this.setTotal(total);
         this.setRows(rows);
     }
 
     public ListResponse(List<T> rows) {
-        this.setCode(Constants.SUCCESS);
+        this.setCode(HttpStatus.SUCCESS);
         this.setRows(rows);
     }
 

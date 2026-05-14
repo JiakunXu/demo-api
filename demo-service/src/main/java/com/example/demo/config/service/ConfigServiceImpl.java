@@ -7,7 +7,7 @@ import com.example.demo.config.dao.dataobject.ConfigDO;
 import com.example.demo.config.dao.mapper.ConfigMapper;
 import com.example.demo.framework.annotation.NotBlank;
 import com.example.demo.framework.annotation.NotNull;
-import com.example.demo.framework.constant.Constants;
+import com.example.demo.framework.constant.HttpStatus;
 import com.example.demo.framework.exception.ServiceException;
 import com.example.demo.framework.service.impl.ServiceImpl;
 import com.example.demo.framework.util.BeanUtil;
@@ -71,7 +71,7 @@ public class ConfigServiceImpl extends ServiceImpl<ConfigMapper, ConfigDO>
             this.insert(configDO);
         } catch (Exception e) {
             log.error("{}", configDO, e);
-            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息创建失败，请稍后再试");
+            throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "信息创建失败，请稍后再试");
         }
 
         config.setId(configDO.getId());
@@ -89,13 +89,13 @@ public class ConfigServiceImpl extends ServiceImpl<ConfigMapper, ConfigDO>
 
         try {
             if (this.update(configDO) != 1) {
-                throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "暂无权限");
+                throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "暂无权限");
             }
         } catch (ServiceException e) {
             throw e;
         } catch (Exception e) {
             log.error("{}", configDO, e);
-            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息更新失败，请稍后再试");
+            throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "信息更新失败，请稍后再试");
         }
 
         return config;
@@ -111,7 +111,7 @@ public class ConfigServiceImpl extends ServiceImpl<ConfigMapper, ConfigDO>
             this.delete(configDO);
         } catch (Exception e) {
             log.error("{}", configDO, e);
-            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息更新失败，请稍后再试");
+            throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "信息更新失败，请稍后再试");
         }
 
         return BeanUtil.copy(configDO, Config.class);

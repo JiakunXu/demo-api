@@ -1,7 +1,7 @@
 package com.example.demo.cache.manager;
 
 import com.example.demo.cache.api.RedisService;
-import com.example.demo.framework.constant.Constants;
+import com.example.demo.framework.constant.HttpStatus;
 import com.example.demo.framework.exception.ServiceException;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
@@ -50,7 +50,7 @@ public class RedisServiceImpl<K, V> implements RedisService<K, V> {
             log.error("add", e);
         }
 
-        throw new ServiceException(Constants.SERVICE_UNAVAILABLE, "redis add.");
+        throw new ServiceException(HttpStatus.SERVICE_UNAVAILABLE, "redis add.");
     }
 
     @Override
@@ -77,7 +77,7 @@ public class RedisServiceImpl<K, V> implements RedisService<K, V> {
             log.error("set", e);
         }
 
-        throw new ServiceException(Constants.SERVICE_UNAVAILABLE, "redis set.");
+        throw new ServiceException(HttpStatus.SERVICE_UNAVAILABLE, "redis set.");
     }
 
     @Override
@@ -103,7 +103,7 @@ public class RedisServiceImpl<K, V> implements RedisService<K, V> {
             log.error("get", e);
         }
 
-        throw new ServiceException(Constants.SERVICE_UNAVAILABLE, "redis get.");
+        throw new ServiceException(HttpStatus.SERVICE_UNAVAILABLE, "redis get.");
     }
 
     @Override
@@ -115,7 +115,7 @@ public class RedisServiceImpl<K, V> implements RedisService<K, V> {
             log.error("remove", e);
         }
 
-        throw new ServiceException(Constants.SERVICE_UNAVAILABLE, "redis remove.");
+        throw new ServiceException(HttpStatus.SERVICE_UNAVAILABLE, "redis remove.");
     }
 
     @Override
@@ -143,7 +143,7 @@ public class RedisServiceImpl<K, V> implements RedisService<K, V> {
             log.error("expire", e);
         }
 
-        throw new ServiceException(Constants.SERVICE_UNAVAILABLE, "redis expire.");
+        throw new ServiceException(HttpStatus.SERVICE_UNAVAILABLE, "redis expire.");
     }
 
 }

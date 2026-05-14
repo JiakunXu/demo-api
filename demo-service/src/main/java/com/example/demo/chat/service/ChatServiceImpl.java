@@ -9,7 +9,7 @@ import com.example.demo.framework.service.impl.ServiceImpl;
 import com.example.demo.framework.util.BeanUtil;
 import com.example.demo.user.api.UserService;
 import com.example.demo.chat.dao.mapper.ChatMapper;
-import com.example.demo.framework.constant.Constants;
+import com.example.demo.framework.constant.HttpStatus;
 import com.example.demo.framework.exception.ServiceException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -102,7 +102,7 @@ public class ChatServiceImpl extends ServiceImpl<ChatMapper, ChatDO> implements 
     @Override
     public Chat saveOrUpdate(BigInteger userId, BigInteger friendId, Chat chat) {
         if (userId == null || friendId == null || chat == null) {
-            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "参数信息不能为空");
+            throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "参数信息不能为空");
         }
 
         chat.setUserId(userId);
@@ -118,7 +118,7 @@ public class ChatServiceImpl extends ServiceImpl<ChatMapper, ChatDO> implements 
             }
         } catch (Exception e) {
             log.error("{}", chatDO, e);
-            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息更新失败，请稍后再试");
+            throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "信息更新失败，请稍后再试");
         }
 
         return chat;
@@ -127,7 +127,7 @@ public class ChatServiceImpl extends ServiceImpl<ChatMapper, ChatDO> implements 
     @Override
     public Chat read(BigInteger userId, BigInteger id) {
         if (userId == null || id == null) {
-            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "参数信息不能为空");
+            throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "参数信息不能为空");
         }
 
         Chat chat = new Chat();
@@ -140,13 +140,13 @@ public class ChatServiceImpl extends ServiceImpl<ChatMapper, ChatDO> implements 
 
         try {
             if (this.baseMapper.updateUnread(chatDO) != 1) {
-                throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息不存在");
+                throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "信息不存在");
             }
         } catch (ServiceException e) {
             throw e;
         } catch (Exception e) {
             log.error("{}", chatDO, e);
-            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息更新失败，请稍后再试");
+            throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "信息更新失败，请稍后再试");
         }
 
         return chat;

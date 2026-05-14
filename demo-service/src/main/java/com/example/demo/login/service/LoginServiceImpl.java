@@ -1,7 +1,7 @@
 package com.example.demo.login.service;
 
 import com.alibaba.fastjson2.JSON;
-import com.example.demo.framework.constant.Constants;
+import com.example.demo.framework.constant.HttpStatus;
 import com.example.demo.framework.exception.ServiceException;
 import com.example.demo.login.api.bo.LoginLog;
 import com.example.demo.login.api.LoginService;
@@ -35,7 +35,7 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public String login(String username, String password) {
         if (StringUtils.isAnyBlank(username, password)) {
-            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "账号或密码不能为空");
+            throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "账号或密码不能为空");
         }
 
         try {
@@ -61,7 +61,7 @@ public class LoginServiceImpl implements LoginService {
             } else if (e instanceof UsernameNotFoundException) {
                 throw new UsernameNotFoundException("账号不存在");
             } else {
-                throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "系统正忙，请稍后再试");
+                throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "系统正忙，请稍后再试");
             }
         }
     }

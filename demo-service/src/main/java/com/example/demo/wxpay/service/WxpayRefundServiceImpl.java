@@ -1,7 +1,7 @@
 package com.example.demo.wxpay.service;
 
 import com.alibaba.fastjson2.JSON;
-import com.example.demo.framework.constant.Constants;
+import com.example.demo.framework.constant.HttpStatus;
 import com.example.demo.framework.exception.ServiceException;
 import com.example.demo.framework.util.BeanUtil;
 import com.example.demo.wxpay.api.RefundService;
@@ -151,7 +151,7 @@ public class WxpayRefundServiceImpl implements WxpayRefundService {
     @Override
     public WxpayRefund insertRefund(WxpayRefund wxpayRefund) {
         if (wxpayRefund == null) {
-            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "参数信息不能为空");
+            throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "参数信息不能为空");
         }
 
         WxpayRefundDO wxpayRefundDO = BeanUtil.copy(wxpayRefund, WxpayRefundDO.class);
@@ -160,7 +160,7 @@ public class WxpayRefundServiceImpl implements WxpayRefundService {
             wxpayRefundMapper.insert(wxpayRefundDO);
         } catch (Exception e) {
             log.error("{}", wxpayRefundDO, e);
-            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息创建失败，请稍后再试");
+            throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "信息创建失败，请稍后再试");
         }
 
         return wxpayRefund;
@@ -169,7 +169,7 @@ public class WxpayRefundServiceImpl implements WxpayRefundService {
     @Override
     public WxpayRefund updateRefund(String refundId, WxpayRefund wxpayRefund) {
         if (StringUtils.isBlank(refundId) || wxpayRefund == null) {
-            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "参数信息不能为空");
+            throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "参数信息不能为空");
         }
 
         wxpayRefund.setRefundId(refundId);
@@ -182,7 +182,7 @@ public class WxpayRefundServiceImpl implements WxpayRefundService {
             }
         } catch (Exception e) {
             log.error("{}", wxpayRefundDO, e);
-            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息创建失败，请稍后再试");
+            throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "信息创建失败，请稍后再试");
         }
 
         return wxpayRefund;

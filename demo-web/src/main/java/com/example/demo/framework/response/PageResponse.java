@@ -1,6 +1,6 @@
 package com.example.demo.framework.response;
 
-import com.example.demo.framework.constant.Constants;
+import com.example.demo.framework.constant.HttpStatus;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -26,7 +26,7 @@ public class PageResponse<T> extends AbstractResponse {
     private List<T>           list;
 
     public PageResponse(Integer pageNo, Integer pageSize, Integer totalCount, List<T> list) {
-        this.setCode(Constants.SUCCESS);
+        this.setCode(HttpStatus.SUCCESS);
         this.setPageNo(pageNo == null ? 0 : pageNo);
         this.setPageSize(pageSize == null ? 0 : pageSize);
         this.setTotalCount(totalCount == null ? 0 : totalCount);

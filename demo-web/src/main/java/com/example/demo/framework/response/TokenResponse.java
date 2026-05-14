@@ -1,6 +1,6 @@
 package com.example.demo.framework.response;
 
-import com.example.demo.framework.constant.Constants;
+import com.example.demo.framework.constant.HttpStatus;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,12 +17,12 @@ public class TokenResponse<T> extends AbstractResponse {
     private T                 ticket;
 
     public TokenResponse(T token) {
-        this.setCode(Constants.SUCCESS);
+        this.setCode(HttpStatus.SUCCESS);
         this.setToken(token);
     }
 
     public TokenResponse(Map<String, T> map) {
-        this.setCode(Constants.SUCCESS);
+        this.setCode(HttpStatus.SUCCESS);
         this.setToken(map.get("token"));
         this.setTicket(map.get("ticket"));
     }

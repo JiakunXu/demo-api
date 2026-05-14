@@ -1,7 +1,7 @@
 package com.example.demo.wxpay.service;
 
 import com.alibaba.fastjson2.JSON;
-import com.example.demo.framework.constant.Constants;
+import com.example.demo.framework.constant.HttpStatus;
 import com.example.demo.framework.exception.ServiceException;
 import com.example.demo.framework.util.BeanUtil;
 import com.example.demo.wxpay.api.ProfitsharingService;
@@ -99,7 +99,7 @@ public class WxpayProfitSharingServiceImpl implements WxpayProfitSharingService 
     @Override
     public WxpayProfitSharing insertWxpayProfitSharing(WxpayProfitSharing wxpayProfitSharing) {
         if (wxpayProfitSharing == null) {
-            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "参数信息不能为空");
+            throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "参数信息不能为空");
         }
 
         WxpayProfitSharingDO wxpayProfitSharingDO = BeanUtil.copy(wxpayProfitSharing,
@@ -109,7 +109,7 @@ public class WxpayProfitSharingServiceImpl implements WxpayProfitSharingService 
             wxpayProfitSharingMapper.insert(wxpayProfitSharingDO);
         } catch (Exception e) {
             log.error("{}", wxpayProfitSharingDO, e);
-            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息创建失败，请稍后再试");
+            throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "信息创建失败，请稍后再试");
         }
 
         return wxpayProfitSharing;
@@ -119,7 +119,7 @@ public class WxpayProfitSharingServiceImpl implements WxpayProfitSharingService 
     public WxpayProfitSharing updateWxpayProfitSharing(String orderId,
                                                        WxpayProfitSharing wxpayProfitSharing) {
         if (StringUtils.isBlank(orderId) || wxpayProfitSharing == null) {
-            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "参数信息不能为空");
+            throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "参数信息不能为空");
         }
 
         wxpayProfitSharing.setOrderId(orderId);
@@ -133,7 +133,7 @@ public class WxpayProfitSharingServiceImpl implements WxpayProfitSharingService 
             }
         } catch (Exception e) {
             log.error("{}", wxpayProfitSharingDO, e);
-            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息创建失败，请稍后再试");
+            throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "信息创建失败，请稍后再试");
         }
 
         return wxpayProfitSharing;

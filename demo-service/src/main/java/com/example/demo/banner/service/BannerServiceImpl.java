@@ -6,7 +6,7 @@ import com.example.demo.banner.dao.dataobject.BannerDO;
 import com.example.demo.banner.dao.mapper.BannerMapper;
 import com.example.demo.framework.annotation.NotBlank;
 import com.example.demo.framework.annotation.NotNull;
-import com.example.demo.framework.constant.Constants;
+import com.example.demo.framework.constant.HttpStatus;
 import com.example.demo.framework.exception.ServiceException;
 import com.example.demo.framework.service.impl.ServiceImpl;
 import com.example.demo.framework.util.BeanUtil;
@@ -67,7 +67,7 @@ public class BannerServiceImpl extends ServiceImpl<BannerMapper, BannerDO>
             this.insert(bannerDO);
         } catch (Exception e) {
             log.error("{}", bannerDO, e);
-            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息创建失败，请稍后再试");
+            throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "信息创建失败，请稍后再试");
         }
 
         banner.setId(bannerDO.getId());
@@ -85,13 +85,13 @@ public class BannerServiceImpl extends ServiceImpl<BannerMapper, BannerDO>
 
         try {
             if (this.update(bannerDO) != 1) {
-                throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "暂无权限");
+                throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "暂无权限");
             }
         } catch (ServiceException e) {
             throw e;
         } catch (Exception e) {
             log.error("{}", bannerDO, e);
-            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息更新失败，请稍后再试");
+            throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "信息更新失败，请稍后再试");
         }
         return banner;
     }
@@ -106,7 +106,7 @@ public class BannerServiceImpl extends ServiceImpl<BannerMapper, BannerDO>
             this.delete(bannerDO);
         } catch (Exception e) {
             log.error("{}", bannerDO, e);
-            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息更新失败，请稍后再试");
+            throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "信息更新失败，请稍后再试");
         }
 
         return BeanUtil.copy(bannerDO, Banner.class);

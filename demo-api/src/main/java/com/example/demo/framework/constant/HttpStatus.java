@@ -3,7 +3,7 @@ package com.example.demo.framework.constant;
 /**
  * @author JiakunXu
  */
-public class Constants {
+public class HttpStatus {
 
     public static final int SUCCESS                       = 200;
 

@@ -3,7 +3,7 @@ package com.example.demo.captcha.manager;
 import com.example.demo.cache.api.RedisService;
 import com.example.demo.captcha.api.CaptchaService;
 import com.example.demo.captcha.api.bo.Captcha;
-import com.example.demo.framework.constant.Constants;
+import com.example.demo.framework.constant.HttpStatus;
 import com.example.demo.framework.exception.ServiceException;
 import com.google.code.kaptcha.Producer;
 import com.google.code.kaptcha.impl.DefaultKaptcha;
@@ -103,7 +103,7 @@ public class CaptchaServiceImpl extends DefaultTextCreator implements CaptchaSer
                 RedisService.CACHE_KEY_CAPTCHA_DEFAULT_EXP);
         } catch (ServiceException e) {
             log.error("{},{}", uuid, text, e);
-            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "系统正忙，请稍后再试");
+            throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "系统正忙，请稍后再试");
         }
 
         FastByteArrayOutputStream stream = new FastByteArrayOutputStream();
@@ -112,7 +112,7 @@ public class CaptchaServiceImpl extends DefaultTextCreator implements CaptchaSer
             ImageIO.write(image, "jpg", stream);
         } catch (IOException e) {
             log.error("{},{}", uuid, text, e);
-            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "系统正忙，请稍后再试");
+            throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "系统正忙，请稍后再试");
         }
 
         return new Captcha(uuid, Base64.getEncoder().encodeToString(stream.toByteArray()));
@@ -121,7 +121,7 @@ public class CaptchaServiceImpl extends DefaultTextCreator implements CaptchaSer
     @Override
     public void validate(String uuid, String code) {
         if (StringUtils.isBlank(uuid) || StringUtils.isBlank(code)) {
-            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "验证码不能为空");
+            throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "验证码不能为空");
         }
 
         String key = RedisService.CACHE_KEY_CAPTCHA + uuid;
@@ -131,11 +131,11 @@ public class CaptchaServiceImpl extends DefaultTextCreator implements CaptchaSer
         remove(key);
 
         if (StringUtils.isBlank(text)) {
-            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "验证码已失效");
+            throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "验证码已失效");
         }
 
         if (!text.equalsIgnoreCase(code)) {
-            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "验证码错误");
+            throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "验证码错误");
         }
     }
 

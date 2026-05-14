@@ -2,7 +2,7 @@ package com.example.demo.security.service;
 
 import com.example.demo.framework.annotation.NotBlank;
 import com.example.demo.framework.annotation.NotNull;
-import com.example.demo.framework.constant.Constants;
+import com.example.demo.framework.constant.HttpStatus;
 import com.example.demo.framework.exception.ServiceException;
 import com.example.demo.menu.api.MenuService;
 import com.example.demo.menu.api.bo.Menu;
@@ -33,7 +33,7 @@ public class PermissionServiceImpl implements PermissionService {
         List<Role> roleList = userRoleService.listRoles(userId, Role.Status.ENABLE.value);
 
         if (roleList == null || roleList.isEmpty()) {
-            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "暂无权限");
+            throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "暂无权限");
         }
 
         for (Role role : roleList) {
@@ -46,7 +46,7 @@ public class PermissionServiceImpl implements PermissionService {
             userId);
 
         if (menuList == null || menuList.isEmpty()) {
-            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "暂无权限");
+            throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "暂无权限");
         }
 
         for (Menu menu : menuList) {
@@ -55,7 +55,7 @@ public class PermissionServiceImpl implements PermissionService {
             }
         }
 
-        throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "暂无权限");
+        throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "暂无权限");
     }
 
     @Override

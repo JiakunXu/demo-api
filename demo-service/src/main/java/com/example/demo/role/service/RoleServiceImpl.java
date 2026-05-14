@@ -3,7 +3,7 @@ package com.example.demo.role.service;
 import com.example.demo.cache.api.RedisService;
 import com.example.demo.framework.annotation.NotBlank;
 import com.example.demo.framework.annotation.NotNull;
-import com.example.demo.framework.constant.Constants;
+import com.example.demo.framework.constant.HttpStatus;
 import com.example.demo.framework.exception.ServiceException;
 import com.example.demo.framework.service.impl.ServiceImpl;
 import com.example.demo.framework.util.BeanUtil;
@@ -91,7 +91,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, RoleDO> implements 
         role = BeanUtil.copy(this.get(new RoleDO(id)), Role.class);
 
         if (role == null) {
-            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "角色不存在");
+            throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "角色不存在");
         }
 
         try {
@@ -131,10 +131,10 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, RoleDO> implements 
             this.insert(roleDO);
         } catch (DuplicateKeyException e) {
             log.error("{}", roleDO, e);
-            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "编号已存在");
+            throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "编号已存在");
         } catch (Exception e) {
             log.error("{}", roleDO, e);
-            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息创建失败，请稍后再试");
+            throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "信息创建失败，请稍后再试");
         }
 
         role.setId(roleDO.getId());
@@ -154,13 +154,13 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, RoleDO> implements 
 
         try {
             if (this.update(roleDO) != 1) {
-                throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "暂无权限");
+                throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "暂无权限");
             }
         } catch (ServiceException e) {
             throw e;
         } catch (Exception e) {
             log.error("{}", roleDO, e);
-            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息更新失败，请稍后再试");
+            throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "信息更新失败，请稍后再试");
         }
 
         roleMenuService.updateRoleMenus(role.getId(), role.getMenuIds(), modifier);
@@ -180,13 +180,13 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, RoleDO> implements 
 
         try {
             if (this.baseMapper.updateStatus(roleDO) != 1) {
-                throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "暂无权限");
+                throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "暂无权限");
             }
         } catch (ServiceException e) {
             throw e;
         } catch (Exception e) {
             log.error("{}", roleDO, e);
-            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息更新失败，请稍后再试");
+            throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "信息更新失败，请稍后再试");
         }
 
         remove(id);
@@ -198,7 +198,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, RoleDO> implements 
     @Transactional(rollbackFor = RuntimeException.class)
     public Role deleteRole(@NotNull BigInteger id, @NotBlank String modifier) {
         if (userRoleService.countUserRole(id) > 0) {
-            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "已关联用户，请先调整用户角色");
+            throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "已关联用户，请先调整用户角色");
         }
 
         RoleDO roleDO = new RoleDO();
@@ -207,13 +207,13 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, RoleDO> implements 
 
         try {
             if (this.delete(roleDO) != 1) {
-                throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "暂无权限");
+                throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "暂无权限");
             }
         } catch (ServiceException e) {
             throw e;
         } catch (Exception e) {
             log.error("{}", roleDO, e);
-            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息更新失败，请稍后再试");
+            throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "信息更新失败，请稍后再试");
         }
 
         roleMenuService.deleteRoleMenu(id, null, modifier);

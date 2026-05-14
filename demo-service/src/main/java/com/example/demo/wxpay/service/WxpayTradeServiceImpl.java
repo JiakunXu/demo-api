@@ -1,7 +1,7 @@
 package com.example.demo.wxpay.service;
 
 import com.alibaba.fastjson2.JSON;
-import com.example.demo.framework.constant.Constants;
+import com.example.demo.framework.constant.HttpStatus;
 import com.example.demo.framework.exception.ServiceException;
 import com.example.demo.framework.util.BeanUtil;
 import com.example.demo.wxpay.api.JsapiService;
@@ -177,7 +177,7 @@ public class WxpayTradeServiceImpl implements WxpayTradeService {
     @Override
     public WxpayNotify insertTrade(WxpayNotify wxpayNotify) {
         if (wxpayNotify == null) {
-            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "参数信息不能为空");
+            throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "参数信息不能为空");
         }
 
         WxpayNotifyDO wxpayNotifyDO = BeanUtil.copy(wxpayNotify, WxpayNotifyDO.class);
@@ -186,7 +186,7 @@ public class WxpayTradeServiceImpl implements WxpayTradeService {
             wxpayNotifyMapper.insert(wxpayNotifyDO);
         } catch (Exception e) {
             log.error("{}", wxpayNotifyDO, e);
-            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息创建失败，请稍后再试");
+            throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "信息创建失败，请稍后再试");
         }
 
         return wxpayNotify;

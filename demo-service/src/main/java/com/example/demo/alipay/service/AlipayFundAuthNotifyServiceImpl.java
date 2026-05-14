@@ -6,7 +6,7 @@ import com.example.demo.alipay.api.bo.fund.AlipayFundAuthNotify;
 import com.example.demo.alipay.dao.dataobject.AlipayFundAuthNotifyDO;
 import com.example.demo.alipay.dao.mapper.AlipayFundAuthNotifyMapper;
 import com.example.demo.framework.annotation.NotNull;
-import com.example.demo.framework.constant.Constants;
+import com.example.demo.framework.constant.HttpStatus;
 import com.example.demo.framework.exception.ServiceException;
 import com.example.demo.framework.service.impl.ServiceImpl;
 import com.example.demo.framework.util.BeanUtil;
@@ -86,7 +86,7 @@ public class AlipayFundAuthNotifyServiceImpl extends
             this.insert(alipayFundAuthNotifyDO);
         } catch (Exception e) {
             log.error("{}", alipayFundAuthNotifyDO, e);
-            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息创建失败，请稍后再试");
+            throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "信息创建失败，请稍后再试");
         }
 
         return alipayFundAuthNotify;

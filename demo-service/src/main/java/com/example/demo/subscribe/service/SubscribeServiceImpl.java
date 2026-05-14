@@ -9,7 +9,7 @@ import com.example.demo.subscribe.api.SubscribeService;
 import com.example.demo.subscribe.api.bo.Subscribe;
 import com.example.demo.subscribe.dao.dataobject.SubscribeDO;
 import com.example.demo.tunnel.api.bo.Tunnel;
-import com.example.demo.framework.constant.Constants;
+import com.example.demo.framework.constant.HttpStatus;
 import com.example.demo.framework.exception.ServiceException;
 import com.example.demo.subscribe.dao.mapper.SubscribeMapper;
 import com.example.demo.tunnel.dao.dataobject.TunnelDO;
@@ -94,7 +94,7 @@ public class SubscribeServiceImpl extends ServiceImpl<SubscribeMapper, Subscribe
     public Subscribe insertSubscribe(BigInteger userId, String appId, String scene,
                                      String sceneId) {
         if (userId == null || StringUtils.isBlank(appId) || StringUtils.isBlank(scene)) {
-            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "参数信息不能为空");
+            throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "参数信息不能为空");
         }
 
         SubscribeDO subscribeDO = new SubscribeDO();
@@ -123,7 +123,7 @@ public class SubscribeServiceImpl extends ServiceImpl<SubscribeMapper, Subscribe
             this.insert(subscribeDO);
         } catch (Exception e) {
             log.error("{}", subscribeDO, e);
-            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "信息创建失败，请稍后再试");
+            throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "信息创建失败，请稍后再试");
         }
 
         return BeanUtil.copy(subscribeDO, Subscribe.class);

@@ -3,7 +3,7 @@ package com.example.demo.file.service;
 import com.example.demo.aliyun.api.OssService;
 import com.example.demo.file.api.FileService;
 import com.example.demo.file.api.bo.File;
-import com.example.demo.framework.constant.Constants;
+import com.example.demo.framework.constant.HttpStatus;
 import com.example.demo.framework.exception.ServiceException;
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
@@ -37,7 +37,7 @@ public class FileServiceImpl implements FileService {
     @Override
     public File upload(String name, String contentType, InputStream content) {
         if (StringUtils.isAnyBlank(name, contentType) || content == null) {
-            throw new ServiceException(Constants.INTERNAL_SERVER_ERROR, "参数信息不能为空");
+            throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "参数信息不能为空");
         }
 
         File file = new File();
