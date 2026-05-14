@@ -5,7 +5,7 @@ package com.example.demo.framework.constant;
  */
 public class HttpStatus {
 
-    public static final int SUCCESS                       = 200;
+    public static final int OK                            = 200;
 
     public static final int UNAUTHORIZED                  = 401;
 
