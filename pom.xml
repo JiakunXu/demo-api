@@ -45,7 +45,7 @@
         <dubbo-spring-boot.version>3.3.6</dubbo-spring-boot.version>
         <fastjson2.version>2.0.61</fastjson2.version>
         <google-maps-services.version>2.2.0</google-maps-services.version>
-        <httpclient.version>5.6</httpclient.version>
+        <httpclient.version>5.6.1</httpclient.version>
         <jjwt.version>0.13.0</jjwt.version>
         <joda-time.version>2.14.1</joda-time.version>
         <lombok.version>1.18.44</lombok.version>
