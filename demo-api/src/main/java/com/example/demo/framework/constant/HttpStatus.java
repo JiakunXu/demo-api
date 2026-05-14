@@ -11,6 +11,8 @@ public class HttpStatus {
 
     public static final int FORBIDDEN                     = 403;
 
+    public static final int NOT_FOUND                     = 404;
+
     public static final int PROXY_AUTHENTICATION_REQUIRED = 407;
 
     public static final int REQUEST_TIMEOUT               = 408;
