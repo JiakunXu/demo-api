@@ -26,6 +26,7 @@
         </filter>
 
         <mdcFields>THREAD_ID,MDC_KEY</mdcFields>
+        <maxThrowable>30000</maxThrowable>
     </appender>
 
     <statusListener class="ch.qos.logback.core.status.OnConsoleStatusListener"/>
