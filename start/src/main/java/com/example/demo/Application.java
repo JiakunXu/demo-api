@@ -11,7 +11,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @EnableDubbo
 @SpringBootApplication
 @ImportResource(locations = { "classpath:bean/*.xml" })
-@MapperScan("com.example.demo.*.dao.mapper")
+@MapperScan(basePackages = "com.example.demo.*.dao.mapper")
 public class Application {
 
     public static void main(String[] args) {
