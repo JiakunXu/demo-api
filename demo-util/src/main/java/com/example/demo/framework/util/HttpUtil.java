@@ -7,6 +7,7 @@ import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.HttpClients;
 import org.apache.hc.core5.http.*;
 import org.apache.hc.core5.http.io.entity.EntityUtils;
+import org.apache.hc.core5.http.io.entity.InputStreamEntity;
 import org.apache.hc.core5.http.io.entity.StringEntity;
 import org.apache.hc.core5.http.io.support.ClassicRequestBuilder;
 import org.apache.hc.core5.http.message.BasicHeader;
@@ -178,6 +179,28 @@ public class HttpUtil {
                 try {
                     if (status >= STATUS_CODE_200 && status < STATUS_CODE_300) {
                         return entity != null ? EntityUtils.toString(entity) : null;
+                    } else {
+                        throw new ClientProtocolException("Unexpected response status: " + status);
+                    }
+                } finally {
+                    EntityUtils.consume(entity);
+                }
+            });
+        }
+    }
+
+    public static String put(String uri, InputStream content, String contentType) throws Exception {
+        try (CloseableHttpClient client = HttpClients.createDefault()) {
+            ClassicHttpRequest request = ClassicRequestBuilder.put(uri)
+                .setEntity(new InputStreamEntity(content, ContentType.create(contentType))).build();
+
+            return client.execute(request, response -> {
+                int status = response.getCode();
+                final HttpEntity entity = response.getEntity();
+                try {
+                    if (status >= STATUS_CODE_200 && status < STATUS_CODE_300) {
+                        return entity != null ? EntityUtils.toString(entity, StandardCharsets.UTF_8)
+                            : null;
                     } else {
                         throw new ClientProtocolException("Unexpected response status: " + status);
                     }
