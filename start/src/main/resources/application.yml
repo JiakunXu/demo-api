@@ -99,9 +99,14 @@ spring:
             rule-type: param-flow
 
 mybatis:
-  config-location: classpath:mybatis-config.xml
   mapper-locations: classpath:mappers/*.xml
   type-aliases-package: com.example.demo.*.dao.dataobject
+  configuration:
+    lazy-loading-enabled: true
+    auto-mapping-unknown-column-behavior: WARNING
+    default-statement-timeout: 3
+    default-fetch-size: 100
+    map-underscore-to-camel-case: true
 
 rocketmq:
   name-server: ''
