@@ -16,7 +16,7 @@ public class ObjectResponse<T> extends AbstractResponse {
     private T                 data;
 
     public ObjectResponse(T data) {
-        this.setCode(HttpStatus.SUCCESS);
+        this.setCode(HttpStatus.OK);
         this.setData(data);
     }
 

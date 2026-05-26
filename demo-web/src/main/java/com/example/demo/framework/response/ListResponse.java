@@ -19,15 +19,24 @@ public class ListResponse<T> extends AbstractResponse {
 
     private List<T>           rows;
 
+    private T                 extra;
+
+    public ListResponse(List<T> rows) {
+        this.setCode(HttpStatus.OK);
+        this.setRows(rows);
+    }
+
     public ListResponse(int total, List<T> rows) {
-        this.setCode(HttpStatus.SUCCESS);
+        this.setCode(HttpStatus.OK);
         this.setTotal(total);
         this.setRows(rows);
     }
 
-    public ListResponse(List<T> rows) {
-        this.setCode(HttpStatus.SUCCESS);
+    public ListResponse(int total, List<T> rows, T extra) {
+        this.setCode(HttpStatus.OK);
+        this.setTotal(total);
         this.setRows(rows);
+        this.setExtra(extra);
     }
 
 }

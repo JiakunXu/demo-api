@@ -17,12 +17,12 @@ public class TokenResponse<T> extends AbstractResponse {
     private T                 ticket;
 
     public TokenResponse(T token) {
-        this.setCode(HttpStatus.SUCCESS);
+        this.setCode(HttpStatus.OK);
         this.setToken(token);
     }
 
     public TokenResponse(Map<String, T> map) {
-        this.setCode(HttpStatus.SUCCESS);
+        this.setCode(HttpStatus.OK);
         this.setToken(map.get("token"));
         this.setTicket(map.get("ticket"));
     }
