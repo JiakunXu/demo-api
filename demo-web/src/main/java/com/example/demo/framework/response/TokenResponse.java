@@ -4,12 +4,14 @@ import com.example.demo.framework.constant.HttpStatus;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serial;
 import java.util.Map;
 
 @Getter
 @Setter
 public class TokenResponse<T> extends AbstractResponse {
 
+    @Serial
     private static final long serialVersionUID = 5661972515266196297L;
 
     private T                 token;

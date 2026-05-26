@@ -4,6 +4,7 @@ import com.example.demo.framework.constant.HttpStatus;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serial;
 import java.util.List;
 
 /**
@@ -13,6 +14,7 @@ import java.util.List;
 @Setter
 public class PageResponse<T> extends AbstractResponse {
 
+    @Serial
     private static final long serialVersionUID = 5272336433321751345L;
 
     private Integer           pageNo;

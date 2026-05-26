@@ -3,6 +3,7 @@ package com.example.demo.framework.response;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
@@ -12,6 +13,7 @@ import java.io.Serializable;
 @Setter
 public class DataResponse<T> implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1707290933698340722L;
 
     private int               code;

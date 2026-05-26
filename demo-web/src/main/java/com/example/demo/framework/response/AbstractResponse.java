@@ -3,6 +3,7 @@ package com.example.demo.framework.response;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Map;
 
@@ -13,6 +14,7 @@ import java.util.Map;
 @Setter
 public abstract class AbstractResponse implements Serializable {
 
+    @Serial
     private static final long   serialVersionUID = -2112675577113436644L;
 
     private Integer             code;

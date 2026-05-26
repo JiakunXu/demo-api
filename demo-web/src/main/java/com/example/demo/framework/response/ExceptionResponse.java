@@ -1,10 +1,13 @@
 package com.example.demo.framework.response;
 
+import java.io.Serial;
+
 /**
  * @author JiakunXu
  */
 public class ExceptionResponse extends AbstractResponse {
 
+    @Serial
     private static final long serialVersionUID = 5873823141210593582L;
 
     public ExceptionResponse(Integer code, String msg) {
