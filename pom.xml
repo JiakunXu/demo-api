@@ -55,6 +55,7 @@
         <rocketmq-spring-boot.version>2.3.5</rocketmq-spring-boot.version>
         <server-sdk.version>1.0.9.Final</server-sdk.version>
         <wechatpay-java.version>0.2.17</wechatpay-java.version>
+        <xxl-job.version>3.4.0</xxl-job.version>
     </properties>
 
     <dependencyManagement>
@@ -225,6 +226,12 @@
                 <groupId>com.jhlabs</groupId>
                 <artifactId>filters</artifactId>
                 <version>2.0.235-1</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.xuxueli</groupId>
+                <artifactId>xxl-job-core</artifactId>
+                <version>${xxl-job.version}</version>
             </dependency>
 
             <dependency>

@@ -125,12 +125,32 @@ rocketmq:
 
 dubbo:
   application:
-    name: demo
+    name: ${spring.application.name}
+    logger: slf4j
+    qos-enable: false
   registry:
-    address: ''
+    address:
+    username:
+    password:
+    group: DUBBO_GROUP
+    register: false
+    register-mode: instance
   protocol:
-    name: dubbo
-    port: -1
+    name: tri
+    port: 50051
+  consumer:
+    check: false
+    filter: -authenticationPrepare
+
+xxl:
+  job:
+    admin:
+      addresses:
+      accessToken:
+    executor:
+      appname: ${spring.application.name}
+      ip:
+      port: 9999
 
 aliyun:
   accessKey:
