@@ -1,7 +1,9 @@
 package com.example.demo.framework.service.impl;
 
+import com.baomidou.mybatisplus.core.metadata.MapperProxyMetadata;
+import com.baomidou.mybatisplus.core.toolkit.MybatisUtils;
+import com.baomidou.mybatisplus.extension.toolkit.SqlHelper;
 import com.example.demo.framework.mapper.BaseMapper;
-import com.example.demo.framework.mybatis.toolkit.SqlHelper;
 import com.example.demo.framework.service.IService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.binding.MapperProxy;
@@ -81,21 +83,8 @@ public class ServiceImpl<M extends BaseMapper<T>, T> implements IService<T> {
 
     protected SqlSessionFactory getSqlSessionFactory() {
         if (this.sqlSessionFactory == null) {
-            synchronized (this) {
-                if (this.sqlSessionFactory == null) {
-                    try {
-                        MapperProxy<?> mapperProxy = (MapperProxy<?>) Proxy
-                            .getInvocationHandler(this.baseMapper);
-                        Field field = MapperProxy.class.getDeclaredField("sqlSession");
-                        field.setAccessible(true);
-                        SqlSessionTemplate sqlSessionTemplate = (SqlSessionTemplate) field
-                            .get(mapperProxy);
-                        this.sqlSessionFactory = sqlSessionTemplate.getSqlSessionFactory();
-                    } catch (NoSuchFieldException | IllegalAccessException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-            }
+            MapperProxyMetadata mapperProxyMetadata = MybatisUtils.getMapperProxy(this.getBaseMapper());
+            this.sqlSessionFactory = MybatisUtils.getSqlSessionFactory(mapperProxyMetadata.getSqlSession());
         }
         return this.sqlSessionFactory;
     }

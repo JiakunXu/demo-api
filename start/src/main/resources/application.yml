@@ -98,7 +98,7 @@ spring:
             data-type: json
             rule-type: param-flow
 
-mybatis:
+mybatis-plus:
   mapper-locations: classpath:mappers/*.xml
   type-aliases-package: com.example.demo.*.dao.dataobject
   configuration:
@@ -107,6 +107,13 @@ mybatis:
     default-statement-timeout: 3
     default-fetch-size: 100
     map-underscore-to-camel-case: true
+  global-config:
+    banner: false
+    db-config:
+      id-type: AUTO
+      logic-delete-field: deleted
+      logic-delete-value: 1
+      logic-not-delete-value: 0
 
 rocketmq:
   name-server: ''

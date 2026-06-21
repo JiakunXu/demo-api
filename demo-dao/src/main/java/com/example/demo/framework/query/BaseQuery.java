@@ -1,12 +1,11 @@
 package com.example.demo.framework.query;
 
-import java.io.Serial;
-import java.io.Serializable;
-
-import com.alibaba.fastjson2.annotation.JSONField;
-
+import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.io.Serial;
+import java.io.Serializable;
 
 /**
  * @author JiakunXu
@@ -18,37 +17,46 @@ public class BaseQuery implements Serializable {
     @Serial
     private static final long serialVersionUID = -2047538090603282418L;
 
+    @TableField(exist = false)
     private String            search;
 
+    @TableField(exist = false)
     private String            start;
 
+    @TableField(exist = false)
     private String            end;
 
+    @TableField(exist = false)
     private String[]          codes;
 
     /**
      * 排序字段.
      */
+    @TableField(exist = false)
     private String            sort;
 
     /**
      * 排序类型.
      */
+    @TableField(exist = false)
     private String            dir;
 
     /**
      * 分页号，从1开始.
      */
-    @JSONField(serialize = false)
-    private int               pageNo;
+    @TableField(exist = false)
+    private Integer           pageNo;
 
-    @JSONField(serialize = false)
-    private int               pageSize;
+    @TableField(exist = false)
+    private Integer           pageSize;
 
-    @JSONField(serialize = false)
-    private int               offset;
+    @TableField(exist = false)
+    private Integer           offset;
 
-    public int getOffset() {
+    public Integer getOffset() {
+        if (this.pageNo == null || this.pageSize == null) {
+            return null;
+        }
         return (this.pageNo - 1) * this.pageSize;
     }
 
