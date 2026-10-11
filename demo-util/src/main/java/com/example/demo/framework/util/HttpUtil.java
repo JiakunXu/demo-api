@@ -162,7 +162,7 @@ public class HttpUtil {
 
             for (Map.Entry<String, String> map : parameter0.entrySet()) {
                 multipartEntityBuilder.addTextBody(map.getKey(), map.getValue(),
-                    ContentType.APPLICATION_FORM_URLENCODED);
+                    ContentType.APPLICATION_FORM_URLENCODED.withCharset(StandardCharsets.UTF_8));
             }
 
             for (Map.Entry<String, InputStream> map : parameter1.entrySet()) {
@@ -171,7 +171,7 @@ public class HttpUtil {
             }
 
             ClassicHttpRequest request = ClassicRequestBuilder.post(uri)
-                .setEntity(multipartEntityBuilder.build()).build();
+                .setHeaders(getHeaders(header)).setEntity(multipartEntityBuilder.build()).build();
 
             return client.execute(request, response -> {
                 int status = response.getCode();

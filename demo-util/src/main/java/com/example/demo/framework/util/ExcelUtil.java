@@ -293,7 +293,8 @@ public class ExcelUtil {
         Cell cell = sheet.getRow(rownum).getCell(cellnum);
 
         if (cell == null) {
-            cell = sheet.getRow(rownum).createCell(cellnum, cellType);
+            cell = sheet.getRow(rownum).createCell(cellnum,
+                cellType == null ? CellType.BLANK : cellType);
             cell.setCellStyle(cellStyle);
         }
 
