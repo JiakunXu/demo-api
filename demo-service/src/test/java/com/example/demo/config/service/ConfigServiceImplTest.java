@@ -76,7 +76,7 @@ class ConfigServiceImplTest {
 
     @Test
     void insertionSetsCreatorAndReturnsGeneratedIdentifier() {
-        doAnswer(invocation -> { ConfigDO row = invocation.getArgument(0); assertThat(row.getCreator()).isEqualTo("creator"); row.setId(id); return true; }).when(service).save(any(ConfigDO.class));
+        doAnswer(invocation -> { ConfigDO row = invocation.getArgument(0); assertThat(row.getCreateBy()).isEqualTo("creator"); row.setId(id); return true; }).when(service).save(any(ConfigDO.class));
         Config entity = new Config();
         assertThat(service.insertConfig(entity, "creator")).isSameAs(entity);
         assertThat(entity.getId()).isEqualTo(id);
@@ -99,7 +99,7 @@ class ConfigServiceImplTest {
         var capture = ArgumentCaptor.forClass(ConfigDO.class);
         verify(service).updateById(capture.capture());
         assertThat(capture.getValue().getId()).isEqualTo(id);
-        assertThat(capture.getValue().getModifier()).isEqualTo("editor");
+        assertThat(capture.getValue().getUpdateBy()).isEqualTo("editor");
     }
 
     @ParameterizedTest
@@ -112,7 +112,7 @@ class ConfigServiceImplTest {
         verify(service).update(capture.capture());
         var wrapper = (LambdaUpdateWrapper<ConfigDO>) capture.getValue();
         assertThat(wrapper.getSqlSegment()).contains("id");
-        assertThat(wrapper.getSqlSet()).contains("deleted", "modifier");
+        assertThat(wrapper.getSqlSet()).contains("deleted", "update_by");
         assertThat(wrapper.getParamNameValuePairs().values()).contains(id, true, "editor");
     }
 

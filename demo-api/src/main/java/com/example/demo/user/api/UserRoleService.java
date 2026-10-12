@@ -27,18 +27,18 @@ public interface UserRoleService {
 
     List<User> listUsers(BigInteger corpId, String... roleCode);
 
-    UserRole insertUserRole(BigInteger userId, BigInteger roleId, String creator);
+    UserRole insertUserRole(BigInteger userId, BigInteger roleId, String createBy);
 
     List<UserRole> updateUserRole(BigInteger corpId, BigInteger userId, String[] roleIds,
-                                  String modifier);
+                                  String updateBy);
 
     List<UserRole> updateUserRole(BigInteger corpId, String[] userIds, BigInteger roleId,
-                                  String modifier);
+                                  String updateBy);
 
     UserRole deleteUserRole(BigInteger corpId, BigInteger userId, BigInteger roleId,
-                            String modifier);
+                            String updateBy);
 
     UserRole deleteUserRole(BigInteger corpId, String[] userIds, BigInteger roleId,
-                            String modifier);
+                            String updateBy);
 
 }

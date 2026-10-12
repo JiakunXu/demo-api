@@ -202,13 +202,13 @@ public class UserRoleServiceImpl extends ServiceImpl<UserRoleMapper, UserRoleDO>
 
     @Override
     public UserRole insertUserRole(@NotNull BigInteger userId, @NotNull BigInteger roleId,
-                                   @NotBlank String creator) {
+                                   @NotBlank String createBy) {
         UserRole userRole = new UserRole();
         userRole.setUserId(userId);
         userRole.setRoleId(roleId);
 
         UserRoleDO userRoleDO = BeanUtil.copy(userRole, UserRoleDO.class);
-        userRoleDO.setCreator(creator);
+        userRoleDO.setCreateBy(createBy);
 
         this.save(userRoleDO);
 
@@ -217,7 +217,7 @@ public class UserRoleServiceImpl extends ServiceImpl<UserRoleMapper, UserRoleDO>
         return userRole;
     }
 
-    private void insertUserRole(BigInteger userId, List<UserRole> userRoleList, String creator) {
+    private void insertUserRole(BigInteger userId, List<UserRole> userRoleList, String createBy) {
         if (CollectionUtils.isEmpty(userRoleList)) {
             return;
         }
@@ -228,7 +228,7 @@ public class UserRoleServiceImpl extends ServiceImpl<UserRoleMapper, UserRoleDO>
             userRole.setUserId(userId);
 
             UserRoleDO userRoleDO = BeanUtil.copy(userRole, UserRoleDO.class);
-            userRoleDO.setCreator(creator);
+            userRoleDO.setCreateBy(createBy);
 
             userRoleDOs.add(userRoleDO);
         }
@@ -239,7 +239,7 @@ public class UserRoleServiceImpl extends ServiceImpl<UserRoleMapper, UserRoleDO>
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
     public List<UserRole> updateUserRole(@NotNull BigInteger corpId, BigInteger userId,
-                                         String[] roleIds, @NotBlank String modifier) {
+                                         String[] roleIds, @NotBlank String updateBy) {
         userService.validate(corpId, userId);
 
         List<UserRole> userRoleList = new ArrayList<>();
@@ -258,9 +258,9 @@ public class UserRoleServiceImpl extends ServiceImpl<UserRoleMapper, UserRoleDO>
         List<UserRole> list0 = listUserRoles(userId);
 
         if (CollectionUtils.isEmpty(list0)) {
-            insertUserRole(userId, userRoleList, modifier);
+            insertUserRole(userId, userRoleList, updateBy);
 
-            userService.refreshToken(corpId, userId, modifier);
+            userService.refreshToken(corpId, userId, updateBy);
 
             return userRoleList;
         }
@@ -281,15 +281,15 @@ public class UserRoleServiceImpl extends ServiceImpl<UserRoleMapper, UserRoleDO>
             }
         }
 
-        insertUserRole(userId, list1, modifier);
+        insertUserRole(userId, list1, updateBy);
 
         for (Map.Entry<BigInteger, UserRole> m : map.entrySet()) {
             UserRoleDO userRoleDO = BeanUtil.copy(m.getValue(), UserRoleDO.class);
-            userRoleDO.setModifier(modifier);
+            userRoleDO.setUpdateBy(updateBy);
 
             var updateWrapper = Wrappers.<UserRoleDO> lambdaUpdate()
                 .eq(UserRoleDO::getId, userRoleDO.getId()).set(UserRoleDO::getDeleted, true)
-                .set(UserRoleDO::getModifier, modifier);
+                .set(UserRoleDO::getUpdateBy, updateBy);
 
             if (!this.update(updateWrapper)) {
                 log.error("{}", userRoleDO);
@@ -297,7 +297,7 @@ public class UserRoleServiceImpl extends ServiceImpl<UserRoleMapper, UserRoleDO>
             }
         }
 
-        userService.refreshToken(corpId, userId, modifier);
+        userService.refreshToken(corpId, userId, updateBy);
 
         return userRoleList;
     }
@@ -305,7 +305,7 @@ public class UserRoleServiceImpl extends ServiceImpl<UserRoleMapper, UserRoleDO>
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
     public List<UserRole> updateUserRole(@NotNull BigInteger corpId, @NotNull String[] userIds,
-                                         BigInteger roleId, @NotBlank String modifier) {
+                                         BigInteger roleId, @NotBlank String updateBy) {
         // TODO roleService.validate(corpId, roleId);
 
         if (userIds.length == 0) {
@@ -320,7 +320,7 @@ public class UserRoleServiceImpl extends ServiceImpl<UserRoleMapper, UserRoleDO>
             UserRoleDO userRoleDO = new UserRoleDO();
             userRoleDO.setUserId(new BigInteger(userId));
             userRoleDO.setRoleId(roleId);
-            userRoleDO.setCreator(modifier);
+            userRoleDO.setCreateBy(updateBy);
 
             userRoleDOs.add(userRoleDO);
         }
@@ -328,7 +328,7 @@ public class UserRoleServiceImpl extends ServiceImpl<UserRoleMapper, UserRoleDO>
         this.saveBatch(userRoleDOs);
 
         for (UserRoleDO userRoleDO : userRoleDOs) {
-            userService.refreshToken(corpId, userRoleDO.getUserId(), modifier);
+            userService.refreshToken(corpId, userRoleDO.getUserId(), updateBy);
         }
 
         return BeanUtil.copy(userRoleDOs, UserRole.class);
@@ -337,32 +337,32 @@ public class UserRoleServiceImpl extends ServiceImpl<UserRoleMapper, UserRoleDO>
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
     public UserRole deleteUserRole(@NotNull BigInteger corpId, BigInteger userId, BigInteger roleId,
-                                   @NotBlank String modifier) {
+                                   @NotBlank String updateBy) {
         userService.validate(corpId, userId);
         // TODO roleService.validate(corpId, roleId);
 
         UserRoleDO userRoleDO = new UserRoleDO();
         userRoleDO.setUserId(userId);
         userRoleDO.setRoleId(roleId);
-        userRoleDO.setModifier(modifier);
+        userRoleDO.setUpdateBy(updateBy);
 
         var updateWrapper = Wrappers.<UserRoleDO> lambdaUpdate().eq(UserRoleDO::getUserId, userId)
             .eq(UserRoleDO::getRoleId, roleId).set(UserRoleDO::getDeleted, true)
-            .set(UserRoleDO::getModifier, modifier);
+            .set(UserRoleDO::getUpdateBy, updateBy);
 
         if (!this.update(updateWrapper)) {
             log.error("{}", userRoleDO);
             throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "");
         }
 
-        userService.refreshToken(corpId, userId, modifier);
+        userService.refreshToken(corpId, userId, updateBy);
 
         return BeanUtil.copy(userRoleDO, UserRole.class);
     }
 
     @Override
     public UserRole deleteUserRole(@NotNull BigInteger corpId, @NotNull String[] userIds,
-                                   BigInteger roleId, @NotBlank String modifier) {
+                                   BigInteger roleId, @NotBlank String updateBy) {
         // TODO roleService.validate(corpId, roleId);
 
         if (userIds.length == 0) {
@@ -382,18 +382,18 @@ public class UserRoleServiceImpl extends ServiceImpl<UserRoleMapper, UserRoleDO>
         UserRoleDO userRoleDO = new UserRoleDO();
         userRoleDO.setRoleId(roleId);
         userRoleDO.setUserIds(list.toArray(new BigInteger[0]));
-        userRoleDO.setModifier(modifier);
+        userRoleDO.setUpdateBy(updateBy);
 
         var updateWrapper = Wrappers.<UserRoleDO> lambdaUpdate().in(UserRoleDO::getUserId, list)
             .eq(UserRoleDO::getRoleId, roleId).set(UserRoleDO::getDeleted, true)
-            .set(UserRoleDO::getModifier, modifier);
+            .set(UserRoleDO::getUpdateBy, updateBy);
 
         if (!this.update(updateWrapper)) {
             log.error("{}", userRoleDO);
             throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "");
         }
 
-        userService.refreshToken(corpId, list.toArray(new BigInteger[0]), modifier);
+        userService.refreshToken(corpId, list.toArray(new BigInteger[0]), updateBy);
 
         return BeanUtil.copy(userRoleDO, UserRole.class);
     }

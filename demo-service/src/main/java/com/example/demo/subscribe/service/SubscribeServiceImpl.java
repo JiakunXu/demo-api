@@ -118,7 +118,7 @@ public class SubscribeServiceImpl extends ServiceImpl<SubscribeMapper, Subscribe
         }
 
         subscribeDO.setSceneId(new BigInteger(sceneId));
-        subscribeDO.setCreator(userId.toString());
+        subscribeDO.setCreateBy(userId.toString());
 
         Subscribe s = getSubscribe(userId, appId, scene, sceneId);
 

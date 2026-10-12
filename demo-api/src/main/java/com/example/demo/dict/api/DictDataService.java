@@ -26,12 +26,12 @@ public interface DictDataService {
 
     DictData getData(String typeValue, String value);
 
-    DictData insertData(BigInteger typeId, DictData data, String creator);
+    DictData insertData(BigInteger typeId, DictData data, String createBy);
 
-    DictData updateData(BigInteger id, DictData data, String modifier);
+    DictData updateData(BigInteger id, DictData data, String updateBy);
 
-    DictData updateData(BigInteger typeId, String typeValue, String modifier);
+    DictData updateData(BigInteger typeId, String typeValue, String updateBy);
 
-    DictData deleteData(BigInteger typeId, BigInteger id, String modifier);
+    DictData deleteData(BigInteger typeId, BigInteger id, String updateBy);
 
 }

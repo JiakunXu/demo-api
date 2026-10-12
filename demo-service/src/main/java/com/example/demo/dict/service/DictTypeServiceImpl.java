@@ -120,9 +120,9 @@ public class DictTypeServiceImpl extends ServiceImpl<DictTypeMapper, DictTypeDO>
     }
 
     @Override
-    public DictType insertType(@NotNull DictType type, @NotBlank String creator) {
+    public DictType insertType(@NotNull DictType type, @NotBlank String createBy) {
         DictTypeDO typeDO = BeanUtil.copy(type, DictTypeDO.class);
-        typeDO.setCreator(creator);
+        typeDO.setCreateBy(createBy);
 
         this.save(typeDO);
 
@@ -134,7 +134,7 @@ public class DictTypeServiceImpl extends ServiceImpl<DictTypeMapper, DictTypeDO>
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
     public DictType updateType(@NotNull BigInteger id, @NotNull DictType type,
-                               @NotBlank String modifier) {
+                               @NotBlank String updateBy) {
         DictType before = getType(id, null);
 
         if (before == null) {
@@ -144,14 +144,14 @@ public class DictTypeServiceImpl extends ServiceImpl<DictTypeMapper, DictTypeDO>
         type.setId(id);
 
         DictTypeDO typeDO = BeanUtil.copy(type, DictTypeDO.class);
-        typeDO.setModifier(modifier);
+        typeDO.setUpdateBy(updateBy);
 
         if (!this.updateById(typeDO)) {
             log.error("{}", typeDO);
             throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "");
         }
 
-        dictDataService.updateData(id, type.getValue(), modifier);
+        dictDataService.updateData(id, type.getValue(), updateBy);
 
         remove(id + "@" + before.getValue());
         remove(id + "@null");
@@ -162,7 +162,7 @@ public class DictTypeServiceImpl extends ServiceImpl<DictTypeMapper, DictTypeDO>
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
-    public DictType deleteType(@NotNull BigInteger id, @NotBlank String modifier) {
+    public DictType deleteType(@NotNull BigInteger id, @NotBlank String updateBy) {
         DictType before = getType(id, null);
 
         if (before == null) {
@@ -171,17 +171,17 @@ public class DictTypeServiceImpl extends ServiceImpl<DictTypeMapper, DictTypeDO>
 
         DictTypeDO typeDO = new DictTypeDO();
         typeDO.setId(id);
-        typeDO.setModifier(modifier);
+        typeDO.setUpdateBy(updateBy);
 
         var updateWrapper = Wrappers.<DictTypeDO> lambdaUpdate().eq(DictTypeDO::getId, id)
-            .set(DictTypeDO::getDeleted, true).set(DictTypeDO::getModifier, modifier);
+            .set(DictTypeDO::getDeleted, true).set(DictTypeDO::getUpdateBy, updateBy);
 
         if (!this.update(updateWrapper)) {
-            log.error("{},{}", id, modifier);
+            log.error("{},{}", id, updateBy);
             throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "");
         }
 
-        dictDataService.deleteData(id, null, modifier);
+        dictDataService.deleteData(id, null, updateBy);
 
         remove(id + "@" + before.getValue());
         remove(id + "@null");

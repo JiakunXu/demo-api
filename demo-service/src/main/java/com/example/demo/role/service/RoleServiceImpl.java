@@ -127,9 +127,9 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, RoleDO> implements 
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
-    public Role insertRole(@NotNull Role role, @NotBlank String creator) {
+    public Role insertRole(@NotNull Role role, @NotBlank String createBy) {
         RoleDO roleDO = BeanUtil.copy(role, RoleDO.class);
-        roleDO.setCreator(creator);
+        roleDO.setCreateBy(createBy);
 
         try {
             this.save(roleDO);
@@ -140,25 +140,25 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, RoleDO> implements 
 
         role.setId(roleDO.getId());
 
-        roleMenuService.updateRoleMenus(role.getId(), role.getMenuIds(), creator);
+        roleMenuService.updateRoleMenus(role.getId(), role.getMenuIds(), createBy);
 
         return role;
     }
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
-    public Role updateRole(@NotNull BigInteger id, @NotNull Role role, @NotBlank String modifier) {
+    public Role updateRole(@NotNull BigInteger id, @NotNull Role role, @NotBlank String updateBy) {
         role.setId(id);
 
         RoleDO roleDO = BeanUtil.copy(role, RoleDO.class);
-        roleDO.setModifier(modifier);
+        roleDO.setUpdateBy(updateBy);
 
         if (!this.updateById(roleDO)) {
             log.error("{}", roleDO);
             throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "");
         }
 
-        roleMenuService.updateRoleMenus(role.getId(), role.getMenuIds(), modifier);
+        roleMenuService.updateRoleMenus(role.getId(), role.getMenuIds(), updateBy);
 
         remove(id);
 
@@ -167,11 +167,11 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, RoleDO> implements 
 
     @Override
     public Role updateRole(@NotNull BigInteger id, @NotBlank String status,
-                           @NotBlank String modifier) {
+                           @NotBlank String updateBy) {
         RoleDO roleDO = new RoleDO();
         roleDO.setId(id);
         roleDO.setStatus(status);
-        roleDO.setModifier(modifier);
+        roleDO.setUpdateBy(updateBy);
 
         if (!this.updateById(roleDO)) {
             log.error("{}", roleDO);
@@ -185,17 +185,17 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, RoleDO> implements 
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
-    public Role deleteRole(@NotNull BigInteger id, @NotBlank String modifier) {
+    public Role deleteRole(@NotNull BigInteger id, @NotBlank String updateBy) {
         if (userRoleService.countUserRole(id) > 0) {
             throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "已关联用户，请先调整用户角色");
         }
 
         RoleDO roleDO = new RoleDO();
         roleDO.setId(id);
-        roleDO.setModifier(modifier);
+        roleDO.setUpdateBy(updateBy);
 
         var updateWrapper = Wrappers.<RoleDO> lambdaUpdate().eq(RoleDO::getId, id)
-            .set(RoleDO::getDeleted, true).set(RoleDO::getModifier, modifier);
+            .set(RoleDO::getDeleted, true).set(RoleDO::getUpdateBy, updateBy);
 
         if (!this.update(updateWrapper)) {
             log.error("{}", roleDO);
@@ -203,7 +203,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, RoleDO> implements 
         }
 
         if (CollectionUtils.isNotEmpty(roleMenuService.listRoleMenus(id))) {
-            roleMenuService.deleteRoleMenu(id, null, modifier);
+            roleMenuService.deleteRoleMenu(id, null, updateBy);
         }
 
         remove(id);

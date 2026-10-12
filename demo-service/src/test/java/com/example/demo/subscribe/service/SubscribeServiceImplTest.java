@@ -47,7 +47,7 @@ class SubscribeServiceImplTest {
 
     @Test
     void newSubscriptionDefaultsMissingSceneIdAndReturnsGeneratedId() {
-        doAnswer(invocation -> { SubscribeDO row = invocation.getArgument(0); assertThat(row.getSceneId()).isEqualTo(BigInteger.ZERO); assertThat(row.getCreator()).isEqualTo("1"); row.setId(BigInteger.TEN); return true; }).when(service).save(any(SubscribeDO.class));
+        doAnswer(invocation -> { SubscribeDO row = invocation.getArgument(0); assertThat(row.getSceneId()).isEqualTo(BigInteger.ZERO); assertThat(row.getCreateBy()).isEqualTo("1"); row.setId(BigInteger.TEN); return true; }).when(service).save(any(SubscribeDO.class));
         assertThat(service.insertSubscribe(BigInteger.ONE, "client", "chat", null).getId()).isEqualTo(BigInteger.TEN);
         assertThatThrownBy(() -> service.insertSubscribe(null, "client", "app", null)).hasMessage("参数信息不能为空");
     }

@@ -37,7 +37,7 @@ class TunnelServiceImplTest {
         ArgumentCaptor<Wrapper<TunnelDO>> capture = ArgumentCaptor.captor(); verify(service).update(capture.capture());
         var wrapper = (LambdaUpdateWrapper<TunnelDO>) capture.getValue();
         assertThat(wrapper.getSqlSegment()).contains("tunnel_id");
-        assertThat(wrapper.getSqlSet()).contains("deleted", "modifier");
+        assertThat(wrapper.getSqlSet()).contains("deleted", "update_by");
         assertThat(wrapper.getParamNameValuePairs().values()).contains("tunnel", true, "editor");
     }
 }

@@ -99,7 +99,7 @@ public class AlipayTradeServiceImpl extends ServiceImpl<AlipayTradeMapper, Alipa
         AlipayTradeDO tradeDO = new AlipayTradeDO();
         tradeDO.setOutTradeNo(trade.getOutTradeNo());
         tradeDO.setTrade(JSON.toJSONString(trade));
-        tradeDO.setCreator("系统");
+        tradeDO.setCreateBy("系统");
 
         this.save(tradeDO);
 

@@ -80,7 +80,7 @@ class CorpServiceImplTest {
         var capture = ArgumentCaptor.forClass(CorpDO.class);
         verify(service).updateById(capture.capture());
         assertThat(capture.getValue().getId()).isEqualTo(id);
-        assertThat(capture.getValue().getModifier()).isEqualTo("editor");
+        assertThat(capture.getValue().getUpdateBy()).isEqualTo("editor");
     }
 
     @Test

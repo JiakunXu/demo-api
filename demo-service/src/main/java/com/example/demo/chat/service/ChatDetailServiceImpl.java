@@ -93,7 +93,7 @@ public class ChatDetailServiceImpl extends ServiceImpl<ChatDetailMapper, ChatDet
         chatDetailDO0.setFrom("me");
         chatDetailDO0.setType(StringUtils.isBlank(type) ? "text" : type);
         chatDetailDO0.setContent(content);
-        chatDetailDO0.setCreator(userId.toString());
+        chatDetailDO0.setCreateBy(userId.toString());
 
         this.save(chatDetailDO0);
 
@@ -104,7 +104,7 @@ public class ChatDetailServiceImpl extends ServiceImpl<ChatDetailMapper, ChatDet
         chatDetailDO1.setFrom("you");
         chatDetailDO1.setType(StringUtils.isBlank(type) ? "text" : type);
         chatDetailDO1.setContent(content);
-        chatDetailDO1.setCreator(userId.toString());
+        chatDetailDO1.setCreateBy(userId.toString());
 
         this.save(chatDetailDO1);
 

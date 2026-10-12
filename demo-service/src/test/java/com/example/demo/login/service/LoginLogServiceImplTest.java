@@ -70,10 +70,10 @@ class LoginLogServiceImplTest {
     }
 
     @Test
-    void insertionSetsCreatorAndReturnsGeneratedIdentifier() {
-        doAnswer(invocation -> { LoginLogDO row = invocation.getArgument(0); assertThat(row.getCreator()).isEqualTo("creator"); row.setId(id); return true; }).when(service).save(any(LoginLogDO.class));
+    void insertionSetsCreateByAndCopiesGeneratedIdentifier() {
+        doAnswer(invocation -> { LoginLogDO row = invocation.getArgument(0); assertThat(row.getCreateBy()).isEqualTo("creator"); row.setId(id); return true; }).when(service).save(any(LoginLogDO.class));
         LoginLog entity = new LoginLog();
-        assertThat(service.insertLog(entity, "creator")).isSameAs(entity);
+        service.insertLog(entity, "creator");
         assertThat(entity.getId()).isEqualTo(id);
     }
 

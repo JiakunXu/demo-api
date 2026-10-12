@@ -81,7 +81,7 @@ class MenuServiceImplTest {
     void lookupAndInsertReturnStoredAndGeneratedIdentifiers() {
         MenuDO stored = row(10, 0); doReturn(stored).when(service).getById(id);
         assertThat(service.getMenu("10").getId()).isEqualTo(id); assertThat(service.getMenu(id).getId()).isEqualTo(id);
-        doAnswer(invocation -> { MenuDO row = invocation.getArgument(0); assertThat(row.getPid()).isEqualTo(BigInteger.ONE); assertThat(row.getCreator()).isEqualTo("creator"); row.setId(id); return true; }).when(service).save(any(MenuDO.class));
+        doAnswer(invocation -> { MenuDO row = invocation.getArgument(0); assertThat(row.getPid()).isEqualTo(BigInteger.ONE); assertThat(row.getCreateBy()).isEqualTo("creator"); row.setId(id); return true; }).when(service).save(any(MenuDO.class));
         assertThat(service.insertMenu(BigInteger.ONE, new Menu(), "creator").getId()).isEqualTo(id);
     }
 

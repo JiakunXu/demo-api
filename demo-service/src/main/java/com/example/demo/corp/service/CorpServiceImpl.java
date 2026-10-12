@@ -73,11 +73,11 @@ public class CorpServiceImpl extends ServiceImpl<CorpMapper, CorpDO>
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
-    public Corp updateCorp(@NotNull BigInteger id, @NotNull Corp corp, @NotBlank String modifier) {
+    public Corp updateCorp(@NotNull BigInteger id, @NotNull Corp corp, @NotBlank String updateBy) {
         corp.setId(id);
 
         CorpDO corpDO = BeanUtil.copy(corp, CorpDO.class);
-        corpDO.setModifier(modifier);
+        corpDO.setUpdateBy(updateBy);
 
         if (StringUtils.isEmpty(corpDO.getName())) {
             corpDO.setName(null);

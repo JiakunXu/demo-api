@@ -42,7 +42,7 @@
 	<update id="updateChat" parameterType="chatDO">
 		UPDATE `tb_chat` t
 		   SET t.`update_time` = NOW(),
-			   t.`modifier` = #{modifier},
+			   t.`update_by` = #{updateBy},
 			   t.`chat_time` = #{chatTime},
 			   t.`chat_detail_id` = #{chatDetailId},
 			   t.`unread` = t.`unread` + #{unread}
@@ -54,7 +54,7 @@
 	<update id="updateUnread" parameterType="chatDO">
 		UPDATE `tb_chat` t
 		   SET t.`update_time` = NOW(),
-			   t.`modifier` = #{modifier},
+			   t.`update_by` = #{updateBy},
 			   t.`unread` = #{unread}
 		 WHERE t.`is_deleted` = 0
 		   AND t.`id` = #{id}

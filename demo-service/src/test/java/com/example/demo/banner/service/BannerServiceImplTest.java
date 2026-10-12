@@ -74,7 +74,7 @@ class BannerServiceImplTest {
 
     @Test
     void insertionSetsCreatorAndReturnsGeneratedIdentifier() {
-        doAnswer(invocation -> { BannerDO row = invocation.getArgument(0); assertThat(row.getCreator()).isEqualTo("creator"); row.setId(id); return true; }).when(service).save(any(BannerDO.class));
+        doAnswer(invocation -> { BannerDO row = invocation.getArgument(0); assertThat(row.getCreateBy()).isEqualTo("creator"); row.setId(id); return true; }).when(service).save(any(BannerDO.class));
         Banner entity = new Banner();
         assertThat(service.insertBanner(entity, "creator")).isSameAs(entity);
         assertThat(entity.getId()).isEqualTo(id);
@@ -97,7 +97,7 @@ class BannerServiceImplTest {
         var capture = ArgumentCaptor.forClass(BannerDO.class);
         verify(service).updateById(capture.capture());
         assertThat(capture.getValue().getId()).isEqualTo(id);
-        assertThat(capture.getValue().getModifier()).isEqualTo("editor");
+        assertThat(capture.getValue().getUpdateBy()).isEqualTo("editor");
     }
 
     @ParameterizedTest
@@ -110,7 +110,7 @@ class BannerServiceImplTest {
         verify(service).update(capture.capture());
         var wrapper = (LambdaUpdateWrapper<BannerDO>) capture.getValue();
         assertThat(wrapper.getSqlSegment()).contains("id");
-        assertThat(wrapper.getSqlSet()).contains("deleted", "modifier");
+        assertThat(wrapper.getSqlSet()).contains("deleted", "update_by");
         assertThat(wrapper.getParamNameValuePairs().values()).contains(id, true, "editor");
     }
 

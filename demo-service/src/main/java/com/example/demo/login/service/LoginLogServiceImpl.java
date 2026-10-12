@@ -65,15 +65,13 @@ public class LoginLogServiceImpl extends ServiceImpl<LoginLogMapper, LoginLogDO>
     }
 
     @Override
-    public LoginLog insertLog(@NotNull LoginLog log, @NotBlank String creator) {
+    public void insertLog(@NotNull LoginLog log, @NotBlank String createBy) {
         LoginLogDO logDO = BeanUtil.copy(log, LoginLogDO.class);
-        logDO.setCreator(creator);
+        logDO.setCreateBy(createBy);
 
         this.save(logDO);
 
         log.setId(logDO.getId());
-
-        return log;
     }
 
 }

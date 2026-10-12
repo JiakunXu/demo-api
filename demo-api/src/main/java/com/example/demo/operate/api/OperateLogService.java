@@ -7,14 +7,14 @@ import java.util.List;
 
 public interface OperateLogService {
 
-    long countLog(OperateLog operateLog);
+    long countLog(OperateLog log);
 
-    List<OperateLog> listLogs(OperateLog operateLog);
+    List<OperateLog> listLogs(OperateLog log);
 
     OperateLog getLog(String id);
 
     OperateLog getLog(BigInteger id);
 
-    OperateLog insertLog(OperateLog operateLog, String creator);
+    void insertLog(OperateLog log, String createBy);
 
 }

@@ -15,10 +15,10 @@ public interface ArticleService {
 
     Article getArticle(BigInteger id);
 
-    Article insertArticle(Article article, String creator);
+    Article insertArticle(Article article, String createBy);
 
-    Article updateArticle(BigInteger id, Article article, String modifier);
+    Article updateArticle(BigInteger id, Article article, String updateBy);
 
-    Article deleteArticle(BigInteger id, String modifier);
+    Article deleteArticle(BigInteger id, String updateBy);
 
 }

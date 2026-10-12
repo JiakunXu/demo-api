@@ -85,7 +85,7 @@ public class AlipayRefundServiceImpl extends ServiceImpl<AlipayRefundMapper, Ali
         refundDO.setOutTradeNo(refund.getOutTradeNo());
         refundDO.setOutRequestNo(refund.getOutRequestNo());
         refundDO.setRefund(JSON.toJSONString(refund));
-        refundDO.setCreator("sys");
+        refundDO.setCreateBy("sys");
 
         this.save(refundDO);
 

@@ -109,7 +109,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
 
     @Override
     public User refreshToken(@NotNull BigInteger corpId, @NotNull BigInteger id,
-                             @NotBlank String modifier) {
+                             @NotBlank String updateBy) {
         User before = getUser(corpId, id);
 
         if (before == null) {
@@ -119,12 +119,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
         UserDO userDO = new UserDO();
         userDO.setId(id);
         userDO.setCorpId(corpId);
-        userDO.setModifier(modifier);
+        userDO.setUpdateBy(updateBy);
         userDO.setRefreshToken(UUID.randomUUID().toString());
 
         var updateWrapper = Wrappers.<UserDO> lambdaUpdate().eq(UserDO::getId, id)
             .eq(UserDO::getCorpId, corpId).set(UserDO::getRefreshToken, userDO.getRefreshToken())
-            .set(UserDO::getModifier, modifier);
+            .set(UserDO::getUpdateBy, updateBy);
 
         if (!this.update(updateWrapper)) {
             log.error("{}", userDO);
@@ -139,11 +139,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
     public List<User> refreshToken(@NotNull BigInteger corpId, @NotNull BigInteger[] ids,
-                                   @NotBlank String modifier) {
+                                   @NotBlank String updateBy) {
         List<User> list = new ArrayList<>();
 
         for (BigInteger id : ids) {
-            list.add(refreshToken(corpId, id, modifier));
+            list.add(refreshToken(corpId, id, updateBy));
         }
 
         return list;

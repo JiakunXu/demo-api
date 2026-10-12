@@ -18,10 +18,10 @@ public interface DictTypeService {
 
     DictType getType(BigInteger id, String value);
 
-    DictType insertType(DictType type, String creator);
+    DictType insertType(DictType type, String createBy);
 
-    DictType updateType(BigInteger id, DictType type, String modifier);
+    DictType updateType(BigInteger id, DictType type, String updateBy);
 
-    DictType deleteType(BigInteger id, String modifier);
+    DictType deleteType(BigInteger id, String updateBy);
 
 }
