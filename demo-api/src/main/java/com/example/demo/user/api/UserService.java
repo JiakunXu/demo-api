@@ -23,8 +23,8 @@ public interface UserService {
 
     LoginUser getUser(String username);
 
-    User refreshToken(BigInteger corpId, BigInteger id, String modifier);
+    User refreshToken(BigInteger corpId, BigInteger id, String updateBy);
 
-    List<User> refreshToken(BigInteger corpId, BigInteger[] ids, String modifier);
+    List<User> refreshToken(BigInteger corpId, BigInteger[] ids, String updateBy);
 
 }

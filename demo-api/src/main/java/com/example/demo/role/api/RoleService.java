@@ -24,12 +24,12 @@ public interface RoleService {
 
     BigInteger getRoleId(String code);
 
-    Role insertRole(Role role, String creator);
+    Role insertRole(Role role, String createBy);
 
-    Role updateRole(BigInteger id, Role role, String modifier);
+    Role updateRole(BigInteger id, Role role, String updateBy);
 
-    Role updateRole(BigInteger id, String status, String modifier);
+    Role updateRole(BigInteger id, String status, String updateBy);
 
-    Role deleteRole(BigInteger id, String modifier);
+    Role deleteRole(BigInteger id, String updateBy);
 
 }

@@ -151,7 +151,7 @@ public class WxpayRefundServiceImpl extends ServiceImpl<WxpayRefundMapper, Wxpay
         refundDO.setOutTradeNo(refund.getOutTradeNo());
         refundDO.setOutRefundNo(refund.getOutRefundNo());
         refundDO.setRefund(JSON.toJSONString(refund));
-        refundDO.setCreator("系统");
+        refundDO.setCreateBy("系统");
 
         this.save(refundDO);
 

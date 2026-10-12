@@ -56,12 +56,12 @@ class UserRoleServiceImplTest {
         var added = batch.getValue().iterator().next();
         assertThat(added.getUserId()).isEqualTo(user);
         assertThat(added.getRoleId()).isEqualTo(BigInteger.valueOf(3));
-        assertThat(added.getCreator()).isEqualTo("editor");
+        assertThat(added.getCreateBy()).isEqualTo("editor");
         ArgumentCaptor<Wrapper<UserRoleDO>> capture = ArgumentCaptor.captor();
         verify(service).update(capture.capture());
         var wrapper = (LambdaUpdateWrapper<UserRoleDO>) capture.getValue();
         assertThat(wrapper.getSqlSegment()).contains("id");
-        assertThat(wrapper.getSqlSet()).contains("deleted", "modifier");
+        assertThat(wrapper.getSqlSet()).contains("deleted", "update_by");
         assertThat(wrapper.getParamNameValuePairs().values()).contains(BigInteger.valueOf(101), true, "editor").doesNotContain(BigInteger.valueOf(102));
         var sequence = inOrder(users, mapper, service);
         sequence.verify(users).validate(corp, user);

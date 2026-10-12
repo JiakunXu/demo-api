@@ -18,6 +18,6 @@ public interface CorpService {
 
     Corp getCorp(BigInteger id);
 
-    Corp updateCorp(BigInteger id, Corp corp, String modifier);
+    Corp updateCorp(BigInteger id, Corp corp, String updateBy);
 
 }

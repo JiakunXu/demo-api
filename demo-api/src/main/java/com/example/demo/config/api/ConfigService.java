@@ -16,10 +16,10 @@ public interface ConfigService {
 
     Config getConfig(String id, String key);
 
-    Config insertConfig(Config config, String creator);
+    Config insertConfig(Config config, String createBy);
 
-    Config updateConfig(BigInteger id, Config config, String modifier);
+    Config updateConfig(BigInteger id, Config config, String updateBy);
 
-    Config deleteConfig(BigInteger id, String modifier);
+    Config deleteConfig(BigInteger id, String updateBy);
 
 }

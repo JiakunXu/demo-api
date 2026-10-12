@@ -165,11 +165,11 @@ public class DictDataServiceImpl extends ServiceImpl<DictDataMapper, DictDataDO>
 
     @Override
     public DictData insertData(@NotNull BigInteger typeId, @NotNull DictData data,
-                               @NotBlank String creator) {
+                               @NotBlank String createBy) {
         data.setTypeId(typeId);
 
         DictDataDO dataDO = BeanUtil.copy(data, DictDataDO.class);
-        dataDO.setCreator(creator);
+        dataDO.setCreateBy(createBy);
 
         this.save(dataDO);
 
@@ -180,7 +180,7 @@ public class DictDataServiceImpl extends ServiceImpl<DictDataMapper, DictDataDO>
 
     @Override
     public DictData updateData(@NotNull BigInteger id, @NotNull DictData data,
-                               @NotBlank String modifier) {
+                               @NotBlank String updateBy) {
         DictData before = getData(id);
 
         if (before == null) {
@@ -190,7 +190,7 @@ public class DictDataServiceImpl extends ServiceImpl<DictDataMapper, DictDataDO>
         data.setId(id);
 
         DictDataDO dataDO = BeanUtil.copy(data, DictDataDO.class);
-        dataDO.setModifier(modifier);
+        dataDO.setUpdateBy(updateBy);
 
         dataDO.setTypeId(null);
         dataDO.setTypeValue(null);
@@ -207,7 +207,7 @@ public class DictDataServiceImpl extends ServiceImpl<DictDataMapper, DictDataDO>
 
     @Override
     public DictData updateData(@NotNull BigInteger typeId, @NotBlank String typeValue,
-                               @NotBlank String modifier) {
+                               @NotBlank String updateBy) {
         List<DictData> list = listDatas(typeId.toString(), (String) null);
 
         if (CollectionUtils.isNotEmpty(list)) {
@@ -219,10 +219,10 @@ public class DictDataServiceImpl extends ServiceImpl<DictDataMapper, DictDataDO>
         DictDataDO dataDO = new DictDataDO();
         dataDO.setTypeId(typeId);
         dataDO.setTypeValue(typeValue);
-        dataDO.setModifier(modifier);
+        dataDO.setUpdateBy(updateBy);
 
         var updateWrapper = Wrappers.<DictDataDO> lambdaUpdate().eq(DictDataDO::getTypeId, typeId)
-            .set(DictDataDO::getTypeValue, typeValue).set(DictDataDO::getModifier, modifier);
+            .set(DictDataDO::getTypeValue, typeValue).set(DictDataDO::getUpdateBy, updateBy);
 
         this.update(updateWrapper);
 
@@ -230,7 +230,7 @@ public class DictDataServiceImpl extends ServiceImpl<DictDataMapper, DictDataDO>
     }
 
     @Override
-    public DictData deleteData(BigInteger typeId, BigInteger id, @NotBlank String modifier) {
+    public DictData deleteData(BigInteger typeId, BigInteger id, @NotBlank String updateBy) {
         if (typeId == null && id == null) {
             throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "参数信息不能为空");
         }
@@ -254,11 +254,11 @@ public class DictDataServiceImpl extends ServiceImpl<DictDataMapper, DictDataDO>
         DictDataDO dataDO = new DictDataDO();
         dataDO.setId(id);
         dataDO.setTypeId(typeId);
-        dataDO.setModifier(modifier);
+        dataDO.setUpdateBy(updateBy);
 
         var updateWrapper = Wrappers.<DictDataDO> lambdaUpdate()
             .eq(id != null, DictDataDO::getId, id).eq(id == null, DictDataDO::getTypeId, typeId)
-            .set(DictDataDO::getDeleted, true).set(DictDataDO::getModifier, modifier);
+            .set(DictDataDO::getDeleted, true).set(DictDataDO::getUpdateBy, updateBy);
 
         if (!this.update(updateWrapper)) {
             log.error("{}", dataDO);

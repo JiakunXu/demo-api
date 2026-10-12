@@ -67,9 +67,9 @@ public class ConfigServiceImpl extends ServiceImpl<ConfigMapper, ConfigDO>
     }
 
     @Override
-    public Config insertConfig(@NotNull Config config, @NotBlank String creator) {
+    public Config insertConfig(@NotNull Config config, @NotBlank String createBy) {
         ConfigDO configDO = BeanUtil.copy(config, ConfigDO.class);
-        configDO.setCreator(creator);
+        configDO.setCreateBy(createBy);
 
         this.save(configDO);
 
@@ -80,11 +80,11 @@ public class ConfigServiceImpl extends ServiceImpl<ConfigMapper, ConfigDO>
 
     @Override
     public Config updateConfig(@NotNull BigInteger id, @NotNull Config config,
-                               @NotBlank String modifier) {
+                               @NotBlank String updateBy) {
         config.setId(id);
 
         ConfigDO configDO = BeanUtil.copy(config, ConfigDO.class);
-        configDO.setModifier(modifier);
+        configDO.setUpdateBy(updateBy);
 
         if (!this.updateById(configDO)) {
             log.error("{}", configDO);
@@ -95,12 +95,12 @@ public class ConfigServiceImpl extends ServiceImpl<ConfigMapper, ConfigDO>
     }
 
     @Override
-    public Config deleteConfig(@NotNull BigInteger id, @NotBlank String modifier) {
+    public Config deleteConfig(@NotNull BigInteger id, @NotBlank String updateBy) {
         var updateWrapper = Wrappers.<ConfigDO> lambdaUpdate().eq(ConfigDO::getId, id)
-            .set(ConfigDO::getDeleted, true).set(ConfigDO::getModifier, modifier);
+            .set(ConfigDO::getDeleted, true).set(ConfigDO::getUpdateBy, updateBy);
 
         if (!this.update(updateWrapper)) {
-            log.error("{},{}", id, modifier);
+            log.error("{},{}", id, updateBy);
             throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "");
         }
 

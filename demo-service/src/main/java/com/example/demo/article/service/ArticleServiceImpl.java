@@ -68,9 +68,9 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, ArticleDO>
     }
 
     @Override
-    public Article insertArticle(@NotNull Article article, @NotBlank String creator) {
+    public Article insertArticle(@NotNull Article article, @NotBlank String createBy) {
         ArticleDO articleDO = BeanUtil.copy(article, ArticleDO.class);
-        articleDO.setCreator(creator);
+        articleDO.setCreateBy(createBy);
 
         this.save(articleDO);
 
@@ -81,11 +81,11 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, ArticleDO>
 
     @Override
     public Article updateArticle(@NotNull BigInteger id, @NotNull Article article,
-                                 @NotBlank String modifier) {
+                                 @NotBlank String updateBy) {
         article.setId(id);
 
         ArticleDO articleDO = BeanUtil.copy(article, ArticleDO.class);
-        articleDO.setModifier(modifier);
+        articleDO.setUpdateBy(updateBy);
 
         if (!this.updateById(articleDO)) {
             log.error("{}", articleDO);
@@ -96,12 +96,12 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, ArticleDO>
     }
 
     @Override
-    public Article deleteArticle(@NotNull BigInteger id, @NotBlank String modifier) {
+    public Article deleteArticle(@NotNull BigInteger id, @NotBlank String updateBy) {
         var updateWrapper = Wrappers.<ArticleDO> lambdaUpdate().eq(ArticleDO::getId, id)
-            .set(ArticleDO::getDeleted, true).set(ArticleDO::getModifier, modifier);
+            .set(ArticleDO::getDeleted, true).set(ArticleDO::getUpdateBy, updateBy);
 
         if (!this.update(updateWrapper)) {
-            log.error("{},{}", id, modifier);
+            log.error("{},{}", id, updateBy);
             throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "");
         }
 

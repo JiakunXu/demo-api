@@ -110,8 +110,8 @@ public class ChatServiceImpl extends ServiceImpl<ChatMapper, ChatDO> implements 
         chat.setFriendId(friendId);
 
         ChatDO chatDO = BeanUtil.copy(chat, ChatDO.class);
-        chatDO.setCreator(userId.toString());
-        chatDO.setModifier(userId.toString());
+        chatDO.setCreateBy(userId.toString());
+        chatDO.setUpdateBy(userId.toString());
 
         try {
             if (this.baseMapper.updateChat(chatDO) != 1) {
@@ -138,7 +138,7 @@ public class ChatServiceImpl extends ServiceImpl<ChatMapper, ChatDO> implements 
         chat.setUnread(0);
 
         ChatDO chatDO = BeanUtil.copy(chat, ChatDO.class);
-        chatDO.setModifier(userId.toString());
+        chatDO.setUpdateBy(userId.toString());
 
         if (this.baseMapper.updateUnread(chatDO) != 1) {
             log.error("{}", chatDO);

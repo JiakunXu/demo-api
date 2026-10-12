@@ -64,7 +64,7 @@ class AlipayRefundServiceImplTest {
         var capture = ArgumentCaptor.forClass(AlipayRefundDO.class); verify(service).save(capture.capture());
         assertThat(capture.getValue().getOutTradeNo()).isEqualTo("order");
         assertThat(capture.getValue().getOutRequestNo()).isEqualTo("refund");
-        assertThat(capture.getValue().getCreator()).isEqualTo("sys");
+        assertThat(capture.getValue().getCreateBy()).isEqualTo("sys");
         assertThat(JSON.parseObject(capture.getValue().getRefund(), AlipayRefund.class).getOutRequestNo()).isEqualTo("refund");
     }
 }

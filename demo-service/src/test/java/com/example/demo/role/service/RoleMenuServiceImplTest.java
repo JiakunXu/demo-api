@@ -48,12 +48,12 @@ class RoleMenuServiceImplTest {
         RoleMenuDO added = batch.getValue().iterator().next();
         assertThat(added.getMenuId()).isEqualTo(BigInteger.valueOf(3));
         assertThat(added.getRoleId()).isEqualTo(roleId);
-        assertThat(added.getCreator()).isEqualTo("editor");
+        assertThat(added.getCreateBy()).isEqualTo("editor");
         ArgumentCaptor<Wrapper<RoleMenuDO>> capture = ArgumentCaptor.captor();
         verify(service).update(capture.capture());
         var deletion = (LambdaUpdateWrapper<RoleMenuDO>) capture.getValue();
         assertThat(deletion.getSqlSegment()).contains("id IN", "role_id");
-        assertThat(deletion.getSqlSet()).contains("deleted", "modifier");
+        assertThat(deletion.getSqlSet()).contains("deleted", "update_by");
         assertThat(deletion.getParamNameValuePairs().values()).contains(BigInteger.valueOf(101), roleId, true, "editor").doesNotContain(BigInteger.valueOf(102));
     }
 
@@ -131,7 +131,7 @@ class RoleMenuServiceImplTest {
         verify(service).update(capture.capture());
         var wrapper = (LambdaUpdateWrapper<RoleMenuDO>) capture.getValue();
         assertThat(wrapper.getSqlSegment()).contains("role_id", "menu_id");
-        assertThat(wrapper.getSqlSet()).contains("deleted", "modifier");
+        assertThat(wrapper.getSqlSet()).contains("deleted", "update_by");
         assertThat(wrapper.getParamNameValuePairs().values()).contains(roleId, BigInteger.ONE, true, "editor");
     }
 }

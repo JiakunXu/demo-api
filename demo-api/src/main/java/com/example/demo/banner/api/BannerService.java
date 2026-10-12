@@ -15,10 +15,10 @@ public interface BannerService {
 
     Banner getBanner(BigInteger id);
 
-    Banner insertBanner(Banner banner, String creator);
+    Banner insertBanner(Banner banner, String createBy);
 
-    Banner updateBanner(BigInteger id, Banner banner, String modifier);
+    Banner updateBanner(BigInteger id, Banner banner, String updateBy);
 
-    Banner deleteBanner(BigInteger id, String modifier);
+    Banner deleteBanner(BigInteger id, String updateBy);
 
 }

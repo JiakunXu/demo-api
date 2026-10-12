@@ -15,6 +15,6 @@ public interface OperateLogService {
 
     OperateLog getLog(BigInteger id);
 
-    OperateLog insertLog(OperateLog operateLog, String creator);
+    OperateLog insertLog(OperateLog operateLog, String createBy);
 
 }

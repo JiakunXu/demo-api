@@ -13,17 +13,17 @@ public interface TunnelService {
      * 
      * @param userId
      * @param host
-     * @param creator
+     * @param createBy
      * @return
      */
-    Tunnel insertTunnel(BigInteger userId, String host, String creator);
+    Tunnel insertTunnel(BigInteger userId, String host, String createBy);
 
     /**
      *
      * @param tunnelId
-     * @param modifier
+     * @param updateBy
      * @return
      */
-    Tunnel deleteTunnel(String tunnelId, String modifier);
+    Tunnel deleteTunnel(String tunnelId, String updateBy);
 
 }

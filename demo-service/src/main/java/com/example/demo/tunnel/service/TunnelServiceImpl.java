@@ -26,12 +26,12 @@ public class TunnelServiceImpl extends ServiceImpl<TunnelMapper, TunnelDO>
                                implements TunnelService {
 
     @Override
-    public Tunnel insertTunnel(@NotNull BigInteger userId, String host, @NotBlank String creator) {
+    public Tunnel insertTunnel(@NotNull BigInteger userId, String host, @NotBlank String createBy) {
         TunnelDO tunnelDO = new TunnelDO();
         tunnelDO.setUserId(userId);
         tunnelDO.setTunnelId(UUID.randomUUID().toString());
         tunnelDO.setHost(host);
-        tunnelDO.setCreator(creator);
+        tunnelDO.setCreateBy(createBy);
 
         this.save(tunnelDO);
 
@@ -39,12 +39,12 @@ public class TunnelServiceImpl extends ServiceImpl<TunnelMapper, TunnelDO>
     }
 
     @Override
-    public Tunnel deleteTunnel(@NotBlank String tunnelId, @NotBlank String modifier) {
+    public Tunnel deleteTunnel(@NotBlank String tunnelId, @NotBlank String updateBy) {
         var updateWrapper = Wrappers.<TunnelDO> lambdaUpdate().eq(TunnelDO::getTunnelId, tunnelId)
-            .set(TunnelDO::getDeleted, true).set(TunnelDO::getModifier, modifier);
+            .set(TunnelDO::getDeleted, true).set(TunnelDO::getUpdateBy, updateBy);
 
         if (!this.update(updateWrapper)) {
-            log.error("{},{}", tunnelId, modifier);
+            log.error("{},{}", tunnelId, updateBy);
             throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "");
         }
 

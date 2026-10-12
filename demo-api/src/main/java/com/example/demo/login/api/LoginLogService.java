@@ -15,6 +15,6 @@ public interface LoginLogService {
 
     LoginLog getLog(BigInteger id);
 
-    LoginLog insertLog(LoginLog loginLog, String creator);
+    LoginLog insertLog(LoginLog loginLog, String createBy);
 
 }

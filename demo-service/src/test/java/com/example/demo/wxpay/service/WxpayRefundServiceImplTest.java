@@ -82,7 +82,7 @@ class WxpayRefundServiceImplTest {
         assertThat(service.insertRefund(data)).isSameAs(data);
         var capture = ArgumentCaptor.forClass(WxpayRefundDO.class); verify(service).save(capture.capture());
         assertThat(capture.getValue().getOutTradeNo()).isEqualTo("order");
-        assertThat(capture.getValue().getCreator()).isEqualTo("系统");
+        assertThat(capture.getValue().getCreateBy()).isEqualTo("系统");
         assertThat(JSON.parseObject(capture.getValue().getRefund(), WxpayRefund.class).getOutTradeNo()).isEqualTo("order");
     }
 

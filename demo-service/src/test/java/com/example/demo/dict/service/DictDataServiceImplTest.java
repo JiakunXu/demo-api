@@ -122,7 +122,7 @@ class DictDataServiceImplTest {
 
     @Test
     void insertSetsTypeAndCreatorAndReturnsGeneratedId() {
-        doAnswer(invocation -> { DictDataDO row = invocation.getArgument(0); assertThat(row.getTypeId()).isEqualTo(typeId); assertThat(row.getCreator()).isEqualTo("creator"); row.setId(id); return true; }).when(service).save(any(DictDataDO.class));
+        doAnswer(invocation -> { DictDataDO row = invocation.getArgument(0); assertThat(row.getTypeId()).isEqualTo(typeId); assertThat(row.getCreateBy()).isEqualTo("creator"); row.setId(id); return true; }).when(service).save(any(DictDataDO.class));
         DictData data = new DictData();
         assertThat(service.insertData(typeId, data, "creator")).isSameAs(data);
         assertThat(data.getId()).isEqualTo(id);
@@ -141,7 +141,7 @@ class DictDataServiceImplTest {
         verify(service).updateById(rows.capture());
         assertThat(rows.getValue().getTypeId()).isNull(); assertThat(rows.getValue().getTypeValue()).isNull();
         assertThat(rows.getValue().getId()).isEqualTo(id);
-        assertThat(rows.getValue().getModifier()).isEqualTo("editor");
+        assertThat(rows.getValue().getUpdateBy()).isEqualTo("editor");
         verify(redis).remove(key);
     }
 
@@ -187,7 +187,7 @@ class DictDataServiceImplTest {
         verify(service).update(capture.capture());
         var wrapper = (LambdaUpdateWrapper<DictDataDO>) capture.getValue();
         assertThat(wrapper.getSqlSegment()).contains(wholeType ? "type_id" : "id");
-        assertThat(wrapper.getSqlSet()).contains("deleted", "modifier");
+        assertThat(wrapper.getSqlSet()).contains("deleted", "update_by");
         assertThat(wrapper.getParamNameValuePairs().values()).contains(wholeType ? typeId : id, true, "editor");
     }
 

@@ -49,7 +49,7 @@ class ChatDetailServiceImplTest {
         assertThat(received.getUserId()).isEqualTo(friend);
         assertThat(received.getFriendId()).isEqualTo(user);
         assertThat(received.getFrom()).isEqualTo("you");
-        assertThat(received.getCreator()).isEqualTo("10");
+        assertThat(received.getCreateBy()).isEqualTo("10");
         var payload = ArgumentCaptor.forClass(byte[].class);
         verify(producer).send(eq("topic"), eq("chat.message"), payload.capture(), eq("1"));
         assertThat(JSON.parseObject(payload.getValue(), ChatDetail.class).getId()).isEqualTo(BigInteger.valueOf(102));

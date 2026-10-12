@@ -86,9 +86,9 @@ public class OperateLogServiceImpl extends ServiceImpl<OperateLogMapper, Operate
     }
 
     @Override
-    public OperateLog insertLog(@NotNull OperateLog operateLog, @NotBlank String creator) {
+    public OperateLog insertLog(@NotNull OperateLog operateLog, @NotBlank String createBy) {
         OperateLogDO logDO = BeanUtil.copy(operateLog, OperateLogDO.class);
-        logDO.setCreator(creator);
+        logDO.setCreateBy(createBy);
 
         this.save(logDO);
 

@@ -71,7 +71,7 @@ class OperateLogServiceImplTest {
 
     @Test
     void insertionSetsCreatorAndReturnsGeneratedIdentifier() {
-        doAnswer(invocation -> { OperateLogDO row = invocation.getArgument(0); assertThat(row.getCreator()).isEqualTo("creator"); row.setId(id); return true; }).when(service).save(any(OperateLogDO.class));
+        doAnswer(invocation -> { OperateLogDO row = invocation.getArgument(0); assertThat(row.getCreateBy()).isEqualTo("creator"); row.setId(id); return true; }).when(service).save(any(OperateLogDO.class));
         OperateLog entity = new OperateLog();
         assertThat(service.insertLog(entity, "creator")).isSameAs(entity);
         assertThat(entity.getId()).isEqualTo(id);

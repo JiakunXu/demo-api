@@ -159,11 +159,11 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, MenuDO> implements 
     }
 
     @Override
-    public Menu insertMenu(@NotNull BigInteger pid, @NotNull Menu menu, @NotBlank String creator) {
+    public Menu insertMenu(@NotNull BigInteger pid, @NotNull Menu menu, @NotBlank String createBy) {
         menu.setPid(pid);
 
         MenuDO menuDO = BeanUtil.copy(menu, MenuDO.class);
-        menuDO.setCreator(creator);
+        menuDO.setCreateBy(createBy);
 
         this.save(menuDO);
 
@@ -173,11 +173,11 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, MenuDO> implements 
     }
 
     @Override
-    public Menu updateMenu(@NotNull BigInteger id, @NotNull Menu menu, @NotBlank String modifier) {
+    public Menu updateMenu(@NotNull BigInteger id, @NotNull Menu menu, @NotBlank String updateBy) {
         menu.setId(id);
 
         MenuDO menuDO = BeanUtil.copy(menu, MenuDO.class);
-        menuDO.setModifier(modifier);
+        menuDO.setUpdateBy(updateBy);
 
         if (!this.updateById(menuDO)) {
             log.error("{}", menuDO);
@@ -188,7 +188,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, MenuDO> implements 
     }
 
     @Override
-    public Menu deleteMenu(@NotNull BigInteger id, @NotBlank String modifier) {
+    public Menu deleteMenu(@NotNull BigInteger id, @NotBlank String updateBy) {
         if (countMenu(id) > 0) {
             throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "已包含菜单，请先删除下级菜单");
         }
@@ -198,10 +198,10 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, MenuDO> implements 
         }
 
         var updateWrapper = Wrappers.<MenuDO> lambdaUpdate().eq(MenuDO::getId, id)
-            .set(MenuDO::getDeleted, true).set(MenuDO::getModifier, modifier);
+            .set(MenuDO::getDeleted, true).set(MenuDO::getUpdateBy, updateBy);
 
         if (!this.update(updateWrapper)) {
-            log.error("{},{}", id, modifier);
+            log.error("{},{}", id, updateBy);
             throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "");
         }
 

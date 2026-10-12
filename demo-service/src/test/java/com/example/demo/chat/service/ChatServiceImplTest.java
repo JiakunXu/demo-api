@@ -47,8 +47,8 @@ class ChatServiceImplTest {
         verify(mapper).updateChat(capture.capture());
         assertThat(capture.getValue().getUserId()).isEqualTo(user);
         assertThat(capture.getValue().getFriendId()).isEqualTo(friend);
-        assertThat(capture.getValue().getCreator()).isEqualTo("10");
-        assertThat(capture.getValue().getModifier()).isEqualTo("10");
+        assertThat(capture.getValue().getCreateBy()).isEqualTo("10");
+        assertThat(capture.getValue().getUpdateBy()).isEqualTo("10");
     }
 
     @Test

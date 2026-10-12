@@ -81,7 +81,7 @@ public class RoleMenuServiceImpl extends ServiceImpl<RoleMenuMapper, RoleMenuDO>
     }
 
     private List<RoleMenu> insertRoleMenus(BigInteger roleId, List<RoleMenu> roleMenus,
-                                           String creator) {
+                                           String createBy) {
         if (CollectionUtils.isEmpty(roleMenus)) {
             return List.of();
         }
@@ -92,7 +92,7 @@ public class RoleMenuServiceImpl extends ServiceImpl<RoleMenuMapper, RoleMenuDO>
             roleMenu.setRoleId(roleId);
 
             RoleMenuDO roleMenuDO = BeanUtil.copy(roleMenu, RoleMenuDO.class);
-            roleMenuDO.setCreator(creator);
+            roleMenuDO.setCreateBy(createBy);
 
             roleMenuDOs.add(roleMenuDO);
         }
@@ -105,7 +105,7 @@ public class RoleMenuServiceImpl extends ServiceImpl<RoleMenuMapper, RoleMenuDO>
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
     public List<RoleMenu> updateRoleMenus(@NotNull BigInteger roleId, BigInteger[] menuIds,
-                                          @NotBlank String modifier) {
+                                          @NotBlank String updateBy) {
         List<RoleMenu> roleMenuList = new ArrayList<>();
 
         if (menuIds != null) {
@@ -120,7 +120,7 @@ public class RoleMenuServiceImpl extends ServiceImpl<RoleMenuMapper, RoleMenuDO>
         List<RoleMenu> list0 = listRoleMenus(roleId);
 
         if (CollectionUtils.isEmpty(list0)) {
-            return insertRoleMenus(roleId, roleMenuList, modifier);
+            return insertRoleMenus(roleId, roleMenuList, updateBy);
         }
 
         Map<BigInteger, RoleMenu> map = new HashMap<>(list0.size());
@@ -139,16 +139,16 @@ public class RoleMenuServiceImpl extends ServiceImpl<RoleMenuMapper, RoleMenuDO>
             }
         }
 
-        insertRoleMenus(roleId, list1, modifier);
+        insertRoleMenus(roleId, list1, updateBy);
 
         if (!map.isEmpty()) {
             List<BigInteger> ids = map.values().stream().map(RoleMenu::getId).toList();
             var updateWrapper = Wrappers.<RoleMenuDO> lambdaUpdate().in(RoleMenuDO::getId, ids)
                 .eq(RoleMenuDO::getRoleId, roleId).set(RoleMenuDO::getDeleted, true)
-                .set(RoleMenuDO::getModifier, modifier);
+                .set(RoleMenuDO::getUpdateBy, updateBy);
 
             if (!this.update(updateWrapper)) {
-                log.error("{},{}", ids, modifier);
+                log.error("{},{}", ids, updateBy);
                 throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "");
             }
         }
@@ -158,7 +158,7 @@ public class RoleMenuServiceImpl extends ServiceImpl<RoleMenuMapper, RoleMenuDO>
 
     @Override
     public RoleMenu deleteRoleMenu(BigInteger roleId, BigInteger menuId,
-                                   @NotBlank String modifier) {
+                                   @NotBlank String updateBy) {
         if (roleId == null && menuId == null) {
             throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "参数信息不能为空");
         }
@@ -166,12 +166,12 @@ public class RoleMenuServiceImpl extends ServiceImpl<RoleMenuMapper, RoleMenuDO>
         RoleMenuDO roleMenuDO = new RoleMenuDO();
         roleMenuDO.setRoleId(roleId);
         roleMenuDO.setMenuId(menuId);
-        roleMenuDO.setModifier(modifier);
+        roleMenuDO.setUpdateBy(updateBy);
 
         var updateWrapper = Wrappers.<RoleMenuDO> lambdaUpdate()
             .eq(roleId != null, RoleMenuDO::getRoleId, roleId)
             .eq(menuId != null, RoleMenuDO::getMenuId, menuId).set(RoleMenuDO::getDeleted, true)
-            .set(RoleMenuDO::getModifier, modifier);
+            .set(RoleMenuDO::getUpdateBy, updateBy);
 
         if (!this.update(updateWrapper)) {
             log.error("{}", roleMenuDO);

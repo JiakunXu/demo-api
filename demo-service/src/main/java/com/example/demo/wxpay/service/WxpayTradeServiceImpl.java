@@ -173,7 +173,7 @@ public class WxpayTradeServiceImpl extends ServiceImpl<WxpayTradeMapper, WxpayTr
         WxpayTradeDO tradeDO = new WxpayTradeDO();
         tradeDO.setOutTradeNo(trade.getOutTradeNo());
         tradeDO.setTrade(JSON.toJSONString(trade));
-        tradeDO.setCreator("系统");
+        tradeDO.setCreateBy("系统");
 
         this.save(tradeDO);
 

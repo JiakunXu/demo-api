@@ -68,9 +68,9 @@ public class BannerServiceImpl extends ServiceImpl<BannerMapper, BannerDO>
     }
 
     @Override
-    public Banner insertBanner(@NotNull Banner banner, @NotBlank String creator) {
+    public Banner insertBanner(@NotNull Banner banner, @NotBlank String createBy) {
         BannerDO bannerDO = BeanUtil.copy(banner, BannerDO.class);
-        bannerDO.setCreator(creator);
+        bannerDO.setCreateBy(createBy);
 
         this.save(bannerDO);
 
@@ -81,11 +81,11 @@ public class BannerServiceImpl extends ServiceImpl<BannerMapper, BannerDO>
 
     @Override
     public Banner updateBanner(@NotNull BigInteger id, @NotNull Banner banner,
-                               @NotBlank String modifier) {
+                               @NotBlank String updateBy) {
         banner.setId(id);
 
         BannerDO bannerDO = BeanUtil.copy(banner, BannerDO.class);
-        bannerDO.setModifier(modifier);
+        bannerDO.setUpdateBy(updateBy);
 
         if (!this.updateById(bannerDO)) {
             log.error("{}", bannerDO);
@@ -96,12 +96,12 @@ public class BannerServiceImpl extends ServiceImpl<BannerMapper, BannerDO>
     }
 
     @Override
-    public Banner deleteBanner(@NotNull BigInteger id, @NotBlank String modifier) {
+    public Banner deleteBanner(@NotNull BigInteger id, @NotBlank String updateBy) {
         var updateWrapper = Wrappers.<BannerDO> lambdaUpdate().eq(BannerDO::getId, id)
-            .set(BannerDO::getDeleted, true).set(BannerDO::getModifier, modifier);
+            .set(BannerDO::getDeleted, true).set(BannerDO::getUpdateBy, updateBy);
 
         if (!this.update(updateWrapper)) {
-            log.error("{},{}", id, modifier);
+            log.error("{},{}", id, updateBy);
             throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "");
         }
 

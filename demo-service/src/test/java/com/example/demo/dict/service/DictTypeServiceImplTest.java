@@ -90,7 +90,7 @@ class DictTypeServiceImplTest {
 
     @Test
     void insertionPreservesCreatorAndGeneratedId() {
-        doAnswer(invocation -> { DictTypeDO row = invocation.getArgument(0); assertThat(row.getCreator()).isEqualTo("creator"); row.setId(id); return true; }).when(service).save(any(DictTypeDO.class));
+        doAnswer(invocation -> { DictTypeDO row = invocation.getArgument(0); assertThat(row.getCreateBy()).isEqualTo("creator"); row.setId(id); return true; }).when(service).save(any(DictTypeDO.class));
         DictType type = new DictType();
         assertThat(service.insertType(type, "creator")).isSameAs(type);
         assertThat(type.getId()).isEqualTo(id);
@@ -144,7 +144,7 @@ class DictTypeServiceImplTest {
         verify(service).update(capture.capture());
         var wrapper = (LambdaUpdateWrapper<DictTypeDO>) capture.getValue();
         assertThat(wrapper.getSqlSegment()).contains("id");
-        assertThat(wrapper.getSqlSet()).contains("deleted", "modifier");
+        assertThat(wrapper.getSqlSet()).contains("deleted", "update_by");
         assertThat(wrapper.getParamNameValuePairs().values()).contains(id, true, "editor");
     }
 

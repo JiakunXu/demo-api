@@ -31,10 +31,10 @@ public interface MenuService {
 
     Menu getMenu(BigInteger id);
 
-    Menu insertMenu(BigInteger pid, Menu menu, String creator);
+    Menu insertMenu(BigInteger pid, Menu menu, String createBy);
 
-    Menu updateMenu(BigInteger id, Menu menu, String modifier);
+    Menu updateMenu(BigInteger id, Menu menu, String updateBy);
 
-    Menu deleteMenu(BigInteger id, String modifier);
+    Menu deleteMenu(BigInteger id, String updateBy);
 
 }

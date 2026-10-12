@@ -72,7 +72,7 @@ class AlipayTradeServiceImplTest {
         assertThat(service.insertTrade(trade)).isSameAs(trade);
         var capture = ArgumentCaptor.forClass(AlipayTradeDO.class); verify(service).save(capture.capture());
         assertThat(capture.getValue().getOutTradeNo()).isEqualTo("order");
-        assertThat(capture.getValue().getCreator()).isEqualTo("系统");
+        assertThat(capture.getValue().getCreateBy()).isEqualTo("系统");
         assertThat(JSON.parseObject(capture.getValue().getTrade(), AlipayTrade.class).getTradeStatus()).isEqualTo("TRADE_SUCCESS");
     }
 }
