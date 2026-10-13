@@ -15,6 +15,10 @@
 - 长任务保留简短进度、关键决定、已验证事项和下一步；确有跨会话需要时才增加任务计划文档，不为每个小改动建立流程文件。
 - 不因本文授权而自动提交、推送、创建 PR、合并或发布。用户已明确授权的操作按其范围执行；涉及真实外部系统的写入应确认环境和既有授权。
 
+### 专项文档阅读入口
+
+按任务读取 [文档导航](docs/README.md) 中的相关材料，普通 Markdown 不假定自动加载。构建/启动读 `docs/development.md` 与 `docs/runbook.md`，添加或运行测试读 `docs/testing.md`，架构调整读 `docs/architecture.md`，审查读 `docs/code-review.md`。复杂跨模块、迁移或需跨会话的任务遵循 [PLANS.md](PLANS.md)；简单修复无需独立计划。新需求和长期决策分别使用 `docs/requirements/` 与 `docs/decisions/`。代理专属文档仅面向 Codex，技能说明不表示已安装或已改变权限。
+
 ## 2. 项目结构与依赖边界
 
 这是 Maven 多模块 Java 后端，父工程坐标为 `com.example:demo:1.0`。下列路径均相对于仓库根目录。
