@@ -23,6 +23,7 @@ java -version
 - [AGENTS.md](AGENTS.md)：Codex 在本仓库的长期规则。
 - [贡献指南](CONTRIBUTING.md)：修改、验证和 PR 交付。
 - [架构说明](docs/architecture.md)：模块边界和关键数据流程。
+- [编码规则导航](docs/coding-standards.md)：Java、API、持久化和配置专项规范。
 - [Codex 工作流](docs/codex-workflow.md)：任务描述、上下文和持续迭代。
 - [PLANS.md](PLANS.md)：复杂任务计划的编写和维护约定。
 - [安全报告](SECURITY.md)：漏洞报告与信息保护。
