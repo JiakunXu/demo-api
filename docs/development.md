@@ -1,6 +1,6 @@
 # 开发环境、构建与依赖管理
 
-状态：技术基线与项目规范。维护于 2026-10-13。配置用途和消费者见 [配置说明](configuration.md)，测试选择见 [测试指南](testing.md)，模块关系见 [架构](architecture.md)。
+状态：技术基线与项目规范。维护于 2026-10-13。依赖管理与升级见 [依赖指南](dependencies.md)，配置用途和消费者见 [配置说明](configuration.md)，测试选择见 [测试指南](testing.md)，模块关系见 [架构](architecture.md)。
 
 ## 技术基线与依赖
 
@@ -10,11 +10,6 @@
 - 仓库带 `mvnw`、`mvnw.cmd` 与 `.mvn/wrapper/maven-wrapper.properties`。优先 Wrapper；受限环境缺少发行包时可使用已安装且兼容的 Maven，例如 IDEA 自带 Maven。
 - 以下命令从仓库根目录执行。Unix 使用 `./mvnw`，Windows 使用 `mvnw.cmd`；若选用本机 Maven，替换命令前缀即可。
 - Wrapper 首次运行可能下载 Maven；Maven `-o` 只控制依赖/插件解析，不能使未缓存的 Wrapper 发行包凭空可用。
-- 依赖版本优先由父 POM 的 `properties` / `dependencyManagement` 和已有 BOM 管理。子模块按实际需要声明依赖，测试依赖必须使用 `test` scope。
-- 新增依赖前检查现有能力；避免为小功能引入框架或重复 JSON/HTTP 工具链。确需新增时说明用途、兼容性、维护状态及许可证影响。
-- 升级时检查 JDK、Spring Boot/Framework/Security、Cloud/Alibaba、Dubbo、MyBatis、SDK 和注解处理器的兼容性。引用对应官方文档/发行说明，不凭版本号相近判断兼容。
-- 不通过关闭版本兼容检查、全局忽略警告或大范围 `--add-opens` 掩盖问题；先定位依赖链与实际调用。
-- 不将开发者绝对路径、私有 Maven 仓库凭据或临时 JVM 参数写入 POM。修改依赖后编译所有受影响消费者并执行相关测试。
 
 ## 构建与启动
 
@@ -41,10 +36,6 @@ java -jar start/target/start-1.0.jar
 
 完整应用启动会初始化组件或注册任务，配置有效不等于本次任务已授权对真实平台进行测试写入。纯单元测试继续隔离外部平台。出现实际运行错误时根据异常与代码定位，不预先归因于 YAML 值。
 
-## 依赖变更的实施顺序
+## 依赖变更入口
 
-先从父 POM 与模块 POM 确认直接/传递依赖、BOM 和注解处理器，再核对对应官方兼容说明。明确为什么升级、受影响契约和回退范围，分阶段编译和测试。
-
-升级后检查新 API 的异常、序列化、代理、Bean 装配和客户端行为。Lombok 警告要区分注解处理器与应用代码来源，不能为消除日志全局关闭警告。SDK 兼容性不能只通过编译推断。
-
-Maven Wrapper 版本、实际 JVM 和本地缓存是不同维度；选择已有 Maven 时报告实际命令。禁止把个人路径、凭据或一次性 JVM 参数固化进 POM。
+版本管理位置、BOM 与实际解析、scope/exclusions、SDK 兼容性、升级步骤及弃用 API 处理集中维护于 [dependencies.md](dependencies.md)。修改 POM 前读取对应模块和该指南，按测试选择矩阵编译与验证消费者；本页只维护环境与构建入口。

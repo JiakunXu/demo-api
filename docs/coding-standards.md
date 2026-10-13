@@ -10,6 +10,7 @@
 | DO/Mapper、CRUD、审计、SQL、批量和事务 | [persistence.md](persistence.md) |
 | 平台、缓存、消息、文件和安全边界 | [security.md](security.md) |
 | 配置键、用途和消费者 | [configuration.md](configuration.md) |
+| POM、BOM、SDK、scope、插件、升级及弃用处理 | [dependencies.md](dependencies.md) |
 | 验证范围与实际运行 | [testing.md](testing.md) |
 
 ## 修改前后检查

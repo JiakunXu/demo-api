@@ -10,6 +10,7 @@
 | Java、对象与注解 | [Java 约定](java-conventions.md)、[代码风格](code-style.md) | 类型、转换、代理、异常和书写规范 |
 | Controller/API/JSON | [API 约定](api-conventions.md) | 解析、响应、身份、分页和兼容性 |
 | CRUD、DO、SQL、事务 | [持久化规则](persistence.md) | 审计、ID、批量、软删除与真实 SQL |
+| POM、BOM、SDK 和插件升级 | [依赖管理](dependencies.md) | 声明来源、解析、兼容、迁移与下游验证 |
 | 配置消费者 | [配置说明](configuration.md) | 键名、用途、类型和消费位置，不核查 YAML 取值 |
 | 跨多个编码领域 | [编码规则导航](coding-standards.md) | 选择专项规则及检查顺序 |
 | 添加或运行测试 | [测试指南](testing.md) | 测试范围、运行方法、结果解释 |
@@ -37,6 +38,7 @@
 | api-conventions | Controller、BaseController、Response、JSON/安全配置 | 公共契约或请求解析改变 |
 | persistence | Service、DO、BaseQuery、Mapper/XML、事务工具 | CRUD、SQL、分页、审计或事务改变 |
 | configuration | YAML 键结构、Java @Value、日志引用 | 键名、类型、默认表达式或消费者改变 |
+| dependencies | 根/模块 POM、Wrapper、官方资料与实际解析 | 版本、BOM、scope、排除项或插件改变 |
 | testing | 测试 POM、辅助设施、样例和实际运行 | 工具、命令、验证范围改变 |
 
 改动作者同步相关文档，审查者核对事实与证据。新增规范标注为项目选择，现状附源码入口，未实施的格式化/CI/集成能力明确说明。源码和文档冲突时先定位并修正文档，不能删除测试来迎合说明。配置按用户约定默认完整有效，不复述或审查 YAML 值。
