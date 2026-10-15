@@ -18,6 +18,8 @@ public interface RoleService {
 
     List<Role> listRoles();
 
+    List<Role> listRoles(List<BigInteger> ids);
+
     Role getRole(String id);
 
     Role getRole(BigInteger id);

@@ -44,8 +44,40 @@ class RoleServiceImplTest {
         when(mapper.listRoles(any())).thenReturn(List.of(row));
         assertThat(service.listRoles()).extracting(Role::getId).containsExactly(id);
         verify(mapper).listRoles(argThat(query -> query.getPageNo() == null && query.getPageSize() == null));
-        assertThat(service.countRole(null)).isZero(); assertThat(service.listRoles(null)).isEmpty();
+        assertThat(service.countRole(null)).isZero(); assertThat(service.listRoles((Role) null)).isEmpty();
         assertThat(service.getRole(" ")).isNull(); assertThat(service.getRoleId(" ")).isNull();
+    }
+
+    @Test
+    void emptyRoleIdsAvoidDatabaseQuery() {
+        assertThat(service.listRoles((List<BigInteger>) null)).isEmpty();
+        assertThat(service.listRoles(List.<BigInteger>of())).isEmpty();
+        verifyNoInteractions(mapper, redis);
+    }
+
+    @Test
+    void roleIdsAreQueriedInOneBatchAndMappedToBusinessObjects() {
+        List<BigInteger> ids = List.of(id, BigInteger.ONE);
+        RoleDO row = new RoleDO(id);
+        row.setName("管理员");
+        when(mapper.selectByIds(ids)).thenReturn(List.of(row));
+
+        List<Role> roles = service.listRoles(ids);
+
+        assertThat(roles).extracting(Role::getId).containsExactly(id);
+        assertThat(roles.getFirst().getName()).isEqualTo("管理员");
+        verify(mapper).selectByIds(ids);
+        verifyNoMoreInteractions(mapper);
+        verifyNoInteractions(redis);
+    }
+
+    @Test
+    void missingRoleIdsReturnEmptyList() {
+        List<BigInteger> ids = List.of(id);
+        when(mapper.selectByIds(ids)).thenReturn(List.of());
+
+        assertThat(service.listRoles(ids)).isEmpty();
+        verify(mapper).selectByIds(ids);
     }
 
     @Test
