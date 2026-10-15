@@ -23,7 +23,7 @@ public class AlipayFundAuthNotifyServiceImpl extends
                                              implements AlipayFundAuthNotifyService {
 
     @Override
-    public AlipayFundAuthNotify getAlipayFundAuthNotify(Map<String, String> parameters) {
+    public AlipayFundAuthNotify getFundAuthNotify(Map<String, String> parameters) {
         AlipayFundAuthNotify notify = new AlipayFundAuthNotify();
         notify.setAuthNo(parameters.get("auth_no"));
         notify.setNotifyType(parameters.get("notify_type"));
@@ -73,13 +73,12 @@ public class AlipayFundAuthNotifyServiceImpl extends
     }
 
     @Override
-    public AlipayFundAuthNotify insertAlipayFundAuthNotify(@NotNull AlipayFundAuthNotify alipayFundAuthNotify) {
-        AlipayFundAuthNotifyDO alipayFundAuthNotifyDO = BeanUtil.copy(alipayFundAuthNotify,
-            AlipayFundAuthNotifyDO.class);
+    public AlipayFundAuthNotify insertFundAuthNotify(@NotNull AlipayFundAuthNotify notify) {
+        AlipayFundAuthNotifyDO notifyDO = BeanUtil.copy(notify, AlipayFundAuthNotifyDO.class);
 
-        this.save(alipayFundAuthNotifyDO);
+        this.save(notifyDO);
 
-        return alipayFundAuthNotify;
+        return notify;
     }
 
     private Date getDate(String date) {

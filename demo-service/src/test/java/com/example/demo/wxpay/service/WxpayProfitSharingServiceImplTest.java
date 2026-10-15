@@ -38,19 +38,19 @@ class WxpayProfitSharingServiceImplTest {
         OrdersEntity response = JSON.parseObject("{\"order_id\":\"order-id\",\"transaction_id\":\"transaction\",\"out_order_no\":\"order\",\"sub_mchid\":\"sub\",\"state\":\"FINISHED\",\"receivers\":[]}", OrdersEntity.class);
         if (subMerchant) when(remote.queryOrder("sub", "transaction", "order")).thenReturn(response);
         else when(remote.queryOrder("transaction", "order")).thenReturn(response);
-        var result = subMerchant ? service.getWxpayProfitSharing("sub", "transaction", "order") : service.getWxpayProfitSharing("transaction", "order");
+        var result = subMerchant ? service.getProfitSharing("sub", "transaction", "order") : service.getProfitSharing("transaction", "order");
         assertThat(result.getOrderId()).isEqualTo("order-id");
         assertThat(result.getState()).isEqualTo("FINISHED");
         assertThat(result.getReceivers()).isEqualTo("[]");
-        assertThat(service.getWxpayProfitSharing("", "order")).isNull();
-        assertThat(service.getWxpayProfitSharing("", "transaction", "order")).isNull();
+        assertThat(service.getProfitSharing("", "order")).isNull();
+        assertThat(service.getProfitSharing("", "transaction", "order")).isNull();
     }
 
     @Test
     void callbackMapsOptionalMerchantIdentifiersAndFinishedState() {
         Map<String, String> data = Map.of("order_id", "id", "transaction_id", "transaction", "out_order_no", "order", "receiver", "[]", "success_time", "time", "sp_mchid", "sp", "sub_mchid", "sub");
         try (var parsers = mockConstruction(NotificationParser.class, (parser, context) -> { assertThat((Object[]) context.arguments().getFirst()).containsExactly(config); when(parser.parse(any(RequestParam.class), eq(Map.class))).thenReturn(data); })) {
-            var result = service.getWxpayProfitSharing("serial", "nonce", "123", "sign", "body");
+            var result = service.getProfitSharing("serial", "nonce", "123", "sign", "body");
             assertThat(result.getOrderId()).isEqualTo("id");
             assertThat(result.getMchid()).isNull();
             assertThat(result.getSpMchid()).isEqualTo("sp");
@@ -67,7 +67,7 @@ class WxpayProfitSharingServiceImplTest {
         WxpayProfitSharing data = new WxpayProfitSharing();
         data.setState("FINISHED");
         data.setTransactionId("transaction");
-        assertThat(service.updateWxpayProfitSharing("id", data)).isSameAs(data);
+        assertThat(service.updateProfitSharing("id", data)).isSameAs(data);
         ArgumentCaptor<Wrapper<WxpayProfitSharingDO>> capture = ArgumentCaptor.captor();
         verify(service).update(capture.capture());
         var wrapper = (LambdaUpdateWrapper<WxpayProfitSharingDO>) capture.getValue();
@@ -82,10 +82,10 @@ class WxpayProfitSharingServiceImplTest {
     void insertAndValidationRejectMissingData() {
         doReturn(true).when(service).save(any(WxpayProfitSharingDO.class));
         WxpayProfitSharing data = new WxpayProfitSharing(); data.setOrderId("id");
-        assertThat(service.insertWxpayProfitSharing(data)).isSameAs(data);
+        assertThat(service.insertProfitSharing(data)).isSameAs(data);
         verify(service).save(argThat(row -> "id".equals(row.getOrderId())));
-        assertThatThrownBy(() -> service.insertWxpayProfitSharing(null)).hasMessage("参数信息不能为空");
-        assertThatThrownBy(() -> service.updateWxpayProfitSharing("", data)).hasMessage("参数信息不能为空");
-        assertThatThrownBy(() -> service.updateWxpayProfitSharing("id", null)).hasMessage("参数信息不能为空");
+        assertThatThrownBy(() -> service.insertProfitSharing(null)).hasMessage("参数信息不能为空");
+        assertThatThrownBy(() -> service.updateProfitSharing("", data)).hasMessage("参数信息不能为空");
+        assertThatThrownBy(() -> service.updateProfitSharing("id", null)).hasMessage("参数信息不能为空");
     }
 }
