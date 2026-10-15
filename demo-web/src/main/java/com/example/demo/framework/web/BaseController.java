@@ -2,6 +2,7 @@ package com.example.demo.framework.web;
 
 import com.alibaba.fastjson2.JSON;
 import com.example.demo.framework.bo.BaseBO;
+import com.example.demo.framework.util.SqlUtil;
 import com.example.demo.security.api.bo.LoginUser;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
@@ -51,7 +52,7 @@ public class BaseController {
         parameter.setSearch(request.getParameter("search"));
         parameter.setStart(request.getParameter("startDate"));
         parameter.setEnd(request.getParameter("endDate"));
-        parameter.setSort(request.getParameter("sort"));
+        parameter.setSort(SqlUtil.escapeOrderBySql(request.getParameter("sort")));
 
         String dir = request.getParameter("dir");
         if ("ascending".equals(dir)) {
@@ -59,7 +60,8 @@ public class BaseController {
         } else if ("descending".equals(dir)) {
             parameter.setDir("DESC");
         } else {
-            parameter.setDir(dir);
+            parameter.setSort(null);
+            parameter.setDir(null);
         }
 
         String pageNo = request.getParameter("pageNo");
