@@ -24,45 +24,42 @@ public class AlipayFundAuthNotifyServiceImpl extends
 
     @Override
     public AlipayFundAuthNotify getAlipayFundAuthNotify(Map<String, String> parameters) {
-        AlipayFundAuthNotify alipayFundAuthNotify = new AlipayFundAuthNotify();
-        alipayFundAuthNotify.setAuthNo(parameters.get("auth_no"));
-        alipayFundAuthNotify.setNotifyType(parameters.get("notify_type"));
-        alipayFundAuthNotify.setOutOrderNo(parameters.get("out_order_no"));
-        alipayFundAuthNotify.setOperationId(parameters.get("operation_id"));
-        alipayFundAuthNotify.setOutRequestNo(parameters.get("out_request_no"));
-        alipayFundAuthNotify.setOperationType(parameters.get("operation_type"));
-        alipayFundAuthNotify.setAmount(parameters.get("amount"));
-        alipayFundAuthNotify.setStatus(parameters.get("status"));
-        alipayFundAuthNotify.setGmtCreate(parameters.get("gmt_create"));
-        alipayFundAuthNotify.setGmtTrans(parameters.get("gmt_trans"));
-        alipayFundAuthNotify.setPayeeLogonId(parameters.get("payee_logon_id"));
-        alipayFundAuthNotify.setPayeeUserId(parameters.get("payee_user_id"));
-        alipayFundAuthNotify.setTotalFreezeAmount(parameters.get("total_freeze_amount"));
-        alipayFundAuthNotify.setTotalUnfreezeAmount(parameters.get("total_unfreeze_amount"));
-        alipayFundAuthNotify.setTotalPayAmount(parameters.get("total_pay_amount"));
-        alipayFundAuthNotify.setRestAmount(parameters.get("rest_amount"));
-        alipayFundAuthNotify.setCreditAmount(parameters.get("credit_amount"));
-        alipayFundAuthNotify.setFundAmount(parameters.get("fund_amount"));
-        alipayFundAuthNotify
-            .setTotalFreezeCreditAmount(parameters.get("total_freeze_credit_amount"));
-        alipayFundAuthNotify.setTotalFreezeFundAmount(parameters.get("total_freeze_fund_amount"));
-        alipayFundAuthNotify
-            .setTotalUnfreezeCreditAmount(parameters.get("total_unfreeze_credit_amount"));
-        alipayFundAuthNotify
-            .setTotalUnfreezeFundAmount(parameters.get("total_unfreeze_fund_amount"));
-        alipayFundAuthNotify.setTotalPayCreditAmount(parameters.get("total_pay_credit_amount"));
-        alipayFundAuthNotify.setTotalPayFundAmount(parameters.get("total_pay_fund_amount"));
-        alipayFundAuthNotify.setRestCreditAmount(parameters.get("rest_credit_amount"));
-        alipayFundAuthNotify.setRestFundAmount(parameters.get("rest_fund_amount"));
-        alipayFundAuthNotify.setPreAuthType(parameters.get("pre_auth_type"));
-        alipayFundAuthNotify.setCreditMerchantExt(parameters.get("credit_merchant_ext"));
+        AlipayFundAuthNotify notify = new AlipayFundAuthNotify();
+        notify.setAuthNo(parameters.get("auth_no"));
+        notify.setNotifyType(parameters.get("notify_type"));
+        notify.setOutOrderNo(parameters.get("out_order_no"));
+        notify.setOperationId(parameters.get("operation_id"));
+        notify.setOutRequestNo(parameters.get("out_request_no"));
+        notify.setOperationType(parameters.get("operation_type"));
+        notify.setAmount(parameters.get("amount"));
+        notify.setStatus(parameters.get("status"));
+        notify.setGmtCreate(parameters.get("gmt_create"));
+        notify.setGmtTrans(parameters.get("gmt_trans"));
+        notify.setPayeeLogonId(parameters.get("payee_logon_id"));
+        notify.setPayeeUserId(parameters.get("payee_user_id"));
+        notify.setTotalFreezeAmount(parameters.get("total_freeze_amount"));
+        notify.setTotalUnfreezeAmount(parameters.get("total_unfreeze_amount"));
+        notify.setTotalPayAmount(parameters.get("total_pay_amount"));
+        notify.setRestAmount(parameters.get("rest_amount"));
+        notify.setCreditAmount(parameters.get("credit_amount"));
+        notify.setFundAmount(parameters.get("fund_amount"));
+        notify.setTotalFreezeCreditAmount(parameters.get("total_freeze_credit_amount"));
+        notify.setTotalFreezeFundAmount(parameters.get("total_freeze_fund_amount"));
+        notify.setTotalUnfreezeCreditAmount(parameters.get("total_unfreeze_credit_amount"));
+        notify.setTotalUnfreezeFundAmount(parameters.get("total_unfreeze_fund_amount"));
+        notify.setTotalPayCreditAmount(parameters.get("total_pay_credit_amount"));
+        notify.setTotalPayFundAmount(parameters.get("total_pay_fund_amount"));
+        notify.setRestCreditAmount(parameters.get("rest_credit_amount"));
+        notify.setRestFundAmount(parameters.get("rest_fund_amount"));
+        notify.setPreAuthType(parameters.get("pre_auth_type"));
+        notify.setCreditMerchantExt(parameters.get("credit_merchant_ext"));
 
-        alipayFundAuthNotify.setNotifyId(parameters.get("notify_id"));
-        alipayFundAuthNotify.setNotifyTime(getDate(parameters.get("notify_time")));
-        alipayFundAuthNotify.setCharset(parameters.get("charset"));
-        alipayFundAuthNotify.setSign(parameters.get("sign"));
-        alipayFundAuthNotify.setSignType(parameters.get("sign_type"));
-        alipayFundAuthNotify.setVersion(parameters.get("version"));
+        notify.setNotifyId(parameters.get("notify_id"));
+        notify.setNotifyTime(getDate(parameters.get("notify_time")));
+        notify.setCharset(parameters.get("charset"));
+        notify.setSign(parameters.get("sign"));
+        notify.setSignType(parameters.get("sign_type"));
+        notify.setVersion(parameters.get("version"));
 
         try {
             if (!Factory.Payment.Common().verifyNotify(parameters)) {
@@ -72,7 +69,7 @@ public class AlipayFundAuthNotifyServiceImpl extends
             throw new RuntimeException(e.getMessage(), e);
         }
 
-        return alipayFundAuthNotify;
+        return notify;
     }
 
     @Override
