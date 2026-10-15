@@ -4,17 +4,15 @@ import com.example.demo.wxpay.api.bo.WxpayProfitSharing;
 
 public interface WxpayProfitSharingService {
 
-    WxpayProfitSharing getWxpayProfitSharing(String transactionId, String outOrderNo);
+    WxpayProfitSharing getProfitSharing(String transactionId, String outOrderNo);
 
-    WxpayProfitSharing getWxpayProfitSharing(String subMchid, String transactionId,
-                                             String outOrderNo);
+    WxpayProfitSharing getProfitSharing(String subMchid, String transactionId, String outOrderNo);
 
-    WxpayProfitSharing getWxpayProfitSharing(String serialNumber, String nonce, String timestamp,
-                                             String signature, String body);
+    WxpayProfitSharing getProfitSharing(String serialNumber, String nonce, String timestamp,
+                                        String signature, String body);
 
-    WxpayProfitSharing insertWxpayProfitSharing(WxpayProfitSharing wxpayProfitSharing);
+    WxpayProfitSharing insertProfitSharing(WxpayProfitSharing profitSharing);
 
-    WxpayProfitSharing updateWxpayProfitSharing(String orderId,
-                                                WxpayProfitSharing wxpayProfitSharing);
+    WxpayProfitSharing updateProfitSharing(String orderId, WxpayProfitSharing profitSharing);
 
 }

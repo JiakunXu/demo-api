@@ -1,6 +1,8 @@
 package com.example.demo.chat.service;
 
 import com.alibaba.fastjson2.JSON;
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.example.demo.chat.api.bo.*;
 import com.example.demo.chat.dao.dataobject.ChatDetailDO;
 import com.example.demo.chat.dao.mapper.ChatDetailMapper;
@@ -62,6 +64,45 @@ class ChatDetailServiceImplTest {
         assertThat(other.getUserId()).isEqualTo(friend); assertThat(other.getUnread()).isEqualTo(1);
         assertThat(other.getChatDetailId()).isEqualTo(BigInteger.valueOf(102));
         assertThat(own.getChatTime()).isEqualTo(other.getChatTime());
+    }
+
+    @Test
+    void batchQueryRequiresUserAndMessageIds() {
+        assertThat(service.listChatDetails(null, List.of(BigInteger.ONE))).isEmpty();
+        assertThat(service.listChatDetails(user, null)).isEmpty();
+        assertThat(service.listChatDetails(user, List.of())).isEmpty();
+        verifyNoInteractions(mapper, producer);
+    }
+
+    @Test
+    void batchQueryScopesUserAndIdsAndMapsMessages() {
+        List<BigInteger> ids = List.of(BigInteger.ONE, BigInteger.TWO);
+        ChatDetailDO row = new ChatDetailDO();
+        row.setId(BigInteger.ONE);
+        row.setUserId(user);
+        row.setContent("hello");
+        when(mapper.selectList(any(Wrapper.class))).thenReturn(List.of(row));
+
+        List<ChatDetail> messages = service.listChatDetails(user, ids);
+
+        assertThat(messages).extracting(ChatDetail::getId).containsExactly(BigInteger.ONE);
+        assertThat(messages.getFirst().getContent()).isEqualTo("hello");
+        ArgumentCaptor<Wrapper<ChatDetailDO>> capture = ArgumentCaptor.captor();
+        verify(mapper).selectList(capture.capture());
+        var wrapper = (LambdaQueryWrapper<ChatDetailDO>) capture.getValue();
+        assertThat(wrapper.getSqlSegment()).contains("user_id =", "id IN");
+        assertThat(wrapper.getParamNameValuePairs().values())
+            .containsExactlyInAnyOrder(user, BigInteger.ONE, BigInteger.TWO);
+        verifyNoMoreInteractions(mapper);
+        verifyNoInteractions(producer);
+    }
+
+    @Test
+    void batchQueryWithoutMatchesReturnsEmptyList() {
+        when(mapper.selectList(any(Wrapper.class))).thenReturn(List.of());
+
+        assertThat(service.listChatDetails(user, List.of(BigInteger.ONE))).isEmpty();
+        verify(mapper).selectList(any(Wrapper.class));
     }
 
     @Test

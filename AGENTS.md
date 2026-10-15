@@ -30,6 +30,7 @@
 | POM、版本、构建和启动 | [依赖管理](docs/dependencies.md)、[开发环境](docs/development.md)、[配置](docs/configuration.md)、[测试](docs/testing.md)、[运行手册](docs/runbook.md) |
 | 添加或运行测试 | [测试指南](docs/testing.md) |
 | 配置、Bean 初始化、启动失败 | [配置说明](docs/configuration.md)、[开发环境](docs/development.md) |
+| CI、GitHub Actions、合并检查 | [持续集成](docs/ci.md)、[测试指南](docs/testing.md) |
 | 代码审查 | [审查指南](docs/code-review.md) |
 | 新功能或复杂跨模块工作 | [需求说明](docs/requirements/README.md)、[PLANS.md](PLANS.md)、相关领域代码 |
 

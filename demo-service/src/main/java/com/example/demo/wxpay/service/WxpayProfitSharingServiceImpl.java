@@ -35,116 +35,115 @@ public class WxpayProfitSharingServiceImpl extends
     private ProfitsharingService     profitsharingService;
 
     @Override
-    public WxpayProfitSharing getWxpayProfitSharing(String transactionId, String outOrderNo) {
+    public WxpayProfitSharing getProfitSharing(String transactionId, String outOrderNo) {
         if (StringUtils.isAnyBlank(transactionId, outOrderNo)) {
             return null;
         }
 
         OrdersEntity orders = profitsharingService.queryOrder(transactionId, outOrderNo);
 
-        WxpayProfitSharing wxpayProfitSharing = new WxpayProfitSharing();
-        wxpayProfitSharing.setOrderId(orders.getOrderId());
-        wxpayProfitSharing.setTransactionId(orders.getTransactionId());
-        wxpayProfitSharing.setOutOrderNo(orders.getOutOrderNo());
-        wxpayProfitSharing.setState(orders.getState().name());
-        wxpayProfitSharing.setReceivers(JSON.toJSONString(orders.getReceivers()));
+        WxpayProfitSharing profitSharing = new WxpayProfitSharing();
+        profitSharing.setOrderId(orders.getOrderId());
+        profitSharing.setTransactionId(orders.getTransactionId());
+        profitSharing.setOutOrderNo(orders.getOutOrderNo());
+        profitSharing.setState(orders.getState().name());
+        profitSharing.setReceivers(JSON.toJSONString(orders.getReceivers()));
 
-        return wxpayProfitSharing;
+        return profitSharing;
     }
 
     @Override
-    public WxpayProfitSharing getWxpayProfitSharing(String subMchid, String transactionId,
-                                                    String outOrderNo) {
+    public WxpayProfitSharing getProfitSharing(String subMchid, String transactionId,
+                                               String outOrderNo) {
         if (StringUtils.isAnyBlank(subMchid, transactionId, outOrderNo)) {
             return null;
         }
 
         OrdersEntity orders = profitsharingService.queryOrder(subMchid, transactionId, outOrderNo);
 
-        WxpayProfitSharing wxpayProfitSharing = new WxpayProfitSharing();
-        wxpayProfitSharing.setOrderId(orders.getOrderId());
-        wxpayProfitSharing.setSubMchid(orders.getSubMchid());
-        wxpayProfitSharing.setTransactionId(orders.getTransactionId());
-        wxpayProfitSharing.setOutOrderNo(orders.getOutOrderNo());
-        wxpayProfitSharing.setState(orders.getState().name());
-        wxpayProfitSharing.setReceivers(JSON.toJSONString(orders.getReceivers()));
+        WxpayProfitSharing profitSharing = new WxpayProfitSharing();
+        profitSharing.setOrderId(orders.getOrderId());
+        profitSharing.setSubMchid(orders.getSubMchid());
+        profitSharing.setTransactionId(orders.getTransactionId());
+        profitSharing.setOutOrderNo(orders.getOutOrderNo());
+        profitSharing.setState(orders.getState().name());
+        profitSharing.setReceivers(JSON.toJSONString(orders.getReceivers()));
 
-        return wxpayProfitSharing;
+        return profitSharing;
     }
 
     @Override
-    public WxpayProfitSharing getWxpayProfitSharing(String serialNumber, String nonce,
-                                                    String timestamp, String signature,
-                                                    String body) {
+    public WxpayProfitSharing getProfitSharing(String serialNumber, String nonce, String timestamp,
+                                               String signature, String body) {
         RequestParam requestParam = new RequestParam.Builder().serialNumber(serialNumber)
             .nonce(nonce).signature(signature).timestamp(timestamp).body(body).build();
 
         Map<?, ?> map = new NotificationParser(partnerConfig).parse(requestParam, Map.class);
 
-        WxpayProfitSharing wxpayProfitSharing = new WxpayProfitSharing();
-        wxpayProfitSharing.setOrderId(map.get("order_id").toString());
-        wxpayProfitSharing.setMchid(map.containsKey("mchid") ? map.get("mchid").toString() : null);
-        wxpayProfitSharing
+        WxpayProfitSharing profitSharing = new WxpayProfitSharing();
+        profitSharing.setOrderId(map.get("order_id").toString());
+        profitSharing.setMchid(map.containsKey("mchid") ? map.get("mchid").toString() : null);
+        profitSharing
             .setSpMchid(map.containsKey("sp_mchid") ? map.get("sp_mchid").toString() : null);
-        wxpayProfitSharing
+        profitSharing
             .setSubMchid(map.containsKey("sub_mchid") ? map.get("sub_mchid").toString() : null);
-        wxpayProfitSharing.setTransactionId(map.get("transaction_id").toString());
-        wxpayProfitSharing.setOutOrderNo(map.get("out_order_no").toString());
-        wxpayProfitSharing.setState(WxpayProfitSharing.State.FINISHED.value);
-        wxpayProfitSharing.setReceivers(map.get("receiver").toString());
-        wxpayProfitSharing.setSuccessTime(map.get("success_time").toString());
+        profitSharing.setTransactionId(map.get("transaction_id").toString());
+        profitSharing.setOutOrderNo(map.get("out_order_no").toString());
+        profitSharing.setState(WxpayProfitSharing.State.FINISHED.value);
+        profitSharing.setReceivers(map.get("receiver").toString());
+        profitSharing.setSuccessTime(map.get("success_time").toString());
 
-        return wxpayProfitSharing;
+        return profitSharing;
     }
 
     @Override
-    public WxpayProfitSharing insertWxpayProfitSharing(WxpayProfitSharing wxpayProfitSharing) {
-        if (wxpayProfitSharing == null) {
+    public WxpayProfitSharing insertProfitSharing(WxpayProfitSharing profitSharing) {
+        if (profitSharing == null) {
             throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "参数信息不能为空");
         }
 
-        WxpayProfitSharingDO wxpayProfitSharingDO = BeanUtil.copy(wxpayProfitSharing,
+        WxpayProfitSharingDO profitSharingDO = BeanUtil.copy(profitSharing,
             WxpayProfitSharingDO.class);
 
-        this.save(wxpayProfitSharingDO);
+        this.save(profitSharingDO);
 
-        return wxpayProfitSharing;
+        return profitSharing;
     }
 
     @Override
-    public WxpayProfitSharing updateWxpayProfitSharing(String orderId,
-                                                       WxpayProfitSharing wxpayProfitSharing) {
-        if (StringUtils.isBlank(orderId) || wxpayProfitSharing == null) {
+    public WxpayProfitSharing updateProfitSharing(String orderId,
+                                                  WxpayProfitSharing profitSharing) {
+        if (StringUtils.isBlank(orderId) || profitSharing == null) {
             throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "参数信息不能为空");
         }
 
-        wxpayProfitSharing.setOrderId(orderId);
+        profitSharing.setOrderId(orderId);
 
         var updateWrapper = Wrappers.<WxpayProfitSharingDO> lambdaUpdate()
             .eq(WxpayProfitSharingDO::getOrderId, orderId)
             .set(WxpayProfitSharingDO::getOrderId, orderId)
-            .set(StringUtils.isNotEmpty(wxpayProfitSharing.getMchid()),
-                WxpayProfitSharingDO::getMchid, wxpayProfitSharing.getMchid())
-            .set(StringUtils.isNotEmpty(wxpayProfitSharing.getSpMchid()),
-                WxpayProfitSharingDO::getSpMchid, wxpayProfitSharing.getSpMchid())
-            .set(StringUtils.isNotEmpty(wxpayProfitSharing.getSubMchid()),
-                WxpayProfitSharingDO::getSubMchid, wxpayProfitSharing.getSubMchid())
-            .set(StringUtils.isNotEmpty(wxpayProfitSharing.getTransactionId()),
-                WxpayProfitSharingDO::getTransactionId, wxpayProfitSharing.getTransactionId())
-            .set(StringUtils.isNotEmpty(wxpayProfitSharing.getOutOrderNo()),
-                WxpayProfitSharingDO::getOutOrderNo, wxpayProfitSharing.getOutOrderNo())
-            .set(StringUtils.isNotEmpty(wxpayProfitSharing.getState()),
-                WxpayProfitSharingDO::getState, wxpayProfitSharing.getState())
-            .set(StringUtils.isNotEmpty(wxpayProfitSharing.getReceivers()),
-                WxpayProfitSharingDO::getReceivers, wxpayProfitSharing.getReceivers())
-            .set(StringUtils.isNotEmpty(wxpayProfitSharing.getSuccessTime()),
-                WxpayProfitSharingDO::getSuccessTime, wxpayProfitSharing.getSuccessTime());
+            .set(StringUtils.isNotEmpty(profitSharing.getMchid()), WxpayProfitSharingDO::getMchid,
+                profitSharing.getMchid())
+            .set(StringUtils.isNotEmpty(profitSharing.getSpMchid()),
+                WxpayProfitSharingDO::getSpMchid, profitSharing.getSpMchid())
+            .set(StringUtils.isNotEmpty(profitSharing.getSubMchid()),
+                WxpayProfitSharingDO::getSubMchid, profitSharing.getSubMchid())
+            .set(StringUtils.isNotEmpty(profitSharing.getTransactionId()),
+                WxpayProfitSharingDO::getTransactionId, profitSharing.getTransactionId())
+            .set(StringUtils.isNotEmpty(profitSharing.getOutOrderNo()),
+                WxpayProfitSharingDO::getOutOrderNo, profitSharing.getOutOrderNo())
+            .set(StringUtils.isNotEmpty(profitSharing.getState()), WxpayProfitSharingDO::getState,
+                profitSharing.getState())
+            .set(StringUtils.isNotEmpty(profitSharing.getReceivers()),
+                WxpayProfitSharingDO::getReceivers, profitSharing.getReceivers())
+            .set(StringUtils.isNotEmpty(profitSharing.getSuccessTime()),
+                WxpayProfitSharingDO::getSuccessTime, profitSharing.getSuccessTime());
 
         if (!this.update(updateWrapper)) {
-            this.save(BeanUtil.copy(wxpayProfitSharing, WxpayProfitSharingDO.class));
+            this.save(BeanUtil.copy(profitSharing, WxpayProfitSharingDO.class));
         }
 
-        return wxpayProfitSharing;
+        return profitSharing;
     }
 
 }

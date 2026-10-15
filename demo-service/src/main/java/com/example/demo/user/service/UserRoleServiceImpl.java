@@ -123,13 +123,8 @@ public class UserRoleServiceImpl extends ServiceImpl<UserRoleMapper, UserRoleDO>
             return List.of();
         }
 
-        List<Role> list = new ArrayList<>();
-
-        for (UserRole userRole : userRoleList) {
-            list.add(roleService.getRole(userRole.getRoleId()));
-        }
-
-        return list;
+        return roleService
+            .listRoles(userRoleList.stream().map(UserRole::getRoleId).distinct().toList());
     }
 
     @Override

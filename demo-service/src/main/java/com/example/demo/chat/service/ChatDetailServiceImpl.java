@@ -1,6 +1,7 @@
 package com.example.demo.chat.service;
 
 import com.alibaba.fastjson2.JSON;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.spring.service.impl.ServiceImpl;
 import com.example.demo.chat.api.ChatDetailService;
 import com.example.demo.chat.api.bo.Chat;
@@ -33,6 +34,24 @@ public class ChatDetailServiceImpl extends ServiceImpl<ChatDetailMapper, ChatDet
 
     @Autowired
     private ProducerService producerService;
+
+    @Override
+    public List<ChatDetail> listChatDetails(BigInteger userId, List<BigInteger> ids) {
+        if (userId == null || CollectionUtils.isEmpty(ids)) {
+            return List.of();
+        }
+
+        var queryWrapper = Wrappers.<ChatDetailDO> lambdaQuery().eq(ChatDetailDO::getUserId, userId)
+            .in(ChatDetailDO::getId, ids);
+
+        List<ChatDetail> list = BeanUtil.copy(this.list(queryWrapper), ChatDetail.class);
+
+        if (CollectionUtils.isEmpty(list)) {
+            return List.of();
+        }
+
+        return list;
+    }
 
     @Override
     public List<ChatDetail> listChatDetails(BigInteger userId, String id, String friendId,

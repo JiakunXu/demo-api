@@ -6,8 +6,8 @@ import java.util.Map;
 
 public interface AlipayFundAuthNotifyService {
 
-    AlipayFundAuthNotify getAlipayFundAuthNotify(Map<String, String> parameters);
+    AlipayFundAuthNotify getFundAuthNotify(Map<String, String> parameters);
 
-    AlipayFundAuthNotify insertAlipayFundAuthNotify(AlipayFundAuthNotify alipayFundAuthNotify);
+    AlipayFundAuthNotify insertFundAuthNotify(AlipayFundAuthNotify notify);
 
 }

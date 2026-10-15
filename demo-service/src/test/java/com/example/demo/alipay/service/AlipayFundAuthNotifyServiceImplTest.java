@@ -2,9 +2,6 @@ package com.example.demo.alipay.service;
 
 import com.alipay.easysdk.factory.Factory;
 import com.alipay.easysdk.payment.common.Client;
-import com.alipay.easysdk.payment.common.models.*;
-import com.example.demo.alipay.api.*;
-import com.example.demo.alipay.api.bo.*;
 import com.example.demo.alipay.api.bo.fund.*;
 import com.example.demo.alipay.dao.dataobject.*;
 import com.example.demo.alipay.dao.mapper.*;
@@ -31,14 +28,14 @@ class AlipayFundAuthNotifyServiceImplTest {
         when(client.verifyNotify(input)).thenReturn(valid);
         try (var factory = mockStatic(Factory.Payment.class)) {
             factory.when(Factory.Payment::Common).thenReturn(client);
-            if (valid) { var result = service.getAlipayFundAuthNotify(input);
+            if (valid) { var result = service.getFundAuthNotify(input);
             assertThat(result.getAuthNo()).isEqualTo("auth");
             assertThat(result.getOutOrderNo()).isEqualTo("order");
             assertThat(result.getOperationId()).isEqualTo("operation");
             assertThat(result.getAmount()).isEqualTo("12.30");
             assertThat(result.getNotifyTime()).isNotNull();
             }
-            else assertThatThrownBy(() -> service.getAlipayFundAuthNotify(input)).hasMessageContaining("验签失败");
+            else assertThatThrownBy(() -> service.getFundAuthNotify(input)).hasMessageContaining("验签失败");
         }
     }
 
@@ -46,7 +43,7 @@ class AlipayFundAuthNotifyServiceImplTest {
     void insertsAuthorizationMetadata() {
         doReturn(true).when(service).save(any(AlipayFundAuthNotifyDO.class));
         var notify = new AlipayFundAuthNotify(); notify.setAuthNo("auth");
-        assertThat(service.insertAlipayFundAuthNotify(notify)).isSameAs(notify);
+        assertThat(service.insertFundAuthNotify(notify)).isSameAs(notify);
         verify(service).save(argThat(row -> "auth".equals(row.getAuthNo())));
     }
 }

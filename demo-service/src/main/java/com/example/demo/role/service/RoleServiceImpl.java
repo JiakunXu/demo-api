@@ -55,6 +55,21 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, RoleDO> implements 
     }
 
     @Override
+    public List<Role> listRoles(List<BigInteger> ids) {
+        if (CollectionUtils.isEmpty(ids)) {
+            return List.of();
+        }
+
+        List<Role> list = BeanUtil.copy(this.listByIds(ids), Role.class);
+
+        if (CollectionUtils.isEmpty(list)) {
+            return List.of();
+        }
+
+        return list;
+    }
+
+    @Override
     public List<Role> listRoles(Role role) {
         if (role == null) {
             return List.of();

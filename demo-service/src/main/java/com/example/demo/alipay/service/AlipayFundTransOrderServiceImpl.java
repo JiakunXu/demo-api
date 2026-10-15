@@ -17,15 +17,14 @@ public class AlipayFundTransOrderServiceImpl extends
                                              implements AlipayFundTransOrderService {
 
     @Override
-    public AlipayFundTransOrder changed(@NotNull AlipayFundTransOrder alipayFundTransOrder) {
-        AlipayFundTransOrderDO alipayFundTransOrderDO = BeanUtil.copy(alipayFundTransOrder,
-            AlipayFundTransOrderDO::new);
+    public AlipayFundTransOrder changed(@NotNull AlipayFundTransOrder order) {
+        AlipayFundTransOrderDO orderDO = BeanUtil.copy(order, AlipayFundTransOrderDO::new);
 
-        this.save(alipayFundTransOrderDO);
+        this.save(orderDO);
 
-        alipayFundTransOrder.setId(alipayFundTransOrderDO.getId());
+        order.setId(orderDO.getId());
 
-        return alipayFundTransOrder;
+        return order;
     }
 
 }

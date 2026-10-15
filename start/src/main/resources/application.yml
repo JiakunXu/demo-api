@@ -151,12 +151,28 @@ aliyun:
     secret: secret
   cdn:
     privateKey: ''
+  dashscope:
+    apiKey: ''
+  dm:
+    endpoint: ''
+    accountName: ''
+  ons:
+    accessKey: ''
+    secretKey: ''
+    namesrvAddr: ''
+    topic: ''
+    groupId: ''
   oss:
     bucketName: ''
     endpoint: ''
     url: ''
   region:
     id: ''
+  sls:
+    endpoint: ''
+    project: ''
+    logStore: ''
+    topic: ${spring.application.name}
   uid: ''
 
 huawei:

@@ -39,9 +39,7 @@ public class AccessTokenServiceImpl implements AccessTokenService {
             throw new RuntimeException(accessToken.getErrMsg());
         }
 
-        String token = accessToken.getAccessToken();
-
-        if (StringUtils.isBlank(token)) {
+        if (StringUtils.isBlank(accessToken.getAccessToken())) {
             throw new RuntimeException("access_token is blank.");
         }
 

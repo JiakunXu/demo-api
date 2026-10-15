@@ -171,16 +171,42 @@ class UserRoleServiceImplTest {
 
     @Test
     void readsRolesInOrderAndPassesEnabledStatus() {
-        when(mapper.listUserRoles(any())).thenReturn(List.of(row(101, 1), row(102, 2)));
+        when(mapper.listUserRoles(any()))
+            .thenReturn(List.of(row(101, 1), row(102, 2), row(103, 1)));
         Role first = new Role(); Role second = new Role();
-        when(roles.getRole(BigInteger.ONE)).thenReturn(first);
-        when(roles.getRole(BigInteger.TWO)).thenReturn(second);
-        assertThat(service.listRoles(user, "enable")).containsExactly(first, second);
+        first.setId(BigInteger.ONE);
+        second.setId(BigInteger.TWO);
+        List<BigInteger> ids = List.of(BigInteger.ONE, BigInteger.TWO);
+        when(roles.listRoles(ids)).thenReturn(List.of(second, first));
+        assertThat(service.listRoles(user, "enable")).containsExactly(first, second, first);
+        verify(roles).listRoles(ids);
+        verifyNoMoreInteractions(roles);
         var capture = ArgumentCaptor.forClass(UserRoleDO.class);
         verify(mapper).listUserRoles(capture.capture());
         assertThat(capture.getValue().getUserId()).isEqualTo(user);
         assertThat(capture.getValue().getStatus()).isEqualTo("enable");
-        assertThat(service.listUserRoles("10")).hasSize(2);
+        assertThat(service.listUserRoles("10")).hasSize(3);
+    }
+
+    @Test
+    void missingUserOrRelationsAvoidRoleQueries() {
+        assertThat(service.listRoles(null, "enable")).isEmpty();
+        verifyNoInteractions(mapper, roles);
+        when(mapper.listUserRoles(any())).thenReturn(List.of());
+        assertThat(service.listRoles(user, "enable")).isEmpty();
+        verifyNoInteractions(roles);
+    }
+
+    @Test
+    void missingRoleInBatchIsRejected() {
+        when(mapper.listUserRoles(any())).thenReturn(List.of(row(101, 1), row(102, 2)));
+        Role first = new Role();
+        first.setId(BigInteger.ONE);
+        when(roles.listRoles(List.of(BigInteger.ONE, BigInteger.TWO)))
+            .thenReturn(List.of(first));
+
+        assertThatThrownBy(() -> service.listRoles(user, "enable"))
+            .isInstanceOf(ServiceException.class).hasMessage("角色不存在");
     }
 
     @Test

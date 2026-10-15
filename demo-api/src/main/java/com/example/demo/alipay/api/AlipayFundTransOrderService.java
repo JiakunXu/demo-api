@@ -4,6 +4,6 @@ import com.example.demo.alipay.api.bo.fund.AlipayFundTransOrder;
 
 public interface AlipayFundTransOrderService {
 
-    AlipayFundTransOrder changed(AlipayFundTransOrder alipayFundTransOrder);
+    AlipayFundTransOrder changed(AlipayFundTransOrder order);
 
 }
