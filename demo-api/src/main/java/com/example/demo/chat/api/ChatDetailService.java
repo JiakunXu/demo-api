@@ -10,6 +10,8 @@ import java.util.List;
  */
 public interface ChatDetailService {
 
+    List<ChatDetail> listChatDetails(BigInteger userId, List<BigInteger> ids);
+
     /**
      *
      * @param userId

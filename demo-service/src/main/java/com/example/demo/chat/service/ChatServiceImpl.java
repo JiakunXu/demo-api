@@ -5,12 +5,14 @@ import com.example.demo.chat.api.ChatDetailService;
 import com.example.demo.chat.api.ChatService;
 import com.example.demo.chat.api.ChatStatusService;
 import com.example.demo.chat.api.bo.Chat;
+import com.example.demo.chat.api.bo.ChatDetail;
 import com.example.demo.chat.dao.dataobject.ChatDO;
 import com.example.demo.chat.dao.mapper.ChatMapper;
 import com.example.demo.framework.constant.HttpStatus;
 import com.example.demo.framework.exception.ServiceException;
 import com.example.demo.framework.util.BeanUtil;
 import com.example.demo.user.api.UserService;
+import com.example.demo.user.api.bo.User;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -19,6 +21,10 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigInteger;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * @author JiakunXu
@@ -65,9 +71,20 @@ public class ChatServiceImpl extends ServiceImpl<ChatMapper, ChatDO> implements 
             return List.of();
         }
 
-        for (Chat c : list) {
-            c.setFriend(userService.getUser(c.getFriendId()));
-            c.setChatDetail(chatDetailService.getChatDetail(userId, c.getChatDetailId()));
+        Map<BigInteger, User> friendMap = userService
+            .listUsers(
+                list.stream().map(Chat::getFriendId).filter(Objects::nonNull).distinct().toList())
+            .stream().collect(Collectors.toMap(User::getId, Function.identity()));
+
+        Map<BigInteger, ChatDetail> chatDetailMap = chatDetailService
+            .listChatDetails(userId,
+                list.stream().map(Chat::getChatDetailId).filter(Objects::nonNull).distinct()
+                    .toList())
+            .stream().collect(Collectors.toMap(ChatDetail::getId, Function.identity()));
+
+        for (Chat item : list) {
+            item.setFriend(friendMap.get(item.getFriendId()));
+            item.setChatDetail(chatDetailMap.get(item.getChatDetailId()));
         }
 
         return list;

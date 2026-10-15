@@ -32,6 +32,39 @@ class UserServiceImplTest {
     }
 
     @Test
+    void emptyUserIdsAvoidDatabaseQueries() {
+        assertThat(service.listUsers(null)).isEmpty();
+        assertThat(service.listUsers(List.of())).isEmpty();
+        verifyNoInteractions(mapper, permissions);
+    }
+
+    @Test
+    void batchLookupMapsUsersWithoutLoadingPermissions() {
+        List<BigInteger> ids = List.of(id, BigInteger.ONE);
+        UserDO row = new UserDO();
+        row.setId(id);
+        row.setName("Alice");
+        when(mapper.selectByIds(ids)).thenReturn(List.of(row));
+
+        List<User> users = service.listUsers(ids);
+
+        assertThat(users).extracting(User::getId).containsExactly(id);
+        assertThat(users.getFirst().getName()).isEqualTo("Alice");
+        verify(mapper).selectByIds(ids);
+        verifyNoMoreInteractions(mapper);
+        verifyNoInteractions(permissions);
+    }
+
+    @Test
+    void missingUserIdsReturnEmptyList() {
+        List<BigInteger> ids = List.of(id);
+        when(mapper.selectByIds(ids)).thenReturn(List.of());
+
+        assertThat(service.listUsers(ids)).isEmpty();
+        verify(mapper).selectByIds(ids);
+    }
+
+    @Test
     void missingIdentifiersAvoidQueries() {
         assertThat(service.getUser((BigInteger) null)).isNull();
         assertThat(service.getUser(" ")).isNull();

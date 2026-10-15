@@ -15,6 +15,8 @@ public interface UserService {
 
     void validate(BigInteger corpId, BigInteger id);
 
+    List<User> listUsers(List<BigInteger> ids);
+
     User getUser(BigInteger id);
 
     User getUser(BigInteger corpId, String id);

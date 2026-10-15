@@ -97,8 +97,11 @@ class ChatServiceImplTest {
         ChatDO row = new ChatDO(); row.setFriendId(friend); row.setChatDetailId(BigInteger.valueOf(99));
         when(mapper.listChats(any())).thenReturn(List.of(row));
         User friendUser = new User(); ChatDetail detail = new ChatDetail();
-        when(users.getUser(friend)).thenReturn(friendUser);
-        when(details.getChatDetail(user, row.getChatDetailId())).thenReturn(detail);
+        friendUser.setId(friend);
+        detail.setId(row.getChatDetailId());
+        when(users.listUsers(List.of(friend))).thenReturn(List.of(friendUser));
+        when(details.listChatDetails(user, List.of(row.getChatDetailId())))
+            .thenReturn(List.of(detail));
         List<Chat> result = service.listChats(user, "2", "20");
         assertThat(result).hasSize(1);
         assertThat(result.getFirst().getFriend()).isSameAs(friendUser);
@@ -108,6 +111,64 @@ class ChatServiceImplTest {
         assertThat(capture.getValue().getPageNo()).isEqualTo(2L);
         assertThat(capture.getValue().getPageSize()).isEqualTo(20L);
         assertThat(capture.getValue().getUserId()).isEqualTo(user);
+    }
+
+    @Test
+    void batchEnrichmentDeduplicatesIdsAndPreservesChatOrder() {
+        ChatDO first = new ChatDO();
+        first.setId(BigInteger.valueOf(101));
+        first.setFriendId(friend);
+        first.setChatDetailId(BigInteger.valueOf(91));
+        ChatDO second = new ChatDO();
+        second.setId(BigInteger.valueOf(102));
+        second.setFriendId(BigInteger.TWO);
+        second.setChatDetailId(BigInteger.valueOf(92));
+        ChatDO third = new ChatDO();
+        third.setId(BigInteger.valueOf(103));
+        third.setFriendId(friend);
+        third.setChatDetailId(first.getChatDetailId());
+        when(mapper.listChats(any())).thenReturn(List.of(first, second, third));
+        User firstFriend = new User(); firstFriend.setId(friend);
+        User secondFriend = new User(); secondFriend.setId(BigInteger.TWO);
+        ChatDetail firstDetail = new ChatDetail(); firstDetail.setId(first.getChatDetailId());
+        ChatDetail secondDetail = new ChatDetail(); secondDetail.setId(second.getChatDetailId());
+        List<BigInteger> friendIds = List.of(friend, BigInteger.TWO);
+        List<BigInteger> detailIds = List.of(first.getChatDetailId(), second.getChatDetailId());
+        when(users.listUsers(friendIds)).thenReturn(List.of(secondFriend, firstFriend));
+        when(details.listChatDetails(user, detailIds))
+            .thenReturn(List.of(secondDetail, firstDetail));
+
+        List<Chat> result = service.listChats(user, "1", "20");
+
+        assertThat(result).extracting(Chat::getId)
+            .containsExactly(first.getId(), second.getId(), third.getId());
+        assertThat(result).extracting(Chat::getFriend)
+            .containsExactly(firstFriend, secondFriend, firstFriend);
+        assertThat(result).extracting(Chat::getChatDetail)
+            .containsExactly(firstDetail, secondDetail, firstDetail);
+        verify(users).listUsers(friendIds);
+        verify(details).listChatDetails(user, detailIds);
+        verifyNoMoreInteractions(users, details);
+    }
+
+    @Test
+    void missingAndNullAssociationsRemainNullAndNullIdsAreNotQueried() {
+        ChatDO missing = new ChatDO();
+        missing.setFriendId(friend);
+        missing.setChatDetailId(BigInteger.valueOf(99));
+        when(mapper.listChats(any())).thenReturn(List.of(missing, new ChatDO()));
+        when(users.listUsers(List.of(friend))).thenReturn(List.of());
+        when(details.listChatDetails(user, List.of(missing.getChatDetailId())))
+            .thenReturn(List.of());
+
+        List<Chat> result = service.listChats(user, "1", "20");
+
+        assertThat(result).hasSize(2);
+        assertThat(result).extracting(Chat::getFriend).containsOnlyNulls();
+        assertThat(result).extracting(Chat::getChatDetail).containsOnlyNulls();
+        verify(users).listUsers(List.of(friend));
+        verify(details).listChatDetails(user, List.of(missing.getChatDetailId()));
+        verifyNoMoreInteractions(users, details);
     }
 
     @Test

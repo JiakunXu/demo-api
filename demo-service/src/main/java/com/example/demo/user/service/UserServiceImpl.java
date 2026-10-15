@@ -15,6 +15,7 @@ import com.example.demo.user.api.bo.User;
 import com.example.demo.user.dao.dataobject.UserDO;
 import com.example.demo.user.dao.mapper.UserMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -50,6 +51,21 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
         if (getUser(corpId, id) == null) {
             throw new ServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "暂无权限");
         }
+    }
+
+    @Override
+    public List<User> listUsers(List<BigInteger> ids) {
+        if (CollectionUtils.isEmpty(ids)) {
+            return List.of();
+        }
+
+        List<User> list = BeanUtil.copy(this.listByIds(ids), User.class);
+
+        if (CollectionUtils.isEmpty(list)) {
+            return List.of();
+        }
+
+        return list;
     }
 
     @Override
