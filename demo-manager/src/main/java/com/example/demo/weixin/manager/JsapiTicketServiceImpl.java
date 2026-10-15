@@ -37,9 +37,7 @@ public class JsapiTicketServiceImpl implements JsapiTicketService {
             throw new RuntimeException(jsapiTicket.getErrMsg());
         }
 
-        String ticket = jsapiTicket.getTicket();
-
-        if (StringUtils.isBlank(ticket)) {
+        if (StringUtils.isBlank(jsapiTicket.getTicket())) {
             throw new RuntimeException("ticket is blank.");
         }
 
