@@ -9,6 +9,7 @@
 | 修改模块边界、数据流程 | [架构说明](architecture.md) | 依赖方向和关键行为 |
 | Java、对象与注解 | [Java 约定](java-conventions.md)、[代码风格](code-style.md) | 类型、转换、代理、异常和书写规范 |
 | Controller/API/JSON | [API 约定](api-conventions.md) | 解析、响应、身份、分页和兼容性 |
+| 表结构、建表、数据库迁移 | [数据库指南](database.md) | 证据状态、字段字典、单表草案、迁移和验证 |
 | CRUD、DO、SQL、事务 | [持久化规则](persistence.md) | 审计、ID、批量、软删除与真实 SQL |
 | POM、BOM、SDK 和插件升级 | [依赖管理](dependencies.md) | 声明来源、解析、兼容、迁移与下游验证 |
 | 配置消费者 | [配置说明](configuration.md) | 键名、用途、类型和消费位置，不核查 YAML 取值 |
@@ -37,6 +38,7 @@
 | architecture | 模块 POM、调用方、装配类 | 依赖边界或关键流程改变 |
 | java-conventions / code-style | 基础对象、BeanUtil、ValidateAspect、项目选择 | 类型/注解/转换语义或风格改变 |
 | api-conventions | Controller、BaseController、Response、JSON/安全配置 | 公共契约或请求解析改变 |
+| database | DO/父类、Mapper、Service、经验证脚本与实例结构证据 | 字段、约束、索引、迁移或验证状态改变 |
 | persistence | Service、DO、BaseQuery、Mapper/XML、事务工具 | CRUD、SQL、分页、审计或事务改变 |
 | configuration | YAML 键结构、Java @Value、日志引用 | 键名、类型、默认表达式或消费者改变 |
 | dependencies | 根/模块 POM、Wrapper、官方资料与实际解析 | 版本、BOM、scope、排除项或插件改变 |
