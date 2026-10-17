@@ -136,9 +136,40 @@ class ChatDetailServiceImplTest {
         assertThat(capture.getValue().getId()).isEqualTo(row.getId());
         assertThat(capture.getValue().getPageNo()).isEqualTo(2L);
         assertThat(capture.getValue().getPageSize()).isEqualTo(20L);
-        when(mapper.getChatDetail(any())).thenReturn(row);
-        assertThat(service.getChatDetail(user, row.getId()).getId()).isEqualTo(row.getId());
-        verify(mapper).getChatDetail(argThat(query -> user.equals(query.getUserId()) && row.getId().equals(query.getId())));
+    }
+
+    @Test
+    void detailLookupPreservesOwnerScopeAndSelectedFields() {
+        BigInteger id = BigInteger.valueOf(99);
+        ChatDetailDO row = new ChatDetailDO();
+        row.setId(id);
+        row.setUserId(user);
+        row.setFrom("me");
+        row.setContent("hello");
+        doReturn(row).when(service).getOne(any(Wrapper.class));
+
+        ChatDetail result = service.getChatDetail(user, id);
+
+        assertThat(result.getId()).isEqualTo(id);
+        assertThat(result.getUserId()).isEqualTo(user);
+        assertThat(result.getFrom()).isEqualTo("me");
+        assertThat(result.getContent()).isEqualTo("hello");
+        ArgumentCaptor<Wrapper<ChatDetailDO>> capture = ArgumentCaptor.captor();
+        verify(service).getOne(capture.capture());
+        var wrapper = (LambdaQueryWrapper<ChatDetailDO>) capture.getValue();
+        assertThat(wrapper.getSqlSegment()).contains("id =", "AND", "user_id =")
+            .doesNotContain("LIMIT", "ORDER BY");
+        assertThat(wrapper.getParamNameValuePairs().values()).containsExactlyInAnyOrder(id, user);
+        assertThat(wrapper.getSqlSelect()).contains("id", "chat_id", "user_id", "friend_id",
+            "`from`", "type", "content", "create_time").doesNotContain("update_time");
+        verifyNoInteractions(producer);
+    }
+
+    @Test
+    void missingDetailReturnsNull() {
+        doReturn(null).when(service).getOne(any(Wrapper.class));
+        assertThat(service.getChatDetail(user, BigInteger.ONE)).isNull();
+        verifyNoInteractions(producer);
     }
 
     @Test
@@ -146,6 +177,7 @@ class ChatDetailServiceImplTest {
         assertThat(service.listChatDetails(null, null, "1", "1", "20")).isEmpty();
         assertThat(service.listChatDetails(user, null, " ", "1", "20")).isEmpty();
         assertThat(service.getChatDetail(user, null)).isNull();
+        assertThat(service.getChatDetail(null, BigInteger.ONE)).isNull();
         verifyNoInteractions(mapper);
         assertThat(service.listChatDetails(user, null, "1", "1", "20")).isEmpty();
     }

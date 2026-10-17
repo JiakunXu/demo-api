@@ -1,5 +1,7 @@
 package com.example.demo.subscribe.service;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.example.demo.subscribe.api.bo.Subscribe;
 import com.example.demo.subscribe.dao.dataobject.SubscribeDO;
 import com.example.demo.subscribe.dao.mapper.SubscribeMapper;
@@ -39,17 +41,50 @@ class SubscribeServiceImplTest {
     @Test
     void existingSubscriptionAvoidsDuplicateInsert() {
         SubscribeDO row = new SubscribeDO(); row.setId(BigInteger.TEN);
-        when(mapper.getSubscribe(any())).thenReturn(row);
+        doReturn(row).when(service).getOne(any(Wrapper.class));
         assertThat(service.insertSubscribe(BigInteger.ONE, "client", "app", "999").getId()).isEqualTo(BigInteger.TEN);
-        verify(mapper).getSubscribe(argThat(query -> query.getSceneId().equals(BigInteger.ONE)));
+        ArgumentCaptor<Wrapper<SubscribeDO>> capture = ArgumentCaptor.captor();
+        verify(service).getOne(capture.capture());
+        var query = (LambdaQueryWrapper<SubscribeDO>) capture.getValue();
+        assertThat(query.getSqlSegment()).contains("user_id =", "app_id =", "scene =", "scene_id =")
+            .endsWith("LIMIT 1").doesNotContain("ORDER BY");
+        assertThat(query.getParamNameValuePairs().values())
+            .containsExactlyInAnyOrder(BigInteger.ONE, "client", "app", BigInteger.ONE);
+        assertThat(query.getSqlSelect()).contains("id", "user_id", "app_id", "scene", "scene_id")
+            .doesNotContain("create_time", "update_time");
         verify(service, never()).save(any(SubscribeDO.class));
     }
 
     @Test
     void newSubscriptionDefaultsMissingSceneIdAndReturnsGeneratedId() {
+        doReturn(null).when(service).getOne(any(Wrapper.class));
         doAnswer(invocation -> { SubscribeDO row = invocation.getArgument(0); assertThat(row.getSceneId()).isEqualTo(BigInteger.ZERO); assertThat(row.getCreateBy()).isEqualTo("1"); row.setId(BigInteger.TEN); return true; }).when(service).save(any(SubscribeDO.class));
         assertThat(service.insertSubscribe(BigInteger.ONE, "client", "chat", null).getId()).isEqualTo(BigInteger.TEN);
         assertThatThrownBy(() -> service.insertSubscribe(null, "client", "app", null)).hasMessage("参数信息不能为空");
+    }
+
+    @Test
+    void missingSubscriptionReturnsNull() {
+        doReturn(null).when(service).getOne(any(Wrapper.class));
+        assertThat(service.getSubscribe(BigInteger.TEN, "client", "chat", "99")).isNull();
+        ArgumentCaptor<Wrapper<SubscribeDO>> capture = ArgumentCaptor.captor();
+        verify(service).getOne(capture.capture());
+        var query = (LambdaQueryWrapper<SubscribeDO>) capture.getValue();
+        query.getSqlSegment();
+        assertThat(query.getParamNameValuePairs().values())
+            .containsExactlyInAnyOrder(BigInteger.TEN, "client", "chat", BigInteger.valueOf(99));
+        verifyNoInteractions(producer);
+    }
+
+    @Test
+    void invalidLookupArgumentsAvoidPersistence() {
+        assertThat(service.getSubscribe(BigInteger.ONE, " ", "app", "1")).isNull();
+        assertThat(service.getSubscribe(BigInteger.ONE, "client", " ", "1")).isNull();
+        assertThat(service.getSubscribe(BigInteger.ONE, "client", "app", " ")).isNull();
+        assertThatThrownBy(() -> service.getSubscribe(BigInteger.ONE, "client", "app", "invalid"))
+            .isInstanceOf(NumberFormatException.class);
+        verify(service, never()).getOne(any(Wrapper.class));
+        verifyNoInteractions(mapper, producer);
     }
 
     @Test

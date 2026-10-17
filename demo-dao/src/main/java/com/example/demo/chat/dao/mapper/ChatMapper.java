@@ -14,8 +14,6 @@ public interface ChatMapper extends BaseMapper<ChatDO> {
 
     List<ChatDO> listChats(ChatDO chatDO);
 
-    ChatDO getChat(ChatDO chatDO);
-
     /**
      *
      * @param chatDO

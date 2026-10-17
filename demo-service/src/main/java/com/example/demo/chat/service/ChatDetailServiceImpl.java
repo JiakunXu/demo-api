@@ -88,11 +88,10 @@ public class ChatDetailServiceImpl extends ServiceImpl<ChatDetailMapper, ChatDet
             return null;
         }
 
-        ChatDetailDO chatDetailDO = new ChatDetailDO();
-        chatDetailDO.setId(id);
-        chatDetailDO.setUserId(userId);
+        var queryWrapper = Wrappers.<ChatDetailDO> lambdaQuery().eq(ChatDetailDO::getId, id)
+            .eq(ChatDetailDO::getUserId, userId);
 
-        return BeanUtil.copy(this.baseMapper.getChatDetail(chatDetailDO), ChatDetail.class);
+        return BeanUtil.copy(this.getOne(queryWrapper), ChatDetail.class);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.example.demo.chat.service;
 
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.spring.service.impl.ServiceImpl;
 import com.example.demo.chat.api.ChatDetailService;
 import com.example.demo.chat.api.ChatService;
@@ -110,11 +111,10 @@ public class ChatServiceImpl extends ServiceImpl<ChatMapper, ChatDO> implements 
             return null;
         }
 
-        ChatDO chatDO = new ChatDO();
-        chatDO.setUserId(userId);
-        chatDO.setFriendId(friendId);
+        var queryWrapper = Wrappers.<ChatDO> lambdaQuery().eq(ChatDO::getUserId, userId)
+            .eq(ChatDO::getFriendId, friendId);
 
-        return BeanUtil.copy(this.baseMapper.getChat(chatDO), Chat.class);
+        return BeanUtil.copy(this.getOne(queryWrapper), Chat.class);
     }
 
     @Override

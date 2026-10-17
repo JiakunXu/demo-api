@@ -1,6 +1,7 @@
 package com.example.demo.subscribe.service;
 
 import com.alibaba.fastjson2.JSON;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.spring.service.impl.ServiceImpl;
 import com.example.demo.framework.constant.HttpStatus;
 import com.example.demo.framework.exception.ServiceException;
@@ -88,13 +89,11 @@ public class SubscribeServiceImpl extends ServiceImpl<SubscribeMapper, Subscribe
             return null;
         }
 
-        SubscribeDO subscribeDO = new SubscribeDO();
-        subscribeDO.setUserId(userId);
-        subscribeDO.setAppId(appId);
-        subscribeDO.setScene(scene);
-        subscribeDO.setSceneId(new BigInteger(sceneId));
+        var queryWrapper = Wrappers.<SubscribeDO> lambdaQuery().eq(SubscribeDO::getUserId, userId)
+            .eq(SubscribeDO::getAppId, appId).eq(SubscribeDO::getScene, scene)
+            .eq(SubscribeDO::getSceneId, new BigInteger(sceneId)).last("LIMIT 1");
 
-        return BeanUtil.copy(this.baseMapper.getSubscribe(subscribeDO), Subscribe.class);
+        return BeanUtil.copy(this.getOne(queryWrapper), Subscribe.class);
     }
 
     @Override

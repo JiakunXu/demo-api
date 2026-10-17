@@ -12,6 +12,4 @@ public interface ChatDetailMapper extends BaseMapper<ChatDetailDO> {
 
     List<ChatDetailDO> listChatDetails(ChatDetailDO chatDetailDO);
 
-    ChatDetailDO getChatDetail(ChatDetailDO chatDetailDO);
-
 }
