@@ -56,7 +56,8 @@ public class ConfigServiceImpl extends ServiceImpl<ConfigMapper, ConfigDO>
         }
 
         var queryWrapper = Wrappers.<ConfigDO> lambdaQuery()
-            .eq(StringUtils.isNotBlank(id), ConfigDO::getId, new BigInteger(id))
+            .eq(StringUtils.isNotBlank(id), ConfigDO::getId,
+                StringUtils.isNotBlank(id) ? new BigInteger(id) : null)
             .eq(StringUtils.isNotBlank(key), ConfigDO::getKey, key);
 
         return BeanUtil.copy(this.getOne(queryWrapper), Config.class);
