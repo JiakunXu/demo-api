@@ -41,7 +41,7 @@ OpenAI 官方建议为 Codex 提供明确的任务上下文、工程约定、验
 | 实例核实 | 已读取明确环境的真实结构 | 脱敏 SHOW CREATE TABLE / 索引信息及核对日期 |
 | 已部署 | 变更已在指定环境完成 | 版本、执行时间、操作记录和验收结果 |
 
-当前仓库未发现完整建表 SQL、版本化 schema 基线或 Flyway/Liquibase 配置。不能从 MyBatis DO 自动还原全部数据库定义，也不能把源码中的关联字段当作已存在的外键。
+当前仓库未发现完整建表 SQL、版本化 schema 基线或 Flyway/Liquibase 配置；已有单项迁移脚本不代表完整基线。不能从 MyBatis DO 自动还原全部数据库定义，也不能把源码中的关联字段当作已存在的外键。
 
 ## 4. 环境基线应记录什么
 
@@ -121,7 +121,7 @@ SHOW INDEX FROM `tb_dict_data`;
 | update_by | String updateBy | VARCHAR(100)，允许 NULL | 更新/软删除时设置 |
 | update_time | Date updateTime | DATETIME，初始化并自动更新时间 | 来自 BaseDO；默认行为是草案选择 |
 
-不建列：BaseQuery 中 search、start、end、codes、sort、dir、pageNo、pageSize、offset，以及静态 serialVersionUID。当前 DO、BO 和 Mapper 均没有类型排序 order 字段，不沿用字典数据表的 order 列。
+不建列：BaseQuery 中 search、start、end、codes、sort、dir、pageNo、pageSize、offset，以及静态 serialVersionUID。当前 DO、BO 和 Mapper 均没有类型排序属性，不沿用字典数据表的 sort_order 列。
 
 ### 6.3 查询与写入行为
 
@@ -180,7 +180,7 @@ CREATE TABLE `tb_dict_type` (
 | 缓存与并发 | 各查询键失效、Redis 失败、事务提交时序及并发读取 | 未执行本次测试或集成验证 |
 | 数据演进 | 历史重复/孤儿数据、字段长度、非空收紧、迁移与恢复 | 未核实实际数据 |
 
-现有单元测试使用 mock Mapper 与持久化 spy，TransactionProbe 只验证事务 advice；它们不证明真实 SQL、唯一约束或数据库回滚。本次仅补充文档，未运行这些测试。
+现有单元测试使用 mock Mapper 与持久化 spy，TransactionProbe 只验证事务 advice；它们不证明真实 SQL、唯一约束或数据库回滚。类型表的数据库集成验证仍未执行。
 
 ## 7. tb_dict_data：源码确认的结构与行为
 
@@ -208,7 +208,7 @@ CREATE TABLE `tb_dict_type` (
 | name | String name | VARCHAR(100) NOT NULL | 展示名称，支持模糊查询 |
 | value | String value | VARCHAR(255) NOT NULL | 字典值，DO 显式反引号映射 |
 | remark | String remark | VARCHAR(500)，允许 NULL | 备注 |
-| order | 当前 DO/BO 均无属性 | INT NOT NULL DEFAULT 0 | Mapper 投影及排序依赖该列 |
+| sort_order | Integer sortOrder | INT NOT NULL DEFAULT 0 | Mapper 投影及排序依赖该列 |
 | status | String status | CHAR(1) NOT NULL DEFAULT 'E' | E 启用、D 停用；默认 E 是草案选择 |
 | is_deleted | Boolean deleted | TINYINT NOT NULL DEFAULT 0 | Mapper 正常记录条件为 0，应用删除设置 true |
 | create_by | String createBy | VARCHAR(100) NOT NULL | 来自可信创建人参数；不能因为是审计人就改成数字用户 ID |
@@ -222,18 +222,18 @@ CREATE TABLE `tb_dict_type` (
 
 - count/list 显式过滤 is_deleted=0，共享 queryCondition。
 - 按 typeId、typeValue、typeValues、name、status 筛选；name 使用项目通配符处理器。
-- 列表按 type_id、order 升序，id 降序；正数页码和页大小同时存在时才添加 LIMIT。
+- 列表按 type_id、sort_order 升序，id 降序；正数页码和页大小同时存在时才添加 LIMIT。
 - getData 按可选条件筛选，按 id 降序取一条；这不能证明数据有业务唯一约束。
 - 按类型编码和值获取数据的 Service 请求启用状态 E，并通过 Redis 缓存；缓存不是数据库唯一性保证。
 - insertData 设置 typeId、createBy，保存后回填 ID；没有在此方法内给 typeValue/name/value/status 提供完整字段校验。
 - 单条更新清除 DO 的 typeId/typeValue，保留原类型归属；类型变更有专门的批量更新路径。
 - BaseDO 的 JSONField(serialize=false) 是序列化约束，不意味着对应审计字段不是数据库列。
 
-### 7.4 已确认的映射缺口
+### 7.4 排序字段命名与映射
 
-Mapper 使用 `order`，但 DictDataDO 和 DictData 当前均没有 order 属性。若表没有该列，现有自定义 SQL 会失败；即使表有该列，目前对象也无法正常承接并保存该排序值。
+排序列统一使用 `sort_order`，Java 使用可空 Integer sortOrder；DictDataDO、DictData 和 Mapper 已同步。Menu/Role 的 BO、DO 和 Mapper 同样采用该命名。与 BaseQuery 的动态排序字段 sort 分开，未提供排序值时保留 null，不在 Java 中补数据库默认值。
 
-本页草案包含 order 以满足现有 SQL。后续若需要业务维护排序，应另行同步 DO/BO、接口、转换和测试；本次只记录缺口，不修改 Java。
+旧数据库的 order 列需要迁移；代码修改不代表数据库已经更新。迁移脚本与发布兼容要求见第 11.1 节。接口输入输出的排序字段由 order 改为 sortOrder，调用端需要同步；旧缓存对象可能仍保存 order，发布时按业务缓存范围失效并重新加载。
 
 ## 8. tb_dict_data 建表草案
 
@@ -247,7 +247,7 @@ CREATE TABLE `tb_dict_data` (
     `name`        VARCHAR(100) NOT NULL COMMENT '字典名称',
     `value`       VARCHAR(255) NOT NULL COMMENT '字典值',
     `remark`      VARCHAR(500) DEFAULT NULL COMMENT '备注',
-    `order`       INT NOT NULL DEFAULT 0 COMMENT '排序值，越小越靠前',
+    `sort_order`  INT NOT NULL DEFAULT 0 COMMENT '排序值，越小越靠前',
     `status`      CHAR(1) NOT NULL DEFAULT 'E' COMMENT '状态：E启用，D停用',
     `is_deleted`  TINYINT NOT NULL DEFAULT 0 COMMENT '删除标记：0正常，1已删除',
     `create_by`   VARCHAR(100) NOT NULL COMMENT '创建人',
@@ -272,7 +272,7 @@ CREATE TABLE `tb_dict_data` (
 
 ### 9.1 默认值和空值
 
-tb_dict_data 草案设置 is_deleted=0、order=0、status='E'；tb_dict_type 草案设置 is_deleted=0，暂不设置默认状态。两表 create_time/update_time 初始化为数据库当前时间。自动更新时间不是完整审计轨迹，也不保证每次无实际变化的 UPDATE 都改变时间。
+tb_dict_data 草案设置 is_deleted=0、sort_order=0、status='E'；tb_dict_type 草案设置 is_deleted=0，暂不设置默认状态。两表 create_time/update_time 初始化为数据库当前时间。自动更新时间不是完整审计轨迹，也不保证每次无实际变化的 UPDATE 都改变时间。
 
 非空不等于非空白：VARCHAR NOT NULL 仍可能接收空字符串。数据有效性需要业务校验与数据库约束共同明确。数据库默认值通常作用于列被省略或使用 DEFAULT 的情况，不能假设显式传 NULL 就自动采用默认值。
 
@@ -296,7 +296,7 @@ type_id 表示应用关联；物理外键尚未确认。后续设计外键前核
 
 ## 10. 脚本组织与初始化规划
 
-以下目录是后续建议，当前未创建：
+schema/seeds 仍为后续建议；migrations 已创建并包含排序列重命名脚本：
 
 ```text
 sql/
@@ -304,7 +304,7 @@ sql/
     tb_dict_type.sql
     tb_dict_data.sql
   migrations/
-    YYYYMMDD_description.sql
+    20261017_rename_order_to_sort_order.sql
   seeds/
     README.md
 ```
@@ -328,30 +328,40 @@ schema 表示经确认的创建基线；migrations 表示已有结构到新结�
 
 恢复目标、备份频率、保留天数和演练频率由实际业务要求确定，本页不虚构已存在的备份或 SLA。应在独立环境验证恢复过程，不能只以“备份任务成功”证明可恢复。
 
+### 11.1 排序列重命名（尚未执行）
+
+脚本：[20261017_rename_order_to_sort_order.sql](../sql/migrations/20261017_rename_order_to_sort_order.sql)。范围为 tb_menu、tb_role、tb_dict_data，只重命名列，不改排序值、类型、默认值或索引定义。使用 MySQL 8.0+ 的 RENAME COLUMN；实际版本和结构未核实，低版本不能直接执行。[MySQL ALTER TABLE 文档](https://dev.mysql.com/doc/refman/8.0/en/alter-table.html)
+
+执行前确认三表均存在 order 且不存在 sort_order，留存 SHOW CREATE TABLE 与备份，检查视图、存储程序、外部 SQL 和客户端字段引用。执行顺序：停止旧应用及写入方 → 按脚本迁移 → 发布新应用和调用端 → 按业务范围失效菜单/角色/字典缓存 → 验证排序读写与原数据一致。不支持新旧应用同时使用两套列名滚动运行。
+
+每条 ALTER 独立执行，三表迁移不构成整体事务；中途失败先检查每张表当前列名，再选择继续未完成项或反向重命名。回退时停止新应用，对已迁移表执行 RENAME COLUMN sort_order TO order，再恢复旧应用及调用端并刷新相关缓存。脚本注释提供反向语句，不能不检查状态就整批重跑。
+
+数据库集成验证需覆盖迁移前后行数/排序值、三张表的查询与排序、MyBatis-Plus 插入更新、逻辑删除和数据库默认值。本次没有连接数据库执行该脚本。
+
 ## 12. tb_dict_data 验证清单
 
 | 验证层次 | 需要验证的场景 | 当前状态 |
 | --- | --- | --- |
-| 静态映射 | DO/父类列、非持久化字段排除、Mapper 引用列 | 已阅读，发现 order 对象映射缺口 |
+| 静态映射 | DO/父类列、非持久化字段排除、Mapper 引用列 | 已阅读，sort_order 的 DO/BO/XML 已同步；数据库未验证 |
 | DDL 执行 | 在指定版本隔离 MySQL 成功建表，检查 SHOW CREATE TABLE | 未执行 |
 | 插入与默认值 | 自增 ID 回填、删除标记、排序/状态、时间默认值、未提供更新人 | 未执行数据库验证 |
 | 字段边界 | 中文、特殊字符、长度边界、空值/空白、状态非法值 | 待明确约束并验证 |
 | 查询 | 按类型 ID/编码/编码集合、名称、状态筛选，count/list 一致 | 需真实 Mapper 与数据库验证 |
-| 排序分页 | type_id/order/id 排序、可选分页、同值稳定性 | 未执行数据库验证 |
+| 排序分页 | type_id/sort_order/id 排序、可选分页、同值稳定性 | 未执行数据库验证 |
 | 更新删除 | 审计字段、类型归属、软删除后不可见、关联数据生命周期 | 未执行数据库验证 |
 | 兼容与索引 | 原库结构差异、已有数据可迁移、代表性查询计划 | 未核实 |
 | 缓存边界 | 数据变更后的缓存失效，失败和事务时序 | 结合 Service 测试另行验证 |
 
 验证采用隔离 MySQL，使用真实 MyBatis-Plus 配置和 Mapper。mock Mapper 只能证明调用参数及业务分支，不能证明表结构、SQL、默认值、约束或事务回滚正确。H2 的通过不自动证明 MySQL 行为等价。
 
-本次是文档工作，不执行建表、应用启动或真实平台访问。未来验证报告写明数据库版本、脚本版本、执行步骤、结果和未覆盖项，不能把文档中的清单标记为已经通过。
+本次未执行建表、应用启动或真实平台访问。未来数据库验证报告写明数据库版本、脚本版本、执行步骤、结果和未覆盖项，不能以代码测试替代本节数据库验证。
 
 ## 13. 当前待确认事项
 
 | 事项 | 为什么需要确认 | 当前处理 |
 | --- | --- | --- |
 | 原库真实 DDL | 无法从 DO 还原长度/约束/引擎 | 使用明确标记的草案 |
-| order 的 Java 映射 | SQL 依赖但对象缺失 | 记录缺口，暂不改代码 |
+| 排序列迁移 | 代码已使用 sort_order，原库结构未读取 | 三表旧列重命名脚本已提供，尚未执行 |
 | 类型和值的唯一性 | 决定重复数据与删除后重建策略 | 不添加业务唯一键 |
 | typeValue/name/value 的必填规则 | 草案非空比当前 Service 字段校验更严格 | 正式采用前同步业务验收 |
 | 字典类型状态与编码约束 | DictType 没有状态枚举，按编码 getOne 需要明确重复记录处理 | 状态值域、默认值及编码唯一性待确认，见第 6 节 |

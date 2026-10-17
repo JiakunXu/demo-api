@@ -31,6 +31,8 @@ public class DictData extends BaseBO {
 
     private String            remark;
 
+    private Integer           sortOrder;
+
     private String            status;
 
     private String[]          typeValues;

@@ -38,8 +38,7 @@ public class RoleDO extends BaseDO {
      */
     private String            remark;
 
-    @TableField("`order`")
-    private Integer           order;
+    private Integer           sortOrder;
 
     /**
      * 状态

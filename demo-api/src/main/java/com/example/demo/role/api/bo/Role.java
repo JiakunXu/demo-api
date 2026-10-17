@@ -31,7 +31,7 @@ public class Role extends BaseBO {
      */
     private String            remark;
 
-    private Integer           order;
+    private Integer           sortOrder;
 
     /**
      * 状态

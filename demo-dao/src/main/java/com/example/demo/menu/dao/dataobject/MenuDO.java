@@ -71,8 +71,7 @@ public class MenuDO extends BaseDO {
     /**
      * 排序
      */
-    @TableField("`order`")
-    private Integer           order;
+    private Integer           sortOrder;
 
     /**
      * 0 不是 1 是

@@ -37,13 +37,13 @@
 			   t.`code`,
 			   t.`name`,
 			   t.`remark`,
-			   t.`order`,
+			   t.`sort_order`,
 			   t.`status`,
 			   t.`create_time` AS createTime
 		  FROM `tb_role` t
 		 WHERE t.`is_deleted` = 0
 		<include refid="queryCondition"/>
-		 ORDER BY t.`order`, t.`id` DESC
+		 ORDER BY t.`sort_order`, t.`id` DESC
 		<if test="pageNo != null and pageNo > 0 and pageSize != null and pageSize > 0">
 			LIMIT #{offset}, #{pageSize}
 		</if>

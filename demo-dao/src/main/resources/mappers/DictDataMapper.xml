@@ -37,13 +37,13 @@
 			   t.`name`,
 			   t.`value`,
 			   t.`remark`,
-			   t.`order`,
+			   t.`sort_order`,
 			   t.`status`,
 			   t.`create_time` AS createTime
 		  FROM `tb_dict_data` t
 		 WHERE t.`is_deleted` = 0
 		<include refid="queryCondition"/>
-		 ORDER BY t.`type_id`, t.`order`, t.`id` DESC
+		 ORDER BY t.`type_id`, t.`sort_order`, t.`id` DESC
 		<if test="pageNo != null and pageNo > 0 and pageSize != null and pageSize > 0">
 			LIMIT #{offset}, #{pageSize}
 		</if>
@@ -56,7 +56,7 @@
 			   t.`name`,
 			   t.`value`,
 			   t.`remark`,
-			   t.`order`,
+			   t.`sort_order`,
 			   t.`status`
 		  FROM `tb_dict_data` t
 		 WHERE t.`is_deleted` = 0
