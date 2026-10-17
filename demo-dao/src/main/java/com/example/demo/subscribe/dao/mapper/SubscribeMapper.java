@@ -32,6 +32,4 @@ public interface SubscribeMapper extends BaseMapper<SubscribeDO> {
      */
     List<TunnelDO> listSubscribes(SubscribeDO subscribeDO);
 
-    SubscribeDO getSubscribe(SubscribeDO subscribeDO);
-
 }

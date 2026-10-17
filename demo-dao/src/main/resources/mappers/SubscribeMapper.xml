@@ -41,19 +41,4 @@
 		LIMIT #{offset}, #{pageSize}
 	</select>
 
-	<select id="getSubscribe" parameterType="subscribeDO" resultType="subscribeDO">
-		SELECT t.`id`,
-			   t.`user_id` AS userId,
-			   t.`app_id` AS appId,
-			   t.`scene` AS scene,
-			   t.`scene_id` AS sceneId
-		  FROM `tb_subscribe` t
-		 WHERE t.`is_deleted` = 0
-		   AND t.`user_id` = #{userId}
-		   AND t.`app_id` = #{appId}
-		   AND t.`scene` = #{scene}
-		   AND t.`scene_id` = #{sceneId}
-		LIMIT 1
-	</select>
-
 </mapper>
