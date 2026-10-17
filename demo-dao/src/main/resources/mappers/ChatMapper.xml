@@ -26,19 +26,6 @@
 		LIMIT #{offset}, #{pageSize}
 	</select>
 
-	<select id="getChat" parameterType="chatDO" resultType="chatDO">
-		SELECT t.`id`,
-			   t.`user_id` AS userId,
-			   t.`friend_id` AS friendId,
-			   t.`chat_time` AS chatTime,
-			   t.`chat_detail_id` AS chatDetailId,
-			   t.`unread`
-		  FROM `tb_chat` t
-		 WHERE t.`is_deleted` = 0
-		   AND t.`user_id` = #{userId}
-		   AND t.`friend_id` = #{friendId}
-	</select>
-
 	<update id="updateChat" parameterType="chatDO">
 		UPDATE `tb_chat` t
 		   SET t.`update_time` = NOW(),

@@ -1,5 +1,7 @@
 package com.example.demo.chat.service;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.example.demo.chat.api.*;
 import com.example.demo.chat.api.bo.*;
 import com.example.demo.chat.dao.mapper.ChatMapper;
@@ -177,6 +179,7 @@ class ChatServiceImplTest {
         assertThat(service.listChats(null, "1", "20")).isEmpty();
         assertThat(service.listChats(user, "", "20")).isEmpty();
         assertThat(service.getChat(user, (BigInteger) null)).isNull();
+        assertThat(service.getChat(null, friend)).isNull();
         assertThat(service.getChat(null, "1")).isNull();
         verifyNoInteractions(mapper, users, details, statuses);
         assertThat(service.listChats(user, "1", "20")).isEmpty();
@@ -188,12 +191,33 @@ class ChatServiceImplTest {
         when(mapper.countChat(any())).thenReturn(3000000000L);
         assertThat(service.countChat(user)).isEqualTo(3000000000L);
         ChatDO row = new ChatDO(); row.setId(BigInteger.valueOf(99));
-        when(mapper.getChat(any())).thenReturn(row);
+        doReturn(row).when(service).getOne(any(Wrapper.class));
         assertThat(service.getChat(user, friend).getId()).isEqualTo(row.getId());
-        var capture = ArgumentCaptor.forClass(ChatDO.class);
-        verify(mapper).getChat(capture.capture());
-        assertThat(capture.getValue().getUserId()).isEqualTo(user);
-        assertThat(capture.getValue().getFriendId()).isEqualTo(friend);
+        ArgumentCaptor<Wrapper<ChatDO>> capture = ArgumentCaptor.captor();
+        verify(service).getOne(capture.capture());
+        var wrapper = (LambdaQueryWrapper<ChatDO>) capture.getValue();
+        assertThat(wrapper.getSqlSegment()).contains("user_id =", "AND", "friend_id =")
+            .doesNotContain("LIMIT", "ORDER BY");
+        assertThat(wrapper.getParamNameValuePairs().values())
+            .containsExactlyInAnyOrder(user, friend);
+        assertThat(wrapper.getSqlSelect()).contains("id", "user_id", "friend_id", "chat_time",
+            "chat_detail_id", "unread").doesNotContain("create_time", "update_time");
+    }
+
+    @Test
+    void missingChatReturnsNullWithoutEnrichment() {
+        doReturn(null).when(service).getOne(any(Wrapper.class));
+        assertThat(service.getChat(user, friend)).isNull();
+        verifyNoInteractions(users, details, statuses);
+    }
+
+    @Test
+    void duplicatePairIsNotSilentlyReducedToOneRow() {
+        doThrow(new org.apache.ibatis.exceptions.TooManyResultsException("duplicate pair"))
+            .when(service).getOne(any(Wrapper.class));
+        assertThatThrownBy(() -> service.getChat(user, friend))
+            .isInstanceOf(org.apache.ibatis.exceptions.TooManyResultsException.class);
+        verifyNoInteractions(users, details, statuses);
     }
 
     @Test
