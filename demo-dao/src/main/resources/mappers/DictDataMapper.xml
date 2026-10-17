@@ -49,31 +49,4 @@
 		</if>
 	</select>
 
-	<select id="getData" parameterType="dictDataDO" resultType="dictDataDO">
-		SELECT t.`id`,
-			   t.`type_id` AS typeId,
-			   t.`type_value` AS typeValue,
-			   t.`name`,
-			   t.`value`,
-			   t.`remark`,
-			   t.`sort_order`,
-			   t.`status`
-		  FROM `tb_dict_data` t
-		 WHERE t.`is_deleted` = 0
-		<if test="id != null">
-			AND t.`id` = #{id}
-		</if>
-		<if test="typeValue != null and typeValue != ''">
-			AND t.`type_value` = #{typeValue}
-		</if>
-		<if test="value != null and value != ''">
-			AND t.`value` = #{value}
-		</if>
-		<if test="status != null and status != ''">
-			AND t.`status` = #{status}
-		</if>
-		 ORDER BY t.`id` DESC
-		 LIMIT 1
-	</select>
-
 </mapper>

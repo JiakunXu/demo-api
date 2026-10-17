@@ -71,10 +71,5 @@ class SortOrderMappingTest {
             .getBoundSql(entity).getSql();
         assertThat(sql).contains("t.`sort_order`").doesNotContain("`order`");
         assertThat(sql.substring(sql.indexOf("ORDER BY"))).contains("t.`sort_order`");
-        if (entityClass == DictDataDO.class) {
-            assertThat(configuration.getMappedStatement(namespace + "getData")
-                .getBoundSql(entity).getSql()).contains("t.`sort_order`")
-                .doesNotContain("`order`");
-        }
     }
 }

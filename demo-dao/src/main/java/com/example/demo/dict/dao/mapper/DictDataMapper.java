@@ -11,6 +11,4 @@ public interface DictDataMapper extends BaseMapper<DictDataDO> {
 
     List<DictDataDO> listDatas(DictDataDO dictDataDO);
 
-    DictDataDO getData(DictDataDO dictDataDO);
-
 }

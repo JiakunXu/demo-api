@@ -136,7 +136,7 @@ SHOW INDEX FROM `tb_role_menu`;
 - count/list 显式过滤 is_deleted=0，共享 queryCondition。
 - 按 typeId、typeValue、typeValues、name、status 筛选；name 使用项目通配符处理器。
 - 列表按 type_id、sort_order 升序，id 降序；正数页码和页大小同时存在时才添加 LIMIT。
-- getData 按可选条件筛选，按 id 降序取一条；这不能证明数据有业务唯一约束。
+- 按类型编码和值的 getData 使用 MyBatis-Plus lambdaQuery/getOne，精确过滤 typeValue、value 和启用状态 E，按 id 降序并固定 LIMIT 1，保留原 XML 取最新一条的语义；这不能证明数据有业务唯一约束。软删除过滤依赖应用 MyBatis-Plus 配置。
 - 按类型编码和值获取数据的 Service 请求启用状态 E，并通过 Redis 缓存；缓存不是数据库唯一性保证。
 - insertData 设置 typeId、createBy，保存后回填 ID；没有在此方法内给 typeValue/name/value/status 提供完整字段校验。
 - 单条更新清除 DO 的 typeId/typeValue，保留原类型归属；类型变更有专门的批量更新路径。
