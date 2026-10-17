@@ -11,6 +11,4 @@ public interface ConfigMapper extends BaseMapper<ConfigDO> {
 
     List<ConfigDO> listConfigs(ConfigDO configDO);
 
-    ConfigDO getConfig(ConfigDO configDO);
-
 }
