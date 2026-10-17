@@ -1,6 +1,7 @@
 package com.example.demo.dict.service;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.example.demo.cache.api.RedisService;
 import com.example.demo.dict.api.*;
@@ -45,6 +46,7 @@ class DictDataServiceImplTest {
         DictData cached = before(); when(redis.get(key)).thenReturn(cached);
         assertThat(service.getData("color", "red")).isSameAs(cached);
         verifyNoInteractions(mapper);
+        verify(service, never()).getOne(any(Wrapper.class));
         verify(redis, never()).set(anyString(), any());
     }
 
@@ -53,27 +55,33 @@ class DictDataServiceImplTest {
     void cacheMissAndCacheReadFailureBothFallBackToEnabledDatabaseRow(boolean failure) {
         if (failure) when(redis.get(key)).thenThrow(new ServiceException(503, "offline"));
         DictDataDO row = new DictDataDO(); row.setId(id); row.setName("红色");
-        when(mapper.getData(any())).thenReturn(row);
+        doReturn(row).when(service).getOne(any(Wrapper.class));
         DictData result = service.getData("color", "red");
         assertThat(result.getName()).isEqualTo("红色");
-        var query = ArgumentCaptor.forClass(DictDataDO.class);
-        verify(mapper).getData(query.capture());
-        assertThat(query.getValue().getTypeValue()).isEqualTo("color");
-        assertThat(query.getValue().getValue()).isEqualTo("red");
-        assertThat(query.getValue().getStatus()).isEqualTo(DictData.Status.ENABLE.value);
+        ArgumentCaptor<Wrapper<DictDataDO>> query = ArgumentCaptor.captor();
+        verify(service).getOne(query.capture());
+        var wrapper = (LambdaQueryWrapper<DictDataDO>) query.getValue();
+        assertThat(wrapper.getSqlSegment()).contains("type_value =", "`value` =", "status =")
+            .contains("ORDER BY id DESC").endsWith("LIMIT 1");
+        assertThat(wrapper.getParamNameValuePairs().values())
+            .containsExactlyInAnyOrder("color", "red", DictData.Status.ENABLE.value);
+        assertThat(wrapper.getSqlSelect()).contains("id", "type_id", "type_value", "name",
+            "`value`", "remark", "sort_order", "status")
+            .doesNotContain("create_time", "update_time");
         verify(redis).set(key, result);
     }
 
     @Test
     void cacheWriteFailureDoesNotDiscardDatabaseResult() {
         DictDataDO row = new DictDataDO(); row.setId(id);
-        when(mapper.getData(any())).thenReturn(row);
+        doReturn(row).when(service).getOne(any(Wrapper.class));
         doThrow(new ServiceException(503, "offline")).when(redis).set(eq(key), any());
         assertThat(service.getData("color", "red").getId()).isEqualTo(id);
     }
 
     @Test
     void missingDatabaseRowReturnsEmptyBeanWithoutCaching() {
+        doReturn(null).when(service).getOne(any(Wrapper.class));
         assertThat(service.getData("color", "red").getId()).isNull();
         verify(redis, never()).set(anyString(), any());
     }

@@ -64,7 +64,7 @@ public class Menu extends BaseBO {
     /**
      * 排序
      */
-    private Integer           order;
+    private Integer           sortOrder;
 
     /**
      * 0 不是 1 是

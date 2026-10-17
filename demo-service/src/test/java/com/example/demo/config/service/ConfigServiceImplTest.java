@@ -6,6 +6,7 @@ import com.example.demo.config.dao.mapper.ConfigMapper;
 import com.example.demo.framework.exception.ServiceException;
 import com.example.demo.support.ServiceTestSupport;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import org.mockito.ArgumentCaptor;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -63,15 +64,54 @@ class ConfigServiceImplTest {
 
     @Test
     void lookupIncludesIdAndKeyOrUsesKeyAlone() {
-        ConfigDO row = new ConfigDO(); row.setId(id);
-        when(mapper.getConfig(any())).thenReturn(row);
+        ConfigDO row = new ConfigDO();
+        row.setId(id);
+        doReturn(row).when(service).getOne(any(Wrapper.class));
+
         assertThat(service.getConfig("10", "site-name").getId()).isEqualTo(id);
         assertThat(service.getConfig(null, "site-name").getId()).isEqualTo(id);
-        var capture = ArgumentCaptor.forClass(ConfigDO.class);
-        verify(mapper, times(2)).getConfig(capture.capture());
-        assertThat(capture.getAllValues().getFirst().getId()).isEqualTo(id);
-        assertThat(capture.getAllValues().get(1).getId()).isNull();
-        assertThat(capture.getAllValues()).extracting(ConfigDO::getKey).containsExactly("site-name", "site-name");
+
+        ArgumentCaptor<Wrapper<ConfigDO>> capture = ArgumentCaptor.captor();
+        verify(service, times(2)).getOne(capture.capture());
+        var both = (LambdaQueryWrapper<ConfigDO>) capture.getAllValues().getFirst();
+        assertThat(both.getSqlSegment()).contains("id =", "AND", "`key` =");
+        assertThat(both.getParamNameValuePairs().values()).containsExactlyInAnyOrder(id, "site-name");
+        var keyOnly = (LambdaQueryWrapper<ConfigDO>) capture.getAllValues().get(1);
+        assertThat(keyOnly.getSqlSegment()).doesNotContain("id =").contains("`key` =");
+        assertThat(keyOnly.getParamNameValuePairs().values()).containsExactly("site-name");
+        assertThat(both.getSqlSelect()).contains("id", "name", "`key`", "`value`", "remark",
+            "is_system").doesNotContain("create_time", "update_time");
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"", " "})
+    void idLookupPreservesEmptyAndWhitespaceKeySemantics(String key) {
+        doReturn(null).when(service).getOne(any(Wrapper.class));
+        assertThat(service.getConfig("10", key)).isNull();
+
+        ArgumentCaptor<Wrapper<ConfigDO>> capture = ArgumentCaptor.captor();
+        verify(service).getOne(capture.capture());
+        var wrapper = (LambdaQueryWrapper<ConfigDO>) capture.getValue();
+        String sql = wrapper.getSqlSegment();
+        assertThat(sql).contains("id =");
+        if (key.isEmpty()) {
+            assertThat(sql).doesNotContain("`key` =");
+            assertThat(wrapper.getParamNameValuePairs().values()).containsExactly(id);
+        } else {
+            assertThat(sql).contains("`key` =");
+            assertThat(wrapper.getParamNameValuePairs().values()).containsExactlyInAnyOrder(id, key);
+        }
+    }
+
+    @Test
+    void invalidIdAndMultipleResultsAreNotSilentlyIgnored() {
+        assertThatThrownBy(() -> service.getConfig("invalid", "site-name"))
+            .isInstanceOf(NumberFormatException.class);
+        verifyNoInteractions(mapper);
+        doThrow(new org.apache.ibatis.exceptions.TooManyResultsException("multiple configs"))
+            .when(service).getOne(any(Wrapper.class));
+        assertThatThrownBy(() -> service.getConfig(null, "site-name"))
+            .isInstanceOf(org.apache.ibatis.exceptions.TooManyResultsException.class);
     }
 
     @Test

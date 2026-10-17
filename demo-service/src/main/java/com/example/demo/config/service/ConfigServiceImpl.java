@@ -55,15 +55,12 @@ public class ConfigServiceImpl extends ServiceImpl<ConfigMapper, ConfigDO>
             return null;
         }
 
-        ConfigDO configDO = new ConfigDO();
+        var queryWrapper = Wrappers.<ConfigDO> lambdaQuery()
+            .eq(StringUtils.isNotBlank(id), ConfigDO::getId,
+                StringUtils.isNotBlank(id) ? new BigInteger(id) : null)
+            .eq(StringUtils.isNotBlank(key), ConfigDO::getKey, key);
 
-        if (StringUtils.isNotBlank(id)) {
-            configDO.setId(new BigInteger(id));
-        }
-
-        configDO.setKey(key);
-
-        return BeanUtil.copy(this.baseMapper.getConfig(configDO), Config.class);
+        return BeanUtil.copy(this.getOne(queryWrapper), Config.class);
     }
 
     @Override

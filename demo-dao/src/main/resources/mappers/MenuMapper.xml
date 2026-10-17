@@ -21,7 +21,7 @@
 			   t.`component`,
 			   t.`query`,
 			   t.`code`,
-			   t.`order`,
+			   t.`sort_order`,
 			   t.`is_external` AS external,
 			   t.`is_cached` AS cached,
 			   t.`is_hidden` AS hidden,
@@ -62,7 +62,7 @@
 		    AND k.`status` = 'E'
 		    AND q.`user_id` = #{userId})
 		</if>
-		 ORDER BY t.`pid`, t.`order`, t.`id` DESC
+		 ORDER BY t.`pid`, t.`sort_order`, t.`id` DESC
 	</select>
 
 </mapper>

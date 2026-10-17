@@ -24,6 +24,7 @@
 | --- | --- |
 | 新增或修改 Java 类、注解、转换、异常 | [Java 约定](docs/java-conventions.md)、[代码风格](docs/code-style.md) |
 | Controller、请求、响应、认证入口、公共字段 | [API 约定](docs/api-conventions.md)、[安全规则](docs/security.md) |
+| 数据库表结构、建表、迁移 | [数据库指南](docs/database.md)、[持久化规则](docs/persistence.md)、[测试指南](docs/testing.md) |
 | Service CRUD、DO、Mapper、分页、事务、批量 | [持久化规则](docs/persistence.md)、[测试指南](docs/testing.md) |
 | 外部平台、支付、缓存、消息、文件、WebSocket/SSE | [安全规则](docs/security.md)、[工程现状](docs/engineering-roadmap.md) |
 | 模块边界、调用流程、公共基础对象 | [架构](docs/architecture.md)，并编译受影响消费者 |

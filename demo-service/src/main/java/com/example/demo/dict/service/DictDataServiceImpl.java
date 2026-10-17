@@ -143,12 +143,12 @@ public class DictDataServiceImpl extends ServiceImpl<DictDataMapper, DictDataDO>
             return data;
         }
 
-        DictDataDO dataDO = new DictDataDO();
-        dataDO.setTypeValue(typeValue);
-        dataDO.setValue(value);
-        dataDO.setStatus(DictData.Status.ENABLE.value);
+        var queryWrapper = Wrappers.<DictDataDO> lambdaQuery()
+            .eq(DictDataDO::getTypeValue, typeValue).eq(DictDataDO::getValue, value)
+            .eq(DictDataDO::getStatus, DictData.Status.ENABLE.value).orderByDesc(DictDataDO::getId)
+            .last("LIMIT 1");
 
-        data = BeanUtil.copy(this.baseMapper.getData(dataDO), DictData.class);
+        data = BeanUtil.copy(this.getOne(queryWrapper), DictData.class);
 
         if (data == null) {
             return new DictData();

@@ -22,6 +22,7 @@
 ## MyBatis 与数据库规则
 
 - DO 使用 `@TableName` / `@TableField` 映射，继承 `BaseDO` 的实体具有审计/软删除字段；查询附加属性在 `BaseQuery` 中使用 `@TableField(exist=false)`。
+- 业务排序列使用 `sort_order`，Java 属性使用可空 `Integer sortOrder`；不使用保留字 `order`，也不复用表示动态排序字段的 `sort`。旧列迁移见 [数据库指南](database.md)。
 - 当前应用配置 `id-type=AUTO`、`logic-delete-field=deleted`、删除值 1/正常值 0、下划线转驼峰。改用手工 MyBatis 配置或独立测试环境时需显式核对这些行为。
 - 计数 API、实现、Mapper 方法、Controller 局部变量使用 `long`；XML `COUNT` 的 `resultType` 使用 `java.lang.Long`。不要与 insert/update/delete 的影响行数 `int` 混淆。
 - `pageNo/pageSize` 使用可空 `Long`，页码从 1 开始；`BaseQuery.getOffset()` 在任一参数为 null 时返回 null，否则计算 `(pageNo - 1) * pageSize`。

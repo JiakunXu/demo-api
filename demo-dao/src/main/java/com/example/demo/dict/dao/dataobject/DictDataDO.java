@@ -37,6 +37,8 @@ public class DictDataDO extends BaseDO {
 
     private String            remark;
 
+    private Integer           sortOrder;
+
     private String            status;
 
     @TableField(exist = false)

@@ -23,14 +23,12 @@ public class BaseDO extends BaseQuery {
     private Boolean           deleted;
 
     @JSONField(serialize = false)
-    @TableField("create_by")
     private String            createBy;
 
-    @JSONField(serialize = false)
-    @TableField("update_by")
-    private String            updateBy;
-
     private Date              createTime;
+
+    @JSONField(serialize = false)
+    private String            updateBy;
 
     private Date              updateTime;
 
